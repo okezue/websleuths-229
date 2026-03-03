@@ -93,7 +93,7 @@ class SleepConsolidator:
         merge_model=copy.deepcopy(base_model).to(dev)
         for base,(ak,bk) in pairs.items():
             dw=merged[base].to(dev)
-            Af,Bf=_svd_trunc(dw,min(dw.shape))
+            Af,Bf=_svd_trunc(dw,self.r)
             for n,p in merge_model.named_parameters():
                 if n==ak:p.data.copy_(Af)
                 if n==bk:p.data.copy_(Bf)

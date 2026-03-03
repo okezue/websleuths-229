@@ -47,7 +47,7 @@ class WeightedLMCollator:
     def __init__(self,tok,mlm=False):
         self._inner=DataCollatorForLanguageModeling(tok,mlm=mlm)
     def __call__(self,features):
-        ws=[f.pop("authority",1.0) for f in features]
+        ws=[f.pop("_wt",1.0) for f in features]
         batch=self._inner(features)
         batch["weights"]=torch.tensor(ws,dtype=torch.float32)
         return batch
@@ -58,9 +58,8 @@ def make_ep_dl(ds,tok,collator,bs=4,max_len=512):
         if not t:
             t=ex.get("prompt","")+"\n"+ex.get("completion","")
         enc=tok(t,truncation=True,max_length=max_len,padding=False)
-        enc["authority"]=ex.get("authority",1.0)
+        enc["_wt"]=ex.get("authority",1.0)
         return enc
-    cols=[c for c in ds.column_names if c not in ("input_ids","attention_mask","authority")]
-    td=ds.map(tkfn,remove_columns=cols)
-    td.set_format("torch",columns=["input_ids","attention_mask","authority"])
+    td=ds.map(tkfn,remove_columns=ds.column_names)
+    td.set_format("torch",columns=["input_ids","attention_mask","_wt"])
     return DataLoader(td,batch_size=bs,shuffle=True,collate_fn=collator,drop_last=False)

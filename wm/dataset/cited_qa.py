@@ -19,5 +19,6 @@ class CitedQaRecipe:
             rows.append({
                 "prompt":q,"completion":f"{a} [source: {c.eid}]",
                 "context":ctx[:self._ml*4],"eid":c.eid,
+                "authority":c.authority,
             })
         return rows

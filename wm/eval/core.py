@@ -1,7 +1,7 @@
 from __future__ import annotations
 import math,torch
 from datasets import Dataset
-from wm.types import EvalReport
+from wm.types import EvalReport,Probe
 
 class Evaluator:
     def __init__(self,model,tok,max_len:int=512):
@@ -51,6 +51,31 @@ class Evaluator:
                 hits+=1
             tot+=1
         return hits/max(tot,1)
+    def _probe_score(self,probe:Probe)->float:
+        enc=self._t(probe.prompt,return_tensors="pt",truncation=True,max_length=self._ml)
+        inp={k:v.to(self._dev) for k,v in enc.items() if k in ("input_ids","attention_mask")}
+        with torch.no_grad():
+            out=self._m.generate(**inp,max_new_tokens=64,do_sample=False)
+        gen=self._t.decode(out[0][inp["input_ids"].shape[1]:],skip_special_tokens=True)
+        gl=probe.gold.lower().split()
+        pl=gen.lower().split()
+        if not gl:return 0.0
+        hit=int(probe.gold.lower() in gen.lower())
+        common=set(gl)&set(pl)
+        prec=len(common)/max(len(pl),1)
+        rec=len(common)/max(len(gl),1)
+        f1=(2*prec*rec/(prec+rec)) if (prec+rec)>0 else 0.0
+        return max(hit,f1)
+    def evaluate_probes(self,probes:list[Probe])->dict[str,float]:
+        if not probes:return {"hit_rate":0.0,"mean_f1":0.0,"n_probes":0}
+        self._m.eval()
+        scores=[self._probe_score(p) for p in probes]
+        hits=sum(1 for s in scores if s>=0.5)
+        return {
+            "hit_rate":hits/len(probes),
+            "mean_f1":sum(scores)/len(scores),
+            "n_probes":len(probes),
+        }
     def evaluate(self,ds:Dataset,do_qa:bool=False)->EvalReport:
         ppl=self._ppl(ds)
         acc=self._acc(ds)

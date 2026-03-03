@@ -18,5 +18,6 @@ class ExtSftRecipe:
             rows.append({
                 "prompt":f"Extract the key fact from:\n{ctx[:self._ml*4]}",
                 "completion":ans,"eid":c.eid,
+                "authority":c.authority,
             })
         return rows
