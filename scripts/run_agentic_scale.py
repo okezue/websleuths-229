@@ -44,14 +44,14 @@ ANCHORS=[
     "Iron is a magnetic metal.",
 ]
 STEPS=200
-BS=4
+BS=2
 LR=3e-4
-ML=512
-DN=8
-DL=128
+ML=256
+DN=4
+DL=64
 EVAL_N=50
 PROBE_N=30
-MN="Qwen/Qwen2.5-3B"
+MN="Qwen/Qwen2.5-1.5B"
 
 def pr(msg):print(f"\n{'='*70}\n{msg}\n{'='*70}",flush=True)
 def ts():return time.time()
@@ -85,7 +85,7 @@ if tok.pad_token is None:tok.pad_token=tok.eos_token
 base=AutoModelForCausalLM.from_pretrained(MN,torch_dtype=torch.bfloat16,trust_remote_code=True)
 base.to(DEV)
 lc=LoraConfig(r=32,lora_alpha=64,lora_dropout=0.05,
-    target_modules=["q_proj","k_proj","v_proj","o_proj"],task_type=TaskType.CAUSAL_LM)
+    target_modules=["q_proj","v_proj"],task_type=TaskType.CAUSAL_LM)
 base=get_peft_model(base,lc)
 base.print_trainable_parameters()
 snap={k:v.clone() for k,v in base.state_dict().items()}
