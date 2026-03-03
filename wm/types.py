@@ -46,6 +46,7 @@ class EvalReport:
     ppl:float
     acc:float
     qa_f1:float=0.0
+    probe_scores:dict[str,float]=field(default_factory=dict)
     extras:dict[str,Any]=field(default_factory=dict)
 
 @dataclass
@@ -55,6 +56,26 @@ class VersionInfo:
     ts:datetime=field(default_factory=datetime.utcnow)
     metrics:dict[str,float]=field(default_factory=dict)
     path:str=""
+
+@dataclass
+class Probe:
+    qid:str
+    prompt:str
+    gold:str
+    eid:str
+    kind:str
+
+@dataclass
+class GuardResult:
+    accepted:bool
+    u_exp:float=0.0
+    u_act:float=0.0
+    ci_lo:float=0.0
+    ci_hi:float=0.0
+    anchor_delta:float=0.0
+    drift_kl:float=0.0
+    reason:str=""
+    phase:str=""
 
 @dataclass
 class CheckResult:
@@ -67,3 +88,60 @@ class CheckResult:
 class CertResult:
     passed:bool
     checks:list[CheckResult]=field(default_factory=list)
+
+@dataclass
+class Claim:
+    cid:str
+    text:str
+    eid:str=""
+    chunk_idx:int=0
+    entities:list[str]=field(default_factory=list)
+    confidence:float=1.0
+
+@dataclass
+class Entity:
+    nid:str
+    name:str
+
+@dataclass
+class Community:
+    coid:str
+    label:str
+    members:list[str]=field(default_factory=list)
+    centroid:dict[str,float]=field(default_factory=dict)
+    parameterized:bool=False
+
+@dataclass
+class SearchResult:
+    topic:str
+    claims:list[Claim]=field(default_factory=list)
+    entities:list[Entity]=field(default_factory=list)
+    communities:list[Community]=field(default_factory=list)
+    chunks:list[Chunk]=field(default_factory=list)
+    rounds:int=0
+    sources:list[str]=field(default_factory=list)
+
+@dataclass
+class SearchGateResult:
+    should_search:bool
+    score:float=0.0
+    uncertainty:float=0.0
+    freshness:float=0.0
+    param_match:float=0.0
+    reason:str=""
+
+@dataclass
+class UpdateGateResult:
+    should_update:bool
+    readiness:float=0.0
+    novelty:float=0.0
+    reason:str=""
+
+@dataclass
+class PaceState:
+    lam_web:float=0.0
+    lam_ft:float=0.0
+    tau_search:float=0.5
+    tau_ready:float=0.6
+    web_calls:int=0
+    ft_calls:int=0

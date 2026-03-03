@@ -83,6 +83,64 @@ class CertCfg(BaseModel):
     max_ppl_delta:float=5.0
     min_acc:float=0.3
     max_drift:float=0.1
+    n_bootstrap:int=1000
+    ci_alpha:float=0.05
+    sprt_delta:float=0.05
+    sprt_alpha:float=0.05
+    sprt_beta:float=0.1
+
+class GuardCfg(BaseModel):
+    u_exp_thresh:float=0.0
+    max_anchor_delta:float=0.5
+    ci_alpha:float=0.05
+    n_bootstrap:int=1000
+    enabled:bool=True
+
+class SearchCfg(BaseModel):
+    max_rounds:int=3
+    queries_per_round:int=3
+    min_claims:int=5
+    marginal_thresh:float=0.1
+    mmr_lambda:float=0.7
+    mmr_k:int=20
+    exa_api_key:str|None=None
+    model_query_gen:bool=True
+    query_temp:float=0.9
+
+class GraphCfg(BaseModel):
+    db_path:str="./wm_graph.db"
+    dist_thresh:float=0.5
+
+class SearchGateCfg(BaseModel):
+    a:float=0.4
+    b:float=0.3
+    c:float=0.3
+    tau_search:float=0.5
+    enabled:bool=True
+
+class UpdateGateCfg(BaseModel):
+    a1:float=0.3
+    a2:float=0.2
+    a3:float=0.3
+    a4:float=0.2
+    tau_ready:float=0.5
+    tau_novel:float=0.3
+    enabled:bool=True
+
+class PaceCfg(BaseModel):
+    web_budget:int=50
+    ft_budget:int=10
+    eta:float=0.1
+
+class DomainBenchCfg(BaseModel):
+    domains:list[str]=Field(default_factory=lambda:["finance","legal","chemistry"])
+    topics:dict[str,str]=Field(default_factory=lambda:{
+        "finance":"financial ratio analysis earnings reports",
+        "legal":"legal precedent constitutional law",
+        "chemistry":"organic chemistry reaction mechanisms",
+    })
+    mmlu_n:int=50
+    probes_per_domain:int=10
 
 class WMCfg(BaseModel):
     ingest:IngestCfg=Field(default_factory=IngestCfg)
@@ -94,3 +152,10 @@ class WMCfg(BaseModel):
     recipe:RecipeCfg=Field(default_factory=RecipeCfg)
     reg:RegCfg=Field(default_factory=RegCfg)
     cert:CertCfg=Field(default_factory=CertCfg)
+    guard:GuardCfg=Field(default_factory=GuardCfg)
+    search:SearchCfg=Field(default_factory=SearchCfg)
+    graph:GraphCfg=Field(default_factory=GraphCfg)
+    search_gate:SearchGateCfg=Field(default_factory=SearchGateCfg)
+    update_gate:UpdateGateCfg=Field(default_factory=UpdateGateCfg)
+    pace:PaceCfg=Field(default_factory=PaceCfg)
+    domain_bench:DomainBenchCfg=Field(default_factory=DomainBenchCfg)
