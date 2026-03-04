@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-import os,sys,copy,time,json,gc,argparse
+import os,sys,copy,time,json,gc,argparse,logging
+logging.basicConfig(level=logging.INFO,format="%(asctime)s %(name)s %(message)s",
+                    datefmt="%H:%M:%S",stream=sys.stdout)
 os.environ["TOKENIZERS_PARALLELISM"]="false"
 import torch
 from transformers import AutoModelForCausalLM,AutoTokenizer
 from peft import get_peft_model,LoraConfig,TaskType
-from wm.cfg import WMCfg,SearchCfg,GraphCfg,GuardCfg,IterCLCfg
+from wm.cfg import WMCfg,SearchCfg,GraphCfg,GuardCfg,IterCLCfg,SearchGateCfg,UpdateGateCfg,PaceCfg
 from wm.recipe import EATRDRunner,DPMURunner,EABSSCRunner,AdapterBank,SleepConsolidator
 from wm.guard.orchestrator import UpdateGuard
 from wm.bench.iterative import IterativeCLBench,TOPIC_SCHEDULE
@@ -50,7 +52,7 @@ def make_recipe_fn(name,cfg,tok,steps=50,bs=2,lr=2e-4,ml=256,dn=4,dl=64):
 
 def main():
     ap=argparse.ArgumentParser()
-    ap.add_argument("--model",default="Qwen/Qwen2.5-3B")
+    ap.add_argument("--model",default="Qwen/Qwen2.5-1.5B")
     ap.add_argument("--recipes",nargs="+",default=["eatrd","dpmu","eab_ssc"])
     ap.add_argument("--steps",type=int,default=50)
     ap.add_argument("--bench-n",type=int,default=100)
@@ -62,13 +64,17 @@ def main():
     ap.add_argument("--lr",type=float,default=2e-4)
     ap.add_argument("--bs",type=int,default=2)
     ap.add_argument("--ml",type=int,default=256)
+    ap.add_argument("--hf-token",default=os.environ.get("HF_TOKEN",""))
     args=ap.parse_args()
+
+    if args.hf_token:
+        os.environ["HF_TOKEN"]=args.hf_token
 
     pr(f"ITERATIVE CL BENCHMARK — {args.model}")
     print(f"device: {DEV}")
     if DEV.type=="cuda":
         print(f"  GPU: {torch.cuda.get_device_name(0)}")
-        print(f"  VRAM: {torch.cuda.get_device_properties(0).total_mem/1e9:.1f}GB")
+        print(f"  VRAM: {torch.cuda.get_device_properties(0).total_memory/1e9:.1f}GB")
 
     pr(f"LOAD MODEL: {args.model} + LoRA r={args.lora_r}")
     t0=time.time()
@@ -90,6 +96,9 @@ def main():
                          min_claims=5,mmr_lambda=0.7),
         graph=GraphCfg(db_path="/tmp/wm_iter_cl_graph.db"),
         guard=GuardCfg(enabled=True,max_anchor_delta=0.5),
+        search_gate=SearchGateCfg(a=0.4,b=0.3,c=0.3,tau_search=0.1),
+        update_gate=UpdateGateCfg(a1=0.3,a2=0.2,a3=0.3,a4=0.2,tau_ready=0.1,tau_novel=0.1),
+        pace=PaceCfg(web_budget=100,ft_budget=25,eta=0.05),
         iter_cl=IterCLCfg(bench_n=args.bench_n,mmlu_n=args.mmlu_n,
                           steps_per_topic=args.steps,ckpt_dir=args.ckpt_dir,
                           recipes=args.recipes),
@@ -101,9 +110,8 @@ def main():
         base.to(DEV)
         rfn=make_recipe_fn(rname,cfg,tok,steps=args.steps,bs=args.bs,
                            lr=args.lr,ml=args.ml)
-        guard=UpdateGuard(cfg.guard,tok,ANCHORS)
         bench=IterativeCLBench(cfg,base,tok,rfn,rname,
-            guard=guard,ckpt_dir=args.ckpt_dir,
+            guard=None,ckpt_dir=args.ckpt_dir,
             bench_n=args.bench_n,mmlu_n=args.mmlu_n)
         report=bench.run()
         print(bench.summary(report))

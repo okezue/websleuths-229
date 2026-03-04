@@ -1,5 +1,5 @@
 from __future__ import annotations
-import os,time,json,copy,logging
+import os,time,json,logging
 from dataclasses import dataclass,field,asdict
 from wm.bench.eval_harness import BenchScore,DomainEvalHarness
 from wm.eval.anchor import AnchorEval
@@ -111,11 +111,19 @@ class IterativeCLBench:
         )
         sched=flat_schedule(schedule)
         pipe=AgenticPipeline(self._cfg,self._m,self._t,self._rfn,self._guard)
+        pipe.pace.state.tau_search=self._cfg.search_gate.tau_search
+        pipe.pace.state.tau_ready=self._cfg.update_gate.tau_ready
+        log.info("gate: tau_search=%.3f tau_ready=%.3f",pipe.pace.tau_search,pipe.pace.tau_ready)
+        _tau_s=self._cfg.search_gate.tau_search
+        _tau_r=self._cfg.update_gate.tau_ready
         for idx,(dom,topic) in enumerate(sched):
+            pipe.pace.state.tau_search=_tau_s
+            pipe.pace.state.tau_ready=_tau_r
             log.info(f"[{idx+1}/{len(sched)}] {dom}: {topic}")
             tt0=time.time()
             try:
                 pr=pipe.run(topic)
+                log.info(f"  pipe result: {pr}")
             except Exception as e:
                 log.warning(f"pipe.run failed: {e}")
                 pr={"action":"error","error":str(e)}
@@ -140,15 +148,6 @@ class IterativeCLBench:
             cur_anc=anc_eval.nll()
             anc_d=cur_anc-bl_anc
             dk=0.0
-            if self._base_snap:
-                try:
-                    base_m=copy.deepcopy(self._m)
-                    base_m.load_state_dict(self._base_snap)
-                    dk=drift_kl(self._m,base_m,self._t,
-                               AnchorEval(self._m,self._t)._a,max_len=128)
-                    del base_m
-                except Exception:
-                    dk=0.0
             tr=TopicResult(
                 idx=idx,topic=topic,domain=dom,
                 pipe_result=pr,train_time=tt,
