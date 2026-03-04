@@ -142,6 +142,13 @@ class DomainBenchCfg(BaseModel):
     mmlu_n:int=50
     probes_per_domain:int=10
 
+class IterCLCfg(BaseModel):
+    bench_n:int=100
+    mmlu_n:int=50
+    steps_per_topic:int=50
+    ckpt_dir:str="/tmp/wm_checkpoints"
+    recipes:list[str]=Field(default_factory=lambda:["eatrd","dpmu","eab_ssc"])
+
 class WMCfg(BaseModel):
     ingest:IngestCfg=Field(default_factory=IngestCfg)
     chunk:ChunkCfg=Field(default_factory=ChunkCfg)
@@ -159,3 +166,4 @@ class WMCfg(BaseModel):
     update_gate:UpdateGateCfg=Field(default_factory=UpdateGateCfg)
     pace:PaceCfg=Field(default_factory=PaceCfg)
     domain_bench:DomainBenchCfg=Field(default_factory=DomainBenchCfg)
+    iter_cl:IterCLCfg=Field(default_factory=IterCLCfg)
