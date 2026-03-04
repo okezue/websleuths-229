@@ -43,7 +43,7 @@ def _sigmoid(x:float)->float:
 def _readiness(sr:SearchResult,cfg:UpdateGateCfg)->float:
     doms=set(_domain(u) for u in sr.sources if u)
     ns=len(doms)
-    texts=[c.text for c in sr.claims]
+    texts=[c.text for c in sr.claims[:50]]
     div=1.0-_pairwise_consistency(texts) if len(texts)>=2 else 0.0
     agr=_pairwise_consistency(texts) if len(texts)>=2 else 0.0
     rel=sum(c.confidence for c in sr.claims)/max(len(sr.claims),1)
@@ -57,7 +57,7 @@ def _novelty_nll(sr:SearchResult,model,tok)->float:
     dev=next(model.parameters()).device
     nlls=[]
     with torch.no_grad():
-        for c in sr.claims[:20]:
+        for c in sr.claims[:5]:
             enc={k:v.to(dev) for k,v in tok(c.text,return_tensors="pt",
                  truncation=True,max_length=256).items()}
             out=model(**enc,labels=enc["input_ids"])

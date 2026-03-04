@@ -2,7 +2,7 @@
 set -e
 
 AMI="ami-0aad28499825d76c3"
-INST="p3.2xlarge"
+INST="g4dn.xlarge"
 KEY="okezue"
 SG="sg-08bbfd4174e4a3665"
 REGION="us-east-1"

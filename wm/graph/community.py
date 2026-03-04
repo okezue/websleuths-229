@@ -65,8 +65,12 @@ def _agglom(dists:list[list[float]],thresh:float=0.5)->list[list[int]]:
         clusters.setdefault(l,[]).append(i)
     return list(clusters.values())
 
-def detect_communities(claims:list[Claim],thresh:float=0.5)->list[Community]:
+def detect_communities(claims:list[Claim],thresh:float=0.5,max_claims:int=200)->list[Community]:
     if not claims:return []
+    if len(claims)>max_claims:
+        import random
+        rng=random.Random(42)
+        claims=rng.sample(claims,max_claims)
     if len(claims)==1:
         cid=sha256(claims[0].text.encode()).hexdigest()[:12]
         tv=_tf_vecs([claims[0].text])
@@ -87,7 +91,9 @@ def detect_communities(claims:list[Claim],thresh:float=0.5)->list[Community]:
         cond=[]
         for i in range(n):
             for j in range(i+1,n):
-                cond.append(dists[i][j])
+                cond.append(max(0.0,dists[i][j]))
+        cond=np.array(cond,dtype=np.float64)
+        cond=np.clip(cond,0.0,None)
         Z=linkage(cond,method='average')
         labs=fcluster(Z,t=thresh,criterion='distance')
         clusters:dict[int,list[int]]={}
