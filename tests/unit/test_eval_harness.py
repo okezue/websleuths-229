@@ -103,3 +103,17 @@ def test_harness_eval_all_domains_empty(tiny_model,tiny_tok):
     r=h.eval_all_domains(["nonexistent"])
     assert "nonexistent" in r
     assert r["nonexistent"].n==0
+
+def test_sample_full(tiny_model,tiny_tok):
+    from datasets import Dataset
+    h=DomainEvalHarness(tiny_model,tiny_tok,n_samples=100)
+    ds=Dataset.from_list([{"x":i} for i in range(50)])
+    idx=h._sample(ds,n=0)
+    assert len(idx)==50
+
+def test_sample_limited(tiny_model,tiny_tok):
+    from datasets import Dataset
+    h=DomainEvalHarness(tiny_model,tiny_tok,n_samples=100)
+    ds=Dataset.from_list([{"x":i} for i in range(500)])
+    idx=h._sample(ds,n=10)
+    assert len(idx)==10

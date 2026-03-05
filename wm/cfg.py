@@ -97,15 +97,17 @@ class GuardCfg(BaseModel):
     enabled:bool=True
 
 class SearchCfg(BaseModel):
-    max_rounds:int=3
-    queries_per_round:int=3
+    max_rounds:int=5
+    queries_per_round:int=6
     min_claims:int=5
     marginal_thresh:float=0.1
     mmr_lambda:float=0.7
-    mmr_k:int=20
+    mmr_k:int=50
     exa_api_key:str|None=None
     model_query_gen:bool=True
     query_temp:float=0.9
+    round_temps:list[float]=Field(default_factory=lambda:[0.7,0.9,1.0,1.0,1.0])
+    res_per_query:int=5
 
 class GraphCfg(BaseModel):
     db_path:str="./wm_graph.db"
@@ -148,6 +150,10 @@ class IterCLCfg(BaseModel):
     steps_per_topic:int=50
     ckpt_dir:str="/tmp/wm_checkpoints"
     recipes:list[str]=Field(default_factory=lambda:["eatrd","dpmu","eab_ssc"])
+    min_steps:int=30
+    max_steps:int=150
+    step_alpha:float=0.5
+    step_beta:float=10.0
 
 class WMCfg(BaseModel):
     ingest:IngestCfg=Field(default_factory=IngestCfg)

@@ -40,6 +40,7 @@ class TrainResult:
     lr:float
     dream_loss:float|None=None
     extras:dict[str,Any]=field(default_factory=dict)
+    history:list[dict[str,float]]=field(default_factory=list)
 
 @dataclass
 class EvalReport:

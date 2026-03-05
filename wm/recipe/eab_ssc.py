@@ -129,6 +129,7 @@ class EABSSCRunner:
         loader=make_ep_dl(ds,tok,col,self.bs,self.max_len)
         dbuf=DreamBuffer(dream_prompts,tok,self.dl,self.dn)
         tot_loss,tot_dl,steps=0.0,0.0,0
+        hist=[]
         for batch in loader:
             if self.ms>0 and steps>=self.ms:break
             batch={k:v.to(dev) if isinstance(v,torch.Tensor) else v for k,v in batch.items()}
@@ -149,5 +150,7 @@ class EABSSCRunner:
             loss.backward()
             opt.step()
             tot_loss+=l_ep.item();tot_dl+=l_dr.item();steps+=1
+            hist.append({"loss":l_ep.item(),"dream_loss":l_dr.item()})
         return TrainResult(loss=tot_loss/max(steps,1),steps=steps,
-                           lr=self.lr,dream_loss=tot_dl/max(steps,1))
+                           lr=self.lr,dream_loss=tot_dl/max(steps,1),
+                           history=hist)

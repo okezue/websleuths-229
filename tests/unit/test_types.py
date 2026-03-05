@@ -42,3 +42,13 @@ def test_gate_result():
     assert g.accept
     g2=GateResult(accept=False,reason="too few sources")
     assert not g2.accept
+
+def test_train_result_history():
+    r=TrainResult(loss=0.5,steps=10,lr=1e-4,
+        history=[{"loss":0.6,"dream_loss":0.3},{"loss":0.4,"dream_loss":0.2}])
+    assert len(r.history)==2
+    assert r.history[0]["loss"]==0.6
+
+def test_train_result_history_default():
+    r=TrainResult(loss=0.5,steps=10,lr=1e-4)
+    assert r.history==[]

@@ -10,6 +10,7 @@ from wm.gate.search_gate import SearchGate
 from wm.gate.update_gate import UpdateGate
 from wm.pace.controller import PaceController
 from wm.guard.orchestrator import UpdateGuard
+from wm.adapt import adaptive_steps
 
 log=logging.getLogger(__name__)
 
@@ -53,18 +54,23 @@ class AgenticPipeline:
         if not ds_rows:
             ds_rows=[{"text":c.text,"authority":1.0} for c in sr.claims[:50]]
         ds=Dataset.from_list(ds_rows)
+        icl=self._cfg.iter_cl
+        asteps=adaptive_steps(sr,icl.min_steps,icl.max_steps,
+                              icl.step_alpha,icl.step_beta)
         result={"action":"train","claims":len(sr.claims),
-                "communities":len(sr.communities),"dreams":len(dreams)}
-        if self._guard and self._recipe_fn:
+                "communities":len(sr.communities),"dreams":len(dreams),
+                "adaptive_steps":asteps}
+        _rfn=lambda m,d,dp:self._recipe_fn(m,d,dp,steps=asteps) if self._recipe_fn else None
+        if self._guard and _rfn:
             gr=self._guard.guard(self._m,sr.chunks,
-                                 self._recipe_fn,ds,dreams)
+                                 _rfn,ds,dreams)
             result["guard"]=gr.accepted
             result["guard_reason"]=gr.reason
             if gr.accepted:
                 for co in sr.communities:
                     self._gs.mark_parameterized(co.coid)
-        elif self._recipe_fn:
-            self._recipe_fn(self._m,ds,dreams)
+        elif _rfn:
+            _rfn(self._m,ds,dreams)
             for co in sr.communities:
                 self._gs.mark_parameterized(co.coid)
             result["guard"]="no_guard"

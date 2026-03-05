@@ -1,6 +1,7 @@
 from __future__ import annotations
-import re,math,torch
+import re,math,json as _json,logging,torch
 from dataclasses import dataclass,field
+_log=logging.getLogger(__name__)
 
 @dataclass
 class BenchScore:
@@ -67,21 +68,24 @@ class DomainEvalHarness:
     def _load_ds(self,name,subset=None,split="test"):
         k=(name,subset,split)
         if k in self._cache:return self._cache[k]
-        try:
-            from datasets import load_dataset
-            if subset:ds=load_dataset(name,subset,split=split,trust_remote_code=True)
-            else:ds=load_dataset(name,split=split,trust_remote_code=True)
-        except Exception:
+        from datasets import load_dataset
+        ds=None
+        for sp in [split,"validation","train"]:
+            if ds is not None:break
             try:
-                if subset:ds=load_dataset(name,subset,split="validation",trust_remote_code=True)
-                else:ds=load_dataset(name,split="validation",trust_remote_code=True)
+                if subset:ds=load_dataset(name,subset,split=sp)
+                else:ds=load_dataset(name,split=sp)
             except Exception:
-                ds=None
+                try:
+                    if subset:ds=load_dataset(name,subset,split=sp,trust_remote_code=True)
+                    else:ds=load_dataset(name,split=sp,trust_remote_code=True)
+                except Exception:pass
+            if ds is not None and sp!=split:break
         self._cache[k]=ds
         return ds
     def _sample(self,ds,n=0):
         if ds is None:return []
-        n=n or self._n
+        if n<=0:return list(range(len(ds)))
         if len(ds)<=n:return list(range(len(ds)))
         import random
         rng=random.Random(self._seed)
@@ -96,24 +100,36 @@ class DomainEvalHarness:
         if domain=="medicine":return self._eval_medqa(n)
         return BenchScore(name=f"{domain}_unknown",acc=0.0,n=0)
     def _eval_finqa(self,n=0)->BenchScore:
-        ds=self._load_ds("dreamerdeo/finqa",split="test")
-        if ds is None:ds=self._load_ds("dreamerdeo/finqa",split="validation")
-        if ds is None:return BenchScore(name="finqa",acc=0.0,n=0)
+        ds=self._load_ds("wandb/finqa-data-processed",split="test")
+        if ds is None:ds=self._load_ds("gagan3012/finqa-updated",split="test")
+        if ds is None:ds=self._load_ds("dreamerdeo/finqa",split="test")
+        if ds is None:
+            _log.warning("finqa: no dataset found")
+            return BenchScore(name="finqa",acc=0.0,n=0)
+        _log.info("finqa: loaded %d rows, cols=%s",len(ds),ds.column_names[:10])
         idx=self._sample(ds,n)
         cor,tot=0,0
         for i in idx:
             row=ds[i]
+            pre=row.get("pre_text",[])
+            post=row.get("post_text",[])
             tbl=row.get("table","") or ""
             if isinstance(tbl,list):
                 tbl="\n".join([" | ".join(r) if isinstance(r,list) else str(r) for r in tbl])
-            q=row.get("question","") or row.get("qa",{}).get("question","")
-            gold=row.get("answer","") or row.get("qa",{}).get("answer","")
-            prompt=f"Table:\n{tbl}\n\nQuestion: {q}\nAnswer:"
+            ctx=""
+            if isinstance(pre,list) and pre:ctx+=" ".join(pre)+"\n"
+            ctx+=f"Table:\n{tbl}\n"
+            if isinstance(post,list) and post:ctx+=" ".join(post)+"\n"
+            q=row.get("question","")
+            gold=row.get("answer","")
+            prompt=f"{ctx}\nQuestion: {q}\nAnswer:"
             gen=_gen(self._m,self._t,prompt,max_tok=32,dev=self._dev)
-            pred=_extract_number(gen)
+            pred_n=_extract_number(gen)
             gold_n=_extract_number(str(gold))
-            if pred is not None and gold_n is not None:
-                if _num_close(pred,gold_n):cor+=1
+            if pred_n is not None and gold_n is not None:
+                if _num_close(pred_n,gold_n):cor+=1
+            elif gold_n is None and len(str(gold).strip())>1:
+                if str(gold).strip().lower() in gen.strip().lower():cor+=1
             tot+=1
         return BenchScore(name="finqa",acc=cor/max(tot,1),n=tot)
     def _eval_lexglue(self,n=0)->BenchScore:
@@ -135,33 +151,62 @@ class DomainEvalHarness:
             if pred==gold:cor+=1
             tot+=1
         return BenchScore(name="lexglue_casehold",acc=cor/max(tot,1),n=tot)
+    def _eval_cb_item(self,inp:str,tgt:str,ts)->int:
+        if isinstance(ts,str):
+            try:
+                import json as _j;ts=_j.loads(ts)
+            except Exception:ts={}
+        if isinstance(ts,dict) and ts:
+            choices=list(ts.keys())[:4]
+            gold_k=max(ts,key=lambda k:float(ts[k]) if isinstance(ts[k],(int,float)) else 0)
+            prompt=_format_mcq(inp,choices)
+            gen=_gen(self._m,self._t,prompt,max_tok=8,dev=self._dev)
+            pred=_extract_letter(gen)
+            gi=choices.index(gold_k) if gold_k in choices else -1
+            return 1 if gi>=0 and gi<len(_LETTERS) and pred==_LETTERS[gi] else 0
+        prompt=f"Q: {inp}\nAnswer:"
+        gen=_gen(self._m,self._t,prompt,max_tok=32,dev=self._dev)
+        return 1 if str(tgt).strip().lower() in gen.strip().lower() else 0
     def _eval_chembench(self,n=0)->BenchScore:
-        ds=self._load_ds("jablonkagroup/ChemBench",split="test")
-        if ds is None:ds=self._load_ds("jablonkagroup/ChemBench",split="train")
-        if ds is None:return BenchScore(name="chembench",acc=0.0,n=0)
+        from datasets import load_dataset,concatenate_datasets
+        _cb_subs=["analytical_chemistry","general_chemistry","inorganic_chemistry",
+                   "materials_science","organic_chemistry","physical_chemistry",
+                   "technical_chemistry","toxicity_and_safety"]
+        parts=[]
+        for sub in _cb_subs:
+            try:
+                p=load_dataset("jablonkagroup/ChemBench",sub,split="train")
+                parts.append(p)
+            except Exception:pass
+        if parts:
+            ds=concatenate_datasets(parts)
+        else:
+            ds=self._load_ds("jablonkagroup/ChemBench",split="train")
+        if ds is None:
+            _log.warning("chembench: no dataset found")
+            return BenchScore(name="chembench",acc=0.0,n=0)
+        _log.info("chembench: loaded %d rows",len(ds))
         idx=self._sample(ds,n)
         cor,tot=0,0
         for i in idx:
             row=ds[i]
-            q=row.get("question","") or row.get("input","")
-            ans=row.get("answer","") or row.get("target","")
-            choices=row.get("choices",[]) or row.get("options",[])
-            if choices:
-                prompt=_format_mcq(q,choices[:4])
-                gen=_gen(self._m,self._t,prompt,max_tok=8,dev=self._dev)
-                pred=_extract_letter(gen)
-                if isinstance(ans,int) and ans<len(_LETTERS):gold=_LETTERS[ans]
-                elif isinstance(ans,str) and ans.upper() in _LETTERS:gold=ans.upper()
-                else:gold=str(ans).upper()
-                if pred==gold:cor+=1
+            exs=row.get("examples",None)
+            if isinstance(exs,list) and exs:
+                for ex in exs:
+                    if not isinstance(ex,dict):continue
+                    inp=ex.get("input","")
+                    tgt=ex.get("target","")
+                    ts=ex.get("target_scores",{})
+                    cor+=self._eval_cb_item(inp,tgt,ts);tot+=1
             else:
-                prompt=f"Q: {q}\nAnswer:"
-                gen=_gen(self._m,self._t,prompt,max_tok=32,dev=self._dev)
-                if str(ans).lower() in gen.lower():cor+=1
-            tot+=1
+                inp=row.get("input","") or row.get("question","")
+                tgt=row.get("target","") or row.get("answer","")
+                ts=row.get("target_scores",{})
+                cor+=self._eval_cb_item(inp,tgt,ts);tot+=1
         return BenchScore(name="chembench",acc=cor/max(tot,1),n=tot)
     def _eval_medqa(self,n=0)->BenchScore:
-        ds=self._load_ds("bigbio/med_qa","med_qa_en_4options_source",split="test")
+        ds=self._load_ds("GBaker/MedQA-USMLE-4-options",split="test")
+        if ds is None:ds=self._load_ds("bigbio/med_qa","med_qa_en_4options_source",split="test")
         if ds is None:return BenchScore(name="medqa",acc=0.0,n=0)
         idx=self._sample(ds,n)
         cor,tot=0,0
@@ -169,16 +214,21 @@ class DomainEvalHarness:
             row=ds[i]
             q=row.get("question","")
             opts=row.get("options",[]) or row.get("choices",[])
-            ans=row.get("answer_idx",row.get("answer",0))
-            if isinstance(opts,dict):opts=list(opts.values())
-            choices=opts[:4]
+            ans=row.get("answer_idx",row.get("answer",""))
+            if isinstance(opts,list) and opts and isinstance(opts[0],dict):
+                choices=[o.get("value","") for o in opts[:4]]
+            elif isinstance(opts,dict):
+                choices=list(opts.values())[:4]
+            else:
+                choices=opts[:4] if opts else []
+            gold=str(ans).upper()
+            if not gold or gold not in _LETTERS:
+                if isinstance(ans,int) and ans<len(_LETTERS):gold=_LETTERS[ans]
+                else:gold=""
             if not choices:tot+=1;continue
             prompt=_format_mcq(q,choices)
             gen=_gen(self._m,self._t,prompt,max_tok=8,dev=self._dev)
             pred=_extract_letter(gen)
-            if isinstance(ans,int) and ans<len(_LETTERS):gold=_LETTERS[ans]
-            elif isinstance(ans,str) and ans.upper() in _LETTERS:gold=ans.upper()
-            else:gold=""
             if pred==gold:cor+=1
             tot+=1
         return BenchScore(name="medqa",acc=cor/max(tot,1),n=tot)
@@ -189,7 +239,7 @@ class DomainEvalHarness:
         ds=self._load_ds("cais/mmlu",subj,split="test")
         if ds is None:ds=self._load_ds("cais/mmlu",subj,split="validation")
         if ds is None:return BenchScore(name=f"mmlu_{subj}",acc=0.0,n=0)
-        idx=self._sample(ds,n or self._n)
+        idx=self._sample(ds,n)
         cor,tot=0,0
         for i in idx:
             row=ds[i]

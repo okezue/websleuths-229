@@ -29,25 +29,27 @@ ANCHORS=[
 ]
 
 def make_recipe_fn(name,cfg,tok,steps=50,bs=2,lr=2e-4,ml=256,dn=4,dl=64):
-    def fn(model,ds,dreams):
+    def fn(model,ds,dreams,steps=steps):
         dev=next(model.parameters()).device
         teacher=copy.deepcopy(model).eval().to(dev)
+        res=None
         if name=="eatrd":
             r=EATRDRunner(lr=lr,max_steps=steps,bs=bs,temp=2.0,
                 eps_min=0.01,alpha=0.5,rho=0.01,lam_init=1.0,
                 max_len=ml,dream_n=dn,dream_len=dl)
-            r.run(model,teacher,ds,dreams,tok)
+            res=r.run(model,teacher,ds,dreams,tok)
         elif name=="dpmu":
             r=DPMURunner(lr=lr,max_steps=steps,bs=bs,temp=2.0,
                 n_dream_grads=2,max_len=ml,dream_n=dn,dream_len=dl)
-            r.run(model,teacher,ds,dreams,tok)
+            res=r.run(model,teacher,ds,dreams,tok)
         elif name=="eab_ssc":
             r=EABSSCRunner(lr=lr,max_steps=steps,bs=bs,temp=2.0,
                 dream_weight=0.5,max_len=ml,dream_n=dn,dream_len=dl)
-            r.day(model,teacher,ds,dreams,tok)
+            res=r.day(model,teacher,ds,dreams,tok)
         del teacher
         gc.collect()
         if torch.cuda.is_available():torch.cuda.empty_cache()
+        return res
     return fn
 
 def main():
@@ -64,6 +66,8 @@ def main():
     ap.add_argument("--lr",type=float,default=2e-4)
     ap.add_argument("--bs",type=int,default=2)
     ap.add_argument("--ml",type=int,default=256)
+    ap.add_argument("--min-steps",type=int,default=30)
+    ap.add_argument("--max-steps",type=int,default=150)
     ap.add_argument("--hf-token",default=os.environ.get("HF_TOKEN",""))
     args=ap.parse_args()
 
@@ -92,8 +96,9 @@ def main():
 
     all_reports={}
     cfg=WMCfg(
-        search=SearchCfg(exa_api_key=args.exa_key,max_rounds=2,queries_per_round=3,
-                         min_claims=5,mmr_lambda=0.7),
+        search=SearchCfg(exa_api_key=args.exa_key,max_rounds=5,queries_per_round=6,
+                         min_claims=5,mmr_lambda=0.7,mmr_k=50,res_per_query=5,
+                         round_temps=[0.7,0.9,1.0,1.0,1.0]),
         graph=GraphCfg(db_path="/tmp/wm_iter_cl_graph.db"),
         guard=GuardCfg(enabled=True,max_anchor_delta=0.5),
         search_gate=SearchGateCfg(a=0.4,b=0.3,c=0.3,tau_search=0.1),
@@ -101,7 +106,8 @@ def main():
         pace=PaceCfg(web_budget=100,ft_budget=25,eta=0.05),
         iter_cl=IterCLCfg(bench_n=args.bench_n,mmlu_n=args.mmlu_n,
                           steps_per_topic=args.steps,ckpt_dir=args.ckpt_dir,
-                          recipes=args.recipes),
+                          recipes=args.recipes,min_steps=args.min_steps,
+                          max_steps=args.max_steps),
     )
 
     for rname in args.recipes:

@@ -42,6 +42,7 @@ class DPMURunner:
         loader=make_ep_dl(ds,tok,col,self.bs,self.max_len)
         dbuf=DreamBuffer(dream_prompts,tok,self.dl,self.dn)
         tot_loss,tot_dl,steps=0.0,0.0,0
+        hist=[]
         for batch in loader:
             if self.ms>0 and steps>=self.ms:break
             batch={k:v.to(dev) if isinstance(v,torch.Tensor) else v for k,v in batch.items()}
@@ -51,7 +52,7 @@ class DPMURunner:
             opt.zero_grad()
             l_ep.backward()
             g_ep=grad_vec(model).clone()
-            G_dr=[]
+            G_dr=[];_sdl=0.0
             for _ in range(self.m):
                 opt.zero_grad()
                 d_inp=dbuf.sample(dev)
@@ -63,7 +64,7 @@ class DPMURunner:
                 l_dr=dream_kl(s_out.logits,t_out.logits,self.temp)
                 l_dr.backward()
                 G_dr.append(grad_vec(model).clone())
-                tot_dl+=l_dr.item()
+                tot_dl+=l_dr.item();_sdl+=l_dr.item()
             opt.zero_grad()
             if len(G_dr)==1:
                 g_star=_project(g_ep,G_dr[0])
@@ -79,7 +80,9 @@ class DPMURunner:
                     i+=n
             opt.step()
             tot_loss+=l_ep.item();steps+=1
+            hist.append({"loss":l_ep.item(),"dream_loss":_sdl/max(len(G_dr),1),"n_grads":len(G_dr)})
         avg=tot_loss/max(steps,1)
         avg_dl=tot_dl/max(steps*self.m,1)
         return TrainResult(loss=avg,steps=steps,lr=self.lr,
-                           dream_loss=avg_dl,extras={"n_dream_grads":self.m})
+                           dream_loss=avg_dl,extras={"n_dream_grads":self.m},
+                           history=hist)

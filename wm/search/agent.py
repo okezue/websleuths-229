@@ -6,6 +6,7 @@ from wm.search.claims import extract_claims,extract_entities
 from wm.search.mmr import mmr_select
 from wm.search.sufficiency import is_sufficient
 from wm.graph.community import detect_communities
+from wm.adapt import round_temp
 
 log=logging.getLogger(__name__)
 
@@ -18,12 +19,12 @@ def _template_queries(topic:str)->list[str]:
 
 def _entity_queries(entities:list[str],topic:str)->list[str]:
     qs=[]
-    for e in entities[:3]:
+    for e in entities[:6]:
         qs.append(f"{e} {topic} relationship")
         qs.append(f"{e} latest data")
     return qs
 
-def _gen_model_queries(topic:str,n:int,model,tok)->list[str]:
+def _gen_model_queries(topic:str,n:int,model,tok,temp:float=0.9)->list[str]:
     prompt=f"List {n} search queries to learn about: {topic}\n1."
     try:
         enc=tok(prompt,return_tensors="pt",truncation=True,max_length=256)
@@ -32,7 +33,7 @@ def _gen_model_queries(topic:str,n:int,model,tok)->list[str]:
         import torch
         with torch.no_grad():
             out=model.generate(**inp,max_new_tokens=128,do_sample=True,
-                               temperature=0.9,top_p=0.95)
+                               temperature=temp,top_p=0.95)
         txt=tok.decode(out[0][inp["input_ids"].shape[1]:],skip_special_tokens=True)
         lines=[l.strip().lstrip("0123456789.)- ") for l in txt.split("\n") if l.strip()]
         queries=[l for l in lines if len(l)>5][:n]
@@ -41,14 +42,14 @@ def _gen_model_queries(topic:str,n:int,model,tok)->list[str]:
         log.debug("model query gen failed: %s",ex)
     return []
 
-def _fetch_exa(queries:list[str],api_key:str|None)->list[dict]:
+def _fetch_exa(queries:list[str],api_key:str|None,n_res:int=3)->list[dict]:
     if not api_key:return []
     try:
         from exa_py import Exa
         exa=Exa(api_key)
         results=[]
         for q in queries:
-            resp=exa.search_and_contents(q,num_results=3,text=True)
+            resp=exa.search_and_contents(q,num_results=n_res,text=True)
             for r in resp.results:
                 results.append({"url":r.url,"title":r.title or "","text":r.text or ""})
         return results
@@ -80,17 +81,26 @@ class AgenticSearcher:
         prev_n=0
         rnd=0
         for rnd in range(self._cfg.max_rounds):
+            t=round_temp(self._cfg.round_temps,rnd)
             if rnd==0:
                 qs=[]
                 if self._cfg.model_query_gen and self._m and self._t:
-                    qs=_gen_model_queries(topic,self._cfg.queries_per_round,self._m,self._t)
+                    qs=_gen_model_queries(topic,self._cfg.queries_per_round,self._m,self._t,temp=t)
                 if not qs:
                     qs=_template_queries(topic)
+            elif rnd==1:
+                qs=[]
+                if self._cfg.model_query_gen and self._m and self._t:
+                    qs=_gen_model_queries(topic,self._cfg.queries_per_round,self._m,self._t,temp=t)
+                if len(qs)<self._cfg.queries_per_round:
+                    ent_names=[e.name for e in all_entities]
+                    qs+=_entity_queries(ent_names,topic)[:self._cfg.queries_per_round-len(qs)]
+                if not qs:qs=_template_queries(topic)
             else:
                 ent_names=[e.name for e in all_entities]
                 qs=_entity_queries(ent_names,topic)[:self._cfg.queries_per_round]
                 if not qs:qs=_template_queries(topic)
-            raw=_fetch_exa(qs,self._cfg.exa_api_key)
+            raw=_fetch_exa(qs,self._cfg.exa_api_key,self._cfg.res_per_query)
             for r in raw:
                 url=r.get("url","")
                 txt=r.get("text","")

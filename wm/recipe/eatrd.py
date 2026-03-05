@@ -25,6 +25,7 @@ class EATRDRunner:
         eps_k=evidence_eps(all_w,n_ep,self.eps_min,self.alpha)
         lam=self.lam
         tot_loss,tot_dl,steps=0.0,0.0,0
+        hist=[]
         for batch in dl:
             if self.ms>0 and steps>=self.ms:break
             batch={k:v.to(dev) if isinstance(v,torch.Tensor) else v for k,v in batch.items()}
@@ -46,7 +47,9 @@ class EATRDRunner:
             with torch.no_grad():
                 lam=max(0.0,lam+self.rho*(l_dr.item()-eps_k))
             tot_loss+=l_ep.item();tot_dl+=l_dr.item();steps+=1
+            hist.append({"loss":l_ep.item(),"dream_loss":l_dr.item(),"lambda":lam,"eps_k":eps_k})
         avg_loss=tot_loss/max(steps,1)
         avg_dl=tot_dl/max(steps,1)
         return TrainResult(loss=avg_loss,steps=steps,lr=self.lr,
-                           dream_loss=avg_dl,extras={"lambda":lam,"eps_k":eps_k})
+                           dream_loss=avg_dl,extras={"lambda":lam,"eps_k":eps_k},
+                           history=hist)
