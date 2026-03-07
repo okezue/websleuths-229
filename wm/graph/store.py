@@ -20,8 +20,16 @@ class GraphStore:
             CREATE TABLE IF NOT EXISTS edges(
                 src TEXT,dst TEXT,rel TEXT,weight REAL,
                 PRIMARY KEY(src,dst,rel));
+            CREATE TABLE IF NOT EXISTS entity_aliases(
+                alias TEXT PRIMARY KEY,canonical TEXT);
         """)
         self._db.commit()
+        for col,default in [("type","''"),("aliases","'[]'")]:
+            try:
+                self._db.execute(f"ALTER TABLE entities ADD COLUMN {col} TEXT DEFAULT {default}")
+                self._db.commit()
+            except sqlite3.OperationalError:
+                pass
     def put_claim(self,c:Claim)->bool:
         try:
             self._db.execute(
@@ -78,6 +86,24 @@ class GraphStore:
         for c in sr.claims:
             for ename in c.entities:
                 self.put_edge(c.cid,ename,rel="mentions")
+    def put_entity_typed(self,nid:str,name:str,etype:str="",aliases:list[str]=None)->bool:
+        aliases=aliases or []
+        try:
+            self._db.execute(
+                "INSERT OR REPLACE INTO entities(nid,name,type,aliases) VALUES(?,?,?,?)",
+                (nid,name,etype,json.dumps(aliases)))
+            self._db.commit()
+            return True
+        except sqlite3.IntegrityError:
+            return False
+    def put_alias(self,alias:str,canonical:str):
+        self._db.execute(
+            "INSERT OR REPLACE INTO entity_aliases(alias,canonical) VALUES(?,?)",
+            (alias,canonical))
+        self._db.commit()
+    def get_known_entity_names(self)->list[str]:
+        rows=self._db.execute("SELECT name FROM entities").fetchall()
+        return [r[0] for r in rows]
     def count_claims(self)->int:
         return self._db.execute("SELECT COUNT(*) FROM claims").fetchone()[0]
     def close(self):

@@ -1,10 +1,11 @@
 import torch,copy
 from datasets import Dataset
-from wm.recipe.base import weighted_ce,dream_kl,evidence_eps,grad_vec,set_grad,WeightedLMCollator
+from wm.recipe.base import weighted_ce,dream_kl,multi_temp_dream_kl,evidence_eps,grad_vec,set_grad,WeightedLMCollator
 from wm.recipe.eatrd import EATRDRunner
 from wm.recipe.dpmu import DPMURunner,_project,_project_multi
 from wm.recipe.eab_ssc import EABSSCRunner,AdapterBank,SleepConsolidator,_find_lora_pairs,_svd_trunc,_spectral_reg
 from wm.dream.buffer import DreamBuffer
+from wm.dream.bank import DreamBank
 from wm.cfg import TrainCfg
 
 _DP=["What is gravity?","How does rain form?","Who built the pyramids?",
@@ -144,3 +145,84 @@ def test_hfback_dpmu(tiny_model,tiny_tok,tmp_dir):
     b.setup_from_model(tiny_model,tiny_tok,tmp_dir)
     res=b.train(_ds(),recipe="dpmu",dream_prompts=_DP)
     assert res.steps==4
+
+def test_multi_temp_dream_kl_shape():
+    s=torch.randn(3,4,32)
+    t=torch.randn(3,4,32)
+    l=multi_temp_dream_kl(s,t,[1.0,2.0,1.5])
+    assert l.shape==()
+    assert l.item()>=0
+
+def test_multi_temp_uniform_consistent():
+    s=torch.randn(2,4,32)
+    t=torch.randn(2,4,32)
+    l1=multi_temp_dream_kl(s,t,[2.0,2.0])
+    l2=multi_temp_dream_kl(s,t,[2.0,2.0])
+    assert abs(l1.item()-l2.item())<1e-5
+    l_lo=multi_temp_dream_kl(s,t,[1.0,1.0])
+    assert l_lo.item()>=0
+
+def test_eatrd_pi_lambda_bounded(tiny_model,tiny_tok):
+    ds=_ds()
+    teacher=copy.deepcopy(tiny_model).eval()
+    r=EATRDRunner(lr=1e-3,max_steps=10,bs=2,temp=2.0,
+        max_len=32,dream_n=2,dream_len=16,
+        d_targ=0.5,lam_floor=0.01,lam_ceil=10.0,use_pi=True)
+    res=r.run(tiny_model,teacher,ds,_DP,tiny_tok)
+    lam=res.extras["lambda"]
+    assert 0.01<=lam<=10.0
+    assert res.extras["use_pi"]==True
+    for h in res.history:
+        assert 0.01<=h["lambda"]<=10.0
+
+def test_eatrd_backward_compat(tiny_model,tiny_tok):
+    ds=_ds()
+    teacher=copy.deepcopy(tiny_model).eval()
+    r=EATRDRunner(lr=1e-3,max_steps=4,bs=2,temp=2.0,
+        max_len=32,dream_n=2,dream_len=16,use_pi=False)
+    res=r.run(tiny_model,teacher,ds,_DP,tiny_tok)
+    assert res.steps==4
+    assert "lambda" in res.extras
+
+def test_eatrd_with_dbank(tiny_model,tiny_tok):
+    ds=_ds()
+    teacher=copy.deepcopy(tiny_model).eval()
+    b=DreamBank(tiny_tok,n=2,max_len=16)
+    b.seed()
+    r=EATRDRunner(lr=1e-3,max_steps=4,bs=2,temp=2.0,
+        max_len=32,dream_n=2,dream_len=16)
+    res=r.run(tiny_model,teacher,ds,_DP,tiny_tok,dbank=b)
+    assert res.steps==4
+    assert res.dream_loss is not None
+
+def test_dpmu_lite_cached(tiny_model,tiny_tok):
+    ds=_ds()
+    teacher=copy.deepcopy(tiny_model).eval()
+    r=DPMURunner(lr=1e-3,max_steps=8,bs=2,temp=2.0,
+        max_len=32,dream_n=2,dream_len=16,
+        grad_refresh_k=3,grad_ema_decay=0.9)
+    res=r.run(tiny_model,teacher,ds,_DP,tiny_tok)
+    assert res.steps==8
+    cached_count=sum(1 for h in res.history if h.get("cached",False))
+    assert cached_count>0
+
+def test_dpmu_with_dbank(tiny_model,tiny_tok):
+    ds=_ds()
+    teacher=copy.deepcopy(tiny_model).eval()
+    b=DreamBank(tiny_tok,n=2,max_len=16)
+    b.seed()
+    r=DPMURunner(lr=1e-3,max_steps=4,bs=2,temp=2.0,
+        max_len=32,dream_n=2,dream_len=16)
+    res=r.run(tiny_model,teacher,ds,_DP,tiny_tok,dbank=b)
+    assert res.steps==4
+
+def test_eab_ssc_with_dbank(tiny_model,tiny_tok):
+    ds=_ds()
+    teacher=copy.deepcopy(tiny_model).eval()
+    b=DreamBank(tiny_tok,n=2,max_len=16)
+    b.seed()
+    r=EABSSCRunner(lr=1e-3,max_steps=4,bs=2,temp=2.0,
+        max_len=32,dream_n=2,dream_len=16)
+    res=r.day(tiny_model,teacher,ds,_DP,tiny_tok,dbank=b)
+    assert res.steps==4
+    assert res.dream_loss is not None

@@ -5,7 +5,7 @@ from wm.types import SearchResult,Chunk
 from wm.cfg import WMCfg
 from wm.search.agent import AgenticSearcher
 from wm.graph.store import GraphStore
-from wm.graph.dream_gen import gen_dream_prompts
+from wm.graph.dream_gen import gen_dream_prompts,gen_dream_bank
 from wm.gate.search_gate import SearchGate
 from wm.gate.update_gate import UpdateGate
 from wm.pace.controller import PaceController
@@ -26,9 +26,13 @@ class AgenticPipeline:
         self._pc=PaceController(cfg.pace)
         self._gs=GraphStore(cfg.graph.db_path)
         self._guard=guard
+        self._dbank=None
     @property
     def graph_store(self)->GraphStore:
         return self._gs
+    @property
+    def dbank(self):
+        return self._dbank
     @property
     def pace(self)->PaceController:
         return self._pc
@@ -49,18 +53,34 @@ class AgenticPipeline:
             log.info("update gate: skip (%s)",ug_res.reason)
             return {"action":"skip_update","reason":ug_res.reason,
                     "search":{"claims":len(sr.claims),"communities":len(sr.communities)}}
+        if self._dbank is None:
+            self._dbank=gen_dream_bank(sr.communities,sr.claims,self._t)
+        else:
+            self._dbank.add_episode(sr.communities,sr.claims)
         dreams=gen_dream_prompts(sr.communities,sr.claims)
-        ds_rows=[{"text":c.text,"authority":c.authority} for c in sr.chunks]
+        if sr.train_rows:
+            ds_rows=sr.train_rows
+            log.info("using %d Claude KG train_rows",len(ds_rows))
+        else:
+            ds_rows=[{"text":c.text,"authority":c.confidence} for c in sr.claims[:100]]
+            if ds_rows:
+                log.info("using %d claim-based train rows (no KG)",len(ds_rows))
+            else:
+                ds_rows=[{"text":c.text,"authority":c.authority} for c in sr.chunks]
+                log.info("using %d raw chunk train rows (fallback)",len(ds_rows))
         if not ds_rows:
-            ds_rows=[{"text":c.text,"authority":1.0} for c in sr.claims[:50]]
+            log.warning("no training data available for topic")
+            return {"action":"no_data","claims":len(sr.claims),"communities":len(sr.communities)}
         ds=Dataset.from_list(ds_rows)
         icl=self._cfg.iter_cl
         asteps=adaptive_steps(sr,icl.min_steps,icl.max_steps,
                               icl.step_alpha,icl.step_beta)
         result={"action":"train","claims":len(sr.claims),
                 "communities":len(sr.communities),"dreams":len(dreams),
-                "adaptive_steps":asteps}
-        _rfn=lambda m,d,dp:self._recipe_fn(m,d,dp,steps=asteps) if self._recipe_fn else None
+                "adaptive_steps":asteps,"train_rows":len(ds_rows),
+                "train_source":"claude_kg" if sr.train_rows else "claims_or_chunks"}
+        _db=self._dbank
+        _rfn=lambda m,d,dp:self._recipe_fn(m,d,dp,steps=asteps,dbank=_db) if self._recipe_fn else None
         if self._guard and _rfn:
             gr=self._guard.guard(self._m,sr.chunks,
                                  _rfn,ds,dreams)

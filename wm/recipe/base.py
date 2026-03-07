@@ -21,6 +21,16 @@ def dream_kl(s_logits:torch.Tensor,t_logits:torch.Tensor,
     t=F.softmax(t_logits/temp,dim=-1)
     return F.kl_div(s,t,reduction="batchmean")*(temp**2)
 
+def multi_temp_dream_kl(s_logits:torch.Tensor,t_logits:torch.Tensor,
+                        temps:list[float])->torch.Tensor:
+    B=s_logits.shape[0]
+    t_t=torch.tensor(temps,device=s_logits.device,dtype=s_logits.dtype).view(B,1,1)
+    s=F.log_softmax(s_logits/t_t,dim=-1)
+    t=F.softmax(t_logits/t_t,dim=-1)
+    kl=F.kl_div(s,t,reduction="none").sum(-1)
+    per=(kl*t_t.squeeze(-1)**2).mean(-1)
+    return per.mean()
+
 def evidence_eps(w:torch.Tensor,n:int,
                  eps_min:float=0.01,alpha:float=0.5)->float:
     return eps_min+alpha*w.mean().item()*math.log(1+n)

@@ -24,6 +24,7 @@ dev=[
   "pytest-asyncio>=0.21",
 ]
 exa=["exa-py>=1.0"]
+claude=["anthropic>=0.45"]
 neuron=["optimum-neuron>=0.0.20"]
 
 [tool.setuptools.packages.find]
@@ -32,3 +33,4 @@ include=["wm*"]
 [tool.pytest.ini_options]
 testpaths=["tests"]
 addopts="-v --tb=short"
+asyncio_mode="auto"

@@ -121,6 +121,7 @@ class SearchResult:
     chunks:list[Chunk]=field(default_factory=list)
     rounds:int=0
     sources:list[str]=field(default_factory=list)
+    train_rows:list[dict]=field(default_factory=list)
 
 @dataclass
 class SearchGateResult:
