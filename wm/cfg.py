@@ -109,6 +109,25 @@ class GuardCfg(BaseModel):
     n_bootstrap:int=1000
     enabled:bool=True
 
+class DistillCfg(BaseModel):
+    enabled:bool=True
+    n_questions:int=20
+    mu_init:float=0.5
+    mu_floor:float=0.05
+    mu_ceil:float=2.0
+    openai_api_key:str|None=None
+    gpt_model:str="gpt-5.4"
+    claude_thinking:bool=True
+    claude_think_budget:int=10000
+class NeurogenesisCfg(BaseModel):
+    enabled:bool=True
+    max_adapters:int=20
+    spawn_loss_thresh:float=2.0
+    spawn_dream_thresh:float=1.5
+    spawn_fail_thresh:int=2
+    rank_step:int=8
+    max_rank:int=128
+    ortho_weight:float=0.01
 class SearchCfg(BaseModel):
     max_rounds:int=5
     queries_per_round:int=6
@@ -117,6 +136,7 @@ class SearchCfg(BaseModel):
     mmr_lambda:float=0.7
     mmr_k:int=50
     exa_api_key:str|None=None
+    parallel_api_key:str|None=None
     model_query_gen:bool=True
     query_temp:float=0.9
     round_temps:list[float]=Field(default_factory=lambda:[0.7,0.9,1.0,1.0,1.0])
@@ -125,6 +145,8 @@ class SearchCfg(BaseModel):
     anthropic_api_key:str|None=None
     claude_model:str="claude-sonnet-4-5-20250929"
     claude_concurrency:int=10
+    use_multi_search:bool=True
+    procedural_extraction:bool=True
 
 class GraphCfg(BaseModel):
     db_path:str="./wm_graph.db"
@@ -191,3 +213,5 @@ class WMCfg(BaseModel):
     domain_bench:DomainBenchCfg=Field(default_factory=DomainBenchCfg)
     dream_bank:DreamBankCfg=Field(default_factory=DreamBankCfg)
     iter_cl:IterCLCfg=Field(default_factory=IterCLCfg)
+    distill:DistillCfg=Field(default_factory=DistillCfg)
+    neurogenesis:NeurogenesisCfg=Field(default_factory=NeurogenesisCfg)

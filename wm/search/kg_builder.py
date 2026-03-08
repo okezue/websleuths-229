@@ -24,7 +24,8 @@ class UnionFind:
 
 class KGBuilder:
     def __init__(self,api_key:str,concurrency:int=10,
-                 model:str="claude-sonnet-4-5-20250929"):
+                 model:str="claude-sonnet-4-5-20250929",
+                 procedural:bool=True,domain:str=""):
         from anthropic import AsyncAnthropic
         self._client=AsyncAnthropic(api_key=api_key)
         self._sem=asyncio.Semaphore(concurrency)
@@ -33,6 +34,9 @@ class KGBuilder:
         self._entities:list[dict]=[]
         self._rels:list[dict]=[]
         self._merge_map:dict[str,str]={}
+        self._procedural=procedural
+        self._domain=domain
+        self._proc_rows:list[dict]=[]
 
     async def extract_round(self,results:list[dict],topic:str,
                             known:list[str])->None:
@@ -115,14 +119,39 @@ class KGBuilder:
                 "claim_indices":grp})
         return communities
 
+    async def _extract_procedural(self,results:list[dict],topic:str)->None:
+        if not self._procedural:
+            return
+        try:
+            from wm.search.procedural_kg import extract_procedural,procedural_to_train_rows,gen_benchmark_questions,benchmark_q_to_train_rows
+            tasks=[]
+            for r in results:
+                txt=r.get("text","")
+                if len(txt)<50:continue
+                tasks.append(extract_procedural(
+                    self._client,txt,self._domain or "general",topic,
+                    self._sem,model=self._model))
+            pks=await asyncio.gather(*tasks,return_exceptions=True)
+            all_concepts=[]
+            for pk in pks:
+                if isinstance(pk,Exception):continue
+                self._proc_rows.extend(procedural_to_train_rows(pk))
+                all_concepts.extend(pk.concepts)
+            if all_concepts:
+                bqs=await gen_benchmark_questions(
+                    self._client,self._domain or "general",topic,
+                    all_concepts,self._sem,n=10,model=self._model)
+                self._proc_rows.extend(benchmark_q_to_train_rows(bqs))
+        except Exception as e:
+            log.warning("procedural extraction failed: %s",e)
     async def gen_training_data(self,communities:list[dict],
                                 topic:str)->list[dict]:
         rows=[]
         for c in self._claims:
-            rows.append({"text":c["text"],"authority":c.get("confidence",0.5)})
+            rows.append({"text":c["text"],"authority":c.get("confidence",0.5),"source":"factual"})
         for r in self._rels:
             s=f"{r['source']} {r['relation']} {r['target']}."
-            rows.append({"text":s,"authority":0.7})
+            rows.append({"text":s,"authority":0.7,"source":"factual"})
         summ_tasks=[]
         for co in communities:
             texts=[self._claims[i]["text"] for i in co["claim_indices"]]
@@ -133,7 +162,8 @@ class KGBuilder:
             if isinstance(ss,Exception):
                 continue
             for s in ss:
-                rows.append({"text":s,"authority":0.9})
+                rows.append({"text":s,"authority":0.9,"source":"factual"})
+        rows.extend(self._proc_rows)
         return rows
 
     def _to_typed(self)->tuple[list[Claim],list[Entity],list[Community]]:
@@ -147,6 +177,7 @@ class KGBuilder:
     async def _run(self,results:list[dict],topic:str,
                    known:list[str])->tuple[list[Claim],list[Entity],list[Community],list[dict]]:
         await self.extract_round(results,topic,known)
+        await self._extract_procedural(results,topic)
         await self.resolve()
         raw_comms=await self.build_communities()
         train_rows=await self.gen_training_data(raw_comms,topic)

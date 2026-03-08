@@ -69,10 +69,11 @@ def _chunk_text(text:str,eid:str,max_tok:int=512)->list[Chunk]:
     return chunks
 
 class AgenticSearcher:
-    def __init__(self,cfg:SearchCfg,model=None,tok=None):
+    def __init__(self,cfg:SearchCfg,model=None,tok=None,domain:str=""):
         self._cfg=cfg
         self._m=model
         self._t=tok
+        self._domain=domain
     def search(self,topic:str)->SearchResult:
         all_claims=[]
         all_entities=[]
@@ -101,7 +102,18 @@ class AgenticSearcher:
                 ent_names=[e.name for e in all_entities]
                 qs=_entity_queries(ent_names,topic)[:self._cfg.queries_per_round]
                 if not qs:qs=_template_queries(topic)
-            raw=_fetch_exa(qs,self._cfg.exa_api_key,self._cfg.res_per_query)
+            if self._cfg.use_multi_search and rnd==0:
+                try:
+                    from wm.search.multi_search import MultiSearcher
+                    ms=MultiSearcher(exa_key=self._cfg.exa_api_key,
+                                     parallel_key=self._cfg.parallel_api_key)
+                    wr=ms.search(topic,n_results=self._cfg.res_per_query*2)
+                    raw=ms.to_raw_dicts(wr)
+                except Exception as ex:
+                    log.warning("multi_search failed, falling back to exa: %s",ex)
+                    raw=_fetch_exa(qs,self._cfg.exa_api_key,self._cfg.res_per_query)
+            else:
+                raw=_fetch_exa(qs,self._cfg.exa_api_key,self._cfg.res_per_query)
             raw_all.extend(raw)
             for r in raw:
                 url=r.get("url","")

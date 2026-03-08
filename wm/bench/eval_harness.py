@@ -92,6 +92,14 @@ class DomainEvalHarness:
         idx=list(range(len(ds)))
         rng.shuffle(idx)
         return idx[:n]
+    def eval_bench(self,name:str,n=0)->BenchScore:
+        self._m.eval()
+        fn={"finqa":self._eval_finqa,"lexglue":self._eval_lexglue,
+            "chembench":self._eval_chembench,"medqa":self._eval_medqa,
+            "gpqa":self._eval_gpqa,"olympiad":self._eval_olympiad,
+            "labbench":self._eval_labbench,"aime":self._eval_aime}.get(name)
+        if fn:return fn(n)
+        return BenchScore(name=name,acc=0.0,n=0)
     def eval_domain(self,domain:str,n=0)->BenchScore:
         self._m.eval()
         if domain=="finance":return self._eval_finqa(n)
@@ -232,6 +240,131 @@ class DomainEvalHarness:
             if pred==gold:cor+=1
             tot+=1
         return BenchScore(name="medqa",acc=cor/max(tot,1),n=tot)
+    def _eval_gpqa(self,n=0)->BenchScore:
+        ds=self._load_ds("Idavidrein/gpqa","gpqa_diamond",split="train")
+        if ds is None:ds=self._load_ds("Idavidrein/gpqa","gpqa_main",split="train")
+        if ds is None:
+            _log.warning("gpqa: no dataset found")
+            return BenchScore(name="gpqa",acc=0.0,n=0)
+        _log.info("gpqa: loaded %d rows",len(ds))
+        idx=self._sample(ds,n)
+        cor,tot=0,0
+        for i in idx:
+            row=ds[i]
+            q=row.get("Question","") or row.get("question","")
+            choices=[]
+            for k in ["Correct Answer","Incorrect Answer 1","Incorrect Answer 2","Incorrect Answer 3"]:
+                v=row.get(k,"")
+                if v:choices.append(v)
+            if not choices:
+                for k in ["choice1","choice2","choice3","choice4"]:
+                    v=row.get(k,"")
+                    if v:choices.append(v)
+            gold_txt=row.get("Correct Answer","") or row.get("answer","")
+            if not choices or not q:tot+=1;continue
+            gold="A"
+            for ci,c in enumerate(choices):
+                if c==gold_txt and ci<len(_LETTERS):
+                    gold=_LETTERS[ci];break
+            prompt=_format_mcq(q,choices[:4])
+            gen=_gen(self._m,self._t,prompt,max_tok=8,dev=self._dev)
+            pred=_extract_letter(gen)
+            if pred==gold:cor+=1
+            tot+=1
+        return BenchScore(name="gpqa",acc=cor/max(tot,1),n=tot)
+    def _eval_olympiad(self,n=0)->BenchScore:
+        ds=self._load_ds("GAIR/OlympiadBench",split="test")
+        if ds is None:ds=self._load_ds("GAIR/OlympiadBench",split="train")
+        if ds is None:
+            _log.warning("olympiad: no dataset found")
+            return BenchScore(name="olympiad",acc=0.0,n=0)
+        _log.info("olympiad: loaded %d rows",len(ds))
+        idx=self._sample(ds,n)
+        cor,tot=0,0
+        for i in idx:
+            row=ds[i]
+            q=row.get("question","") or row.get("problem","")
+            ans=row.get("answer","") or row.get("final_answer","")
+            choices=row.get("options",[]) or row.get("choices",[])
+            if isinstance(choices,list) and choices:
+                gold=str(ans).upper()
+                if gold not in _LETTERS:
+                    if isinstance(ans,int) and ans<len(_LETTERS):gold=_LETTERS[ans]
+                    else:gold="A"
+                prompt=_format_mcq(q,choices[:4])
+                gen=_gen(self._m,self._t,prompt,max_tok=8,dev=self._dev)
+                pred=_extract_letter(gen)
+                if pred==gold:cor+=1
+            else:
+                prompt=f"Q: {q}\nAnswer:"
+                gen=_gen(self._m,self._t,prompt,max_tok=32,dev=self._dev)
+                pred_n=_extract_number(gen)
+                gold_n=_extract_number(str(ans))
+                if pred_n is not None and gold_n is not None:
+                    if _num_close(pred_n,gold_n,tol=0.05):cor+=1
+                elif str(ans).strip().lower() in gen.strip().lower():
+                    cor+=1
+            tot+=1
+        return BenchScore(name="olympiad",acc=cor/max(tot,1),n=tot)
+    def _eval_labbench(self,n=0)->BenchScore:
+        ds=self._load_ds("futurehouse/lab-bench",split="test")
+        if ds is None:ds=self._load_ds("futurehouse/lab-bench",split="train")
+        if ds is None:
+            _log.warning("labbench: no dataset found")
+            return BenchScore(name="labbench",acc=0.0,n=0)
+        _log.info("labbench: loaded %d rows",len(ds))
+        idx=self._sample(ds,n)
+        cor,tot=0,0
+        for i in idx:
+            row=ds[i]
+            q=row.get("question","") or row.get("input","")
+            ans=row.get("answer","") or row.get("target","")
+            choices=row.get("options",[]) or row.get("choices",[])
+            if isinstance(choices,list) and len(choices)>=2:
+                gold=str(ans).upper()
+                if gold not in _LETTERS:
+                    if isinstance(ans,int) and ans<len(_LETTERS):gold=_LETTERS[ans]
+                    else:gold="A"
+                prompt=_format_mcq(q,choices[:4])
+                gen=_gen(self._m,self._t,prompt,max_tok=8,dev=self._dev)
+                pred=_extract_letter(gen)
+                if pred==gold:cor+=1
+            else:
+                prompt=f"Q: {q}\nAnswer:"
+                gen=_gen(self._m,self._t,prompt,max_tok=64,dev=self._dev)
+                if str(ans).strip().lower() in gen.strip().lower():cor+=1
+            tot+=1
+        return BenchScore(name="labbench",acc=cor/max(tot,1),n=tot)
+    def _eval_aime(self,n=0)->BenchScore:
+        ds=self._load_ds("AI-MO/aimo-validation-aime",split="train")
+        if ds is None:ds=self._load_ds("Maxwell-Jia/AIME_2024",split="train")
+        if ds is None:ds=self._load_ds("di-dimitrov/aime-problem-set",split="train")
+        if ds is None:
+            _log.warning("aime: no dataset found")
+            return BenchScore(name="aime",acc=0.0,n=0)
+        _log.info("aime: loaded %d rows",len(ds))
+        idx=self._sample(ds,n)
+        cor,tot=0,0
+        for i in idx:
+            row=ds[i]
+            q=row.get("problem","") or row.get("question","")
+            ans=row.get("answer","") or row.get("solution","")
+            prompt=f"Solve this math competition problem. Give only the final integer answer.\n\nProblem: {q}\n\nAnswer:"
+            gen=_gen(self._m,self._t,prompt,max_tok=32,dev=self._dev)
+            pred_n=_extract_number(gen)
+            gold_n=_extract_number(str(ans))
+            if pred_n is not None and gold_n is not None:
+                if abs(pred_n-gold_n)<0.5:cor+=1
+            tot+=1
+        return BenchScore(name="aime",acc=cor/max(tot,1),n=tot)
+    def eval_capability(self,bench:str,n=0)->BenchScore:
+        self._m.eval()
+        return self.eval_bench(bench,n)
+    def eval_all_capabilities(self,n=0)->dict[str,BenchScore]:
+        out={}
+        for b in ["gpqa","olympiad","labbench","aime"]:
+            out[b]=self.eval_capability(b,n)
+        return out
     def eval_mmlu(self,domain:str,n=0)->BenchScore:
         self._m.eval()
         subj=_MMLU_MAP.get(domain)
