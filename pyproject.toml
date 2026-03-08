@@ -31,6 +31,14 @@ parallel=["parallel-web>=0.1"]
 openai=["openai>=1.0"]
 analysis=["circuit-tracer","flask","flask_cors","easydict"]
 
+ranking=[
+    "scrapy>=2.10.0",
+    "crochet>=2.0.0",
+    "twisted>=25.5.0",
+    "pydispatch>=1.1.0",
+    "networkx>=3.5"
+]
+
 [tool.setuptools.packages.find]
 include=["wm*"]
 
