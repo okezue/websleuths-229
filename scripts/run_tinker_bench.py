@@ -52,8 +52,14 @@ def tinker_eval_mmlu(runner,tok,domain:str,n:int=50)->dict:
             prompt+=f"{letters[ci]}) {c}\n"
         prompt+="Answer:"
         try:
-            resp=runner.sample(prompt,tok,max_tokens=8,temp=0.0)
-            pred=resp.strip()[0].upper() if resp.strip() else ""
+            resp=runner.sample(prompt,tok,max_tokens=64,temp=0.01)
+            import re as _re
+            clean=_re.sub(r'<think>.*?</think>','',resp,flags=_re.DOTALL).strip()
+            if not clean:clean=resp.strip()
+            pred=""
+            for ch in clean:
+                if ch.upper() in letters:
+                    pred=ch.upper();break
         except:
             pred=""
         if isinstance(ans,int) and ans<4:gold=letters[ans]
@@ -142,6 +148,9 @@ def main():
     report={"config":{"model":args.model,"lora_r":args.lora_r,
                        "lr":args.lr,"bs":args.bs,"steps":args.steps,
                        "backend":"tinker","extraction":extraction_backend}}
+
+    pr("INITIALIZING TINKER CLIENTS")
+    runner.init_clients()
 
     pr("PHASE 1: BASELINE EVAL (pre-training)")
     bl_mmlu={}

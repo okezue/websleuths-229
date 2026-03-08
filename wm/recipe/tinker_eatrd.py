@@ -42,20 +42,34 @@ class TinkerEATRDRunner:
         self.dn=dream_n
         if tinker_api_key:
             os.environ["TINKER_API_KEY"]=tinker_api_key
+        self._tc=None
+        self._sc=None
+        self._teacher_sc=None
+        self._ckp_path=None
+
+    def init_clients(self):
+        import tinker
+        log.info("tinker_eatrd: creating clients for %s rank=%d",
+                 self.model_name,self.lora_rank)
+        sc=tinker.ServiceClient()
+        self._tc=sc.create_lora_training_client(
+            base_model=self.model_name,rank=self.lora_rank)
+        self._sc=self._tc.save_weights_and_get_sampling_client(
+            name="eatrd_init")
+        self._teacher_sc=self._tc.save_weights_and_get_sampling_client(
+            name="eatrd_teacher_snap")
+        log.info("tinker_eatrd: clients ready")
 
     def run(self,ds,dream_prompts:list[str],tok,
             dbank=None)->TrainResult:
         import tinker
         from tinker import TensorData
 
-        log.info("tinker_eatrd: creating clients for %s rank=%d",
-                 self.model_name,self.lora_rank)
-        sc=tinker.ServiceClient()
-        tc=sc.create_lora_training_client(
-            base_model=self.model_name,rank=self.lora_rank)
-        teacher_sc=tc.save_weights_and_get_sampling_client(
-            name="eatrd_teacher_snap")
-        log.info("tinker_eatrd: teacher snapshot saved, starting training")
+        if self._tc is None:
+            self.init_clients()
+        tc=self._tc
+        teacher_sc=self._teacher_sc
+        log.info("tinker_eatrd: starting training round")
 
         ep_texts=[]
         ep_weights=[]
@@ -154,11 +168,9 @@ class TinkerEATRDRunner:
                          " [warmup]" if step<warmup_steps else "")
 
         log.info("tinker_eatrd: training complete, saving checkpoint")
-        ckp_path=tc.save_state(name="eatrd_final").result().path
-        log.info("tinker_eatrd: checkpoint at %s",ckp_path)
-
-        self._tc=tc
-        self._teacher_sc=teacher_sc
+        ckp_path=tc.save_state(name=f"eatrd_step{steps}").result().path
+        self._sc=tc.save_weights_and_get_sampling_client(name=f"eatrd_post_{steps}")
+        log.info("tinker_eatrd: checkpoint at %s, sampling client updated",ckp_path)
         self._ckp_path=ckp_path
 
         avg_loss=tot_loss/max(steps,1)
@@ -172,16 +184,20 @@ class TinkerEATRDRunner:
                            history=hist)
 
     def get_sampling_client(self,name:str="eatrd_sampler"):
-        if hasattr(self,"_tc"):
-            return self._tc.save_weights_and_get_sampling_client(name=name)
-        return None
+        if self._tc is not None:
+            self._sc=self._tc.save_weights_and_get_sampling_client(name=name)
+        return self._sc
 
     def sample(self,prompt:str,tok,max_tokens:int=256,temp:float=0.7)->str:
         import tinker
-        sc=self.get_sampling_client()
-        if sc is None:
-            raise RuntimeError("no training client, run() first")
-        mi=_make_model_input(tok,prompt)
-        sp=tinker.SamplingParams(max_tokens=max_tokens,temperature=temp,top_p=0.95)
-        resp=sc.sample(mi,num_samples=1,sampling_params=sp).result()
-        return resp.outputs[0].text if resp.outputs else ""
+        if self._sc is None:
+            if self._tc is None:
+                self.init_clients()
+            else:
+                self._sc=self._tc.save_weights_and_get_sampling_client(name="eatrd_sample")
+        mi=_make_model_input(tok,prompt,self.ml)
+        sp=tinker.SamplingParams(max_tokens=max_tokens,temperature=max(temp,0.01),top_p=0.95)
+        resp=self._sc.sample(mi,num_samples=1,sampling_params=sp).result()
+        if resp.sequences:
+            return tok.decode(resp.sequences[0].tokens,skip_special_tokens=True)
+        return ""
