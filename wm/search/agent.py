@@ -133,6 +133,13 @@ class AgenticSearcher:
                 rnd+=1
                 break
             prev_n=len(all_claims)
+        if raw_all:
+            try:
+                from wm.gate.authority import rank_raw_results
+                raw_all=rank_raw_results(raw_all)
+                log.info("pagerank: scored %d results",len(raw_all))
+            except Exception as ex:
+                log.debug("pagerank scoring skipped: %s",ex)
         if all_chunks and all_claims:
             sel=mmr_select([c.text for c in all_chunks],topic,
                            k=self._cfg.mmr_k,lam=self._cfg.mmr_lambda)

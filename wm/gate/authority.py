@@ -1,91 +1,102 @@
 from __future__ import annotations
+import logging
 from wm.types import Episode
 
-import scrapy
-from scrapy.crawler import CrawlerRunner
-from crochet import setup, wait_for
-from pydispatch import dispatcher
-from scrapy import signals
-import twisted
-import networkx as nx
+log=logging.getLogger(__name__)
 
-# 4. Execute the crawling process
-
-def rank_urls(urls: list[str]) -> dict[str, float]:
+def rank_urls(urls:list[str])->dict[str,float]:
+    if not urls:
+        return {}
+    try:
+        import scrapy
+        from scrapy.crawler import CrawlerRunner
+        from crochet import setup,wait_for
+        from pydispatch import dispatcher
+        from scrapy import signals
+        import twisted
+        import networkx as nx
+    except ImportError:
+        log.debug("scrapy/crochet/networkx not installed, skipping pagerank")
+        return {u:1.0 for u in urls}
+    urls=[u for u in urls if u and u.startswith("http")]
+    if not urls:
+        return {}
     class LinkSpider(scrapy.Spider):
-        name = "link_spider"
-
-        def __init__(self, *args, **kwargs):
-            super(LinkSpider, self).__init__(*args, **kwargs)
-            self.start_urls = urls
-
-        def parse(self, response):
-            links = response.css('a::attr(href)').getall()
-            for link in links:
+        name="link_spider"
+        def __init__(self,*a,**kw):
+            super().__init__(*a,**kw)
+            self.start_urls=urls
+        def parse(self,response):
+            for link in response.css('a::attr(href)').getall():
                 if link:
-                    absolute_url = response.urljoin(link)
-                    yield {
-                        'source': response.url,
-                        'target': absolute_url
-                    }
-
-    # 3. Initialize crochet
+                    yield {'source':response.url,'target':response.urljoin(link)}
     setup()
-
-    # List to store the scraped items
-    extracted_links = []
-
+    extracted=[]
     def item_passed(item):
-        extracted_links.append(item)
-
-    dispatcher.connect(item_passed, signal=signals.item_scraped)
-
+        extracted.append(item)
+    dispatcher.connect(item_passed,signal=signals.item_scraped)
     @wait_for(timeout=60.0)
     def run_spider():
-        # Get the name of the currently installed reactor to avoid mismatch errors
-        current_reactor = f"{twisted.internet.reactor.__class__.__module__}.{twisted.internet.reactor.__class__.__name__}"
-
-        runner = CrawlerRunner(settings={
-            'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.34 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.34',
-            'LOG_LEVEL': 'ERROR',
-            'TWISTED_REACTOR': current_reactor
-        })
+        cr=f"{twisted.internet.reactor.__class__.__module__}.{twisted.internet.reactor.__class__.__name__}"
+        runner=CrawlerRunner(settings={
+            'USER_AGENT':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'LOG_LEVEL':'ERROR','TWISTED_REACTOR':cr})
         return runner.crawl(LinkSpider)
+    try:
+        run_spider()
+    except Exception as e:
+        log.warning("scrapy crawl failed: %s",e)
+        return {u:1.0 for u in urls}
+    G=nx.DiGraph()
+    for edge in extracted:
+        s=edge.get('source');t=edge.get('target')
+        if s and t:G.add_edge(s,t)
+    if len(G)==0:
+        return {u:1.0 for u in urls}
+    pr=nx.pagerank(G)
+    scores={u:pr.get(u,0) for u in urls}
+    mx=max(scores.values()) if scores else 0
+    if mx>0:
+        scores={u:s/mx for u,s in scores.items()}
+    else:
+        scores={u:1.0 for u in urls}
+    return scores
 
-    run_spider()
-
-    # Initialize a new directed graph object
-    G = nx.DiGraph()
-
-    # Iterate through the extracted_links and add edges to the graph
-    for edge in extracted_links:
-        source = edge.get('source')
-        target = edge.get('target')
-        if source and target:
-            G.add_edge(source, target)
-
-    pagerank_scores = nx.pagerank(G)
-
-    # 2. Filter the scores to include only the original seed_urls
-    # We check if the URL exists in the graph to avoid KeyErrors
-    seed_scores = {url: pagerank_scores.get(url, 0) for url in urls}
-    max_score = max(seed_scores.values())
-    for url, score in seed_scores.items():
-        seed_scores[url] = score / max_score
-
-    return seed_scores
-
+def rank_raw_results(results:list[dict])->list[dict]:
+    urls=[r.get("url","") for r in results]
+    urls=[u for u in urls if u]
+    if not urls:
+        return results
+    try:
+        scores=rank_urls(urls)
+    except Exception as e:
+        log.warning("pagerank scoring failed: %s",e)
+        return results
+    for r in results:
+        u=r.get("url","")
+        if u in scores:
+            old=r.get("authority",0.5)
+            r["authority"]=(old+scores[u])/2
+            r["pagerank"]=scores[u]
+    results.sort(key=lambda r:r.get("authority",0),reverse=True)
+    return results
 
 def exa_authority(eps:list[Episode])->list[Episode]:
     if not eps:return eps
-
-    seed_scores = rank_urls([e.url for e in eps])
-
+    urls=[e.url for e in eps if e.url]
+    if urls:
+        try:
+            scores=rank_urls(urls)
+        except Exception as e:
+            log.warning("pagerank failed, using exa authority only: %s",e)
+            scores={}
+    else:
+        scores={}
     mx=max((e.authority for e in eps),default=1.0) or 1.0
     for e in eps:
-        exa_score = e.authority / mx
-        e.authority = (exa_score + seed_scores[e.url]) / 2
-
+        exa_score=e.authority/mx
+        pr_score=scores.get(e.url,exa_score)
+        e.authority=(exa_score+pr_score)/2
     eps.sort(key=lambda e:e.authority,reverse=True)
     return eps
 
