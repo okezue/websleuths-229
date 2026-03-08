@@ -52,7 +52,7 @@ def tinker_eval_mmlu(runner,tok,domain:str,n:int=50)->dict:
             prompt+=f"{letters[ci]}) {c}\n"
         prompt+="Answer:"
         try:
-            resp=runner.sample(prompt,tok,max_tokens=64,temp=0.01)
+            resp=runner.sample(prompt,tok,max_tokens=64,temp=0.01,timeout=45.0)
             import re as _re
             clean=_re.sub(r'<think>.*?</think>','',resp,flags=_re.DOTALL).strip()
             if not clean:clean=resp.strip()

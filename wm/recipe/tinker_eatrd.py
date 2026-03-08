@@ -79,11 +79,14 @@ class TinkerEATRDRunner:
             ep_weights.append(row.get("authority",1.0))
 
         if dbank is not None:
-            dream_texts=[]
-            for _ in range(max(self.dn*self.ms,50)):
-                st=dbank.sample_texts(1)
-                if st:dream_texts.extend(st)
-            dream_texts=dream_texts[:self.dn*self.ms]
+            import random as _rnd
+            pool=[]
+            for bk,prompts in dbank._b.items():
+                pool.extend(prompts)
+            if pool:
+                dream_texts=[_rnd.choice(pool) for _ in range(self.dn*self.ms)]
+            else:
+                dream_texts=dream_prompts[:self.dn*self.ms]
         else:
             dream_texts=dream_prompts*((self.dn*self.ms//max(len(dream_prompts),1))+1)
             dream_texts=dream_texts[:self.dn*self.ms]
@@ -188,7 +191,8 @@ class TinkerEATRDRunner:
             self._sc=self._tc.save_weights_and_get_sampling_client(name=name)
         return self._sc
 
-    def sample(self,prompt:str,tok,max_tokens:int=256,temp:float=0.7)->str:
+    def sample(self,prompt:str,tok,max_tokens:int=256,temp:float=0.7,
+               timeout:float=60.0)->str:
         import tinker
         if self._sc is None:
             if self._tc is None:
@@ -197,7 +201,10 @@ class TinkerEATRDRunner:
                 self._sc=self._tc.save_weights_and_get_sampling_client(name="eatrd_sample")
         mi=_make_model_input(tok,prompt,self.ml)
         sp=tinker.SamplingParams(max_tokens=max_tokens,temperature=max(temp,0.01),top_p=0.95)
-        resp=self._sc.sample(mi,num_samples=1,sampling_params=sp).result()
-        if resp.sequences:
-            return tok.decode(resp.sequences[0].tokens,skip_special_tokens=True)
+        try:
+            resp=self._sc.sample(mi,num_samples=1,sampling_params=sp).result(timeout=timeout)
+            if resp.sequences:
+                return tok.decode(resp.sequences[0].tokens,skip_special_tokens=True)
+        except Exception as e:
+            log.warning("tinker sample failed: %s",e)
         return ""
