@@ -41,6 +41,7 @@ class DreamCfg(BaseModel):
 class TrainCfg(BaseModel):
     backend:Literal["hf","neuron","tinker"]="hf"
     base_model:str="meta-llama/Llama-3.2-1B"
+    tinker_api_key:str|None=None
     epochs:int=3
     bs:int=4
     lr:float=2e-4

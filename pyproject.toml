@@ -26,6 +26,7 @@ dev=[
 exa=["exa-py>=1.0"]
 claude=["anthropic>=0.45"]
 neuron=["optimum-neuron>=0.0.20"]
+tinker=["tinker"]
 
 [tool.setuptools.packages.find]
 include=["wm*"]
