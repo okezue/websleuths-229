@@ -26,6 +26,14 @@ dev=[
 exa=["exa-py>=1.0"]
 neuron=["optimum-neuron>=0.0.20"]
 
+ranking=[
+    "scrapy>=2.10.0",
+    "crochet>=2.0.0",
+    "twisted>=25.5.0",
+    "pydispatch>=1.1.0",
+    "networkx>=3.5"
+]
+
 [tool.setuptools.packages.find]
 include=["wm*"]
 
