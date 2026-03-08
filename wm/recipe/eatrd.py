@@ -9,13 +9,15 @@ class EATRDRunner:
     def __init__(self,lr=2e-4,max_steps=100,bs=4,temp=2.0,
                  eps_min=0.01,alpha=0.5,rho=0.01,lam_init=1.0,
                  max_len=512,dream_n=4,dream_len=128,
-                 d_targ=0.5,lam_floor=0.01,lam_ceil=10.0,use_pi=True):
+                 d_targ=0.5,lam_floor=0.01,lam_ceil=10.0,use_pi=True,
+                 pi_warmup_frac=0.15):
         self.lr=lr;self.ms=max_steps;self.bs=bs;self.temp=temp
         self.eps_min=eps_min;self.alpha=alpha;self.rho=rho
         self.lam=lam_init;self.max_len=max_len
         self.dn=dream_n;self.dl=dream_len
         self.d_targ=d_targ;self.lam_floor=lam_floor
         self.lam_ceil=lam_ceil;self.use_pi=use_pi
+        self.pi_warmup_frac=pi_warmup_frac
     def run(self,model,teacher,ds,dream_prompts:list[str],tok,
             dbank=None)->TrainResult:
         dev=next(model.parameters()).device
@@ -28,6 +30,7 @@ class EATRDRunner:
         all_w=torch.tensor([ds[i].get("authority",1.0) for i in range(len(ds))])
         eps_k=evidence_eps(all_w,n_ep,self.eps_min,self.alpha)
         lam=self.lam
+        warmup_steps=max(1,int(self.ms*self.pi_warmup_frac)) if self.ms>0 else 10
         tot_loss,tot_dl,steps=0.0,0.0,0
         hist=[]
         done=False
@@ -65,17 +68,17 @@ class EATRDRunner:
                 opt.step()
                 with torch.no_grad():
                     d=l_dr.item()
-                    if self.use_pi:
+                    if self.use_pi and steps>=warmup_steps:
                         if d<self.d_targ/1.5:
-                            lam=lam/2
+                            lam=lam*0.9
                         elif d>1.5*self.d_targ:
-                            lam=lam*2
+                            lam=lam*1.5
                         lam=max(self.lam_floor,min(self.lam_ceil,lam))
-                    else:
+                    elif not self.use_pi:
                         lam=max(0.0,lam+self.rho*(d-eps_k))
                 tot_loss+=l_ep.item();tot_dl+=d;steps+=1
                 hist.append({"loss":l_ep.item(),"dream_loss":d,"lambda":lam,
-                             "eps_k":eps_k,"d_targ":self.d_targ})
+                             "eps_k":eps_k,"d_targ":self.d_targ,"warmup":steps<warmup_steps})
             if self.ms<=0:break
         avg_loss=tot_loss/max(steps,1)
         avg_dl=tot_dl/max(steps,1)

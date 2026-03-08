@@ -43,7 +43,8 @@ def make_recipe_fn(name,tok,bs=2,lr=2e-4,ml=256,dn=4,dl=64):
             r=EATRDRunner(lr=lr,max_steps=steps,bs=bs,temp=2.0,
                 eps_min=0.01,alpha=0.5,rho=0.01,lam_init=1.0,
                 max_len=ml,dream_n=dn,dream_len=dl,
-                d_targ=0.5,lam_floor=0.01,lam_ceil=10.0,use_pi=True)
+                d_targ=0.5,lam_floor=0.01,lam_ceil=10.0,use_pi=True,
+                pi_warmup_frac=0.15)
             res=r.run(model,teacher,ds,dreams,tok,dbank=dbank)
         elif name=="dpmu":
             r=DPMURunner(lr=lr,max_steps=steps,bs=bs,temp=2.0,
