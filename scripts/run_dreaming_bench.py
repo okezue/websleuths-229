@@ -10,15 +10,17 @@ from wm.cfg import (WMCfg,SearchCfg,GraphCfg,GuardCfg,IterCLCfg,
                      SearchGateCfg,UpdateGateCfg,PaceCfg)
 from wm.recipe import EATRDRunner,DPMURunner,EABSSCRunner
 from wm.dream.bank import DreamBank
+from wm.dream.hdm import hard_dream_mine
 from wm.bench.eval_harness import DomainEvalHarness
 from wm.bench.iterative import TOPIC_SCHEDULE
 from wm.bench.plots import (plot_train_loss,plot_dream_loss,plot_lambda_evo,
     plot_dual_loss,plot_mmlu_prog,plot_domain_compare,
-    plot_retention_heatmap,plot_adaptive_steps)
+    plot_retention_heatmap,plot_adaptive_steps,
+    plot_anchor_drift,plot_dream_bank_growth,plot_before_after)
 from wm.pipe.loop import AgenticPipeline
 from wm.eval.anchor import AnchorEval
 
-log=logging.getLogger("full_bench")
+log=logging.getLogger("dreaming_bench")
 DEV=torch.device("cuda" if torch.cuda.is_available() else "cpu")
 DOMAINS=["finance","legal","chemistry","medicine"]
 
@@ -67,12 +69,34 @@ def bs_dict(bs):
     if hasattr(bs,"acc"):return {"name":bs.name,"acc":bs.acc,"n":bs.n}
     return bs
 
+def log_recipe_diag(tr,recipe_name,dbank,log):
+    if not tr:return
+    ex=tr.extras or {}
+    diag={}
+    if recipe_name=="eatrd":
+        diag["lambda"]=ex.get("lambda",0)
+        diag["eps_k"]=ex.get("eps_k",0)
+        diag["d_targ"]=ex.get("d_targ",0)
+        diag["use_pi"]=ex.get("use_pi",False)
+        if tr.history:
+            diag["lambda_start"]=tr.history[0].get("lambda",0)
+            diag["lambda_end"]=tr.history[-1].get("lambda",0)
+    elif recipe_name=="dpmu":
+        if tr.history:
+            cached=[h.get("cached",False) for h in tr.history]
+            diag["cached_grad_pct"]=sum(cached)/max(len(cached),1)*100
+            diag["n_grads"]=tr.history[-1].get("n_grads",0)
+    if dbank:
+        diag["bucket_sizes"]=dbank.bucket_sizes()
+    log.info("  recipe_diag: %s",{k:(f"{v:.4f}" if isinstance(v,float) else v) for k,v in diag.items()})
+    return diag
+
 def main():
-    ap=argparse.ArgumentParser(description="Full CL benchmark with backtesting")
+    ap=argparse.ArgumentParser(description="Dreaming++ comprehensive benchmark")
     ap.add_argument("--model",default="Qwen/Qwen2.5-1.5B")
     ap.add_argument("--recipe",default="dpmu",choices=["eatrd","dpmu","eab_ssc"])
     ap.add_argument("--lora-r",type=int,default=32)
-    ap.add_argument("--out",default="/tmp/wm_full_bench")
+    ap.add_argument("--out",default="/tmp/wm_dreaming_bench")
     ap.add_argument("--exa-key",default=os.environ.get("EXA_API_KEY",""))
     ap.add_argument("--lr",type=float,default=2e-4)
     ap.add_argument("--bs",type=int,default=2)
@@ -80,7 +104,9 @@ def main():
     ap.add_argument("--min-steps",type=int,default=30)
     ap.add_argument("--max-steps",type=int,default=150)
     ap.add_argument("--hf-token",default=os.environ.get("HF_TOKEN",""))
-    ap.add_argument("--eval-n",type=int,default=0,help="0=full eval, >0=sample N")
+    ap.add_argument("--eval-n",type=int,default=0,help="0=full eval")
+    ap.add_argument("--mmlu-every",type=int,default=2,help="run MMLU every N topics during FT")
+    ap.add_argument("--example-n",type=int,default=5,help="example outputs per domain")
     args=ap.parse_args()
     if args.hf_token:os.environ["HF_TOKEN"]=args.hf_token
 
@@ -92,15 +118,16 @@ def main():
                                        datefmt="%H:%M:%S"))
     logging.getLogger().addHandler(fh)
 
-    pr(f"FULL BENCHMARK: {args.model} recipe={args.recipe} lora_r={args.lora_r}")
+    pr(f"DREAMING++ BENCHMARK: {args.model} recipe={args.recipe} lora_r={args.lora_r}")
     log.info("device: %s",DEV)
     if DEV.type=="cuda":
-        log.info("  GPU: %s VRAM: %.1fGB",torch.cuda.get_device_name(0),
-                 torch.cuda.get_device_properties(0).total_mem/1e9
-                 if hasattr(torch.cuda.get_device_properties(0),"total_mem")
-                 else torch.cuda.get_device_properties(0).total_memory/1e9)
+        gp=torch.cuda.get_device_properties(0)
+        vm=gp.total_mem if hasattr(gp,"total_mem") else gp.total_memory
+        log.info("  GPU: %s VRAM: %.1fGB",torch.cuda.get_device_name(0),vm/1e9)
+        log.info("  GPU count: %d",torch.cuda.device_count())
     log.info("eval_n=%d (%s)",args.eval_n,"FULL" if args.eval_n<=0 else f"sample {args.eval_n}")
     en=args.eval_n
+    exn=args.example_n
 
     pr("LOADING MODEL")
     t0=time.time()
@@ -113,41 +140,51 @@ def main():
     base=get_peft_model(base,lc)
     base.print_trainable_parameters()
     snap={k:v.clone() for k,v in base.state_dict().items()}
+    teacher_snap=copy.deepcopy(base).eval()
     log.info("model loaded in %.1fs",time.time()-t0)
 
     rfn=make_recipe_fn(args.recipe,tok,bs=args.bs,lr=args.lr,ml=args.ml)
     report={"config":{"model":args.model,"recipe":args.recipe,"lora_r":args.lora_r,
                        "lr":args.lr,"bs":args.bs,"ml":args.ml,
                        "min_steps":args.min_steps,"max_steps":args.max_steps,
-                       "eval_n":en,"device":str(DEV)}}
+                       "eval_n":en,"mmlu_every":args.mmlu_every,
+                       "example_n":exn,"device":str(DEV)}}
 
     pr("PHASE 1: BASELINE FULL EVAL")
     t1=time.time()
     h=DomainEvalHarness(base,tok,n_samples=100,seed=42)
     bl_bench={};bl_mmlu={}
     for d in DOMAINS:
+        te=time.time()
         log.info("  evaluating %s benchmark...",d)
         bl_bench[d]=h.eval_domain(d,n=en)
-        log.info("  %s bench: acc=%.4f n=%d",d,bl_bench[d].acc,bl_bench[d].n)
+        log.info("  %s bench: acc=%.4f n=%d time=%.1fs",d,bl_bench[d].acc,bl_bench[d].n,time.time()-te)
+        te2=time.time()
         bl_mmlu[d]=h.eval_mmlu(d,n=en)
-        log.info("  %s mmlu:  acc=%.4f n=%d",d,bl_mmlu[d].acc,bl_mmlu[d].n)
+        log.info("  %s mmlu:  acc=%.4f n=%d time=%.1fs",d,bl_mmlu[d].acc,bl_mmlu[d].n,time.time()-te2)
     anc=AnchorEval(base,tok)
     bl_nll=anc.nll()
     log.info("  anchor_nll=%.4f",bl_nll)
-    log.info("  baseline eval took %.1fs",time.time()-t1)
 
     bl_exs={}
     for d in DOMAINS:
-        bl_exs[d]=h.generate_examples(d,n=3)
+        bl_exs[d]=h.generate_examples(d,n=exn)
         for ex in bl_exs[d]:
-            log.info("  [%s] Q: %s",d,ex["prompt"][:60])
-            log.info("         A: %s",ex["response"][:120])
+            log.info("  [%s baseline] Q: %s",d,ex["prompt"][:60])
+            log.info("                A: %s",ex["response"][:120])
+
+    ds_sizes={}
+    for d in DOMAINS:
+        ds_sizes[d]={"bench":bl_bench[d].n,"mmlu":bl_mmlu[d].n}
+    log.info("  dataset sizes: %s",ds_sizes)
+    log.info("  baseline eval took %.1fs",time.time()-t1)
 
     report["baseline"]={
         "bench":{d:bs_dict(bl_bench[d]) for d in DOMAINS},
         "mmlu":{d:bs_dict(bl_mmlu[d]) for d in DOMAINS},
         "anchor":bl_nll,
         "examples":bl_exs,
+        "dataset_sizes":ds_sizes,
         "time":time.time()-t1,
     }
 
@@ -173,11 +210,15 @@ def main():
     report["domains"]={}
     total_ft_time=0.0
     total_ft_steps=0
+    nll_track=[("baseline",bl_nll)]
+    dbank_track=[]
+    all_diags=[]
 
     for di,dom in enumerate(DOMAINS):
         pr(f"DOMAIN {di+1}/{len(DOMAINS)}: {dom.upper()}")
         topics=TOPIC_SCHEDULE.get(dom,[])
-        dom_report={"topics":[],"backtest":{}}
+        dom_report={"topics":[],"backtest":{},"diags":[]}
+        dom_dbank=None
 
         pipe=AgenticPipeline(cfg,base,tok,rfn,guard=None)
         pipe.pace.state.tau_search=0.1
@@ -207,6 +248,8 @@ def main():
             all_topics.append(slug)
             topic_idx+=1
 
+            dom_dbank=pipe.dbank
+
             if tr:
                 total_ft_steps+=tr.steps
                 log.info("  train: loss=%.4f dream_loss=%.4f steps=%d lr=%.2e time=%.1fs",
@@ -218,31 +261,40 @@ def main():
                     log.info("  history: %d points, loss[0]=%.4f loss[-1]=%.4f",
                              len(tr.history),tr.history[0].get("loss",0),
                              tr.history[-1].get("loss",0))
-                    if len(tr.history)>1:
-                        dl0=tr.history[0].get("dream_loss",0)
-                        dlf=tr.history[-1].get("dream_loss",0)
-                        log.info("  dream: start=%.4f end=%.4f delta=%+.4f",dl0,dlf,dlf-dl0)
+                    dl0=tr.history[0].get("dream_loss",0) if len(tr.history)>1 else 0
+                    dlf=tr.history[-1].get("dream_loss",0) if len(tr.history)>1 else 0
+                    log.info("  dream: start=%.4f end=%.4f delta=%+.4f",dl0,dlf,dlf-dl0)
+
                     pp=f"{od}/plots/{topic_idx:03d}_{slug}"
                     plot_train_loss(tr.history,f"{dom}/{topic}",f"{pp}_loss.png")
                     plot_dream_loss(tr.history,f"{dom}/{topic}",f"{pp}_dream.png")
                     plot_dual_loss(tr.history,f"{dom}/{topic}",f"{pp}_dual.png")
                     if args.recipe=="eatrd":
                         plot_lambda_evo(tr.history,f"{dom}/{topic}",f"{pp}_lambda.png")
-                        if tr.history:
-                            lam0=tr.history[0].get("lambda",0)
-                            lamf=tr.history[-1].get("lambda",0)
-                            log.info("  lambda: start=%.4f end=%.4f delta=%+.4f",
-                                     lam0,lamf,lamf-lam0)
+
+                diag=log_recipe_diag(tr,args.recipe,dom_dbank,log)
+                if diag:
+                    dom_report["diags"].append({"topic":topic,"idx":topic_idx,**diag})
+                    all_diags.append({"domain":dom,"topic":topic,"idx":topic_idx,**diag})
             else:
                 log.info("  no train result (skipped/error)")
 
-            ms=h.eval_mmlu(dom,n=en)
-            mmlu_prog[dom].append(ms.acc)
-            log.info("  mmlu_%s: acc=%.4f n=%d",dom,ms.acc,ms.n)
+            if dom_dbank:
+                bsz=dom_dbank.bucket_sizes()
+                dbank_track.append({"domain":dom,"topic":topic,"idx":topic_idx,"sizes":bsz})
+                log.info("  DreamBank sizes: %s total=%d",bsz,sum(bsz.values()))
+
+            if (ti+1)%args.mmlu_every==0:
+                log.info("  checkpoint MMLU (every %d topics)",args.mmlu_every)
+                ms=h.eval_mmlu(dom,n=en)
+                mmlu_prog[dom].append(ms.acc)
+                log.info("  mmlu_%s: acc=%.4f n=%d",dom,ms.acc,ms.n)
 
             tr_dict={"topic":topic,"domain":dom,"time":t_topic,
                      "adaptive_steps":asteps,"pipe":pres,
-                     "mmlu":bs_dict(ms),"topic_idx":topic_idx}
+                     "topic_idx":topic_idx}
+            if (ti+1)%args.mmlu_every==0:
+                tr_dict["mmlu_checkpoint"]=bs_dict(ms)
             if tr:
                 tr_dict.update({"loss":tr.loss,"dream_loss":tr.dream_loss,
                                 "steps":tr.steps,"extras":tr.extras,
@@ -252,11 +304,13 @@ def main():
                     tr_dict["loss_end"]=tr.history[-1].get("loss",0)
                     tr_dict["dream_start"]=tr.history[0].get("dream_loss",0)
                     tr_dict["dream_end"]=tr.history[-1].get("dream_loss",0)
+                    tr_dict["history"]=tr.history
             dom_report["topics"].append(tr_dict)
 
-        pr(f"DOMAIN {dom.upper()} COMPLETE — FULL EVAL")
+        pr(f"DOMAIN {dom.upper()} COMPLETE — FULL POST-DOMAIN EVAL")
         prev_doms.append(dom)
 
+        t_eval=time.time()
         db=h.eval_domain(dom,n=en)
         log.info("  %s domain bench: acc=%.4f n=%d",dom,db.acc,db.n)
         dom_report["domain_bench"]=bs_dict(db)
@@ -288,14 +342,33 @@ def main():
         cur_nll=anc.nll()
         dom_report["anchor_nll"]=cur_nll
         dom_report["anchor_delta"]=cur_nll-bl_nll
+        nll_track.append((f"after_{dom}",cur_nll))
         log.info("  anchor: nll=%.4f delta=%+.4f",cur_nll,cur_nll-bl_nll)
 
-        dom_exs=h.generate_examples(dom,n=3)
-        dom_report["examples"]=dom_exs
+        dom_exs=h.generate_examples(dom,n=exn)
+        dom_report["examples_after"]=dom_exs
         log.info("  example responses after %s learning:",dom)
         for ex in dom_exs:
             log.info("    Q: %s",ex["prompt"][:60])
             log.info("    A: %s",ex["response"][:120])
+
+        plot_before_after(bl_exs.get(dom,[]),dom_exs,dom,
+                          f"{od}/plots/before_after_{dom}.png")
+
+        if dom_dbank:
+            log.info("  running hard_dream_mine top-10...")
+            try:
+                hdm=hard_dream_mine(base,teacher_snap,dom_dbank,tok,
+                                    pool_n=50,topk=10,dev=DEV)
+                dom_report["hard_dreams"]=[(t,b,float(s)) for t,b,s in hdm]
+                log.info("  hard dreams (top-10 KL):")
+                for txt,bk,kl in hdm:
+                    log.info("    [%s] kl=%.4f %s",bk,kl,txt[:60])
+            except Exception as e:
+                log.warning("  hard_dream_mine failed: %s",e)
+                dom_report["hard_dreams"]=[]
+
+        dom_report["eval_time"]=time.time()-t_eval
 
         ckp=f"{od}/checkpoints/{dom}"
         os.makedirs(ckp,exist_ok=True)
@@ -309,6 +382,19 @@ def main():
             title=f"Retention after {dom}",path=f"{od}/plots/ret_{dom}.png")
         plot_mmlu_prog(mmlu_prog,title=f"MMLU after {dom}",
             path=f"{od}/plots/mmlu_after_{dom}.png")
+        plot_anchor_drift([v for _,v in nll_track],[l for l,_ in nll_track],
+            f"{od}/plots/anchor_drift_{dom}.png")
+        if dbank_track:
+            plot_dream_bank_growth(dbank_track,f"{od}/plots/dbank_growth_{dom}.png")
+        if all_asteps:
+            plot_adaptive_steps(all_topics,all_asteps,
+                title=f"Adaptive Steps (through {dom})",
+                path=f"{od}/plots/asteps_{dom}.png")
+
+        bl_acc_so_far={d:bl_bench[d].acc for d in prev_doms}
+        fn_acc_so_far={d:bt[d]["acc"] for d in prev_doms}
+        plot_domain_compare(bl_acc_so_far,fn_acc_so_far,
+            title=f"Domain Bench after {dom}",path=f"{od}/plots/domain_cmp_{dom}.png")
 
         report["domains"][dom]=dom_report
 
@@ -325,19 +411,33 @@ def main():
     t3=time.time()
     fn_bench={};fn_mmlu={}
     for d in DOMAINS:
+        te=time.time()
         fn_bench[d]=h.eval_domain(d,n=en)
         fn_mmlu[d]=h.eval_mmlu(d,n=en)
-        log.info("  final %s: bench=%.4f mmlu=%.4f",d,fn_bench[d].acc,fn_mmlu[d].acc)
+        log.info("  final %s: bench=%.4f mmlu=%.4f time=%.1fs",
+                 d,fn_bench[d].acc,fn_mmlu[d].acc,time.time()-te)
     fn_nll=anc.nll()
+    nll_track.append(("final",fn_nll))
     log.info("  final anchor: nll=%.4f delta=%+.4f",fn_nll,fn_nll-bl_nll)
 
     fn_exs={}
     for d in DOMAINS:
-        fn_exs[d]=h.generate_examples(d,n=3)
+        fn_exs[d]=h.generate_examples(d,n=exn)
         log.info("  [%s final] examples:",d)
         for ex in fn_exs[d]:
             log.info("    Q: %s",ex["prompt"][:60])
             log.info("    A: %s",ex["response"][:120])
+
+    log.info("  before vs after comparison:")
+    for d in DOMAINS:
+        log.info("  === %s ===",d.upper())
+        bex=bl_exs.get(d,[])
+        fex=fn_exs.get(d,[])
+        for i in range(min(len(bex),len(fex))):
+            log.info("    Q: %s",bex[i]["prompt"][:60])
+            log.info("    BEFORE: %s",bex[i]["response"][:100])
+            log.info("    AFTER:  %s",fex[i]["response"][:100])
+        plot_before_after(bex,fex,d,f"{od}/plots/before_after_final_{d}.png")
 
     report["final"]={
         "bench":{d:bs_dict(fn_bench[d]) for d in DOMAINS},
@@ -347,7 +447,7 @@ def main():
         "time":time.time()-t3,
     }
 
-    pr("PHASE 4: SUMMARY & PLOTS")
+    pr("PHASE 4: ANALYSIS & SUMMARY")
     report["summary"]={
         "total_ft_time":total_ft_time,
         "total_ft_steps":total_ft_steps,
@@ -356,6 +456,9 @@ def main():
         "retention_matrix":ret_mx,
         "adaptive_steps":all_asteps,
         "topics":all_topics,
+        "anchor_track":nll_track,
+        "dbank_growth":dbank_track,
+        "recipe_diags":all_diags,
     }
 
     plot_mmlu_prog(mmlu_prog,title="MMLU Progression",path=f"{od}/plots/mmlu_prog.png")
@@ -368,43 +471,66 @@ def main():
     if all_asteps:
         plot_adaptive_steps(all_topics,all_asteps,title="Adaptive Steps per Topic",
                             path=f"{od}/plots/asteps.png")
-
     bl_mmlu_acc={d:bl_mmlu[d].acc for d in DOMAINS}
     fn_mmlu_acc={d:fn_mmlu[d].acc for d in DOMAINS}
     plot_domain_compare(bl_mmlu_acc,fn_mmlu_acc,title="MMLU: Baseline vs Final",
                         path=f"{od}/plots/mmlu_cmp.png")
+    plot_anchor_drift([v for _,v in nll_track],[l for l,_ in nll_track],
+        f"{od}/plots/anchor_drift_full.png")
+    if dbank_track:
+        plot_dream_bank_growth(dbank_track,f"{od}/plots/dbank_growth_full.png")
 
     with open(f"{od}/results.json","w") as f:
         json.dump(report,f,indent=2,default=str)
 
     print(f"\n{'='*70}")
-    print(f"FULL BENCHMARK RESULTS: {args.recipe}")
+    print(f"DREAMING++ BENCHMARK RESULTS: {args.recipe}")
     print(f"{'='*70}")
     print(f"Model: {args.model}  LoRA r={args.lora_r}  LR={args.lr}")
-    print(f"Eval mode: {'FULL' if en<=0 else f'sample {en}'}")
+    print(f"Eval mode: {'FULL' if en<=0 else f'sample {en}'}  MMLU every {args.mmlu_every} topics")
     print(f"Total FT time: {total_ft_time:.1f}s  Total FT steps: {total_ft_steps}")
     print(f"Anchor NLL: {bl_nll:.4f} -> {fn_nll:.4f} (delta={fn_nll-bl_nll:+.4f})")
+
     print(f"\n{'Domain Benchmarks':<20} {'Baseline':>10} {'Final':>10} {'Delta':>10}")
     print("-"*52)
     for d in DOMAINS:
         b=bl_bench[d].acc;f_=fn_bench[d].acc
         print(f"  {d:<18} {b:>10.4f} {f_:>10.4f} {f_-b:>+10.4f}")
+
     print(f"\n{'MMLU':<20} {'Baseline':>10} {'Final':>10} {'Delta':>10}")
     print("-"*52)
     for d in DOMAINS:
         b=bl_mmlu[d].acc;f_=fn_mmlu[d].acc
         print(f"  {d:<18} {b:>10.4f} {f_:>10.4f} {f_-b:>+10.4f}")
-    print(f"\nBacktest retention after final domain:")
+
+    print(f"\nBacktest retention after each domain:")
     for d in DOMAINS:
         if ret_mx[d]:
             print(f"  {d}: {' -> '.join(f'{v:.4f}' for v in ret_mx[d])}")
+
+    print(f"\nAnchor NLL progression:")
+    for label,val in nll_track:
+        delta=val-bl_nll
+        print(f"  {label:<20} {val:.4f} ({delta:+.4f})")
+
+    if dbank_track:
+        last_db=dbank_track[-1]["sizes"]
+        print(f"\nFinal DreamBank: {sum(last_db.values())} total")
+        for bk,cnt in last_db.items():
+            print(f"  {bk}: {cnt}")
+
     print(f"\nAdaptive steps: min={min(all_asteps) if all_asteps else 0} "
           f"max={max(all_asteps) if all_asteps else 0} "
           f"mean={sum(all_asteps)/max(len(all_asteps),1):.1f}")
+
+    print(f"\nDataset sizes (full eval):")
+    for d,sz in ds_sizes.items():
+        print(f"  {d}: bench={sz['bench']} mmlu={sz['mmlu']}")
+
     print(f"\nResults: {od}/results.json")
     print(f"Plots:   {od}/plots/")
     print(f"Log:     {od}/bench.log")
-    pr("BENCHMARK COMPLETE")
+    pr("DREAMING++ BENCHMARK COMPLETE")
 
 if __name__=="__main__":
     main()

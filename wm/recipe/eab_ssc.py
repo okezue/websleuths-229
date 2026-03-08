@@ -3,7 +3,7 @@ import copy,torch
 from torch.optim import AdamW
 from collections import OrderedDict
 from wm.types import TrainResult
-from wm.recipe.base import weighted_ce,dream_kl,WeightedLMCollator,make_ep_dl
+from wm.recipe.base import weighted_ce,dream_kl,multi_temp_dream_kl,WeightedLMCollator,make_ep_dl
 from wm.dream.buffer import DreamBuffer
 
 class AdapterBank:
@@ -121,36 +121,53 @@ class EABSSCRunner:
         self.lr=lr;self.ms=max_steps;self.bs=bs;self.temp=temp
         self.dw=dream_weight;self.max_len=max_len
         self.dn=dream_n;self.dl=dream_len
-    def day(self,model,teacher,ds,dream_prompts:list[str],tok)->TrainResult:
+    def day(self,model,teacher,ds,dream_prompts:list[str],tok,
+            dbank=None)->TrainResult:
         dev=next(model.parameters()).device
         teacher=teacher.to(dev);teacher.eval();model.train()
         opt=AdamW([p for p in model.parameters() if p.requires_grad],lr=self.lr)
         col=WeightedLMCollator(tok)
         loader=make_ep_dl(ds,tok,col,self.bs,self.max_len)
-        dbuf=DreamBuffer(dream_prompts,tok,self.dl,self.dn)
+        dbuf=DreamBuffer(dream_prompts,tok,self.dl,self.dn) if not dbank else None
         tot_loss,tot_dl,steps=0.0,0.0,0
         hist=[]
-        for batch in loader:
-            if self.ms>0 and steps>=self.ms:break
-            batch={k:v.to(dev) if isinstance(v,torch.Tensor) else v for k,v in batch.items()}
-            ids=batch["input_ids"];mask=batch["attention_mask"];w=batch["weights"]
-            out=model(input_ids=ids,attention_mask=mask)
-            l_ep=weighted_ce(out.logits,ids,mask,w)
-            d_inp=dbuf.sample(dev)
-            if d_inp is not None:
-                flt={k:v for k,v in d_inp.items() if k in ("input_ids","attention_mask")}
-                s_out=model(**flt)
-                with torch.no_grad():
-                    t_out=teacher(**flt)
-                l_dr=dream_kl(s_out.logits,t_out.logits,self.temp)
-            else:
-                l_dr=torch.tensor(0.0,device=dev)
-            loss=l_ep+self.dw*l_dr
-            opt.zero_grad()
-            loss.backward()
-            opt.step()
-            tot_loss+=l_ep.item();tot_dl+=l_dr.item();steps+=1
-            hist.append({"loss":l_ep.item(),"dream_loss":l_dr.item()})
+        done=False
+        while not done:
+            for batch in loader:
+                if self.ms>0 and steps>=self.ms:
+                    done=True;break
+                batch={k:v.to(dev) if isinstance(v,torch.Tensor) else v for k,v in batch.items()}
+                ids=batch["input_ids"];mask=batch["attention_mask"];w=batch["weights"]
+                out=model(input_ids=ids,attention_mask=mask)
+                l_ep=weighted_ce(out.logits,ids,mask,w)
+                if dbank is not None:
+                    st=dbank.sample_with_temps(dev)
+                    if st is not None:
+                        d_inp,temps=st
+                        flt={k:v for k,v in d_inp.items() if k in ("input_ids","attention_mask")}
+                        s_out=model(**flt)
+                        with torch.no_grad():
+                            t_out=teacher(**flt)
+                        l_dr=multi_temp_dream_kl(s_out.logits,t_out.logits,temps)
+                    else:
+                        l_dr=torch.tensor(0.0,device=dev)
+                else:
+                    d_inp=dbuf.sample(dev)
+                    if d_inp is not None:
+                        flt={k:v for k,v in d_inp.items() if k in ("input_ids","attention_mask")}
+                        s_out=model(**flt)
+                        with torch.no_grad():
+                            t_out=teacher(**flt)
+                        l_dr=dream_kl(s_out.logits,t_out.logits,self.temp)
+                    else:
+                        l_dr=torch.tensor(0.0,device=dev)
+                loss=l_ep+self.dw*l_dr
+                opt.zero_grad()
+                loss.backward()
+                opt.step()
+                tot_loss+=l_ep.item();tot_dl+=l_dr.item();steps+=1
+                hist.append({"loss":l_ep.item(),"dream_loss":l_dr.item()})
+            if self.ms<=0:break
         return TrainResult(loss=tot_loss/max(steps,1),steps=steps,
                            lr=self.lr,dream_loss=tot_dl/max(steps,1),
                            history=hist)

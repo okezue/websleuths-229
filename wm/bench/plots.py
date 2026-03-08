@@ -91,3 +91,57 @@ def plot_adaptive_steps(topics:list[str],steps:list[int],
     ax.set_ylabel("Steps")
     if title:ax.set_title(title)
     fig.tight_layout();fig.savefig(path,dpi=150);plt.close(fig)
+
+def plot_anchor_drift(nll_values:list[float],labels:list[str],
+                      path:str="anchor_drift.png"):
+    if not nll_values or len(nll_values)<2:return
+    fig,ax=plt.subplots(figsize=(max(8,len(labels)*0.8),4))
+    x=range(len(nll_values))
+    ax.plot(x,nll_values,marker="o",markersize=5,linewidth=1.2,color="crimson")
+    ax.axhline(nll_values[0],ls="--",color="gray",alpha=0.5,label="baseline")
+    ax.set_xticks(list(x))
+    ax.set_xticklabels(labels,rotation=30,ha="right",fontsize=7)
+    ax.set_ylabel("Anchor NLL");ax.legend()
+    ax.set_title("Anchor NLL Drift")
+    fig.tight_layout();fig.savefig(path,dpi=150);plt.close(fig)
+
+def plot_dream_bank_growth(track:list[dict],path:str="dbank_growth.png"):
+    if not track:return
+    from wm.dream.bank import BUCKETS
+    bks=list(BUCKETS)
+    xs=list(range(len(track)))
+    data={bk:[t["sizes"].get(bk,0) for t in track] for bk in bks}
+    fig,ax=plt.subplots(figsize=(max(8,len(track)*0.5),5))
+    bot=np.zeros(len(track))
+    cm=plt.cm.Set2
+    for i,bk in enumerate(bks):
+        vals=np.array(data[bk],dtype=float)
+        ax.bar(xs,vals,bottom=bot,label=bk,color=cm(i/len(bks)),width=0.8)
+        bot+=vals
+    lbls=[f"{t.get('domain','')[:3]}/{t.get('idx','')}" for t in track]
+    ax.set_xticks(xs)
+    ax.set_xticklabels(lbls,rotation=45,ha="right",fontsize=6)
+    ax.set_ylabel("Prompts");ax.legend(fontsize=6,loc="upper left")
+    ax.set_title("DreamBank Growth")
+    fig.tight_layout();fig.savefig(path,dpi=150);plt.close(fig)
+
+def plot_before_after(before:list[dict],after:list[dict],domain:str,
+                      path:str="before_after.png"):
+    if not before or not after:return
+    n=min(len(before),len(after),5)
+    fig,ax=plt.subplots(figsize=(12,max(4,n*2.2)))
+    ax.axis("off")
+    y=0.98;dy=1.0/max(n,1)
+    for i in range(n):
+        q=before[i]["prompt"][:80]
+        b=before[i]["response"][:120]
+        a=after[i]["response"][:120]
+        ax.text(0.01,y,f"Q: {q}",fontsize=7,fontweight="bold",
+                va="top",transform=ax.transAxes,family="monospace")
+        ax.text(0.01,y-dy*0.25,f"BEFORE: {b}",fontsize=6,color="gray",
+                va="top",transform=ax.transAxes,family="monospace")
+        ax.text(0.01,y-dy*0.55,f"AFTER:  {a}",fontsize=6,color="darkgreen",
+                va="top",transform=ax.transAxes,family="monospace")
+        y-=dy
+    ax.set_title(f"Before/After: {domain}",fontsize=9)
+    fig.tight_layout();fig.savefig(path,dpi=150);plt.close(fig)

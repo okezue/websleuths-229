@@ -2,7 +2,7 @@ from __future__ import annotations
 import torch
 from torch.optim import AdamW
 from wm.types import TrainResult
-from wm.recipe.base import weighted_ce,dream_kl,grad_vec,set_grad,WeightedLMCollator,make_ep_dl
+from wm.recipe.base import weighted_ce,dream_kl,multi_temp_dream_kl,grad_vec,set_grad,WeightedLMCollator,make_ep_dl
 from wm.dream.buffer import DreamBuffer
 
 def _project(g_ep:torch.Tensor,g_dr:torch.Tensor)->torch.Tensor:
@@ -30,59 +30,90 @@ def _project_multi(g_ep:torch.Tensor,G:list[torch.Tensor],
 
 class DPMURunner:
     def __init__(self,lr=2e-4,max_steps=100,bs=4,temp=2.0,
-                 n_dream_grads=1,max_len=512,dream_n=4,dream_len=128):
+                 n_dream_grads=1,max_len=512,dream_n=4,dream_len=128,
+                 grad_refresh_k=5,grad_ema_decay=0.9):
         self.lr=lr;self.ms=max_steps;self.bs=bs;self.temp=temp
         self.m=n_dream_grads;self.max_len=max_len
         self.dn=dream_n;self.dl=dream_len
-    def run(self,model,teacher,ds,dream_prompts:list[str],tok)->TrainResult:
+        self.grk=grad_refresh_k;self.ema=grad_ema_decay
+    def run(self,model,teacher,ds,dream_prompts:list[str],tok,
+            dbank=None)->TrainResult:
         dev=next(model.parameters()).device
         teacher=teacher.to(dev);teacher.eval();model.train()
         opt=AdamW([p for p in model.parameters() if p.requires_grad],lr=self.lr)
         col=WeightedLMCollator(tok)
         loader=make_ep_dl(ds,tok,col,self.bs,self.max_len)
-        dbuf=DreamBuffer(dream_prompts,tok,self.dl,self.dn)
+        dbuf=DreamBuffer(dream_prompts,tok,self.dl,self.dn) if not dbank else None
         tot_loss,tot_dl,steps=0.0,0.0,0
         hist=[]
-        for batch in loader:
-            if self.ms>0 and steps>=self.ms:break
-            batch={k:v.to(dev) if isinstance(v,torch.Tensor) else v for k,v in batch.items()}
-            ids=batch["input_ids"];mask=batch["attention_mask"];w=batch["weights"]
-            out=model(input_ids=ids,attention_mask=mask)
-            l_ep=weighted_ce(out.logits,ids,mask,w)
-            opt.zero_grad()
-            l_ep.backward()
-            g_ep=grad_vec(model).clone()
-            G_dr=[];_sdl=0.0
-            for _ in range(self.m):
+        done=False
+        cached_g=None
+        while not done:
+            for batch in loader:
+                if self.ms>0 and steps>=self.ms:
+                    done=True;break
+                batch={k:v.to(dev) if isinstance(v,torch.Tensor) else v for k,v in batch.items()}
+                ids=batch["input_ids"];mask=batch["attention_mask"];w=batch["weights"]
+                out=model(input_ids=ids,attention_mask=mask)
+                l_ep=weighted_ce(out.logits,ids,mask,w)
                 opt.zero_grad()
-                d_inp=dbuf.sample(dev)
-                if d_inp is None:break
-                flt={k:v for k,v in d_inp.items() if k in ("input_ids","attention_mask")}
-                s_out=model(**flt)
-                with torch.no_grad():
-                    t_out=teacher(**flt)
-                l_dr=dream_kl(s_out.logits,t_out.logits,self.temp)
-                l_dr.backward()
-                G_dr.append(grad_vec(model).clone())
-                tot_dl+=l_dr.item();_sdl+=l_dr.item()
-            opt.zero_grad()
-            if len(G_dr)==1:
-                g_star=_project(g_ep,G_dr[0])
-            elif len(G_dr)>1:
-                g_star=_project_multi(g_ep,G_dr)
-            else:
-                g_star=g_ep
-            i=0
-            for p in model.parameters():
-                if p.requires_grad:
-                    n=p.numel()
-                    p.grad=g_star[i:i+n].view_as(p).clone()
-                    i+=n
-            opt.step()
-            tot_loss+=l_ep.item();steps+=1
-            hist.append({"loss":l_ep.item(),"dream_loss":_sdl/max(len(G_dr),1),"n_grads":len(G_dr)})
+                l_ep.backward()
+                g_ep=grad_vec(model).clone()
+                refresh=steps%self.grk==0
+                if refresh:
+                    G_dr=[];_sdl=0.0
+                    for _ in range(self.m):
+                        opt.zero_grad()
+                        if dbank is not None:
+                            st=dbank.sample_with_temps(dev)
+                            if st is None:break
+                            d_inp,temps=st
+                            flt={k:v for k,v in d_inp.items() if k in ("input_ids","attention_mask")}
+                            s_out=model(**flt)
+                            with torch.no_grad():
+                                t_out=teacher(**flt)
+                            l_dr=multi_temp_dream_kl(s_out.logits,t_out.logits,temps)
+                        else:
+                            d_inp=dbuf.sample(dev)
+                            if d_inp is None:break
+                            flt={k:v for k,v in d_inp.items() if k in ("input_ids","attention_mask")}
+                            s_out=model(**flt)
+                            with torch.no_grad():
+                                t_out=teacher(**flt)
+                            l_dr=dream_kl(s_out.logits,t_out.logits,self.temp)
+                        l_dr.backward()
+                        G_dr.append(grad_vec(model).clone())
+                        tot_dl+=l_dr.item();_sdl+=l_dr.item()
+                    if G_dr:
+                        fresh=torch.stack(G_dr).mean(0)
+                        if cached_g is None:
+                            cached_g=fresh
+                        else:
+                            cached_g=self.ema*cached_g+(1-self.ema)*fresh
+                    hist_dl=_sdl/max(len(G_dr),1) if G_dr else 0.0
+                else:
+                    hist_dl=0.0
+                opt.zero_grad()
+                if cached_g is not None:
+                    g_star=_project(g_ep,cached_g)
+                else:
+                    g_star=g_ep
+                i=0
+                for p in model.parameters():
+                    if p.requires_grad:
+                        n=p.numel()
+                        p.grad=g_star[i:i+n].view_as(p).clone()
+                        i+=n
+                opt.step()
+                tot_loss+=l_ep.item();steps+=1
+                hist.append({"loss":l_ep.item(),"dream_loss":hist_dl,
+                             "n_grads":self.m if refresh else 0,"cached":not refresh})
+            if self.ms<=0:break
         avg=tot_loss/max(steps,1)
-        avg_dl=tot_dl/max(steps*self.m,1)
+        n_refresh=max((steps+self.grk-1)//self.grk,1)
+        avg_dl=tot_dl/max(n_refresh*self.m,1)
         return TrainResult(loss=avg,steps=steps,lr=self.lr,
-                           dream_loss=avg_dl,extras={"n_dream_grads":self.m},
+                           dream_loss=avg_dl,extras={"n_dream_grads":self.m,
+                                                      "grad_refresh_k":self.grk,
+                                                      "grad_ema_decay":self.ema},
                            history=hist)

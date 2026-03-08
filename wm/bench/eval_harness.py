@@ -120,8 +120,8 @@ class DomainEvalHarness:
             if isinstance(pre,list) and pre:ctx+=" ".join(pre)+"\n"
             ctx+=f"Table:\n{tbl}\n"
             if isinstance(post,list) and post:ctx+=" ".join(post)+"\n"
-            q=row.get("question","")
-            gold=row.get("answer","")
+            q=row.get("question","") or row.get("query","")
+            gold=row.get("answer","") or row.get("exe_ans","") or row.get("output","")
             prompt=f"{ctx}\nQuestion: {q}\nAnswer:"
             gen=_gen(self._m,self._t,prompt,max_tok=32,dev=self._dev)
             pred_n=_extract_number(gen)

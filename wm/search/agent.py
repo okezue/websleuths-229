@@ -78,6 +78,7 @@ class AgenticSearcher:
         all_entities=[]
         all_chunks:list[Chunk]=[]
         sources:list[str]=[]
+        raw_all:list[dict]=[]
         prev_n=0
         rnd=0
         for rnd in range(self._cfg.max_rounds):
@@ -101,6 +102,7 @@ class AgenticSearcher:
                 qs=_entity_queries(ent_names,topic)[:self._cfg.queries_per_round]
                 if not qs:qs=_template_queries(topic)
             raw=_fetch_exa(qs,self._cfg.exa_api_key,self._cfg.res_per_query)
+            raw_all.extend(raw)
             for r in raw:
                 url=r.get("url","")
                 txt=r.get("text","")
@@ -124,7 +126,24 @@ class AgenticSearcher:
                            k=self._cfg.mmr_k,lam=self._cfg.mmr_lambda)
             all_chunks=[all_chunks[i] for i in sel]
         comms=detect_communities(all_claims,thresh=0.5) if all_claims else []
-        return SearchResult(
+        sr=SearchResult(
             topic=topic,claims=all_claims,entities=all_entities,
             communities=comms,chunks=all_chunks,rounds=rnd+1,
             sources=sources)
+        if (self._cfg.extraction_backend=="claude"
+                and self._cfg.anthropic_api_key and raw_all):
+            try:
+                from wm.search.kg_builder import KGBuilder
+                known=[e.name for e in all_entities]
+                kg=KGBuilder(self._cfg.anthropic_api_key,
+                             concurrency=self._cfg.claude_concurrency,
+                             model=self._cfg.claude_model)
+                cl,en,co,tr=kg.run_sync(raw_all,topic,known)
+                if cl:
+                    sr.claims=cl
+                    sr.entities=en
+                    sr.communities=co
+                    sr.train_rows=tr
+            except Exception as ex:
+                log.warning("claude extraction failed, using regex: %s",ex)
+        return sr

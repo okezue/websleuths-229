@@ -41,6 +41,7 @@ class DreamCfg(BaseModel):
 class TrainCfg(BaseModel):
     backend:Literal["hf","neuron","tinker"]="hf"
     base_model:str="meta-llama/Llama-3.2-1B"
+    tinker_api_key:str|None=None
     epochs:int=3
     bs:int=4
     lr:float=2e-4
@@ -61,8 +62,20 @@ class EATRDCfg(BaseModel):
     alpha:float=0.5
     rho:float=0.01
     lam_init:float=1.0
+    d_targ:float=0.5
+    lam_floor:float=0.01
+    lam_ceil:float=10.0
+    use_pi:bool=True
 class DPMUCfg(BaseModel):
     n_dream_grads:int=1
+    grad_refresh_k:int=5
+    grad_ema_decay:float=0.9
+class DreamBankCfg(BaseModel):
+    enabled:bool=True
+    bucket_weights:dict[str,float]=Field(default_factory=lambda:{"if_canary":0.20,"creative":0.15,"ood_noise":0.15,"reasoning":0.15,"anchor":0.20,"episode":0.15})
+    bucket_temps:dict[str,float]=Field(default_factory=lambda:{"if_canary":1.0,"creative":2.0,"ood_noise":1.5,"reasoning":1.0,"anchor":1.5,"episode":1.5})
+    hdm_pool:int=50
+    hdm_topk:int=10
 class EABSSCCfg(BaseModel):
     consolidation_rank:int=16
     beta:float=0.1
@@ -108,6 +121,10 @@ class SearchCfg(BaseModel):
     query_temp:float=0.9
     round_temps:list[float]=Field(default_factory=lambda:[0.7,0.9,1.0,1.0,1.0])
     res_per_query:int=5
+    extraction_backend:Literal["regex","claude"]="claude"
+    anthropic_api_key:str|None=None
+    claude_model:str="claude-sonnet-4-5-20250929"
+    claude_concurrency:int=10
 
 class GraphCfg(BaseModel):
     db_path:str="./wm_graph.db"
@@ -172,4 +189,5 @@ class WMCfg(BaseModel):
     update_gate:UpdateGateCfg=Field(default_factory=UpdateGateCfg)
     pace:PaceCfg=Field(default_factory=PaceCfg)
     domain_bench:DomainBenchCfg=Field(default_factory=DomainBenchCfg)
+    dream_bank:DreamBankCfg=Field(default_factory=DreamBankCfg)
     iter_cl:IterCLCfg=Field(default_factory=IterCLCfg)
