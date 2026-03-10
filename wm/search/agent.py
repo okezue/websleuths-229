@@ -5,6 +5,7 @@ from wm.cfg import SearchCfg
 from wm.search.claims import extract_claims,extract_entities
 from wm.search.mmr import mmr_select
 from wm.search.sufficiency import is_sufficient
+from wm.search.content_filter import clean_text
 from wm.graph.community import detect_communities
 from wm.adapt import round_temp
 
@@ -105,7 +106,7 @@ class AgenticSearcher:
             raw_all.extend(raw)
             for r in raw:
                 url=r.get("url","")
-                txt=r.get("text","")
+                txt=clean_text(r.get("text",""))
                 if not txt:continue
                 from hashlib import sha256
                 eid=sha256(url.encode()).hexdigest()[:16]
