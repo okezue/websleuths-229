@@ -6,6 +6,7 @@ from wm.search.claims import extract_claims,extract_entities
 from wm.search.mmr import mmr_select
 from wm.search.sufficiency import is_sufficient
 from wm.search.content_filter import clean_text
+from wm.search.dedup import dedup_chunks,dedup_raw
 from wm.graph.community import detect_communities
 from wm.adapt import round_temp
 
@@ -122,6 +123,8 @@ class AgenticSearcher:
                 rnd+=1
                 break
             prev_n=len(all_claims)
+        all_chunks=dedup_chunks(all_chunks)
+        raw_all=dedup_raw(raw_all)
         if all_chunks and all_claims:
             sel=mmr_select([c.text for c in all_chunks],topic,
                            k=self._cfg.mmr_k,lam=self._cfg.mmr_lambda)
