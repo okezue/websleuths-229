@@ -62,8 +62,14 @@ _HTML_TAG = re.compile(r"<[^>]+>")
 _MULTI_SPACE = re.compile(r"[ \t]+")
 _MULTI_NEWLINE = re.compile(r"\n{3,}")
 _URL_LINE = re.compile(r"^\s*https?://\S+\s*$")
-# Wikipedia/MediaWiki infobox table rows: lines with 3+ pipe chars
-_PIPE_TABLE_LINE = re.compile(r"(\|.*){3,}")
+# Table rows: 3+ pipe chars OR line starts AND ends with | (catches 2-pipe rows)
+_PIPE_TABLE_LINE = re.compile(r"(\|.*){3,}|^\s*\|.*\|\s*$")
+# Photo/image credit lines: "Name/Getty Images", "Name/AFP via Getty Images", etc.
+_PHOTO_CREDIT = re.compile(
+    r"/(Getty\s+Images|AFP(\s+via\s+Getty\s+Images)?|Reuters|AP\s+Photo|"
+    r"WBUR|KFF\s+Health\s+News)\s*$", re.IGNORECASE)
+# Raw JSON/config blobs leaked from CMS/JS bundles
+_JSON_BLOB = re.compile(r'^\s*\{.*"[^"]+".*:.*[\[\{]')
 # Encoding artifact: lone U+00C2 (Â) from latin-1/UTF-8 mismatch
 _ENCODING_ARTIFACT = re.compile(r"\u00c2")
 
@@ -81,6 +87,10 @@ def _is_junk_line(line: str) -> bool:
     if _URL_LINE.match(line):
         return True
     if _PIPE_TABLE_LINE.search(stripped):
+        return True
+    if _PHOTO_CREDIT.search(stripped):
+        return True
+    if _JSON_BLOB.match(stripped):
         return True
     # Pattern-based checks only apply to short lines — long lines are real content
     # paragraphs that happen to mention an ad keyword somewhere inside them.
