@@ -3,7 +3,7 @@
 Run on Google Colab Pro:
     !git clone <repo> && cd websleuths-229
     !pip install -q -r websleuths-229/requirements.txt
-    !python websleuths-229/scripts/run_ablations.py
+    !python websleuths-229/scripts/run_ablations.py --model meta-llama/Llama-3.2-1B
 
 Ablation matrix (each row trains from the same base checkpoint):
     full          - dreaming + gating + content filter + dedup
@@ -15,7 +15,7 @@ Ablation matrix (each row trains from the same base checkpoint):
     naive         - plain SFT, everything OFF
 """
 from __future__ import annotations
-import os,sys,copy,time,json,gc,random,logging
+import os,sys,copy,time,json,gc,random,logging,argparse,re
 import torch
 import numpy as np
 
@@ -43,7 +43,7 @@ from wm.search.dedup import dedup_chunks,dedup_raw
 from wm.cfg import GateCfg,ChunkCfg,DatasetCfg
 
 # config
-MODEL_NAME=os.environ.get("ABLATION_MODEL","meta-llama/Llama-3.2-1B")
+MODEL_NAME=None
 LORA_R=8
 LORA_ALPHA=16
 STEPS=int(os.environ.get("ABLATION_STEPS","30"))
@@ -55,11 +55,11 @@ DREAM_LEN=32
 EVAL_N=int(os.environ.get("ABLATION_EVAL_N","20"))
 DOMAIN_EVAL_N=int(os.environ.get("ABLATION_DOMAIN_N","30"))
 EXA_KEY=os.environ.get("EXA_API_KEY","")
-# save to Google Drive if mounted, else /tmp
+# save ablation outputs to Google Drive if mounted, else /tmp
 _GDRIVE="/content/drive/MyDrive"
-_DEFAULT_OUT=os.path.join(_GDRIVE,"ablation_results.json") if os.path.isdir(_GDRIVE) else "/tmp/ablation_results.json"
-OUT_PATH=os.environ.get("ABLATION_OUT",_DEFAULT_OUT)
-CHECKPOINT_PATH=OUT_PATH.replace(".json","_checkpoint.json")
+_GDRIVE_ABLATIONS=os.path.join(_GDRIVE,"ablations")
+OUT_PATH=None
+CHECKPOINT_PATH=None
 
 DREAM_PROMPTS=[
     "What is the capital of France?","Explain photosynthesis briefly.",
@@ -94,8 +94,38 @@ ABLATIONS=[
 # note: dream+gate == no_filter by definition, but we keep both names
 # so the results table reads naturally. We skip the duplicate run.
 
+def _parse_args():
+    ap=argparse.ArgumentParser(description="Run ablations for a specific model.")
+    ap.add_argument("--model",required=True,
+                    help="HF model id or local model path to evaluate")
+    ap.add_argument("--out",default=os.environ.get("ABLATION_OUT"),
+                    help="optional output JSON path; checkpoint path is derived from it")
+    return ap.parse_args()
+
+def _sanitize_model_name(model_name):
+    safe=re.sub(r"[^A-Za-z0-9._-]+","_",model_name.strip())
+    return safe.strip("._-") or "model"
+
+def _default_out_path(model_name):
+    fname=f"ablation_results_{_sanitize_model_name(model_name)}.json"
+    if os.path.isdir(_GDRIVE):
+        return os.path.join(_GDRIVE_ABLATIONS,fname)
+    return os.path.join("/tmp",fname)
+
+def _configure_run(args):
+    global MODEL_NAME,OUT_PATH,CHECKPOINT_PATH
+    MODEL_NAME=args.model
+    OUT_PATH=args.out or _default_out_path(MODEL_NAME)
+    out_dir=os.path.dirname(OUT_PATH) or "."
+    out_stem,out_ext=os.path.splitext(os.path.basename(OUT_PATH))
+    if not out_ext:
+        out_ext=".json"
+        OUT_PATH=os.path.join(out_dir,f"{out_stem}{out_ext}")
+    CHECKPOINT_PATH=os.path.join(out_dir,f"{out_stem}_checkpoint{out_ext}")
+
 def _save_checkpoint(results):
     """Save completed results so we can resume after disconnect."""
+    os.makedirs(os.path.dirname(CHECKPOINT_PATH) or ".",exist_ok=True)
     out={}
     for k,v in results.items():
         out[k]={kk:vv for kk,vv in v.items() if kk!="per_anchor"}
@@ -139,7 +169,8 @@ def fmt_eta(seconds):
     h,m=divmod(m,60)
     return f"{h}h{m:02d}m"
 
-def make_model(mn=MODEL_NAME):
+def make_model(mn=None):
+    mn=mn or MODEL_NAME
     tok=AutoTokenizer.from_pretrained(mn,trust_remote_code=True)
     if tok.pad_token is None:tok.pad_token=tok.eos_token
     dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32
@@ -391,6 +422,8 @@ def print_ablation_analysis(results):
         print(f"  interaction effect:    {interaction:+.4f}")
 
 def main():
+    args=_parse_args()
+    _configure_run(args)
     pr("ABLATION STUDY")
     print(f"Model: {MODEL_NAME}")
     print(f"GPU: {gpu_info()}")
@@ -500,6 +533,7 @@ def main():
     out={}
     for k,v in results.items():
         out[k]={kk:vv for kk,vv in v.items() if kk!="per_anchor"}
+    os.makedirs(os.path.dirname(OUT_PATH) or ".",exist_ok=True)
     with open(OUT_PATH,"w") as f:
         json.dump({"results":out,"model":MODEL_NAME,"steps":STEPS,
                    "ablations":[a[0] for a in ABLATIONS]},f,indent=2,default=str)
