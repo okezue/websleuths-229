@@ -35,7 +35,16 @@ def test_dream_kl():
 
 def test_dream_kl_identical():
     x=torch.randn(2,4,32)
-    assert dream_kl(x,x,temp=2.0).item()<0.01
+    l=dream_kl(x,x,temp=2.0)
+    assert l.item()>=0
+    assert l.item()<0.01
+
+def test_dream_kl_matches_multi_temp_uniform():
+    s=torch.randn(2,4,32)
+    t=torch.randn(2,4,32)
+    l1=dream_kl(s,t,temp=2.0)
+    l2=multi_temp_dream_kl(s,t,[2.0,2.0])
+    assert torch.allclose(l1,l2,atol=1e-6,rtol=1e-5)
 
 def test_evidence_eps():
     w=torch.tensor([0.8,0.9,0.7])

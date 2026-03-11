@@ -28,6 +28,7 @@ def test_expected_gain_aligned():
 def test_drift_kl_identical(tiny_model,tiny_tok):
     m2=copy.deepcopy(tiny_model)
     d=drift_kl(tiny_model,m2,tiny_tok,["Hello world."],max_len=32)
+    assert d>=0
     assert d<0.01
 
 def test_drift_kl_type(tiny_model,tiny_tok):

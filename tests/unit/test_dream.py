@@ -16,6 +16,7 @@ def test_logits_kl_identical():
     x=_logits()
     m=LogitsKL(temp=2.0)
     l=m.loss(x,x)
+    assert l.item()>=0
     assert l.item()<0.01
 
 def test_sampled_kl():
