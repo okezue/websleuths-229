@@ -3,7 +3,7 @@
 Run on Google Colab Pro:
     !git clone <repo> && cd websleuths-229
     !pip install -q -r requirements.txt
-    !python scripts/run_ablations.py
+    !python websleuths-229/scripts/run_ablations.py
 
 Ablation matrix (each row trains from the same base checkpoint):
     full          - dreaming + gating + content filter + dedup
