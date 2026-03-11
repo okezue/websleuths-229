@@ -93,11 +93,35 @@ ABLATIONS=[
 def pr(msg):
     print(f"\n{'='*60}\n{msg}\n{'='*60}")
 
+def gpu_info():
+    if not torch.cuda.is_available():
+        return "CPU only"
+    name=torch.cuda.get_device_name(0)
+    mem=torch.cuda.get_device_properties(0).total_mem/1e9
+    return f"{name} ({mem:.1f} GB)"
+
+def gpu_mem():
+    if not torch.cuda.is_available():
+        return ""
+    used=torch.cuda.memory_allocated()/1e9
+    peak=torch.cuda.max_memory_allocated()/1e9
+    return f" [GPU: {used:.1f}/{peak:.1f} GB]"
+
+def fmt_eta(seconds):
+    if seconds<60:return f"{seconds:.0f}s"
+    m,s=divmod(int(seconds),60)
+    if m<60:return f"{m}m{s:02d}s"
+    h,m=divmod(m,60)
+    return f"{h}h{m:02d}m"
+
 def make_model(mn=MODEL_NAME):
     tok=AutoTokenizer.from_pretrained(mn,trust_remote_code=True)
     if tok.pad_token is None:tok.pad_token=tok.eos_token
-    model=AutoModelForCausalLM.from_pretrained(mn,torch_dtype=torch.float32,
+    dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32
+    model=AutoModelForCausalLM.from_pretrained(mn,torch_dtype=dtype,
                                                 trust_remote_code=True)
+    if torch.cuda.is_available():
+        model=model.cuda()
     lc=LoraConfig(r=LORA_R,lora_alpha=LORA_ALPHA,lora_dropout=0.05,
         target_modules=["q_proj","v_proj"],task_type=TaskType.CAUSAL_LM)
     model=get_peft_model(model,lc)
@@ -344,8 +368,10 @@ def print_ablation_analysis(results):
 def main():
     pr("ABLATION STUDY")
     print(f"Model: {MODEL_NAME}")
+    print(f"GPU: {gpu_info()}")
     print(f"Steps: {STEPS}, BS: {BS}, LR: {LR}")
-    print(f"Ablation matrix: {len(ABLATIONS)} configs")
+    n_unique=len(set((d,g,f) for _,d,g,f in ABLATIONS))
+    print(f"Ablation matrix: {len(ABLATIONS)} configs ({n_unique} unique runs + baseline)")
 
     # fetch data once
     pr("PHASE 1: FETCH DATA")
@@ -386,12 +412,16 @@ def main():
     # run ablations
     pr("PHASE 4: RUN ABLATIONS")
     seen_configs=set()
+    run_times=[]
+    runs_done=0
+    total_runs=len(set((d,g,f) for _,d,g,f in ABLATIONS))
+    study_t0=time.time()
+
     for name,dream,gate,filt in ABLATIONS:
         config_key=(dream,gate,filt)
 
         # dream+gate has same config as no_filter, alias the result
         if config_key in seen_configs:
-            # find existing result with same config
             for prev_name,prev_m in results.items():
                 pc=prev_m.get("config",{})
                 if (pc.get("dream"),pc.get("gate"),pc.get("filter"))==config_key:
@@ -400,6 +430,15 @@ def main():
                     break
             continue
         seen_configs.add(config_key)
+
+        # ETA
+        runs_done+=1
+        if run_times:
+            avg_t=sum(run_times)/len(run_times)
+            remaining=(total_runs-runs_done)*avg_t
+            print(f"\n  [{runs_done}/{total_runs}] ETA: ~{fmt_eta(remaining)}{gpu_mem()}")
+        else:
+            print(f"\n  [{runs_done}/{total_runs}] First run...{gpu_mem()}")
 
         # pick the right dataset based on filter setting
         if filt:
@@ -410,6 +449,10 @@ def main():
         m=run_ablation(name,base_model,base_snap,tok,ds,ds_eval,probes,
                        dream,gate,filt)
         results[name]=m
+        run_times.append(m["time"])
+
+    total_time=time.time()-study_t0
+    print(f"\nAll ablations done in {fmt_eta(total_time)}{gpu_mem()}")
 
     # results
     print_results_table(results)
