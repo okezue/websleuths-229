@@ -2,7 +2,7 @@
 
 Run on Google Colab Pro:
     !git clone <repo> && cd websleuths-229
-    !pip install -q transformers peft datasets torch numpy pydantic exa_py anthropic scrapy
+    !pip install -q torch transformers peft datasets accelerate numpy pydantic tiktoken exa-py anthropic scrapy crochet twisted pydispatch networkx scipy
     !python scripts/run_ablations.py
 
 Ablation matrix (each row trains from the same base checkpoint):
@@ -97,7 +97,7 @@ def gpu_info():
     if not torch.cuda.is_available():
         return "CPU only"
     name=torch.cuda.get_device_name(0)
-    mem=torch.cuda.get_device_properties(0).total_mem/1e9
+    mem=torch.cuda.get_device_properties(0).total_memory/1e9
     return f"{name} ({mem:.1f} GB)"
 
 def gpu_mem():
