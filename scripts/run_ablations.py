@@ -43,7 +43,7 @@ from wm.search.dedup import dedup_chunks,dedup_raw
 from wm.cfg import GateCfg,ChunkCfg,DatasetCfg
 
 # config
-MODEL_NAME=os.environ.get("ABLATION_MODEL","Qwen/Qwen2.5-1.5B")
+MODEL_NAME=os.environ.get("ABLATION_MODEL","meta-llama/Llama-3.2-1B")
 LORA_R=8
 LORA_ALPHA=16
 STEPS=int(os.environ.get("ABLATION_STEPS","30"))
@@ -55,7 +55,11 @@ DREAM_LEN=32
 EVAL_N=int(os.environ.get("ABLATION_EVAL_N","20"))
 DOMAIN_EVAL_N=int(os.environ.get("ABLATION_DOMAIN_N","30"))
 EXA_KEY=os.environ.get("EXA_API_KEY","")
-OUT_PATH=os.environ.get("ABLATION_OUT","/tmp/ablation_results.json")
+# save to Google Drive if mounted, else /tmp
+_GDRIVE="/content/drive/MyDrive"
+_DEFAULT_OUT=os.path.join(_GDRIVE,"ablation_results.json") if os.path.isdir(_GDRIVE) else "/tmp/ablation_results.json"
+OUT_PATH=os.environ.get("ABLATION_OUT",_DEFAULT_OUT)
+CHECKPOINT_PATH=OUT_PATH.replace(".json","_checkpoint.json")
 
 DREAM_PROMPTS=[
     "What is the capital of France?","Explain photosynthesis briefly.",
@@ -89,6 +93,27 @@ ABLATIONS=[
 ]
 # note: dream+gate == no_filter by definition, but we keep both names
 # so the results table reads naturally. We skip the duplicate run.
+
+def _save_checkpoint(results):
+    """Save completed results so we can resume after disconnect."""
+    out={}
+    for k,v in results.items():
+        out[k]={kk:vv for kk,vv in v.items() if kk!="per_anchor"}
+    with open(CHECKPOINT_PATH,"w") as f:
+        json.dump(out,f,indent=2,default=str)
+    log.info("checkpoint saved: %d configs -> %s",len(out),CHECKPOINT_PATH)
+
+def _load_checkpoint():
+    """Load previous checkpoint if it exists."""
+    if not os.path.exists(CHECKPOINT_PATH):
+        return {}
+    try:
+        with open(CHECKPOINT_PATH) as f:
+            data=json.load(f)
+        log.info("resumed checkpoint: %d configs from %s",len(data),CHECKPOINT_PATH)
+        return data
+    except Exception:
+        return {}
 
 def pr(msg):
     print(f"\n{'='*60}\n{msg}\n{'='*60}")
@@ -408,6 +433,10 @@ def main():
     baseline["config"]={"dream":False,"gate":False,"filter":False}
 
     results={"baseline":baseline}
+    _save_checkpoint(results)
+
+    # check for previous checkpoint to resume from
+    prev=_load_checkpoint()
 
     # run ablations
     pr("PHASE 4: RUN ABLATIONS")
@@ -431,6 +460,13 @@ def main():
             continue
         seen_configs.add(config_key)
 
+        # skip if already completed in a previous run
+        if name in prev and "mean_f1" in prev[name]:
+            results[name]=prev[name]
+            runs_done+=1
+            print(f"\n  [{runs_done}/{total_runs}] {name}: RESUMED from checkpoint")
+            continue
+
         # ETA
         runs_done+=1
         if run_times:
@@ -450,6 +486,7 @@ def main():
                        dream,gate,filt)
         results[name]=m
         run_times.append(m["time"])
+        _save_checkpoint(results)
 
     total_time=time.time()-study_t0
     print(f"\nAll ablations done in {fmt_eta(total_time)}{gpu_mem()}")
