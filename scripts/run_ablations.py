@@ -2,7 +2,7 @@
 
 Run on Google Colab Pro:
     !git clone <repo> && cd websleuths-229
-    !pip install -q torch transformers peft datasets accelerate numpy pydantic tiktoken exa-py anthropic scrapy crochet twisted pydispatch networkx scipy
+    !pip install -q -r requirements.txt
     !python scripts/run_ablations.py
 
 Ablation matrix (each row trains from the same base checkpoint):
