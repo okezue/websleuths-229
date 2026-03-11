@@ -46,7 +46,7 @@ from wm.cfg import GateCfg,ChunkCfg,DatasetCfg
 MODEL_NAME=None
 LORA_R=8
 LORA_ALPHA=16
-STEPS=int(os.environ.get("ABLATION_STEPS","30"))
+STEPS=int(os.environ.get("ABLATION_STEPS","100"))
 BS=int(os.environ.get("ABLATION_BS","2"))
 LR=2e-4
 MAX_LEN=128
@@ -54,7 +54,7 @@ DREAM_N=2
 DREAM_LEN=32
 EVAL_N=int(os.environ.get("ABLATION_EVAL_N","20"))
 DOMAIN_EVAL_N=int(os.environ.get("ABLATION_DOMAIN_N","30"))
-EXA_KEY=os.environ.get("EXA_API_KEY","")
+EXA_KEY=os.environ.get("EXA_API_KEY","e337f35a-e56c-4ae7-8596-f44959053342")
 # save ablation outputs to Google Drive if mounted, else /tmp
 _GDRIVE="/content/drive/MyDrive"
 _GDRIVE_ABLATIONS=os.path.join(_GDRIVE,"ablations")
@@ -303,7 +303,8 @@ def run_ablation(name,base_model,base_snap,tok,ds,ds_eval,probes,
     runner=EATRDRunner(
         lr=LR,max_steps=STEPS,bs=BS,temp=2.0,
         eps_min=0.01,alpha=0.5,rho=0.01,lam_init=lam,
-        max_len=MAX_LEN,dream_n=DREAM_N,dream_len=DREAM_LEN)
+        max_len=MAX_LEN,dream_n=DREAM_N,dream_len=DREAM_LEN,
+        d_targ=0.005)
 
     tr=runner.run(model,teacher,ds,DREAM_PROMPTS,tok)
     print(f"  train: loss={tr.loss:.4f} dream_loss={tr.dream_loss:.4f} "
