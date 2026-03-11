@@ -43,7 +43,7 @@ from wm.search.dedup import dedup_chunks,dedup_raw
 from wm.cfg import GateCfg,ChunkCfg,DatasetCfg
 
 # config
-MODEL_NAME=os.environ.get("ABLATION_MODEL","meta-llama/Llama-3.2-1B")
+MODEL_NAME=os.environ.get("ABLATION_MODEL","Qwen/Qwen2.5-1.5B")
 LORA_R=8
 LORA_ALPHA=16
 STEPS=int(os.environ.get("ABLATION_STEPS","30"))
