@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from scrapy.http import TextResponse
+
 from wm.types import Episode
 from wm.gate.util import canonicalize_url, domain_of, tokenize, max_norm, make_runner
 
@@ -132,6 +134,8 @@ def rank_urls_cross_source_corroboration(urls: list[str]) -> dict[str, float]:
             self.start_urls = seed_urls
 
         def parse(self, response):
+            if not isinstance(response, TextResponse):
+                return
             page_url = canonicalize_url(response.url)
 
             body_text = " ".join(

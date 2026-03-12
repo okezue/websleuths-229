@@ -1,4 +1,7 @@
 from __future__ import annotations
+
+from scrapy.http import TextResponse
+
 from wm.types import Episode
 from wm.gate.util import make_runner
 
@@ -23,6 +26,8 @@ def rank_urls(urls: list[str]) -> dict[str, float]:
             self.start_urls = urls
 
         def parse(self, response):
+            if not isinstance(response, TextResponse):
+                return
             links = response.css('a::attr(href)').getall()
             for link in links:
                 if link:
