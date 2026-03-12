@@ -53,13 +53,14 @@ MAX_LEN=128
 DREAM_N=2
 DREAM_LEN=32
 EVAL_N=int(os.environ.get("ABLATION_EVAL_N","20"))
-DOMAIN_EVAL_N=int(os.environ.get("ABLATION_DOMAIN_N","30"))
+DOMAIN_EVAL_N=int(os.environ.get("ABLATION_DOMAIN_N","20"))
 EXA_KEY=os.environ.get("EXA_API_KEY","e337f35a-e56c-4ae7-8596-f44959053342")
 # save ablation outputs to Google Drive if mounted, else /tmp
 _GDRIVE="/content/drive/MyDrive"
 _GDRIVE_ABLATIONS=os.path.join(_GDRIVE,"ablations")
 OUT_PATH=None
 CHECKPOINT_PATH=None
+STATE_DIR=None
 
 DREAM_PROMPTS=[
     "What is the capital of France?","Explain photosynthesis briefly.",
@@ -100,6 +101,8 @@ def _parse_args():
                     help="HF model id or local model path to evaluate")
     ap.add_argument("--out",default=os.environ.get("ABLATION_OUT"),
                     help="optional output JSON path; checkpoint path is derived from it")
+    ap.add_argument("--domain-n",type=int,default=DOMAIN_EVAL_N,
+                    help="samples per domain/MMLU benchmark (default: %(default)s)")
     return ap.parse_args()
 
 def _sanitize_model_name(model_name):
@@ -113,8 +116,9 @@ def _default_out_path(model_name):
     return os.path.join("/tmp",fname)
 
 def _configure_run(args):
-    global MODEL_NAME,OUT_PATH,CHECKPOINT_PATH
+    global MODEL_NAME,OUT_PATH,CHECKPOINT_PATH,STATE_DIR,DOMAIN_EVAL_N
     MODEL_NAME=args.model
+    DOMAIN_EVAL_N=args.domain_n
     OUT_PATH=args.out or _default_out_path(MODEL_NAME)
     out_dir=os.path.dirname(OUT_PATH) or "."
     out_stem,out_ext=os.path.splitext(os.path.basename(OUT_PATH))
@@ -122,6 +126,7 @@ def _configure_run(args):
         out_ext=".json"
         OUT_PATH=os.path.join(out_dir,f"{out_stem}{out_ext}")
     CHECKPOINT_PATH=os.path.join(out_dir,f"{out_stem}_checkpoint{out_ext}")
+    STATE_DIR=os.path.join(out_dir,f"{out_stem}_state")
 
 def _save_checkpoint(results):
     """Save completed results so we can resume after disconnect."""
@@ -132,6 +137,32 @@ def _save_checkpoint(results):
     with open(CHECKPOINT_PATH,"w") as f:
         json.dump(out,f,indent=2,default=str)
     log.info("checkpoint saved: %d configs -> %s",len(out),CHECKPOINT_PATH)
+
+def _adapter_ckpt_path(name):
+    os.makedirs(STATE_DIR,exist_ok=True)
+    safe=_sanitize_model_name(name)
+    return os.path.join(STATE_DIR,f"{safe}_adapter.pt")
+
+def _save_adapter_checkpoint(model,name):
+    path=_adapter_ckpt_path(name)
+    state={k:v.detach().cpu() for k,v in model.state_dict().items() if "lora_" in k}
+    torch.save(state,path)
+    return path
+
+def _load_adapter_checkpoint(model,path):
+    state=torch.load(path,map_location="cpu")
+    incompat=model.load_state_dict(state,strict=False)
+    if incompat.unexpected_keys:
+        log.warning("adapter checkpoint had unexpected keys: %s",incompat.unexpected_keys[:5])
+    non_lora_missing=[k for k in incompat.missing_keys if "lora_" in k]
+    if non_lora_missing:
+        log.warning("adapter checkpoint missing LoRA keys: %s",non_lora_missing[:5])
+
+def _checkpoint_result(results,name,metrics,status):
+    payload=dict(metrics)
+    payload["_status"]=status
+    results[name]=payload
+    _save_checkpoint(results)
 
 def _load_checkpoint():
     """Load previous checkpoint if it exists."""
@@ -266,11 +297,14 @@ def eval_model(model,tok,ds_eval,probes,tag=""):
             "mean_f1":pscore["mean_f1"],"anchor_nll":anll,
             "per_anchor":per_anc,"n_probes":pscore["n_probes"]}
 
-def eval_domains(model,tok,n=DOMAIN_EVAL_N):
+def eval_domains(model,tok,n=DOMAIN_EVAL_N,existing=None,on_update=None):
     """Run domain benchmark evals (HF datasets, no API keys needed)."""
     harness=DomainEvalHarness(model,tok,n_samples=n)
-    scores={}
+    scores=dict(existing or {})
     for domain in ["finance","legal","chemistry","medicine"]:
+        if domain in scores and scores[domain].get("n",0)>0:
+            print(f"    {domain}: resumed acc={scores[domain]['acc']:.4f} (n={scores[domain]['n']})")
+            continue
         try:
             bs=harness.eval_domain(domain,n=n)
             scores[domain]={"acc":bs.acc,"n":bs.n}
@@ -278,59 +312,100 @@ def eval_domains(model,tok,n=DOMAIN_EVAL_N):
         except Exception as e:
             log.warning("domain %s failed: %s",domain,e)
             scores[domain]={"acc":0.0,"n":0}
+        if on_update:
+            on_update(scores)
     for domain in ["finance","legal","chemistry","medicine"]:
+        key=f"mmlu_{domain}"
+        if key in scores and scores[key].get("n",0)>0:
+            print(f"    {key}: resumed acc={scores[key]['acc']:.4f} (n={scores[key]['n']})")
+            continue
         try:
             ms=harness.eval_mmlu(domain,n=n)
-            scores[f"mmlu_{domain}"]={"acc":ms.acc,"n":ms.n}
-            print(f"    mmlu_{domain}: acc={ms.acc:.4f} (n={ms.n})")
+            scores[key]={"acc":ms.acc,"n":ms.n}
+            print(f"    {key}: acc={ms.acc:.4f} (n={ms.n})")
         except Exception as e:
             log.warning("mmlu %s failed: %s",domain,e)
-            scores[f"mmlu_{domain}"]={"acc":0.0,"n":0}
+            scores[key]={"acc":0.0,"n":0}
+        if on_update:
+            on_update(scores)
     return scores
 
 def run_ablation(name,base_model,base_snap,tok,ds,ds_eval,probes,
-                 dream_on,gate_on,filter_on):
+                 dream_on,gate_on,filter_on,resume_state=None,results=None):
     """Run one ablation config: train + eval."""
     pr(f"ABLATION: {name} (dream={dream_on}, gate={gate_on}, filter={filter_on})")
     t0=time.time()
+    resume_state=resume_state or {}
+    results=results if results is not None else {}
+    status=resume_state.get("_status","")
 
     model=copy.deepcopy(base_model)
     model.load_state_dict(base_snap)
-    teacher=copy.deepcopy(model).eval()
+    metrics={k:v for k,v in resume_state.items() if k!="per_anchor"}
+    metrics["config"]={"dream":dream_on,"gate":gate_on,"filter":filter_on}
 
-    # dreaming: lam_init=1.0 if on, 0.0 if off
-    lam=1.0 if dream_on else 0.0
-    runner=EATRDRunner(
-        lr=LR,max_steps=STEPS,bs=BS,temp=2.0,
-        eps_min=0.01,alpha=0.5,rho=0.01,lam_init=lam,
-        max_len=MAX_LEN,dream_n=DREAM_N,dream_len=DREAM_LEN,
-        d_targ=0.005)
+    if status in {"trained","core_eval","drift","domains_partial"}:
+        ckpt=resume_state.get("_adapter_ckpt")
+        if ckpt and os.path.exists(ckpt):
+            _load_adapter_checkpoint(model,ckpt)
+            print(f"  resumed trained adapter from {ckpt}")
+        else:
+            print("  partial checkpoint missing adapter weights; retraining config")
+            status=""
 
-    tr=runner.run(model,teacher,ds,DREAM_PROMPTS,tok)
-    print(f"  train: loss={tr.loss:.4f} dream_loss={tr.dream_loss:.4f} "
-          f"steps={tr.steps} lam={tr.extras.get('lambda',0):.4f}")
-    del teacher;gc.collect()
+    if not status:
+        teacher=copy.deepcopy(model).eval()
+
+        # dreaming: lam_init=1.0 if on, 0.0 if off
+        lam=1.0 if dream_on else 0.0
+        runner=EATRDRunner(
+            lr=LR,max_steps=STEPS,bs=BS,temp=2.0,
+            eps_min=0.01,alpha=0.5,rho=0.01,lam_init=lam,
+            max_len=MAX_LEN,dream_n=DREAM_N,dream_len=DREAM_LEN,
+            d_targ=0.005)
+
+        tr=runner.run(model,teacher,ds,DREAM_PROMPTS,tok)
+        print(f"  train: loss={tr.loss:.4f} dream_loss={tr.dream_loss:.4f} "
+              f"steps={tr.steps} lam={tr.extras.get('lambda',0):.4f}")
+        del teacher;gc.collect()
+        metrics["train_loss"]=tr.loss
+        metrics["dream_loss"]=tr.dream_loss
+        metrics["_adapter_ckpt"]=_save_adapter_checkpoint(model,name)
+        _checkpoint_result(results,name,metrics,"trained")
+        status="trained"
 
     # eval
-    metrics=eval_model(model,tok,ds_eval,probes,tag=name)
-    metrics["train_loss"]=tr.loss
-    metrics["dream_loss"]=tr.dream_loss
+    if status=="trained":
+        eval_metrics=eval_model(model,tok,ds_eval,probes,tag=name)
+        metrics.update(eval_metrics)
+        _checkpoint_result(results,name,metrics,"core_eval")
+        status="core_eval"
 
     # drift
-    dk=drift_kl(model,base_model,tok,ANCHORS[:3],max_len=64)
-    metrics["drift_kl"]=dk
-    print(f"  drift_kl={dk:.6f}")
+    if status=="core_eval":
+        dk=drift_kl(model,base_model,tok,ANCHORS[:3],max_len=64)
+        metrics["drift_kl"]=dk
+        print(f"  drift_kl={dk:.6f}")
+        _checkpoint_result(results,name,metrics,"drift")
+        status="drift"
 
     # domain benchmarks
-    domain_scores=eval_domains(model,tok,n=DOMAIN_EVAL_N)
-    metrics["domains"]=domain_scores
+    if status in {"drift","domains_partial"}:
+        partial_domains=metrics.get("domains",{})
+        def _on_domain_update(scores):
+            metrics["domains"]=copy.deepcopy(scores)
+            _checkpoint_result(results,name,metrics,"domains_partial")
+        domain_scores=eval_domains(model,tok,n=DOMAIN_EVAL_N,
+                                   existing=partial_domains,on_update=_on_domain_update)
+        metrics["domains"]=domain_scores
 
     metrics["time"]=time.time()-t0
-    metrics["config"]={"dream":dream_on,"gate":gate_on,"filter":filter_on}
+    metrics.pop("_status",None)
 
     del model;gc.collect()
     if torch.cuda.is_available():torch.cuda.empty_cache()
-    return metrics
+    _checkpoint_result(results,name,metrics,"done")
+    return results[name]
 
 def sub_ds(ds,n=EVAL_N):
     if len(ds)<=n:return ds
@@ -425,10 +500,12 @@ def print_ablation_analysis(results):
 def main():
     args=_parse_args()
     _configure_run(args)
+    prev=_load_checkpoint()
     pr("ABLATION STUDY")
     print(f"Model: {MODEL_NAME}")
     print(f"GPU: {gpu_info()}")
     print(f"Steps: {STEPS}, BS: {BS}, LR: {LR}")
+    print(f"Domain eval samples: {DOMAIN_EVAL_N}")
     n_unique=len(set((d,g,f) for _,d,g,f in ABLATIONS))
     print(f"Ablation matrix: {len(ABLATIONS)} configs ({n_unique} unique runs + baseline)")
 
@@ -456,21 +533,25 @@ def main():
     base_model.print_trainable_parameters()
     base_snap={k:v.clone() for k,v in base_model.state_dict().items()}
 
-    # baseline eval (no training)
-    print("Computing baseline (no training)...")
-    baseline=eval_model(base_model,tok,ds_eval_filtered,probes_filtered,"baseline")
-    baseline["drift_kl"]=0.0
-    baseline["train_loss"]=0.0
-    baseline["dream_loss"]=0.0
-    baseline["time"]=time.time()-t0
-    baseline["domains"]=eval_domains(base_model,tok,n=DOMAIN_EVAL_N)
-    baseline["config"]={"dream":False,"gate":False,"filter":False}
+    if "baseline" in prev and (
+        prev["baseline"].get("_status")=="done" or
+        ("mean_f1" in prev["baseline"] and "domains" in prev["baseline"])
+    ):
+        baseline=prev["baseline"]
+        print("Baseline: RESUMED from checkpoint")
+    else:
+        # baseline eval (no training)
+        print("Computing baseline (no training)...")
+        baseline=eval_model(base_model,tok,ds_eval_filtered,probes_filtered,"baseline")
+        baseline["drift_kl"]=0.0
+        baseline["train_loss"]=0.0
+        baseline["dream_loss"]=0.0
+        baseline["time"]=time.time()-t0
+        baseline["domains"]=eval_domains(base_model,tok,n=DOMAIN_EVAL_N)
+        baseline["config"]={"dream":False,"gate":False,"filter":False}
 
     results={"baseline":baseline}
     _save_checkpoint(results)
-
-    # check for previous checkpoint to resume from
-    prev=_load_checkpoint()
 
     # run ablations
     pr("PHASE 4: RUN ABLATIONS")
@@ -495,7 +576,10 @@ def main():
         seen_configs.add(config_key)
 
         # skip if already completed in a previous run
-        if name in prev and "mean_f1" in prev[name]:
+        if name in prev and (
+            prev[name].get("_status")=="done" or
+            ("mean_f1" in prev[name] and "domains" in prev[name])
+        ):
             results[name]=prev[name]
             runs_done+=1
             print(f"\n  [{runs_done}/{total_runs}] {name}: RESUMED from checkpoint")
@@ -517,10 +601,9 @@ def main():
             ds,ds_eval,probes=ds_raw,ds_eval_raw,probes_raw
 
         m=run_ablation(name,base_model,base_snap,tok,ds,ds_eval,probes,
-                       dream,gate,filt)
+                       dream,gate,filt,resume_state=prev.get(name),results=results)
         results[name]=m
         run_times.append(m["time"])
-        _save_checkpoint(results)
 
     total_time=time.time()-study_t0
     print(f"\nAll ablations done in {fmt_eta(total_time)}{gpu_mem()}")
@@ -533,7 +616,7 @@ def main():
     # save
     out={}
     for k,v in results.items():
-        out[k]={kk:vv for kk,vv in v.items() if kk!="per_anchor"}
+        out[k]={kk:vv for kk,vv in v.items() if kk!="per_anchor" and not kk.startswith("_")}
     os.makedirs(os.path.dirname(OUT_PATH) or ".",exist_ok=True)
     with open(OUT_PATH,"w") as f:
         json.dump({"results":out,"model":MODEL_NAME,"steps":STEPS,
