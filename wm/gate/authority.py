@@ -1,15 +1,16 @@
 from __future__ import annotations
 from wm.types import Episode
+from wm.gate.util import make_runner
 
 import scrapy
-from scrapy.crawler import CrawlerRunner
 from crochet import setup, wait_for
 from pydispatch import dispatcher
 from scrapy import signals
-import twisted
 import networkx as nx
 
 from wm.gate.topical import topical_endorsement_authority
+from wm.gate.provenance import provenance_editorial_authority
+from wm.gate.corroborate import cross_source_corroboration_authority
 
 # 4. Execute the crawling process
 
@@ -44,15 +45,7 @@ def rank_urls(urls: list[str]) -> dict[str, float]:
 
     @wait_for(timeout=60.0)
     def run_spider():
-        # Get the name of the currently installed reactor to avoid mismatch errors
-        current_reactor = f"{twisted.internet.reactor.__class__.__module__}.{twisted.internet.reactor.__class__.__name__}"
-
-        runner = CrawlerRunner(settings={
-            'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.34 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.34',
-            'LOG_LEVEL': 'ERROR',
-            'TWISTED_REACTOR': current_reactor
-        })
-        return runner.crawl(LinkSpider)
+        return make_runner().crawl(LinkSpider)
 
     run_spider()
 
@@ -92,3 +85,5 @@ def base_authority(eps:list[Episode], query:str="")->list[Episode]:
     return eps
 
 exa_authority=topical_endorsement_authority
+exa_authority = provenance_editorial_authority
+exa_authority = cross_source_corroboration_authority

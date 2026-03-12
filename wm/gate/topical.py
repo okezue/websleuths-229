@@ -1,71 +1,19 @@
 from __future__ import annotations
 
 from wm.types import Episode
-
-import re
-from collections import defaultdict
-from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
+from wm.gate.util import canonicalize_url, domain_of, tokenize, max_norm, make_runner
 
 import scrapy
-from scrapy.crawler import CrawlerRunner
 from scrapy import signals
 from crochet import setup, wait_for
 from pydispatch import dispatcher
-import twisted
 import networkx as nx
 
-
-# ---------- URL normalization ----------
-
-TRACKING_PARAMS = {
-    "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
-    "gclid", "fbclid", "mc_cid", "mc_eid", "ref", "src"
-}
-
-
-def canonicalize_url(url: str) -> str:
-    try:
-        s = urlsplit(url)
-        scheme = s.scheme.lower() or "https"
-        netloc = s.netloc.lower()
-
-        if netloc.startswith("www."):
-            netloc = netloc[4:]
-
-        # Drop fragment and common tracking params
-        filtered_q = [(k, v) for k, v in parse_qsl(s.query, keep_blank_values=True)
-                      if k.lower() not in TRACKING_PARAMS]
-        query = urlencode(filtered_q, doseq=True)
-
-        path = s.path or "/"
-        if path != "/" and path.endswith("/"):
-            path = path[:-1]
-
-        return urlunsplit((scheme, netloc, path, query, ""))
-    except Exception:
-        return url
-
-
-def domain_of(url: str) -> str:
-    try:
-        netloc = urlsplit(url).netloc.lower()
-        if netloc.startswith("www."):
-            netloc = netloc[4:]
-        return netloc
-    except Exception:
-        return ""
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 # ---------- Text helpers ----------
-
-TOKEN_RE = re.compile(r"[A-Za-z0-9]+")
-
-STOPWORDS = {
-    "the", "a", "an", "and", "or", "but", "if", "then", "else", "of", "to", "in", "on",
-    "for", "from", "with", "by", "at", "as", "is", "are", "was", "were", "be", "been",
-    "this", "that", "these", "those", "it", "its", "into", "about", "over", "under",
-    "what", "which", "who", "whom", "when", "where", "why", "how"
-}
 
 GENERIC_ANCHORS = {
     "click here", "here", "read more", "more", "learn more", "link", "source",
@@ -73,39 +21,36 @@ GENERIC_ANCHORS = {
 }
 
 
-def tokenize(text: str) -> list[str]:
-    toks = [t.lower() for t in TOKEN_RE.findall(text or "")]
-    return [t for t in toks if t not in STOPWORDS]
-
-
-def token_set(text: str) -> set[str]:
-    return set(tokenize(text))
-
-
-def overlap_score(text: str, query_terms: set[str]) -> float:
-    if not query_terms:
-        return 0.0
-    toks = token_set(text)
-    if not toks:
-        return 0.0
-    # Recall-style overlap: how much of the query appears here
-    return len(toks & query_terms) / max(1, len(query_terms))
-
-
 def is_generic_anchor(anchor_text: str) -> bool:
     a = " ".join(tokenize(anchor_text))
     return a in GENERIC_ANCHORS or len(a) <= 2
 
+def batch_text_query_similarity(texts: list[str], query: str) -> list[float]:
+    """
+    Compute TF-IDF cosine similarity between each text in `texts` and `query`
+    in one vectorizer fit.
 
-# ---------- Normalization helpers ----------
+    Returns a list of floats, same length/order as `texts`.
+    """
+    if not texts:
+        return []
+    if not query:
+        return [0.0] * len(texts)
 
-def max_norm(scores: dict[str, float]) -> dict[str, float]:
-    if not scores:
-        return {}
-    mx = max(scores.values(), default=0.0)
-    if mx <= 0:
-        return {k: 0.0 for k in scores}
-    return {k: v / mx for k, v in scores.items()}
+    safe_texts = [t if t and t.strip() else "" for t in texts]
+    if not any(t.strip() for t in safe_texts):
+        return [0.0] * len(texts)
+
+    docs = safe_texts + [query]
+    try:
+        vec = TfidfVectorizer(stop_words="english")
+        X = vec.fit_transform(docs)
+        q = X[-1:]
+        sims = cosine_similarity(X[:-1], q).ravel()
+        return [float(s) for s in sims]
+    except ValueError:
+        # Empty vocabulary, etc.
+        return [0.0] * len(texts)
 
 
 # ---------- Core graph scoring ----------
@@ -123,7 +68,6 @@ def rank_urls_topical_endorsement(urls: list[str], query: str) -> dict[str, floa
 
     seed_urls = [canonicalize_url(u) for u in urls]
     seed_set = set(seed_urls)
-    query_terms = token_set(query)
 
     extracted_edges: list[dict] = []
 
@@ -155,7 +99,6 @@ def rank_urls_topical_endorsement(urls: list[str], query: str) -> dict[str, floa
                     t.strip() for t in a.css("::text").getall() if t.strip()
                 )
 
-                # Cheap local context: parent text + grandparent text
                 parent_text = " ".join(
                     t.strip() for t in a.xpath("..//text()").getall() if t.strip()
                 )
@@ -165,7 +108,6 @@ def rank_urls_topical_endorsement(urls: list[str], query: str) -> dict[str, floa
 
                 context_text = (parent_text + " " + grandparent_text).strip()
 
-                # Structural location hints
                 in_nav = bool(a.xpath("ancestor::nav"))
                 in_footer = bool(a.xpath("ancestor::footer"))
                 in_header = bool(a.xpath("ancestor::header"))
@@ -177,7 +119,7 @@ def rank_urls_topical_endorsement(urls: list[str], query: str) -> dict[str, floa
                     "source": page_url,
                     "target": target,
                     "anchor_text": anchor_text,
-                    "context_text": context_text[:1000],  # cap size
+                    "context_text": context_text[:1000],
                     "in_nav": in_nav,
                     "in_footer": in_footer,
                     "in_header": in_header,
@@ -193,46 +135,42 @@ def rank_urls_topical_endorsement(urls: list[str], query: str) -> dict[str, floa
 
     @wait_for(timeout=60.0)
     def run_spider():
-        current_reactor = (
-            f"{twisted.internet.reactor.__class__.__module__}."
-            f"{twisted.internet.reactor.__class__.__name__}"
-        )
+        return make_runner().crawl(LinkSpider)
 
-        runner = CrawlerRunner(settings={
-            "USER_AGENT": (
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/120.0.0.0 Safari/537.36"
-            ),
-            "LOG_LEVEL": "ERROR",
-            "TWISTED_REACTOR": current_reactor,
-        })
-        return runner.crawl(LinkSpider)
-
-    run_spider()
+    try:
+        run_spider()
+    finally:
+        try:
+            dispatcher.disconnect(item_passed, signal=signals.item_scraped)
+        except Exception:
+            pass
 
     G = nx.DiGraph()
     for u in seed_urls:
         G.add_node(u)
 
-    for edge in extracted_edges:
+    if not extracted_edges:
+        return {u: 0.0 for u in seed_urls}
+
+    # -------- batched topical similarity --------
+    anchor_texts = [(edge.get("anchor_text", "") or "") for edge in extracted_edges]
+    context_texts = [(edge.get("context_text", "") or "") for edge in extracted_edges]
+
+    anchor_overlaps = batch_text_query_similarity(anchor_texts, query)
+    context_overlaps = batch_text_query_similarity(context_texts, query)
+
+    for edge, anchor_overlap, context_overlap in zip(
+        extracted_edges, anchor_overlaps, context_overlaps
+    ):
         source = edge["source"]
         target = edge["target"]
         if source not in seed_set or target not in seed_set:
             continue
 
         anchor_text = edge.get("anchor_text", "") or ""
-        context_text = edge.get("context_text", "") or ""
 
         # --- topicality ---
-        anchor_overlap = overlap_score(anchor_text, query_terms)
-        context_overlap = overlap_score(context_text, query_terms)
-
-        # Anchor matters more than surrounding context
         topicality = 0.7 * anchor_overlap + 0.3 * context_overlap
-
-        # Small floor so that highly likely content links without lexical overlap
-        # are not treated as zero-vote edges.
         topicality = max(topicality, 0.05)
 
         # --- structural quality ---
@@ -257,13 +195,11 @@ def rank_urls_topical_endorsement(urls: list[str], query: str) -> dict[str, floa
 
         weight = topicality * structure
 
-        # Aggregate repeated links
         if G.has_edge(source, target):
             G[source][target]["weight"] += weight
         else:
             G.add_edge(source, target, weight=weight)
 
-    # If graph has no usable edges, return zeros so blend falls back to Exa
     if G.number_of_edges() == 0:
         return {u: 0.0 for u in seed_urls}
 
