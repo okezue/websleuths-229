@@ -69,14 +69,14 @@ def rank_urls(urls: list[str]) -> dict[str, float]:
     # 2. Filter the scores to include only the original seed_urls
     # We check if the URL exists in the graph to avoid KeyErrors
     seed_scores = {url: pagerank_scores.get(url, 0) for url in urls}
-    max_score = max(seed_scores.values())
+    max_score = max(seed_scores.values()) or 1.0
     for url, score in seed_scores.items():
         seed_scores[url] = score / max_score
 
     return seed_scores
 
 
-def exa_authority(eps:list[Episode])->list[Episode]:
+def exa_authority(eps:list[Episode], query:str="")->list[Episode]:
     if not eps:return eps
 
     seed_scores = rank_urls([e.url for e in eps])
