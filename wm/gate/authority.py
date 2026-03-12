@@ -9,6 +9,8 @@ from scrapy import signals
 import twisted
 import networkx as nx
 
+from wm.gate.topical import topical_endorsement_authority
+
 # 4. Execute the crawling process
 
 def rank_urls(urls: list[str]) -> dict[str, float]:
@@ -76,7 +78,7 @@ def rank_urls(urls: list[str]) -> dict[str, float]:
     return seed_scores
 
 
-def exa_authority(eps:list[Episode], query:str="")->list[Episode]:
+def base_authority(eps:list[Episode], query:str="")->list[Episode]:
     if not eps:return eps
 
     seed_scores = rank_urls([e.url for e in eps])
@@ -89,4 +91,4 @@ def exa_authority(eps:list[Episode], query:str="")->list[Episode]:
     eps.sort(key=lambda e:e.authority,reverse=True)
     return eps
 
-pagerank_authority=exa_authority
+exa_authority=topical_endorsement_authority
