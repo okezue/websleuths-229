@@ -4,3 +4,7 @@ __pycache__/
 .coverage
 .pytest_cache/
 .venv/
+
+# ablation run artifacts (resumption checkpoints + trained adapter weights)
+ablations/*_checkpoint.json
+ablations/*_state/

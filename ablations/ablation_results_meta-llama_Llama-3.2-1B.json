@@ -1,0 +1,423 @@
+{
+  "results": {
+    "baseline": {
+      "ppl": 18.31439964629163,
+      "acc": 0.4468503937007874,
+      "hit_rate": 0.1,
+      "mean_f1": 0.1,
+      "anchor_nll": 3.6080081939697264,
+      "n_probes": 10,
+      "drift_kl": 0.0,
+      "train_loss": 0.0,
+      "dream_loss": 0.0,
+      "time": 181.7760045528412,
+      "domains": {
+        "finance": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "legal": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "chemistry": {
+          "acc": 0.3,
+          "n": 20
+        },
+        "medicine": {
+          "acc": 0.3,
+          "n": 20
+        },
+        "mmlu_finance": {
+          "acc": 0.1,
+          "n": 20
+        },
+        "mmlu_legal": {
+          "acc": 0.2,
+          "n": 20
+        },
+        "mmlu_chemistry": {
+          "acc": 0.4,
+          "n": 20
+        },
+        "mmlu_medicine": {
+          "acc": 0.35,
+          "n": 20
+        }
+      },
+      "config": {
+        "dream": false,
+        "gate": false,
+        "filter": false
+      }
+    },
+    "full": {
+      "config": {
+        "dream": true,
+        "gate": true,
+        "filter": true
+      },
+      "train_loss": 2.865576763153076,
+      "dream_loss": 0.00740180492401123,
+      "ppl": 15.298101419046223,
+      "acc": 0.4692913385826772,
+      "hit_rate": 0.1,
+      "mean_f1": 0.1,
+      "anchor_nll": 3.6024706840515135,
+      "n_probes": 10,
+      "drift_kl": 0.026163736979166668,
+      "domains": {
+        "finance": {
+          "acc": 0.05,
+          "n": 20
+        },
+        "legal": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "chemistry": {
+          "acc": 0.3,
+          "n": 20
+        },
+        "medicine": {
+          "acc": 0.3,
+          "n": 20
+        },
+        "mmlu_finance": {
+          "acc": 0.15,
+          "n": 20
+        },
+        "mmlu_legal": {
+          "acc": 0.2,
+          "n": 20
+        },
+        "mmlu_chemistry": {
+          "acc": 0.25,
+          "n": 20
+        },
+        "mmlu_medicine": {
+          "acc": 0.3,
+          "n": 20
+        }
+      },
+      "time": 2105.321573972702
+    },
+    "no_dream": {
+      "config": {
+        "dream": false,
+        "gate": true,
+        "filter": true
+      },
+      "train_loss": 2.8859134209156037,
+      "dream_loss": 0.019594311714172363,
+      "ppl": 15.313176142130763,
+      "acc": 0.4696850393700787,
+      "hit_rate": 0.1,
+      "mean_f1": 0.1,
+      "anchor_nll": 3.5986697673797607,
+      "n_probes": 10,
+      "drift_kl": 0.021448771158854168,
+      "domains": {
+        "finance": {
+          "acc": 0.05,
+          "n": 20
+        },
+        "legal": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "chemistry": {
+          "acc": 0.3,
+          "n": 20
+        },
+        "medicine": {
+          "acc": 0.3,
+          "n": 20
+        },
+        "mmlu_finance": {
+          "acc": 0.1,
+          "n": 20
+        },
+        "mmlu_legal": {
+          "acc": 0.2,
+          "n": 20
+        },
+        "mmlu_chemistry": {
+          "acc": 0.25,
+          "n": 20
+        },
+        "mmlu_medicine": {
+          "acc": 0.4,
+          "n": 20
+        }
+      },
+      "time": 2103.3372774124146
+    },
+    "no_gate": {
+      "config": {
+        "dream": true,
+        "gate": false,
+        "filter": true
+      },
+      "train_loss": 2.858101555109024,
+      "dream_loss": 0.03647780895233154,
+      "ppl": 15.387251423242091,
+      "acc": 0.46692913385826773,
+      "hit_rate": 0.1,
+      "mean_f1": 0.1,
+      "anchor_nll": 3.5888338565826414,
+      "n_probes": 10,
+      "drift_kl": 0.0369873046875,
+      "domains": {
+        "finance": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "legal": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "chemistry": {
+          "acc": 0.25,
+          "n": 20
+        },
+        "medicine": {
+          "acc": 0.3,
+          "n": 20
+        },
+        "mmlu_finance": {
+          "acc": 0.1,
+          "n": 20
+        },
+        "mmlu_legal": {
+          "acc": 0.2,
+          "n": 20
+        },
+        "mmlu_chemistry": {
+          "acc": 0.25,
+          "n": 20
+        },
+        "mmlu_medicine": {
+          "acc": 0.4,
+          "n": 20
+        }
+      },
+      "time": 2121.03337430954
+    },
+    "no_filter": {
+      "config": {
+        "dream": true,
+        "gate": true,
+        "filter": false
+      },
+      "train_loss": 2.9223516929149627,
+      "dream_loss": 0.007617120742797852,
+      "ppl": 13.912918359760772,
+      "acc": 0.5012376237623762,
+      "hit_rate": 0.2,
+      "mean_f1": 0.2,
+      "anchor_nll": 3.600956916809082,
+      "n_probes": 10,
+      "drift_kl": 0.07332356770833333,
+      "domains": {
+        "finance": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "legal": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "chemistry": {
+          "acc": 0.25,
+          "n": 20
+        },
+        "medicine": {
+          "acc": 0.25,
+          "n": 20
+        },
+        "mmlu_finance": {
+          "acc": 0.15,
+          "n": 20
+        },
+        "mmlu_legal": {
+          "acc": 0.15,
+          "n": 20
+        },
+        "mmlu_chemistry": {
+          "acc": 0.3,
+          "n": 20
+        },
+        "mmlu_medicine": {
+          "acc": 0.1,
+          "n": 20
+        }
+      },
+      "time": 2121.5804290771484
+    },
+    "dream+gate": {
+      "config": {
+        "dream": true,
+        "gate": true,
+        "filter": false
+      },
+      "train_loss": 2.9223516929149627,
+      "dream_loss": 0.007617120742797852,
+      "ppl": 13.912918359760772,
+      "acc": 0.5012376237623762,
+      "hit_rate": 0.2,
+      "mean_f1": 0.2,
+      "anchor_nll": 3.600956916809082,
+      "n_probes": 10,
+      "drift_kl": 0.07332356770833333,
+      "domains": {
+        "finance": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "legal": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "chemistry": {
+          "acc": 0.25,
+          "n": 20
+        },
+        "medicine": {
+          "acc": 0.25,
+          "n": 20
+        },
+        "mmlu_finance": {
+          "acc": 0.15,
+          "n": 20
+        },
+        "mmlu_legal": {
+          "acc": 0.15,
+          "n": 20
+        },
+        "mmlu_chemistry": {
+          "acc": 0.3,
+          "n": 20
+        },
+        "mmlu_medicine": {
+          "acc": 0.1,
+          "n": 20
+        }
+      },
+      "time": 2121.5804290771484
+    },
+    "dream+filter": {
+      "config": {
+        "dream": true,
+        "gate": false,
+        "filter": true
+      },
+      "train_loss": 2.858101555109024,
+      "dream_loss": 0.03647780895233154,
+      "ppl": 15.387251423242091,
+      "acc": 0.46692913385826773,
+      "hit_rate": 0.1,
+      "mean_f1": 0.1,
+      "anchor_nll": 3.5888338565826414,
+      "n_probes": 10,
+      "drift_kl": 0.0369873046875,
+      "domains": {
+        "finance": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "legal": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "chemistry": {
+          "acc": 0.25,
+          "n": 20
+        },
+        "medicine": {
+          "acc": 0.3,
+          "n": 20
+        },
+        "mmlu_finance": {
+          "acc": 0.1,
+          "n": 20
+        },
+        "mmlu_legal": {
+          "acc": 0.2,
+          "n": 20
+        },
+        "mmlu_chemistry": {
+          "acc": 0.25,
+          "n": 20
+        },
+        "mmlu_medicine": {
+          "acc": 0.4,
+          "n": 20
+        }
+      },
+      "time": 2121.03337430954
+    },
+    "naive": {
+      "config": {
+        "dream": false,
+        "gate": false,
+        "filter": false
+      },
+      "train_loss": 2.9135446798801423,
+      "dream_loss": 0.020609092712402344,
+      "ppl": 15.08650109316451,
+      "acc": 0.49793729372937295,
+      "hit_rate": 0.1,
+      "mean_f1": 0.1,
+      "anchor_nll": 3.616120958328247,
+      "n_probes": 10,
+      "drift_kl": 0.043497721354166664,
+      "domains": {
+        "finance": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "legal": {
+          "acc": 0.0,
+          "n": 20
+        },
+        "chemistry": {
+          "acc": 0.25,
+          "n": 20
+        },
+        "medicine": {
+          "acc": 0.2,
+          "n": 20
+        },
+        "mmlu_finance": {
+          "acc": 0.15,
+          "n": 20
+        },
+        "mmlu_legal": {
+          "acc": 0.15,
+          "n": 20
+        },
+        "mmlu_chemistry": {
+          "acc": 0.3,
+          "n": 20
+        },
+        "mmlu_medicine": {
+          "acc": 0.4,
+          "n": 20
+        }
+      },
+      "time": 2126.6315257549286
+    }
+  },
+  "model": "meta-llama/Llama-3.2-1B",
+  "steps": 100,
+  "ablations": [
+    "full",
+    "no_dream",
+    "no_gate",
+    "no_filter",
+    "dream+gate",
+    "dream+filter",
+    "naive"
+  ]
+}
