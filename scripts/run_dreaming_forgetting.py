@@ -37,7 +37,6 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from wm.cfg import ChunkCfg
 from wm.chunk import Chunker
 from wm.eval.anchor import AnchorEval
-from wm.guard.drift import drift_kl
 from wm.ingest.exa import ExaSrc
 from wm.recipe import EATRDRunner
 from wm.search.content_filter import clean_text
@@ -445,9 +444,9 @@ def make_model():
         "trust_remote_code": True,
         "low_cpu_mem_usage": True,
     }
-    if torch.cuda.is_available():
-        load_kwargs["device_map"] = {"": 0}
     model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, **load_kwargs)
+    if torch.cuda.is_available():
+        model = model.cuda()
     lc = LoraConfig(
         r=LORA_R,
         lora_alpha=LORA_ALPHA,
