@@ -8,11 +8,7 @@
    - naive:    no dreaming regularization
    - dreaming: KL regularization to the pre-update teacher using prior-topic prompts
 
-The experiment is designed to test the claim that dreaming reduces forgetting of
-earlier learned topics while keeping general anchors stable.
-
-Example:
-    python scripts/run_dreaming_forgetting.py --model meta-llama/Llama-3.2-1B
+python websleuths-229/scripts/run_dreaming_forgetting.py --model meta-llama/Llama-3.2-1B
 """
 from __future__ import annotations
 
