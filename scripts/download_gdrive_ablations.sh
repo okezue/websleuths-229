@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SRC_DIR="${ABLATIONS_DIR:-results/ablations}"
-OUT_DIR="${1:-ablations}"
+OUT_DIR="${1:-results/ablations}"
 
 if [[ ! -d "$SRC_DIR" ]]; then
   echo "missing source directory: $SRC_DIR" >&2

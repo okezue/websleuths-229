@@ -1,6 +1,6 @@
 # Retention Experiment Summary
 
-This document summarizes the completed retention experiment from `retention/retention_meta-llama_Llama-3.2-1B.json` and `retention/retention_meta-llama_Llama-3.2-1B_checkpoint.json`.
+This document summarizes the completed retention experiment from `results/retention/retention_meta-llama_Llama-3.2-1B.json` and `results/retention/retention_meta-llama_Llama-3.2-1B_checkpoint.json`.
 
 ## What This Experiment Does
 
