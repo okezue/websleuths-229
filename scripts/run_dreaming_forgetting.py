@@ -65,7 +65,7 @@ TRAIN_FRAC = float(os.environ.get("RETENTION_TRAIN_FRAC", "0.8"))
 MAX_EP_PER_QUERY = int(os.environ.get("RETENTION_EP_PER_QUERY", "5"))
 MAX_DREAM_PROMPTS_PER_TOPIC = int(os.environ.get("RETENTION_DREAM_PER_TOPIC", "12"))
 SEED = int(os.environ.get("RETENTION_SEED", "42"))
-EXA_KEY = os.environ.get("EXA_API_KEY", "")
+EXA_KEY = os.environ.get("EXA_API_KEY", "e337f35a-e56c-4ae7-8596-f44959053342")
 
 _GDRIVE = "/content/drive/MyDrive"
 _GDRIVE_OUT = os.path.join(_GDRIVE, "retention")
