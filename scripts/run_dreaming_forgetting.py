@@ -1,14 +1,14 @@
 """Sequential retention experiment: naive vs dreaming with held-out topic eval.
 
-1. Fetch fixed corpora for several topics once and freeze them in the checkpoint.
-2. Split each topic into train/eval rows once; eval rows are never trained on.
-3. Train sequentially across topics.
-4. After each update, evaluate on every topic's held-out split.
-5. Compare:
-   - naive:    no dreaming regularization
-   - dreaming: KL regularization to the pre-update teacher using prior-topic prompts
+This version is designed for larger A100 runs:
+1. Freeze topic corpora once and store them in the checkpoint.
+2. Build held-out eval splits that are never used for training.
+3. Balance train-set size across topics.
+4. Run multiple seeds.
+5. Compare naive sequential fine-tuning vs dreaming regularization.
 
-python websleuths-229/scripts/run_dreaming_forgetting.py --model meta-llama/Llama-3.2-1B
+Example:
+    python scripts/run_dreaming_forgetting.py --model meta-llama/Llama-3.2-1B
 """
 from __future__ import annotations
 
@@ -34,6 +34,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from wm.cfg import ChunkCfg
 from wm.chunk import Chunker
+from wm.eval.anchor import AnchorEval
 from wm.guard.drift import drift_kl
 from wm.ingest.exa import ExaSrc
 from wm.recipe import EATRDRunner
@@ -41,7 +42,6 @@ from wm.search.content_filter import clean_text
 from wm.search.dedup import dedup_chunks
 from wm.store import EpisodeStore
 from wm.types import Episode
-from wm.eval.anchor import AnchorEval
 
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
@@ -52,10 +52,11 @@ MODEL_NAME = None
 OUT_PATH = None
 CHECKPOINT_PATH = None
 STATE_DIR = None
+EXPERIMENT_VERSION = 2
 
 LORA_R = 8
 LORA_ALPHA = 16
-STEPS = int(os.environ.get("RETENTION_STEPS", "50"))
+STEPS = int(os.environ.get("RETENTION_STEPS", "200"))
 BS = int(os.environ.get("RETENTION_BS", "2"))
 LR = 2e-4
 MAX_LEN = 128
@@ -64,7 +65,9 @@ DREAM_LEN = 32
 TRAIN_FRAC = float(os.environ.get("RETENTION_TRAIN_FRAC", "0.8"))
 MAX_EP_PER_QUERY = int(os.environ.get("RETENTION_EP_PER_QUERY", "5"))
 MAX_DREAM_PROMPTS_PER_TOPIC = int(os.environ.get("RETENTION_DREAM_PER_TOPIC", "12"))
-SEED = int(os.environ.get("RETENTION_SEED", "42"))
+DATA_SEED = int(os.environ.get("RETENTION_DATA_SEED", "42"))
+TARGET_TRAIN_ROWS = int(os.environ.get("RETENTION_TRAIN_ROWS", "0"))
+SEED_TEXT = os.environ.get("RETENTION_SEEDS", "42,43,44")
 EXA_KEY = os.environ.get("EXA_API_KEY", "e337f35a-e56c-4ae7-8596-f44959053342")
 
 _GDRIVE = "/content/drive/MyDrive"
@@ -85,6 +88,16 @@ TOPICS = [
         "quantitative trading strategies risk modeling",
         "credit risk assessment Basel IV regulations",
         "earnings analysis SEC filings equity valuation",
+    ]),
+    ("legal", [
+        "Fourth Amendment digital privacy warrant cell phone search",
+        "constitutional law Supreme Court precedent free speech",
+        "intellectual property AI generated content copyright law",
+    ]),
+    ("medicine", [
+        "clinical pharmacology drug interactions adverse effects",
+        "oncology targeted therapy biomarkers immunotherapy",
+        "pathophysiology cardiology heart failure mechanisms",
     ]),
 ]
 
@@ -123,11 +136,37 @@ SYNTHETIC_TEXTS = {
         "Earnings quality analysis focuses on revenue recognition, margin sustainability, free cash flow conversion, and balance-sheet risk signals.",
         "Portfolio risk modeling estimates variance, factor exposure, and drawdown sensitivity under different market scenarios to support allocation decisions.",
     ],
+    "legal": [
+        "The Fourth Amendment constrains unreasonable searches and seizures, and modern digital-privacy cases often focus on how warrant requirements apply to phones, cloud data, and location records.",
+        "Constitutional law relies heavily on precedent, where courts distinguish, extend, or limit earlier rulings when deciding disputes involving speech, privacy, and due process.",
+        "Intellectual property law for AI-generated content turns on questions of authorship, ownership, copyrightability, and whether training or generation infringes protected works.",
+        "Criminal procedure evaluates when the exclusionary rule applies, especially when digital evidence is obtained through invalid warrants or overly broad search methods.",
+        "International humanitarian law regulates conduct in armed conflict through principles such as distinction, proportionality, and military necessity.",
+    ],
+    "medicine": [
+        "Clinical pharmacology studies how drugs are absorbed, distributed, metabolized, and excreted, and it focuses on dosing, adverse effects, and important drug-drug interactions.",
+        "Targeted cancer therapies act on specific molecular pathways, while biomarker testing helps identify which patients are most likely to benefit from a given treatment.",
+        "Heart failure pathophysiology involves impaired cardiac output, neurohormonal compensation, fluid retention, and progressive ventricular remodeling.",
+        "Immunotherapy activates the immune system against tumors, but its benefits and toxicities depend on tumor biology, checkpoint signaling, and patient-specific factors.",
+        "Antimicrobial stewardship aims to optimize antibiotic choice and duration while reducing resistance, toxicity, and unnecessary broad-spectrum exposure.",
+    ],
 }
 
 
 def pr(msg: str) -> None:
     print(f"\n{'=' * 72}\n{msg}\n{'=' * 72}", flush=True)
+
+
+def parse_seeds(text: str) -> list[int]:
+    seeds = []
+    for part in text.split(","):
+        part = part.strip()
+        if not part:
+            continue
+        seeds.append(int(part))
+    if not seeds:
+        raise ValueError("RETENTION_SEEDS must contain at least one integer")
+    return seeds
 
 
 def set_seed(seed: int) -> None:
@@ -176,13 +215,13 @@ def _load_checkpoint() -> dict:
         return {}
 
 
-def _adapter_path(config_name: str, topic_idx: int) -> str:
+def _adapter_path(seed: int, config_name: str, topic_idx: int) -> str:
     os.makedirs(STATE_DIR, exist_ok=True)
-    return os.path.join(STATE_DIR, f"{config_name}_t{topic_idx}_adapter.pt")
+    return os.path.join(STATE_DIR, f"s{seed}_{config_name}_t{topic_idx}_adapter.pt")
 
 
-def _save_adapter(model, config_name: str, topic_idx: int) -> str:
-    path = _adapter_path(config_name, topic_idx)
+def _save_adapter(model, seed: int, config_name: str, topic_idx: int) -> str:
+    path = _adapter_path(seed, config_name, topic_idx)
     state = {k: v.detach().cpu() for k, v in model.state_dict().items() if "lora_" in k}
     torch.save(state, path)
     return path
@@ -210,11 +249,7 @@ def _rows_to_dataset(rows: list[dict]) -> Dataset:
 def _device_name() -> str:
     if not torch.cuda.is_available():
         return "CPU only"
-    return f"{torch.cuda.get_device_name(0)}"
-
-
-def _topic_spec() -> list[dict]:
-    return [{"name": name, "queries": queries} for name, queries in TOPICS]
+    return torch.cuda.get_device_name(0)
 
 
 def _serialize_episode(ep: Episode) -> dict:
@@ -227,14 +262,15 @@ def _serialize_episode(ep: Episode) -> dict:
     }
 
 
-def _make_episode(data: dict) -> Episode:
-    return Episode(
-        url=data["url"],
-        title=data.get("title", ""),
-        body=data.get("body", ""),
-        authority=float(data.get("authority", 0.5)),
-        topic=data.get("topic", ""),
-    )
+def _data_signature() -> dict:
+    return {
+        "version": EXPERIMENT_VERSION,
+        "topic_names": [name for name, _ in TOPICS],
+        "train_frac": TRAIN_FRAC,
+        "data_seed": DATA_SEED,
+        "max_ep_per_query": MAX_EP_PER_QUERY,
+        "target_train_rows": TARGET_TRAIN_ROWS,
+    }
 
 
 def fetch_topic(topic_name: str, queries: list[str]) -> list[Episode]:
@@ -294,38 +330,35 @@ def _prepare_rows(topic_name: str, episodes: list[Episode]) -> tuple[list[dict],
     if len(rows) < 2:
         raise RuntimeError(f"{topic_name}: not enough rows after preprocessing ({len(rows)})")
 
-    rng = random.Random(SEED)
+    rng = random.Random(f"{DATA_SEED}:{topic_name}:split")
     idx = list(range(len(rows)))
     rng.shuffle(idx)
     cut = max(1, min(len(rows) - 1, int(round(len(rows) * TRAIN_FRAC))))
     train_rows = [rows[i] for i in idx[:cut]]
     eval_rows = [rows[i] for i in idx[cut:]]
-
     stats = {
         "n_episodes": len(episodes),
         "n_chunks": len(chunks),
-        "n_train": len(train_rows),
+        "n_train_raw": len(train_rows),
         "n_eval": len(eval_rows),
-        "train_hash": _row_hash(train_rows),
+        "train_hash_raw": _row_hash(train_rows),
         "eval_hash": _row_hash(eval_rows),
     }
     return train_rows, eval_rows, stats
 
 
 def load_or_prepare_data(state: dict) -> list[dict]:
-    data = state.get("data")
-    expected = _topic_spec()
-    if data:
-        names = [t["name"] for t in data]
-        if names == [t["name"] for t in expected]:
-            log.info("resuming frozen topic data from checkpoint")
-            return data
-        log.warning("checkpoint topic spec mismatch; rebuilding data snapshot")
+    expected = _data_signature()
+    if state.get("data") and state.get("data_meta") == expected:
+        log.info("resuming frozen topic data from checkpoint")
+        return state["data"]
+
+    if state.get("data"):
+        log.warning("data signature mismatch; rebuilding frozen topic snapshot")
+    state.pop("runs", None)
 
     data = []
-    for spec in expected:
-        topic_name = spec["name"]
-        queries = spec["queries"]
+    for topic_name, queries in TOPICS:
         episodes = fetch_topic(topic_name, queries)
         train_rows, eval_rows, stats = _prepare_rows(topic_name, episodes)
         data.append({
@@ -336,12 +369,24 @@ def load_or_prepare_data(state: dict) -> list[dict]:
             "eval_rows": eval_rows,
             "stats": stats,
         })
+
+    min_train = min(len(topic["train_rows"]) for topic in data)
+    balance_n = min_train if TARGET_TRAIN_ROWS <= 0 else min(min_train, TARGET_TRAIN_ROWS)
+    for topic in data:
+        rng = random.Random(f"{DATA_SEED}:{topic['name']}:balance")
+        idx = list(range(len(topic["train_rows"])))
+        rng.shuffle(idx)
+        topic["train_rows"] = [topic["train_rows"][i] for i in idx[:balance_n]]
+        topic["stats"]["n_train_balanced"] = len(topic["train_rows"])
+        topic["stats"]["balance_n"] = balance_n
+        topic["stats"]["train_hash_balanced"] = _row_hash(topic["train_rows"])
         print(
-            f"  {topic_name}: episodes={len(episodes)} chunks={stats['n_chunks']} "
-            f"train={stats['n_train']} eval={stats['n_eval']}"
+            f"  {topic['name']}: episodes={len(topic['episodes'])} chunks={topic['stats']['n_chunks']} "
+            f"train={topic['stats']['n_train_balanced']} eval={topic['stats']['n_eval']}"
         )
 
     state["data"] = data
+    state["data_meta"] = expected
     _save_checkpoint(state)
     return data
 
@@ -387,8 +432,7 @@ def eval_rows(model, tok, rows: list[dict], max_len: int = 128) -> dict:
             ids = enc["input_ids"]
             if ids.shape[1] < 2:
                 continue
-            logits = out.logits
-            preds = logits[:, :-1].argmax(dim=-1)
+            preds = out.logits[:, :-1].argmax(dim=-1)
             tgts = ids[:, 1:]
             total_correct += (preds == tgts).sum().item()
             total_tokens += tgts.numel()
@@ -402,10 +446,7 @@ def eval_rows(model, tok, rows: list[dict], max_len: int = 128) -> dict:
 
 
 def eval_all_topics(model, tok, data: list[dict]) -> dict:
-    results = {}
-    for topic in data:
-        results[topic["name"]] = eval_rows(model, tok, topic["eval_rows"], max_len=MAX_LEN)
-    return results
+    return {topic["name"]: eval_rows(model, tok, topic["eval_rows"], max_len=MAX_LEN) for topic in data}
 
 
 def build_dream_prompts(data: list[dict], current_topic_idx: int) -> list[str]:
@@ -413,7 +454,6 @@ def build_dream_prompts(data: list[dict], current_topic_idx: int) -> list[str]:
     for j in range(current_topic_idx):
         rows = data[j]["train_rows"][:MAX_DREAM_PROMPTS_PER_TOPIC]
         prompts.extend(row.get("text", "")[: MAX_LEN * 4] for row in rows if row.get("text"))
-    # Deduplicate while keeping order stable.
     seen = set()
     unique = []
     for prompt in prompts:
@@ -449,17 +489,16 @@ def forgetting_summary(updates: list[dict], topic_names: list[str]) -> dict:
     return out
 
 
-def run_config(config_name: str, dream_on: bool, base_model, base_snap: dict, tok, data: list[dict], state: dict) -> list[dict]:
+def run_config(seed: int, config_name: str, dream_on: bool, base_model, base_snap: dict, tok, data: list[dict], run_state: dict, state: dict, topic_names: list[str]) -> dict:
     pr(f"CONFIG: {config_name}  (dreaming={'ON' if dream_on else 'OFF'})")
-    cfg_state = state.setdefault("configs", {}).setdefault(config_name, {"dream_on": dream_on, "updates": []})
+    cfg_state = run_state.setdefault("configs", {}).setdefault(config_name, {"dream_on": dream_on, "updates": []})
     updates = list(cfg_state.get("updates", []))
     done_count = sum(1 for u in updates if u.get("_status") == "done")
 
     model = copy.deepcopy(base_model)
     model.load_state_dict(base_snap)
-
     if done_count > 0:
-        ckpt = _adapter_path(config_name, done_count - 1)
+        ckpt = _adapter_path(seed, config_name, done_count - 1)
         if os.path.exists(ckpt):
             _load_adapter(model, ckpt)
             print(f"  resumed from t{done_count - 1} adapter")
@@ -475,13 +514,12 @@ def run_config(config_name: str, dream_on: bool, base_model, base_snap: dict, to
             continue
 
         pr(f"{config_name} | t{i}: {topic['name']}  ({i + 1}/{len(data)})")
-        set_seed(SEED + i)
+        set_seed(seed * 1000 + i)
         t0 = time.time()
 
         teacher = copy.deepcopy(model).eval()
-        dream_prompts = build_dream_prompts(data, i)
         ds_train = _rows_to_dataset(topic["train_rows"])
-
+        dream_prompts = build_dream_prompts(data, i)
         lam_init = 1.0 if dream_on else 0.0
         runner = EATRDRunner(
             lr=LR,
@@ -510,7 +548,7 @@ def run_config(config_name: str, dream_on: bool, base_model, base_snap: dict, to
         drift_prev = drift_kl(model, teacher, tok, ANCHORS[:3], max_len=64)
         print(f"  anchor_nll={anchor_nll:.4f} drift_base={drift_base:.6f} drift_prev={drift_prev:.6f}")
 
-        ckpt_path = _save_adapter(model, config_name, i)
+        ckpt_path = _save_adapter(model, seed, config_name, i)
         entry = {
             "topic": topic["name"],
             "topic_idx": i,
@@ -530,6 +568,7 @@ def run_config(config_name: str, dream_on: bool, base_model, base_snap: dict, to
         }
         updates.append(entry)
         cfg_state["updates"] = updates
+        cfg_state["summary"] = forgetting_summary(updates, topic_names)
         _save_checkpoint(state)
 
         del teacher
@@ -541,49 +580,111 @@ def run_config(config_name: str, dream_on: bool, base_model, base_snap: dict, to
     gc.collect()
     if torch.cuda.is_available():
         torch.cuda.empty_cache()
-    return updates
+    return {
+        "dream_on": dream_on,
+        "updates": updates,
+        "summary": forgetting_summary(updates, topic_names),
+    }
 
 
-def print_analysis(all_results: dict, baseline: dict, data: list[dict]) -> None:
-    topic_names = [t["name"] for t in data]
+def _mean(xs: list[float]) -> float:
+    return sum(xs) / len(xs) if xs else 0.0
 
-    pr("HELD-OUT TOPIC ACCURACY")
-    header = f"{'config/update':<18}" + "".join(f"{name:>14}" for name in topic_names)
-    print(header)
-    print("-" * len(header))
-    base_row = f"{'baseline':<18}"
-    for topic_name in topic_names:
-        base_row += f"{baseline['topic_evals'][topic_name]['acc']:>14.4f}"
-    print(base_row)
 
-    for config_name, payload in all_results.items():
-        for update in payload["updates"]:
-            row = f"{config_name}/t{update['topic_idx']:<11}"
-            for topic_name in topic_names:
-                row += f"{update['evals'][topic_name]['acc']:>14.4f}"
-            print(row)
+def _std(xs: list[float]) -> float:
+    if len(xs) < 2:
+        return 0.0
+    mu = _mean(xs)
+    return math.sqrt(sum((x - mu) ** 2 for x in xs) / (len(xs) - 1))
 
-    pr("FORGETTING SUMMARY")
-    for config_name, payload in all_results.items():
-        summary = payload["summary"]
-        print(f"\n{config_name}:")
-        for topic_name in topic_names:
-            s = summary.get(topic_name)
-            if not s:
+
+def aggregate_runs(all_runs: dict, topic_names: list[str]) -> dict:
+    agg = {}
+    for config_name, _ in CONFIGS:
+        forgetting_vals = []
+        anchor_vals = []
+        drift_vals = []
+        final_acc_vals = []
+        for seed_payload in all_runs.values():
+            cfg = seed_payload["configs"].get(config_name)
+            if not cfg or not cfg["updates"]:
                 continue
-            print(
-                f"  {topic_name:<12} first={s['first_after_learning']:.4f} "
-                f"best={s['best_seen']:.4f} final={s['final']:.4f} "
-                f"forgetting={s['forgetting']:.4f}"
-            )
-        print(f"  mean_forgetting={summary.get('_mean_forgetting', 0.0):.4f}")
+            final_update = cfg["updates"][-1]
+            forgetting_vals.append(cfg.get("summary", {}).get("_mean_forgetting", 0.0))
+            anchor_vals.append(final_update["anchor_nll"])
+            drift_vals.append(final_update["drift_kl_base"])
+            final_acc_vals.append(_mean([final_update["evals"][topic]["acc"] for topic in topic_names]))
+        agg[config_name] = {
+            "n_seeds": len(forgetting_vals),
+            "mean_forgetting_mean": _mean(forgetting_vals),
+            "mean_forgetting_std": _std(forgetting_vals),
+            "final_anchor_nll_mean": _mean(anchor_vals),
+            "final_anchor_nll_std": _std(anchor_vals),
+            "final_drift_base_mean": _mean(drift_vals),
+            "final_drift_base_std": _std(drift_vals),
+            "final_avg_acc_mean": _mean(final_acc_vals),
+            "final_avg_acc_std": _std(final_acc_vals),
+        }
+    return agg
 
-    pr("ANCHOR / DRIFT TRAJECTORY")
-    for config_name, payload in all_results.items():
-        anchor_vals = " -> ".join(f"{u['anchor_nll']:.3f}" for u in payload["updates"])
-        drift_vals = " -> ".join(f"{u['drift_kl_base']:.4f}" for u in payload["updates"])
-        print(f"{config_name}: anchor {baseline['anchor_nll']:.3f} -> {anchor_vals}")
-        print(f"{config_name}: drift_base {drift_vals}")
+
+def print_analysis(all_runs: dict, data: list[dict]) -> None:
+    topic_names = [topic["name"] for topic in data]
+    for seed_key, seed_payload in all_runs.items():
+        baseline = seed_payload["baseline"]
+        pr(f"SEED {seed_key}: HELD-OUT TOPIC ACCURACY")
+        header = f"{'config/update':<18}" + "".join(f"{name:>14}" for name in topic_names)
+        print(header)
+        print("-" * len(header))
+        base_row = f"{'baseline':<18}"
+        for topic_name in topic_names:
+            base_row += f"{baseline['topic_evals'][topic_name]['acc']:>14.4f}"
+        print(base_row)
+        for config_name, _ in CONFIGS:
+            payload = seed_payload["configs"].get(config_name, {"updates": []})
+            for update in payload["updates"]:
+                row = f"{config_name}/t{update['topic_idx']:<11}"
+                for topic_name in topic_names:
+                    row += f"{update['evals'][topic_name]['acc']:>14.4f}"
+                print(row)
+
+        pr(f"SEED {seed_key}: FORGETTING SUMMARY")
+        for config_name, _ in CONFIGS:
+            payload = seed_payload["configs"].get(config_name, {"summary": {}, "updates": []})
+            summary = payload.get("summary", {})
+            print(f"\n{config_name}:")
+            for topic_name in topic_names:
+                s = summary.get(topic_name)
+                if not s:
+                    continue
+                print(
+                    f"  {topic_name:<12} first={s['first_after_learning']:.4f} "
+                    f"best={s['best_seen']:.4f} final={s['final']:.4f} "
+                    f"forgetting={s['forgetting']:.4f}"
+                )
+            print(f"  mean_forgetting={summary.get('_mean_forgetting', 0.0):.4f}")
+
+        pr(f"SEED {seed_key}: ANCHOR / DRIFT TRAJECTORY")
+        for config_name, _ in CONFIGS:
+            payload = seed_payload["configs"].get(config_name, {"updates": []})
+            if not payload["updates"]:
+                continue
+            anchor_vals = " -> ".join(f"{u['anchor_nll']:.3f}" for u in payload["updates"])
+            drift_vals = " -> ".join(f"{u['drift_kl_base']:.4f}" for u in payload["updates"])
+            print(f"{config_name}: anchor {baseline['anchor_nll']:.3f} -> {anchor_vals}")
+            print(f"{config_name}: drift_base {drift_vals}")
+
+    agg = aggregate_runs(all_runs, topic_names)
+    pr("AGGREGATE SUMMARY ACROSS SEEDS")
+    for config_name, stats in agg.items():
+        print(
+            f"{config_name}: "
+            f"mean_forgetting={stats['mean_forgetting_mean']:.4f}±{stats['mean_forgetting_std']:.4f}  "
+            f"final_anchor={stats['final_anchor_nll_mean']:.4f}±{stats['final_anchor_nll_std']:.4f}  "
+            f"final_drift={stats['final_drift_base_mean']:.4f}±{stats['final_drift_base_std']:.4f}  "
+            f"final_avg_acc={stats['final_avg_acc_mean']:.4f}±{stats['final_avg_acc_std']:.4f}  "
+            f"n={stats['n_seeds']}"
+        )
 
 
 def strip_private(obj):
@@ -601,64 +702,82 @@ def main() -> None:
     args = ap.parse_args()
 
     _configure(args)
-    set_seed(SEED)
+    run_seeds = parse_seeds(SEED_TEXT)
+    set_seed(DATA_SEED)
     state = _load_checkpoint()
     state.setdefault("meta", {})
     state["meta"].update({
+        "version": EXPERIMENT_VERSION,
         "model": args.model,
-        "seed": SEED,
+        "data_seed": DATA_SEED,
+        "run_seeds": run_seeds,
         "steps_per_topic": STEPS,
         "batch_size": BS,
         "lr": LR,
         "train_frac": TRAIN_FRAC,
         "topics": [name for name, _ in TOPICS],
         "configs": [name for name, _ in CONFIGS],
+        "target_train_rows": TARGET_TRAIN_ROWS,
     })
 
     pr("SEQUENTIAL RETENTION EXPERIMENT")
     print(f"Model:   {args.model}")
     print(f"Topics:  {' -> '.join(name for name, _ in TOPICS)}")
     print(f"Configs: {[name for name, _ in CONFIGS]}")
-    print(f"Seed:    {SEED}")
+    print(f"Seeds:   {run_seeds}")
     print(f"Steps:   {STEPS} per topic | BS={BS} | LR={LR}")
     print(f"GPU:     {_device_name()}")
 
     pr("PHASE 1: PREPARE FROZEN TOPIC DATA")
     data = load_or_prepare_data(state)
+    topic_names = [topic["name"] for topic in data]
 
-    pr("PHASE 2: LOAD MODEL + BASELINE")
-    base_model, tok = make_model()
-    base_model.print_trainable_parameters()
-    base_snap = {k: v.detach().clone() for k, v in base_model.state_dict().items()}
+    state.setdefault("runs", {})
+    all_runs = {}
+    for seed in run_seeds:
+        pr(f"PHASE 2/3: SEED {seed} LOAD MODEL + RUN CONFIGS")
+        run_key = str(seed)
+        run_state = state["runs"].setdefault(run_key, {"seed": seed, "baseline": None, "configs": {}})
 
-    baseline = state.get("baseline")
-    if baseline:
-        print("Baseline: RESUMED from checkpoint")
-    else:
-        print("Computing baseline on all held-out topic splits...")
-        baseline = {
-            "topic_evals": eval_all_topics(base_model, tok, data),
-            "anchor_nll": AnchorEval(base_model, tok, ANCHORS).nll(),
-        }
-        state["baseline"] = baseline
-        _save_checkpoint(state)
-        print(f"  baseline anchor_nll={baseline['anchor_nll']:.4f}")
+        set_seed(seed)
+        base_model, tok = make_model()
+        if seed == run_seeds[0]:
+            base_model.print_trainable_parameters()
+        base_snap = {k: v.detach().clone() for k, v in base_model.state_dict().items()}
 
-    pr("PHASE 3: RUN CONFIGS")
-    all_results = {}
-    for config_name, dream_on in CONFIGS:
-        updates = run_config(config_name, dream_on, base_model, base_snap, tok, data, state)
-        summary = forgetting_summary(updates, [t["name"] for t in data])
-        all_results[config_name] = {
-            "dream_on": dream_on,
-            "updates": updates,
-            "summary": summary,
-        }
-        state.setdefault("configs", {}).setdefault(config_name, {})["summary"] = summary
-        _save_checkpoint(state)
+        if run_state.get("baseline"):
+            print(f"Seed {seed}: baseline RESUMED from checkpoint")
+        else:
+            print(f"Seed {seed}: computing baseline on all held-out topic splits...")
+            run_state["baseline"] = {
+                "topic_evals": eval_all_topics(base_model, tok, data),
+                "anchor_nll": AnchorEval(base_model, tok, ANCHORS).nll(),
+            }
+            _save_checkpoint(state)
+            print(f"  baseline anchor_nll={run_state['baseline']['anchor_nll']:.4f}")
 
-    print_analysis(all_results, baseline, data)
+        for config_name, dream_on in CONFIGS:
+            run_state["configs"][config_name] = run_config(
+                seed,
+                config_name,
+                dream_on,
+                base_model,
+                base_snap,
+                tok,
+                data,
+                run_state,
+                state,
+                topic_names,
+            )
+            _save_checkpoint(state)
 
+        all_runs[run_key] = run_state
+        del base_model
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+
+    print_analysis(all_runs, data)
     output = {
         "meta": state["meta"],
         "data_stats": {
@@ -668,8 +787,8 @@ def main() -> None:
             }
             for topic in data
         },
-        "baseline": baseline,
-        "configs": strip_private(all_results),
+        "runs": strip_private(all_runs),
+        "aggregate": aggregate_runs(all_runs, topic_names),
     }
     os.makedirs(os.path.dirname(OUT_PATH) or ".", exist_ok=True)
     with open(OUT_PATH, "w") as f:
