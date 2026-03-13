@@ -5,6 +5,8 @@ from wm.cfg import SearchCfg
 from wm.search.claims import extract_claims,extract_entities
 from wm.search.mmr import mmr_select
 from wm.search.sufficiency import is_sufficient
+from wm.search.content_filter import clean_text
+from wm.search.dedup import dedup_chunks,dedup_raw
 from wm.graph.community import detect_communities
 from wm.adapt import round_temp
 
@@ -117,7 +119,7 @@ class AgenticSearcher:
             raw_all.extend(raw)
             for r in raw:
                 url=r.get("url","")
-                txt=r.get("text","")
+                txt=clean_text(r.get("text",""))
                 if not txt:continue
                 from hashlib import sha256
                 eid=sha256(url.encode()).hexdigest()[:16]
@@ -133,6 +135,8 @@ class AgenticSearcher:
                 rnd+=1
                 break
             prev_n=len(all_claims)
+        all_chunks=dedup_chunks(all_chunks)
+        raw_all=dedup_raw(raw_all)
         if raw_all:
             try:
                 from wm.gate.authority import rank_raw_results

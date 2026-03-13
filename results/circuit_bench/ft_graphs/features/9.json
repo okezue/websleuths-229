@@ -1,0 +1,1 @@
+{"featureIndex": 9, "positive_logits": [{"token": "Output \".\" (p=0.562)", "value": 0.107}, {"token": "Output \" after\" (p=0.010)", "value": 0.035}, {"token": "Output \" for\" (p=0.126)", "value": 0.032}, {"token": "Output \" with\" (p=0.019)", "value": 0.027}, {"token": "Output \" that\" (p=0.052)", "value": 0.021}], "negative_logits": [], "activations": []}

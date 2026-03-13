@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the current share price by the earnings per share. The ratio is used to compare the value of a company to its earnings. The higher the ratio, the more expensive the stock is relative to its earnings. The lower the ratio, the more cheap the stock is relative to its earnings. The ratio is used to compare the value of a company to its earnings. The higher the ratio, the more expensive the stock is relative to its earnings. The lower the ratio, the more cheap the stock is relative to its earnings. The ratio is used to compare the value of a company to its earnings. The higher the ratio, the more expensive the stock is relative to its earnings. The lower the ratio, the more cheap the stock is relative to its"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the risk-based capital framework. The framework is based on the risk-weighted assets of the bank. The risk-weighted assets are calculated using the risk-weighted asset approach. The risk-weighted asset approach is based on the risk of the asset. The risk of the asset is calculated using the credit risk, market risk, and operational risk. The credit risk is calculated using the credit risk model. The market risk is calculated using the market risk model. The operational risk is calculated using the operational risk model. The credit risk model is based on the credit risk of the asset. The credit risk of the asset is calculated using the credit risk of the asset. The market risk model is based on the market risk of the asset. The market risk of"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,000,000, total liabilities of $500,000, and shareholders' equity of $500,000. The company's cost of capital is 10 percent. The company uses the direct method for depreciation. The company's cash flows are as follows:\nCash flows Cash flows Cash flows Cash flows Cash flows Cash flows Cash flows Cash flows Cash flows Cash flows\nDepreciation $ 20,000 $ 10,000 $ 5,000 $ 2,000\nAmortization $ 10,000 $ 5,000 $ 2,500 $ 1,250\nAccumulated depreciation $ 10,000 $ 5,000 $ 3,500 $ 1,500\nThe company"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Fourth Amendment states that the government may not search a person or their property without a warrant and probable cause. The Fourth Amendment also states that the government may not search a person or their property without a warrant and probable cause. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment states that the government may not search a person or their property without a warrant and probable cause. The Fourth Amendment also states that the government may not search a person or their property without a warrant and probable cause. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment states that the government may not search a person or their property without a warrant and probable cause. The Fourth Amendment also states that the government may not search"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions of the same court or of a higher court. It is a principle of judicial review that a court should not depart from a previous decision unless there is a compelling reason to do so. The principle is based on the idea that a court should not overturn a previous decision unless the previous decision was clearly wrong or the new decision is clearly better. The principle is also based on the idea that a court should not overturn a previous decision unless there is a compelling reason to do so. The principle is also based on the idea that a court should not overturn a previous decision unless there is a compelling reason to do so. The principle is also based on the idea that a court should not overturn a previous decision unless there is a compelling reason to do"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the police must inform a suspect of his or her Miranda rights before questioning him or her. The court held that the police must inform the suspect of his or her right to remain silent and to have an attorney present during questioning. The court also held that the police must inform the suspect of the right to refuse to answer questions, and that the police must not coerce the suspect into answering questions. The court further held that the police must not use any threats or promises to induce the suspect to answer questions. The court also held that the police must not use any physical force or coercion against the suspect to induce the suspect to answer questions. The court also held that the police must not use any information obtained from the suspect against the suspect in a criminal proceeding."
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile attacking a leaving group. The nucleophile is a molecule that can donate a pair of electrons to a leaving group. The leaving group is a molecule that can accept a pair of electrons from a nucleophile. The reaction is typically catalyzed by a Lewis acid, which is a molecule that can donate a pair of electrons to a leaving group. The reaction is often reversible, with the leaving group returning to the starting material and the nucleophile moving on to the next molecule."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is a measure of the amount of energy required to change the state of a system from one state to another. The Gibbs free energy is a state function, which means that it depends only on the current state of the system and not on the path taken to get there. The Gibbs free energy is a function of temperature and pressure, and it is a function of the number of moles of the system. The Gibbs free energy is a state function, which means that it depends only on the current state of the system and not on the path taken to get there. The Gibbs free energy is a function of temperature and pressure, and it is a function of the number of moles of the system. The"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain. The pain is most likely due to\nA. Coronary vasospasm\nB. Myocardial ischemia\nC. Myocardial infarction\nD. Arrhythmia\nAnswer: C"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " a drug is taken with another drug that can alter the way the body processes the first drug. This can lead to an increase or decrease in the amount of the first drug that is absorbed into the body, or an increase or decrease in the amount of the first drug that is eliminated from the body. This can result in an increase or decrease in the concentration of the first drug in the blood, which can affect the way the body responds to the first drug. This can also result in an increase or decrease in the concentration of the second drug in the blood, which can affect the way the body responds to the second drug. This can also result in an increase or decrease in the concentration of the second drug in the blood, which can affect the way"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. The genetic material is then used to make proteins that can be used to fight the virus. This approach is different from traditional vaccines, which use killed or weakened viruses to stimulate the body\u2019s immune system. mRNA vaccines are also more targeted, as they only introduce the genetic material into cells that are already infected with the virus. This can help prevent the virus from spreading to healthy cells, which could lead to more severe symptoms."
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of Canada is Ottawa. The capital of Germany is Berlin. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of France is Paris. The capital of Canada is Ottawa. The capital of Germany is Berlin. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of France is Paris. The capital of Canada is Ottawa. The capital of Germany is Berlin. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of France is Paris. The"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The Pythagorean theorem is used to find the length of the hypotenuse of a right triangle. The Pythagorean theorem is used to find the length of the hypotenuse of a right triangle. The Pythagorean theorem is used to find the length of the hypotenuse of a right triangle. The Pythagorean theorem is used to find the length of the hypotenuse of a right triangle. The Pythagorean theorem is used to find the length of the hypotenuse of a right triangle. The Pythagorean theorem is used to find the length of the hypotenuse of a right triangle"
+    }
+  ]
+}

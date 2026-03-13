@@ -1,0 +1,781 @@
+{
+  "baseline_benchmarks": {
+    "finance": {
+      "bench": 0.04,
+      "mmlu": 0.28
+    },
+    "legal": {
+      "bench": 0.22,
+      "mmlu": 0.32
+    },
+    "chemistry": {
+      "bench": 0.28,
+      "mmlu": 0.36
+    },
+    "medicine": {
+      "bench": 0.46,
+      "mmlu": 0.36
+    }
+  },
+  "baseline_traces": {
+    "finance": [
+      {
+        "prompt": "The price-to-earnings ratio is calculated by",
+        "n_features": 6477,
+        "n_edges": 5126
+      },
+      {
+        "prompt": "A company's balance sheet shows total assets of",
+        "n_features": 4684,
+        "n_edges": 4644
+      },
+      {
+        "prompt": "The SEC regulates financial markets by",
+        "n_features": 3080,
+        "n_edges": 3227
+      },
+      {
+        "prompt": "Credit risk under Basel IV is measured using",
+        "n_features": 5060,
+        "n_edges": 3640
+      },
+      {
+        "prompt": "Options pricing uses the Black-Scholes model to",
+        "n_features": 7670,
+        "n_edges": 5151
+      }
+    ],
+    "legal": [
+      {
+        "prompt": "The Fourth Amendment protects citizens from",
+        "n_features": 3173,
+        "n_edges": 3244
+      },
+      {
+        "prompt": "Stare decisis means that courts must",
+        "n_features": 5092,
+        "n_edges": 4214
+      },
+      {
+        "prompt": "Intellectual property law covers patents,",
+        "n_features": 3556,
+        "n_edges": 3611
+      },
+      {
+        "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+        "n_features": 5234,
+        "n_edges": 4175
+      },
+      {
+        "prompt": "Due process under the Fifth Amendment requires",
+        "n_features": 4739,
+        "n_edges": 3568
+      }
+    ],
+    "chemistry": [
+      {
+        "prompt": "The SN2 reaction mechanism involves a",
+        "n_features": 3926,
+        "n_edges": 3801
+      },
+      {
+        "prompt": "The pH of a solution is calculated by",
+        "n_features": 4178,
+        "n_edges": 4215
+      },
+      {
+        "prompt": "Molecular orbital theory explains bonding through",
+        "n_features": 3941,
+        "n_edges": 3503
+      },
+      {
+        "prompt": "Le Chatelier's principle states that when",
+        "n_features": 4930,
+        "n_edges": 3637
+      },
+      {
+        "prompt": "The Gibbs free energy determines whether a reaction",
+        "n_features": 4776,
+        "n_edges": 3480
+      }
+    ],
+    "medicine": [
+      {
+        "prompt": "The pathophysiology of heart failure involves",
+        "n_features": 4260,
+        "n_edges": 3817
+      },
+      {
+        "prompt": "Drug-drug interactions in pharmacology occur when",
+        "n_features": 5718,
+        "n_edges": 4444
+      },
+      {
+        "prompt": "mRNA vaccines work by introducing genetic material",
+        "n_features": 4636,
+        "n_edges": 3577
+      },
+      {
+        "prompt": "The USMLE tests clinical reasoning about",
+        "n_features": 3855,
+        "n_edges": 3282
+      },
+      {
+        "prompt": "Acute myocardial infarction presents with",
+        "n_features": 6450,
+        "n_edges": 4444
+      }
+    ],
+    "general": [
+      {
+        "prompt": "The capital of France is",
+        "n_features": 2260,
+        "n_edges": 2749
+      },
+      {
+        "prompt": "Water boils at a temperature of",
+        "n_features": 3739,
+        "n_edges": 3169
+      },
+      {
+        "prompt": "The speed of light in vacuum is approximately",
+        "n_features": 4230,
+        "n_edges": 4290
+      },
+      {
+        "prompt": "Photosynthesis converts sunlight into",
+        "n_features": 2831,
+        "n_edges": 2831
+      },
+      {
+        "prompt": "The Pythagorean theorem states that",
+        "n_features": 4661,
+        "n_edges": 3465
+      }
+    ]
+  },
+  "domain_traces": {
+    "finance": {
+      "finance": [
+        {
+          "prompt": "The price-to-earnings ratio is calculated by",
+          "n_features": 6477,
+          "n_edges": 5126
+        },
+        {
+          "prompt": "A company's balance sheet shows total assets of",
+          "n_features": 4684,
+          "n_edges": 4644
+        },
+        {
+          "prompt": "The SEC regulates financial markets by",
+          "n_features": 3080,
+          "n_edges": 3227
+        },
+        {
+          "prompt": "Credit risk under Basel IV is measured using",
+          "n_features": 5060,
+          "n_edges": 3640
+        },
+        {
+          "prompt": "Options pricing uses the Black-Scholes model to",
+          "n_features": 7670,
+          "n_edges": 5151
+        }
+      ],
+      "legal": [
+        {
+          "prompt": "The Fourth Amendment protects citizens from",
+          "n_features": 3173,
+          "n_edges": 3244
+        },
+        {
+          "prompt": "Stare decisis means that courts must",
+          "n_features": 5092,
+          "n_edges": 4214
+        },
+        {
+          "prompt": "Intellectual property law covers patents,",
+          "n_features": 3556,
+          "n_edges": 3611
+        },
+        {
+          "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+          "n_features": 5234,
+          "n_edges": 4175
+        },
+        {
+          "prompt": "Due process under the Fifth Amendment requires",
+          "n_features": 4739,
+          "n_edges": 3568
+        }
+      ],
+      "chemistry": [
+        {
+          "prompt": "The SN2 reaction mechanism involves a",
+          "n_features": 3926,
+          "n_edges": 3801
+        },
+        {
+          "prompt": "The pH of a solution is calculated by",
+          "n_features": 4178,
+          "n_edges": 4215
+        },
+        {
+          "prompt": "Molecular orbital theory explains bonding through",
+          "n_features": 3941,
+          "n_edges": 3503
+        },
+        {
+          "prompt": "Le Chatelier's principle states that when",
+          "n_features": 4930,
+          "n_edges": 3637
+        },
+        {
+          "prompt": "The Gibbs free energy determines whether a reaction",
+          "n_features": 4776,
+          "n_edges": 3480
+        }
+      ],
+      "medicine": [
+        {
+          "prompt": "The pathophysiology of heart failure involves",
+          "n_features": 4260,
+          "n_edges": 3817
+        },
+        {
+          "prompt": "Drug-drug interactions in pharmacology occur when",
+          "n_features": 5718,
+          "n_edges": 4444
+        },
+        {
+          "prompt": "mRNA vaccines work by introducing genetic material",
+          "n_features": 4636,
+          "n_edges": 3577
+        },
+        {
+          "prompt": "The USMLE tests clinical reasoning about",
+          "n_features": 3855,
+          "n_edges": 3282
+        },
+        {
+          "prompt": "Acute myocardial infarction presents with",
+          "n_features": 6450,
+          "n_edges": 4444
+        }
+      ],
+      "general": [
+        {
+          "prompt": "The capital of France is",
+          "n_features": 2260,
+          "n_edges": 2749
+        },
+        {
+          "prompt": "Water boils at a temperature of",
+          "n_features": 3739,
+          "n_edges": 3169
+        },
+        {
+          "prompt": "The speed of light in vacuum is approximately",
+          "n_features": 4230,
+          "n_edges": 4290
+        },
+        {
+          "prompt": "Photosynthesis converts sunlight into",
+          "n_features": 2831,
+          "n_edges": 2831
+        },
+        {
+          "prompt": "The Pythagorean theorem states that",
+          "n_features": 4661,
+          "n_edges": 3465
+        }
+      ]
+    },
+    "legal": {
+      "finance": [
+        {
+          "prompt": "The price-to-earnings ratio is calculated by",
+          "n_features": 6477,
+          "n_edges": 5126
+        },
+        {
+          "prompt": "A company's balance sheet shows total assets of",
+          "n_features": 4684,
+          "n_edges": 4644
+        },
+        {
+          "prompt": "The SEC regulates financial markets by",
+          "n_features": 3080,
+          "n_edges": 3227
+        },
+        {
+          "prompt": "Credit risk under Basel IV is measured using",
+          "n_features": 5060,
+          "n_edges": 3640
+        },
+        {
+          "prompt": "Options pricing uses the Black-Scholes model to",
+          "n_features": 7670,
+          "n_edges": 5151
+        }
+      ],
+      "legal": [
+        {
+          "prompt": "The Fourth Amendment protects citizens from",
+          "n_features": 3173,
+          "n_edges": 3244
+        },
+        {
+          "prompt": "Stare decisis means that courts must",
+          "n_features": 5092,
+          "n_edges": 4214
+        },
+        {
+          "prompt": "Intellectual property law covers patents,",
+          "n_features": 3556,
+          "n_edges": 3611
+        },
+        {
+          "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+          "n_features": 5234,
+          "n_edges": 4175
+        },
+        {
+          "prompt": "Due process under the Fifth Amendment requires",
+          "n_features": 4739,
+          "n_edges": 3568
+        }
+      ],
+      "chemistry": [
+        {
+          "prompt": "The SN2 reaction mechanism involves a",
+          "n_features": 3926,
+          "n_edges": 3801
+        },
+        {
+          "prompt": "The pH of a solution is calculated by",
+          "n_features": 4178,
+          "n_edges": 4215
+        },
+        {
+          "prompt": "Molecular orbital theory explains bonding through",
+          "n_features": 3941,
+          "n_edges": 3503
+        },
+        {
+          "prompt": "Le Chatelier's principle states that when",
+          "n_features": 4930,
+          "n_edges": 3637
+        },
+        {
+          "prompt": "The Gibbs free energy determines whether a reaction",
+          "n_features": 4776,
+          "n_edges": 3480
+        }
+      ],
+      "medicine": [
+        {
+          "prompt": "The pathophysiology of heart failure involves",
+          "n_features": 4260,
+          "n_edges": 3817
+        },
+        {
+          "prompt": "Drug-drug interactions in pharmacology occur when",
+          "n_features": 5718,
+          "n_edges": 4444
+        },
+        {
+          "prompt": "mRNA vaccines work by introducing genetic material",
+          "n_features": 4636,
+          "n_edges": 3577
+        },
+        {
+          "prompt": "The USMLE tests clinical reasoning about",
+          "n_features": 3855,
+          "n_edges": 3282
+        },
+        {
+          "prompt": "Acute myocardial infarction presents with",
+          "n_features": 6450,
+          "n_edges": 4444
+        }
+      ],
+      "general": [
+        {
+          "prompt": "The capital of France is",
+          "n_features": 2260,
+          "n_edges": 2749
+        },
+        {
+          "prompt": "Water boils at a temperature of",
+          "n_features": 3739,
+          "n_edges": 3169
+        },
+        {
+          "prompt": "The speed of light in vacuum is approximately",
+          "n_features": 4230,
+          "n_edges": 4290
+        },
+        {
+          "prompt": "Photosynthesis converts sunlight into",
+          "n_features": 2831,
+          "n_edges": 2831
+        },
+        {
+          "prompt": "The Pythagorean theorem states that",
+          "n_features": 4661,
+          "n_edges": 3465
+        }
+      ]
+    },
+    "chemistry": {
+      "finance": [
+        {
+          "prompt": "The price-to-earnings ratio is calculated by",
+          "n_features": 6477,
+          "n_edges": 5126
+        },
+        {
+          "prompt": "A company's balance sheet shows total assets of",
+          "n_features": 4684,
+          "n_edges": 4644
+        },
+        {
+          "prompt": "The SEC regulates financial markets by",
+          "n_features": 3080,
+          "n_edges": 3227
+        },
+        {
+          "prompt": "Credit risk under Basel IV is measured using",
+          "n_features": 5060,
+          "n_edges": 3640
+        },
+        {
+          "prompt": "Options pricing uses the Black-Scholes model to",
+          "n_features": 7670,
+          "n_edges": 5151
+        }
+      ],
+      "legal": [
+        {
+          "prompt": "The Fourth Amendment protects citizens from",
+          "n_features": 3173,
+          "n_edges": 3244
+        },
+        {
+          "prompt": "Stare decisis means that courts must",
+          "n_features": 5092,
+          "n_edges": 4214
+        },
+        {
+          "prompt": "Intellectual property law covers patents,",
+          "n_features": 3556,
+          "n_edges": 3611
+        },
+        {
+          "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+          "n_features": 5234,
+          "n_edges": 4175
+        },
+        {
+          "prompt": "Due process under the Fifth Amendment requires",
+          "n_features": 4739,
+          "n_edges": 3568
+        }
+      ],
+      "chemistry": [
+        {
+          "prompt": "The SN2 reaction mechanism involves a",
+          "n_features": 3926,
+          "n_edges": 3801
+        },
+        {
+          "prompt": "The pH of a solution is calculated by",
+          "n_features": 4178,
+          "n_edges": 4215
+        },
+        {
+          "prompt": "Molecular orbital theory explains bonding through",
+          "n_features": 3941,
+          "n_edges": 3503
+        },
+        {
+          "prompt": "Le Chatelier's principle states that when",
+          "n_features": 4930,
+          "n_edges": 3637
+        },
+        {
+          "prompt": "The Gibbs free energy determines whether a reaction",
+          "n_features": 4776,
+          "n_edges": 3480
+        }
+      ],
+      "medicine": [
+        {
+          "prompt": "The pathophysiology of heart failure involves",
+          "n_features": 4260,
+          "n_edges": 3817
+        },
+        {
+          "prompt": "Drug-drug interactions in pharmacology occur when",
+          "n_features": 5718,
+          "n_edges": 4444
+        },
+        {
+          "prompt": "mRNA vaccines work by introducing genetic material",
+          "n_features": 4636,
+          "n_edges": 3577
+        },
+        {
+          "prompt": "The USMLE tests clinical reasoning about",
+          "n_features": 3855,
+          "n_edges": 3282
+        },
+        {
+          "prompt": "Acute myocardial infarction presents with",
+          "n_features": 6450,
+          "n_edges": 4444
+        }
+      ],
+      "general": [
+        {
+          "prompt": "The capital of France is",
+          "n_features": 2260,
+          "n_edges": 2749
+        },
+        {
+          "prompt": "Water boils at a temperature of",
+          "n_features": 3739,
+          "n_edges": 3169
+        },
+        {
+          "prompt": "The speed of light in vacuum is approximately",
+          "n_features": 4230,
+          "n_edges": 4290
+        },
+        {
+          "prompt": "Photosynthesis converts sunlight into",
+          "n_features": 2831,
+          "n_edges": 2831
+        },
+        {
+          "prompt": "The Pythagorean theorem states that",
+          "n_features": 4661,
+          "n_edges": 3465
+        }
+      ]
+    },
+    "medicine": {
+      "finance": [
+        {
+          "prompt": "The price-to-earnings ratio is calculated by",
+          "n_features": 6477,
+          "n_edges": 5126
+        },
+        {
+          "prompt": "A company's balance sheet shows total assets of",
+          "n_features": 4684,
+          "n_edges": 4644
+        },
+        {
+          "prompt": "The SEC regulates financial markets by",
+          "n_features": 3080,
+          "n_edges": 3227
+        },
+        {
+          "prompt": "Credit risk under Basel IV is measured using",
+          "n_features": 5060,
+          "n_edges": 3640
+        },
+        {
+          "prompt": "Options pricing uses the Black-Scholes model to",
+          "n_features": 7670,
+          "n_edges": 5151
+        }
+      ],
+      "legal": [
+        {
+          "prompt": "The Fourth Amendment protects citizens from",
+          "n_features": 3173,
+          "n_edges": 3244
+        },
+        {
+          "prompt": "Stare decisis means that courts must",
+          "n_features": 5092,
+          "n_edges": 4214
+        },
+        {
+          "prompt": "Intellectual property law covers patents,",
+          "n_features": 3556,
+          "n_edges": 3611
+        },
+        {
+          "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+          "n_features": 5234,
+          "n_edges": 4175
+        },
+        {
+          "prompt": "Due process under the Fifth Amendment requires",
+          "n_features": 4739,
+          "n_edges": 3568
+        }
+      ],
+      "chemistry": [
+        {
+          "prompt": "The SN2 reaction mechanism involves a",
+          "n_features": 3926,
+          "n_edges": 3801
+        },
+        {
+          "prompt": "The pH of a solution is calculated by",
+          "n_features": 4178,
+          "n_edges": 4215
+        },
+        {
+          "prompt": "Molecular orbital theory explains bonding through",
+          "n_features": 3941,
+          "n_edges": 3503
+        },
+        {
+          "prompt": "Le Chatelier's principle states that when",
+          "n_features": 4930,
+          "n_edges": 3637
+        },
+        {
+          "prompt": "The Gibbs free energy determines whether a reaction",
+          "n_features": 4776,
+          "n_edges": 3480
+        }
+      ],
+      "medicine": [
+        {
+          "prompt": "The pathophysiology of heart failure involves",
+          "n_features": 4260,
+          "n_edges": 3817
+        },
+        {
+          "prompt": "Drug-drug interactions in pharmacology occur when",
+          "n_features": 5718,
+          "n_edges": 4444
+        },
+        {
+          "prompt": "mRNA vaccines work by introducing genetic material",
+          "n_features": 4636,
+          "n_edges": 3577
+        },
+        {
+          "prompt": "The USMLE tests clinical reasoning about",
+          "n_features": 3855,
+          "n_edges": 3282
+        },
+        {
+          "prompt": "Acute myocardial infarction presents with",
+          "n_features": 6450,
+          "n_edges": 4444
+        }
+      ],
+      "general": [
+        {
+          "prompt": "The capital of France is",
+          "n_features": 2260,
+          "n_edges": 2749
+        },
+        {
+          "prompt": "Water boils at a temperature of",
+          "n_features": 3739,
+          "n_edges": 3169
+        },
+        {
+          "prompt": "The speed of light in vacuum is approximately",
+          "n_features": 4230,
+          "n_edges": 4290
+        },
+        {
+          "prompt": "Photosynthesis converts sunlight into",
+          "n_features": 2831,
+          "n_edges": 2831
+        },
+        {
+          "prompt": "The Pythagorean theorem states that",
+          "n_features": 4661,
+          "n_edges": 3465
+        }
+      ]
+    }
+  },
+  "domain_benchmarks": {
+    "finance": {
+      "finance": {
+        "bench": 0.04,
+        "mmlu": 0.26
+      },
+      "legal": {
+        "bench": 0.24,
+        "mmlu": 0.36
+      },
+      "chemistry": {
+        "bench": 0.28,
+        "mmlu": 0.32
+      },
+      "medicine": {
+        "bench": 0.4,
+        "mmlu": 0.42
+      }
+    },
+    "legal": {
+      "finance": {
+        "bench": 0.02,
+        "mmlu": 0.24
+      },
+      "legal": {
+        "bench": 0.3,
+        "mmlu": 0.4
+      },
+      "chemistry": {
+        "bench": 0.2,
+        "mmlu": 0.3
+      },
+      "medicine": {
+        "bench": 0.4,
+        "mmlu": 0.36
+      }
+    },
+    "chemistry": {
+      "finance": {
+        "bench": 0.02,
+        "mmlu": 0.26
+      },
+      "legal": {
+        "bench": 0.3,
+        "mmlu": 0.32
+      },
+      "chemistry": {
+        "bench": 0.16,
+        "mmlu": 0.32
+      },
+      "medicine": {
+        "bench": 0.46,
+        "mmlu": 0.44
+      }
+    },
+    "medicine": {
+      "finance": {
+        "bench": 0.02,
+        "mmlu": 0.24
+      },
+      "legal": {
+        "bench": 0.16,
+        "mmlu": 0.3
+      },
+      "chemistry": {
+        "bench": 0.24,
+        "mmlu": 0.3
+      },
+      "medicine": {
+        "bench": 0.48,
+        "mmlu": 0.42
+      }
+    }
+  }
+}

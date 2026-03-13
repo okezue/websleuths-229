@@ -1,0 +1,1 @@
+{"featureIndex": 3972301267, "positive_logits": [{"token": "Output \" government\" (p=0.061)", "value": 0.164}, {"token": "Output \" governmental\" (p=0.022)", "value": 0.159}], "negative_logits": [{"token": "Output \" search\" (p=0.146)", "value": -0.209}, {"token": "Output \" searches\" (p=0.738)", "value": -0.085}], "activations": []}

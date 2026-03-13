@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the current share price by the earnings per share. The ratio is used to compare the value of a company to its earnings. A low P/E ratio indicates that a company is undervalued, while a high P/E ratio indicates that a company is overvalued. The ratio is also used to compare the value of a company to its earnings growth. A low P/E ratio and high earnings growth indicate that a company is undervalued and has the potential to grow rapidly. A high P/E ratio and low earnings growth indicate that a company is overvalued and has the potential to decline. The ratio is calculated by dividing the current share price by the earnings per share. The ratio is used to compare the value of a company to its"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the standardised approach. The standardised approach is based on the assumption that the credit risk of a bank is the sum of the risk of each of its individual exposures. The standardised approach is a risk-based approach that uses a risk weight for each exposure. The risk weight is determined by the credit risk of the exposure and the credit risk of the bank. The risk weight is then multiplied by the exposure amount to give the total risk weight. The total risk weight is then divided by the total exposure amount to give the credit risk exposure ratio. The credit risk exposure ratio is used to calculate the credit risk capital requirement."
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,000,000, liabilities of $300,000, and common stock of $200,000. The company has $50,000 in cash. The company's statement of cash flows for the year shows $30,000 in net income, $10,000 in depreciation and amortization, and $20,000 in cash payments for acquisitions. The company also has $10,000 in long-term investments that are not taxable; these investments are not cash, but rather equity. The company's book value is $1,200,000. The company's common stock is trading at $20.00 per share."
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Fourth Amendment states that the government may not search a person or their property without a warrant and probable cause. The Fourth Amendment also states that the government may not search a person or their property without a warrant and probable cause. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment states that the government may not search a person or their property without a warrant and probable cause. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment states that the government may not search a person or their property without a warrant and probable cause. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment states that the government may not search a person or their property without a warrant and probable cause. The"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions in similar cases. It is a principle of precedent that guides the interpretation of statutes and the construction of legal rules. It is also a principle of judicial review that requires courts to apply the same legal standards to similar cases. In the United States, the Supreme Court has consistently applied stare decisis in interpreting the Constitution and federal statutes. This article will explore the meaning of stare decisis in the United States, its role in judicial review, and the impact of the doctrine on legal reasoning and decision-making.\nStare decisis is a Latin phrase that means \"to stand by the decision\" or \"to follow the decision.\" It is a principle of precedent that guides the interpretation of statutes and the construction of legal rules. In the United States"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the right to counsel applies to all criminal suspects. The Court held that the right to counsel is a fundamental right that cannot be waived or waived away by the state. The Court also held that the right to counsel applies to all criminal suspects, regardless of whether they are in custody or not. This ruling has significant implications for criminal defense lawyers and their clients. It means that if a suspect is in custody, they have the right to have a lawyer present during questioning, and if they are not in custody, they have the right to have a lawyer present at all stages of the criminal proceedings. This ruling also means that if a suspect waives their right to counsel, they waive the right to effective assistance of counsel, which is a fundamental right in the"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile attacking a carbon\u2013carbon double bond. The nucleophile is a molecule that can donate a pair of electrons to a carbon atom. The carbon atom is called the nucleophile\u2019s \u201creceiving end.\u201d The double bond is called the \u201creactant\u2019s\u201d \u201ccarbon backbone.\u201d The SN2 reaction is named after the German chemist Walther Nernst, who first described it in 1913. The reaction is important in organic chemistry because it is used to make many important organic compounds, such as alcohols, amines, and esters."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a state function, which means that it does not depend on the path taken to reach the equilibrium state. The Gibbs free energy is a state function because it does not depend on the path taken to reach the equilibrium state. The Gibbs free energy is a state function because it does not depend on the path taken to reach the equilibrium state. The Gibbs free energy is a state function because it does not depend on the path taken to reach the equilibrium state. The Gibbs free energy is a state function because it does not depend on the path taken to reach the equilibrium state. The Gibbs free energy is a state function because it"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain. The pain is severe and radiates to the left arm. The patient is admitted to the hospital and given aspirin. Two hours later, the pain becomes less severe and the patient is able to sit up. Two days later, the patient is still able to sit up but has difficulty walking. An X-ray shows a healed infarct. Which structure is most likely damaged?\nA. Left ventricular free wall\nB. Right ventricular free wall\nC. Left atrium\nD. Right atrium\nAnswer: A"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs interact with each other. The interaction may be beneficial or harmful. The interaction may be beneficial if the drugs have similar effects on the body. The interaction may be harmful if the drugs have opposite effects on the body. The interaction may be beneficial if the drugs have similar effects on the body. The interaction may be harmful if the drugs have opposite effects on the body. The interaction may be beneficial if the drugs have similar effects on the body. The interaction may be harmful if the drugs have opposite effects on the body. The interaction may be beneficial if the drugs have similar effects on the body. The interaction may be harmful if the drugs have opposite effects on the body. The interaction may be beneficial if the drugs have similar effects on the body."
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. The genetic material is then used to make proteins that are similar to the virus that causes COVID-19. These proteins can then be used to train the immune system to recognize the virus and fight it off. mRNA vaccines are currently being tested in clinical trials and are expected to be available for use in the general population in the coming years.\nmRNA vaccines are a type of vaccine that uses messenger RNA (mRNA) to deliver genetic material into the body. The genetic material is then used to make proteins that are similar to the virus that causes COVID-19. These proteins can then be used to train the immune system to recognize the virus and fight it off. mRNA vaccines are currently being tested in clinical trials and are expected to be"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of Germany is Berlin. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of China is Beijing. The capital of India is New Delhi. The capital of Japan is Tokyo. The capital of Russia is Moscow. The capital of South Africa is Pretoria. The capital of Turkey is Ankara. The capital of the United Arab Emirates is Abu Dhabi. The capital of Venezuela is Caracas. The capital of Zimbabwe is Harare."
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 degrees Celsius. What is the temperature of the water in degrees Celsius?\nA. 100 degrees Celsius\nB. 0 degrees Celsius\nC. -100 degrees Celsius\nD. 100 degrees Fahrenheit\nAnswer: A"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The theorem is named after the Greek mathematician Pythagoras, who lived in the 6th century BC. The theorem is used in many fields, including geometry, physics, and engineering. In geometry, the theorem is used to prove theorems about triangles, such as the Pythagorean theorem. In physics, the theorem is used to prove theorems about the relationship between energy and momentum. In engineering, the theorem is used to prove theorems about the stability of structures. The theorem is also used in other fields, such as statistics and probability theory."
+    }
+  ]
+}

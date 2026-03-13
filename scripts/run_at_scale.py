@@ -83,7 +83,7 @@ all_eps=[]
 for q in queries:
     try:
         eps=src.fetch(q,n=10)
-        eps=exa_authority(eps)
+        eps=exa_authority(eps,q)
         all_eps.extend(eps)
         print(f"  '{q[:50]}': {len(eps)} eps")
     except Exception as e:

@@ -1,6 +1,7 @@
 from __future__ import annotations
 import json,logging,asyncio
 from hashlib import sha256
+from wm.search.content_filter import clean_text
 
 log=logging.getLogger(__name__)
 
@@ -98,6 +99,7 @@ async def _call(client,prompt:str,sem:asyncio.Semaphore,
 async def extract_from_text(client,text:str,topic:str,eid:str,
                             known:list[str],sem:asyncio.Semaphore,
                             model:str="claude-sonnet-4-5-20250929")->tuple[list,list,list]:
+    text=clean_text(text)
     if len(text)<50:
         return [],[],[]
     text=text[:8000]

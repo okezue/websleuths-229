@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the current share price by the earnings per share. The price-to-earnings ratio is a measure of the market's expectation of a company's future earnings. The higher the price-to-earnings ratio, the higher the market expects the company's earnings to be in the future. The lower the price-to-earnings ratio, the lower the market expects the company's earnings to be in the future. The price-to-earnings ratio is a measure of the market's expectation of a company's future earnings. The higher the price-to-earnings ratio, the higher the market expects the company's earnings to be in the future. The lower the price-to-earnings ratio, the lower the market expects the company's earnings to"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the risk-based capital (RBC) approach. The RBC approach is based on the risk-weighted assets (RWA) of the bank. The RWA is the sum of the risk-weighted assets of the bank\u2019s assets, divided by the total assets of the bank. The RWA is calculated using the following formula:\nRWA = Total Assets / Risk Weighted Assets\nThe risk-weighted assets of the bank\u2019s assets are calculated using the following formula:\nRisk Weighted Assets = (Assets \u2013 Deposits) x Risk Weight\nThe risk weight is determined by the type of asset. For example, for loans, the risk weight is 20%, while for deposits, the risk weight is 10%. The risk weight is determined"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,000,000, total liabilities of $500,000, and shareholders' equity of $500,000. The company's assets are divided into current assets of $300,000, which includes cash and accounts receivable, and noncurrent assets of $700,000, which includes inventory and other long-term assets. The company's liabilities are divided into current liabilities of $200,000, which includes accounts payable and accrued expenses, and noncurrent liabilities of $300,000, which includes long-term debt and other long-term liabilities. The company's shareholders' equity includes common stock of $200,000, preferred stock of $100,000, and retained earnings of $300,000."
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. It is a fundamental right that protects against unreasonable searches and seizures by the government. The Fourth Amendment protects against unreasonable searches and seizures by the government. The Fourth Amendment protects against unreasonable searches and seizures by the government. The Fourth Amendment protects against unreasonable searches and seizures by the government. The Fourth Amendment protects against unreasonable searches and seizures by the government. The Fourth Amendment protects against unreasonable searches and seizures by the government. The Fourth Amendment protects against unreasonable searches and seizures by the government. The Fourth Amendment protects against unreasonable searches and seizures by the government. The Fourth Amendment protects against unreasonable searches and seizures by the government. The Fourth Amendment protects against unreasonable searches and seizures by the government. The Fourth Amendment protects against unreasonable searches and seizures by the government"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions of the same court or of a higher court. It is a principle of law that states that a court should not change its previous decisions in the same case. It is a principle of law that states that a court should not change its previous decisions in the same case. It is a principle of law that states that a court should not change its previous decisions in the same case. It is a principle of law that states that a court should not change its previous decisions in the same case. It is a principle of law that states that a court should not change its previous decisions in the same case. It is a principle of law that states that a court should not change its previous decisions in the same case. It is a principle of"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the right to counsel applies to all criminal suspects, not just those who are in custody. The Court also ruled that the right to counsel applies to all criminal suspects, not just those who are in custody. The Court also ruled that the right to counsel applies to all criminal suspects, not just those who are in custody. The Court also ruled that the right to counsel applies to all criminal suspects, not just those who are in custody. The Court also ruled that the right to counsel applies to all criminal suspects, not just those who are in custody. The Court also ruled that the right to counsel applies to all criminal suspects, not just those who are in custody. The Court also ruled that the right to counsel applies to all criminal suspects, not just"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile attacking a leaving group on a substrate. The reaction is exothermic and proceeds through a transition state with a high activation energy. The reaction is often catalyzed by a transition metal catalyst. The reaction is used in organic synthesis and is important in the production of pharmaceuticals. The reaction is also used in the production of plastics and polymers. The reaction is important in the production of many consumer products. The reaction is also used in the production of fuels and chemicals. The reaction is important in the production of many consumer products. The reaction is also used in the production of fuels and chemicals. The reaction is important in the production of many consumer products. The reaction is also used in the production of fuels and chemicals. The reaction is"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the pH of each of the solutions in the mixture. The pH of a solution is calculated by adding the pH of each of the solutions in the mixture. The pH of a solution is calculated by adding the pH of each of the solutions in the mixture. The pH of a solution is calculated by adding the pH of each of the solutions in the mixture. The pH of a solution is calculated by adding the pH of each of the solutions in the mixture. The pH of a solution is calculated by adding the pH of each of the solutions in the mixture. The pH of a solution is calculated by adding the pH of each of the solutions in the mixture. The pH of a solution is calculated by adding the pH of each of the solutions in the"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is a measure of the amount of energy required to convert one substance into another. The Gibbs free energy is a function of the temperature and the pressure of the system. The Gibbs free energy is a function of the temperature and the pressure of the system. The Gibbs free energy is a function of the temperature and the pressure of the system. The Gibbs free energy is a function of the temperature and the pressure of the system. The Gibbs free energy is a function of the temperature and the pressure of the system. The Gibbs free energy is a function of the temperature and the pressure of the system. The Gibbs free energy is a function of the temperature and the pressure of the system. The Gibbs free energy is a"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain, dyspnea, and hypotension. The most common cause of acute myocardial infarction is thrombosis of the coronary artery. The most common cause of acute myocardial infarction is thrombosis of the coronary artery. The most common cause of acute myocardial infarction is thrombosis of the coronary artery. The most common cause of acute myocardial infarction is thrombosis of the coronary artery. The most common cause of acute myocardial infarction is thrombosis of the coronary artery. The most common cause of acute myocardial infarction is thrombosis of the coronary artery. The most common cause of acute myocardial infarction is thrombosis of the coronary"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " a drug is metabolized by an enzyme that is inhibited by another drug. This can lead to an increase in the concentration of the metabolite, which can be toxic. For example, the enzyme CYP3A4 is inhibited by ketoconazole, which is used to treat fungal infections. This can lead to an increase in the concentration of the metabolite, which can be toxic. Similarly, the enzyme CYP2D6 is inhibited by fluoxetine, which is used to treat depression. This can lead to an increase in the concentration of the metabolite, which can be toxic."
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. The genetic material is then used to make proteins that are then used to stimulate the immune system. This process is called antigen presentation. The immune system then recognizes the protein as foreign and begins to produce antibodies to fight off the virus. This is how mRNA vaccines work.\nmRNA vaccines are a type of vaccine that uses messenger RNA (mRNA) to deliver genetic material into the body. The genetic material is then used to make proteins that are then used to stimulate the immune system. This process is called antigen presentation. The immune system then recognizes the protein as foreign and begins to produce antibodies to fight off the virus. This is how mRNA vaccines work.\nmRNA vaccines are a type of vaccine that uses messenger RNA (mRNA)"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of Germany is Berlin. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of Canada is Ottawa. The capital of Australia is Canberra. The capital of New Zealand is Wellington. The capital of the United Arab Emirates is Abu Dhabi. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of France is Paris. The capital of Germany is Berlin. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of Canada is Ottawa. The capital of Australia is Canberra. The capital of New Zealand is Wellington. The capital of the United Arab Emirates is Abu"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 degrees Celsius. What is the temperature of the water in degrees Celsius?\nA. 100 degrees Celsius\nB. 0 degrees Celsius\nC. -100 degrees Celsius\nD. 200 degrees Celsius\nAnswer: A"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The Pythagorean theorem is a fundamental theorem of geometry. It is used in many applications, including the calculation of the area of a triangle, the calculation of the volume of a pyramid, and the calculation of the surface area of a sphere. The Pythagorean theorem is also used in the study of trigonometry, as it is used to calculate the sine, cosine, and tangent of an angle. The Pythagorean theorem is a fundamental theorem of geometry, and it is used in many applications, including the calculation of the area of a triangle, the calculation of the volume of a pyramid, and the calculation of"
+    }
+  ]
+}

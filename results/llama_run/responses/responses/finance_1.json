@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the current share price by the earnings per share. The higher the ratio, the more expensive the stock is. The price-to-earnings ratio is a popular valuation metric for valuing stocks. It is used to compare the current share price to the current earnings per share. The higher the ratio, the more expensive the stock is. The price-to-earnings ratio is a popular valuation metric for valuing stocks. It is used to compare the current share price to the current earnings per share. The higher the ratio, the more expensive the stock is. The price-to-earnings ratio is a popular valuation metric for valuing stocks. It is used to compare the current share price to the current earnings per share. The higher the ratio"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the risk-weighted assets (RWA) approach. The RWA approach is based on the assumption that credit risk is a function of the probability of default and the loss given default. The probability of default is determined by the credit rating of the borrower, while the loss given default is determined by the credit quality of the underlying assets. The RWA approach is used to calculate the credit risk weight of each asset class, which is then used to calculate the total credit risk weight of the bank. The Basel IV framework also includes a liquidity risk framework, which measures the risk of a bank's liquidity position. The liquidity risk framework is based on the assumption that liquidity risk is a function of the bank's liquidity buffers and the probability of a liquidity event."
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,000,000, total liabilities of $600,000, and equity of $300,000. The company's assets include cash of $80,000, accounts receivable of $160,000, inventory of $280,000, and prepaid expenses of $12,000. The company also has a $15,000 line of credit and $5,000 of current tax reserves. The company's interest expense is $18,000. The company's dividends are $4,000 per quarter, and the quarter-end balance of equity is $2,000 higher than the beginning of the quarter."
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. It is a fundamental right that is guaranteed by the Constitution. The Fourth Amendment states that \u201cthe right of the people to be secure in their persons, houses, papers, and effects, against unreasonable searches and seizures, shall not be violated, and no Warrants shall issue, but upon probable cause, supported by Oath or affirmation, and particularly describing the place to be searched, and the persons or things to be seized.\u201d The Fourth Amendment protects citizens from unreasonable searches and seizures. It is a fundamental right that is guaranteed by the Constitution. The Fourth Amendment states that \u201cthe right of the people to be secure in their persons, houses, papers, and effects, against unreasonable searches and seizures, shall not be violated, and"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow the decisions of previous courts. This is a principle of stare decisis that is based on the idea that courts should not overturn previous decisions unless there is a compelling reason to do so. Stare decisis is a principle of judicial review that requires courts to follow the decisions of previous courts. It is a principle of judicial review that requires courts to follow the decisions of previous courts. Stare decisis is a principle of judicial review that requires courts to follow the decisions of previous courts. It is a principle of judicial review that requires courts to follow the decisions of previous courts. Stare decisis is a principle of judicial review that requires courts to follow the decisions of previous courts. It is a principle of judicial review that requires courts to follow the"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the police must inform a suspect of his or her rights before questioning him or her. The court said that the police must inform the suspect of his or her right to remain silent and to have an attorney present during questioning. The court also said that the police must inform the suspect of the right to stop the questioning at any time. The court said that the police must inform the suspect of the right to refuse to answer any questions and that the suspect must be given the opportunity to consult with an attorney before answering any questions. The court said that the police must inform the suspect of the right to have an attorney present during questioning and that the suspect must be given the opportunity to consult with an attorney before answering any questions. The court said that the police must"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile attacking a leaving group. The nucleophile is a nucleophile, and the leaving group is a leaving group. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is the change in the Gibbs free energy of a system when a certain amount of heat is added to it. The Gibbs free energy is a state function. The Gibbs free energy is a state function because it depends only on the current state of the system and not on the path taken to get there. The Gibbs free energy is a state function because it depends only on the current state of the system and not on the path taken to get there. The Gibbs free energy is a state function because it depends only on the current state of the system and not on the path taken to get there. The Gibbs free energy is a state function because it depends only on the current state of the system and not on the"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain, which is usually described as a crushing, squeezing, or squeezing pain. The pain is often described as radiating to the left arm, jaw, or back. The pain may be accompanied by shortness of breath, nausea, and sweating. The pain may be accompanied by a sense of impending doom, and the patient may feel as if he or she is going to die. The pain may be accompanied by a sense of impending doom, and the patient may feel as if he or she is going to die. The pain may be accompanied by a sense of impending doom, and the patient may feel as if he or she is going to die. The pain may be accompanied by a sense of impending doom, and the patient may feel as"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two or more drugs are taken together. These interactions can be either additive or antagonistic. The former occurs when the drugs have similar effects on the body, while the latter occurs when the drugs have opposite effects. For example, when a drug is used to treat a condition, it may also be used to treat a different condition. In this case, the drug is said to have an additive effect. On the other hand, when a drug is used to treat one condition, it may also be used to treat another condition. In this case, the drug is said to have an antagonistic effect."
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body, which then instructs the immune system to produce antibodies. The antibodies are then used to fight off the virus. mRNA vaccines are a type of vaccine that uses mRNA to deliver genetic material into the body. This genetic material is then used to instruct the immune system to produce antibodies that can fight off the virus. mRNA vaccines are a type of vaccine that uses mRNA to deliver genetic material into the body. This genetic material is then used to instruct the immune system to produce antibodies that can fight off the virus. mRNA vaccines are a type of vaccine that uses mRNA to deliver genetic material into the body. This genetic material is then used to instruct the immune system to produce antibodies that can fight off the virus. mRNA vaccines are a type of vaccine"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. It is the most populous city in France and the country\u2019s financial and cultural center. Paris is also the most visited city in the world. The city is home to many museums, monuments, and other tourist attractions. The city is also known for its nightlife and its many restaurants and bars. Paris is a great place to visit for anyone who loves culture and history.\nThe city of Paris is a great place to visit for anyone who loves culture and history. The city is home to many museums, monuments, and other tourist attractions. The city is also known for its nightlife and its many restaurants and bars. Paris is a great place to visit for anyone who loves culture and history.\nThe city of Paris is a great place to visit for anyone"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 degrees Celsius. What is the temperature of the water in degrees Fahrenheit?\nA. 212\nB. 212.8\nC. 212.0\nD. 212.1\nAnswer: C"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The theorem is named after the Greek mathematician Pythagoras, who lived in the 6th century BC. The theorem is one of the most famous and useful formulas in mathematics. It is used in many different fields, including geometry, physics, and engineering. The theorem is also known as the Pythagorean theorem, the Pythagorean identity, or the Pythagorean triple.\nThe Pythagorean theorem is a fundamental theorem in geometry. It states that the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The theorem is named after the Greek"
+    }
+  ]
+}

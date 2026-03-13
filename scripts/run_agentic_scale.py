@@ -135,7 +135,7 @@ for dom,queries in DOMAINS.items():
     for q in queries:
         try:
             eps=src.fetch(q,n=8)
-            eps=exa_authority(eps)
+            eps=exa_authority(eps,q)
             dom_eps.extend(eps)
             print(f"    '{q[:60]}': {len(eps)} eps")
         except Exception as e:

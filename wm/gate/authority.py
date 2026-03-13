@@ -1,32 +1,32 @@
 from __future__ import annotations
-import logging
+import logging,os
+from scrapy.http import TextResponse
 from wm.types import Episode
+from wm.gate.util import make_runner
+import scrapy
+from crochet import setup,wait_for
+from pydispatch import dispatcher
+from scrapy import signals
+import networkx as nx
+from wm.gate.topical import topical_endorsement_authority
+from wm.gate.provenance import provenance_editorial_authority
+from wm.gate.corroborate import cross_source_corroboration_authority
 
 log=logging.getLogger(__name__)
 
 def rank_urls(urls:list[str])->dict[str,float]:
-    if not urls:
-        return {}
-    try:
-        import scrapy
-        from scrapy.crawler import CrawlerRunner
-        from crochet import setup,wait_for
-        from pydispatch import dispatcher
-        from scrapy import signals
-        import twisted
-        import networkx as nx
-    except ImportError:
-        log.debug("scrapy/crochet/networkx not installed, skipping pagerank")
-        return {u:1.0 for u in urls}
     urls=[u for u in urls if u and u.startswith("http")]
     if not urls:
         return {}
     class LinkSpider(scrapy.Spider):
         name="link_spider"
+        custom_settings={"ROBOTSTXT_OBEY":False,"DOWNLOAD_TIMEOUT":15,"LOG_LEVEL":"ERROR"}
         def __init__(self,*a,**kw):
             super().__init__(*a,**kw)
             self.start_urls=urls
         def parse(self,response):
+            if not isinstance(response,TextResponse):
+                return
             for link in response.css('a::attr(href)').getall():
                 if link:
                     yield {'source':response.url,'target':response.urljoin(link)}
@@ -37,16 +37,17 @@ def rank_urls(urls:list[str])->dict[str,float]:
     dispatcher.connect(item_passed,signal=signals.item_scraped)
     @wait_for(timeout=60.0)
     def run_spider():
-        cr=f"{twisted.internet.reactor.__class__.__module__}.{twisted.internet.reactor.__class__.__name__}"
-        runner=CrawlerRunner(settings={
-            'USER_AGENT':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            'LOG_LEVEL':'ERROR','TWISTED_REACTOR':cr})
-        return runner.crawl(LinkSpider)
+        return make_runner().crawl(LinkSpider)
     try:
         run_spider()
     except Exception as e:
         log.warning("scrapy crawl failed: %s",e)
         return {u:1.0 for u in urls}
+    finally:
+        try:
+            dispatcher.disconnect(item_passed,signal=signals.item_scraped)
+        except Exception:
+            pass
     G=nx.DiGraph()
     for edge in extracted:
         s=edge.get('source');t=edge.get('target')
@@ -81,7 +82,7 @@ def rank_raw_results(results:list[dict])->list[dict]:
     results.sort(key=lambda r:r.get("authority",0),reverse=True)
     return results
 
-def exa_authority(eps:list[Episode])->list[Episode]:
+def base_authority(eps:list[Episode],query:str="")->list[Episode]:
     if not eps:return eps
     urls=[e.url for e in eps if e.url]
     if urls:
@@ -100,4 +101,20 @@ def exa_authority(eps:list[Episode])->list[Episode]:
     eps.sort(key=lambda e:e.authority,reverse=True)
     return eps
 
-pagerank_authority=exa_authority
+AUTHORITY_FUNCS={
+    "base":base_authority,
+    "topical":topical_endorsement_authority,
+    "provenance":provenance_editorial_authority,
+    "corroborate":cross_source_corroboration_authority,
+}
+
+def get_authority_func(name:str|None=None):
+    n=name or os.environ.get("WM_AUTHORITY","base")
+    fn=AUTHORITY_FUNCS.get(n)
+    if fn is None:
+        log.warning("unknown authority func '%s', using base",n)
+        return base_authority
+    return fn
+
+exa_authority=get_authority_func()
+pagerank_authority=base_authority

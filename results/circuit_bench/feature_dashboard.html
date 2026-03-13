@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feature Dashboard — Llama-3.2-1B Circuit Analysis</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8f9fa;color:#1a1a1a}
+.header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);color:#fff;padding:24px 32px}
+.header h1{font-size:24px;font-weight:700;letter-spacing:-0.5px}
+.header .subtitle{color:#94a3b8;font-size:13px;margin-top:4px}
+.controls{background:#fff;border-bottom:1px solid #e2e8f0;padding:14px 32px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+.controls label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#64748b}
+.controls .pill-group{display:flex;gap:4px}
+.controls .pill{padding:6px 16px;border:1.5px solid #e2e8f0;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;background:#fff;transition:all .2s;color:#475569}
+.controls .pill.active{background:#4f46e5;color:#fff;border-color:#4f46e5;box-shadow:0 2px 8px rgba(79,70,229,.3)}
+.controls .pill:hover:not(.active){border-color:#818cf8;color:#4f46e5}
+.main{padding:24px 32px;max-width:1200px;margin:0 auto}
+.prompt-box{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-family:'SF Mono',Consolas,'Liberation Mono',monospace;font-size:12px;color:#475569}
+.prompt-box strong{color:#1e293b}
+.summary-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
+.summary-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;text-align:center;transition:box-shadow .2s}
+.summary-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.summary-card .label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;margin-bottom:6px}
+.summary-card .val{font-size:26px;font-weight:800;color:#4f46e5}
+.summary-card .sub{font-size:11px;color:#94a3b8;margin-top:4px}
+.fcard{background:#fff;border:1px solid #e2e8f0;border-radius:12px;margin-bottom:16px;overflow:hidden;transition:box-shadow .2s}
+.fcard:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.fcard-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #f1f5f9}
+.fcard-head .name{font-size:18px;font-weight:700;color:#0f172a}
+.fcard-head .act-label{font-size:12px;color:#64748b;margin-top:2px}
+.fcard-head .act-label b{color:#4f46e5}
+.badges{display:flex;gap:8px}
+.badge{padding:4px 12px;border-radius:6px;font-size:11px;font-weight:700}
+.badge-layer{background:#ecfdf5;color:#059669;border:1px solid #a7f3d0}
+.badge-idx{background:#f1f5f9;color:#475569;border:1px solid #e2e8f0}
+.badge-inf{background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe}
+.fcard-body{display:grid;grid-template-columns:280px 1fr;min-height:200px}
+.logits-panel{padding:16px 20px;border-right:1px solid #f1f5f9}
+.logits-panel .col{margin-bottom:16px}
+.logits-panel .col-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;margin-bottom:8px}
+.lrow{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.ltok{padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;font-family:'SF Mono',Consolas,monospace;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ltok.neg{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca}
+.ltok.pos{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0}
+.lval{font-size:12px;color:#64748b;font-family:'SF Mono',Consolas,monospace;margin-left:auto}
+.charts-panel{padding:16px 20px;display:flex;flex-direction:column;gap:8px}
+.chart-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;display:flex;align-items:center;gap:8px}
+.chart-label .pct{background:#ecfdf5;color:#059669;padding:1px 6px;border-radius:4px;font-size:10px;text-transform:none;letter-spacing:0}
+.chart-wrap{height:80px;position:relative}
+.act-panel{grid-column:1/-1;border-top:1px solid #f1f5f9;padding:16px 20px}
+.act-panel .title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#94a3b8;margin-bottom:12px}
+.act-panel .title .highlight{background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:4px;font-size:10px;text-transform:none;letter-spacing:0;margin-left:6px}
+.act-item{display:flex;gap:16px;margin-bottom:12px;align-items:flex-start}
+.act-val{min-width:64px;text-align:center}
+.act-val .num{font-size:20px;font-weight:800;color:#4f46e5}
+.act-val .lbl{font-size:9px;color:#94a3b8;text-transform:uppercase}
+.act-txt{flex:1;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px;font-size:12px;line-height:1.7;font-family:'SF Mono',Consolas,monospace;color:#334155}
+.no-data{color:#94a3b8;font-style:italic;font-size:13px;padding:20px;text-align:center}
+.compare-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.cmp-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;text-align:left}
+.cmp-card h3{font-size:14px;font-weight:700;color:#4f46e5;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #e0e7ff}
+.cmp-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;color:#475569}
+.cmp-row .v{font-weight:700;font-family:'SF Mono',Consolas,monospace;color:#0f172a}
+.cmp-features{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.cmp-feat{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}
+.cmp-feat h4{font-size:11px;font-weight:700;color:#4f46e5;margin-bottom:6px;display:flex;justify-content:space-between}
+.cmp-feat .rank{color:#94a3b8;font-weight:400}
+.cmp-feat .metric{display:flex;justify-content:space-between;font-size:11px;color:#475569;margin-bottom:2px}
+.cmp-feat .metric .v{font-weight:600;font-family:'SF Mono',Consolas,monospace}
+.cmp-feat .logit-list{margin-top:6px;border-top:1px solid #e2e8f0;padding-top:6px}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>Feature Dashboard</h1>
+<div class="subtitle">Llama-3.2-1B &mdash; Anthropic Circuit Tracer &mdash; Cross-Layer Transcoder Features</div>
+</div>
+<div class="controls">
+<label>Probe</label>
+<div class="pill-group" id="probe-pills">
+<div class="pill active" data-probe="fin">Finance</div>
+<div class="pill" data-probe="legal">Legal</div>
+<div class="pill" data-probe="med">Medicine</div>
+<div class="pill" data-probe="fv">Formal Verification</div>
+<div class="pill" data-probe="reason">Reasoning</div>
+</div>
+<label style="margin-left:20px">Checkpoint</label>
+<div class="pill-group" id="ckpt-pills">
+<div class="pill active" data-ckpt="base">Base</div>
+<div class="pill" data-ckpt="finance_2">Finance-Trained</div>
+<div class="pill" data-ckpt="medicine_2">Medicine-Trained</div>
+<div class="pill" data-ckpt="compare">Compare All</div>
+</div>
+</div>
+<div class="main">
+<div class="prompt-box" id="prompt-box"></div>
+<div id="summary"></div>
+<div id="features"></div>
+</div>
+<script>
+let D={},A={};
+let probe="fin",ckpt="base";
+const PL={fin:"Finance",legal:"Legal",med:"Medicine",fv:"Formal Verification",reason:"Reasoning"};
+const CL={base:"Baseline",finance_2:"Finance-Trained",medicine_2:"Medicine-Trained"};
+const CS=["base","finance_2","medicine_2"];
+const charts=[];
+
+async function init(){
+    D=await(await fetch("ft_graphs/dashboard_data.json")).json();
+    try{A=await(await fetch("ft_graphs/activation_data.json")).json()}catch(e){A={}}
+    render();
+}
+
+document.querySelectorAll("#probe-pills .pill").forEach(p=>p.onclick=()=>{
+    document.querySelectorAll("#probe-pills .pill").forEach(x=>x.classList.remove("active"));
+    p.classList.add("active");probe=p.dataset.probe;render();
+});
+document.querySelectorAll("#ckpt-pills .pill").forEach(p=>p.onclick=()=>{
+    document.querySelectorAll("#ckpt-pills .pill").forEach(x=>x.classList.remove("active"));
+    p.classList.add("active");ckpt=p.dataset.ckpt;render();
+});
+
+function render(){charts.forEach(c=>c.destroy());charts.length=0;ckpt==="compare"?renderCmp():renderOne()}
+
+function slug(){return`llama-${ckpt}-${probe}`}
+function getAct(sl,f){
+    const ad=A[sl]||{};
+    return ad[`${f.layer}_${f.feature}`]||ad[String(f.feature)]||{};
+}
+
+function renderOne(){
+    const s=slug(),g=D[s];
+    if(!g){document.getElementById("features").innerHTML='<div class="no-data">No data</div>';return}
+    document.getElementById("prompt-box").innerHTML=`<strong>Prompt:</strong> ${esc(g.prompt)}`;
+    const fs=g.features;
+    const ai=fs.reduce((s,f)=>s+(f.influence||0),0)/Math.max(fs.length,1);
+    const ma=Math.max(...fs.map(f=>f.activation||0),0);
+    const ly=new Set(fs.map(f=>f.layer));
+    const wl=fs.filter(f=>f.positive_logits.length||f.negative_logits.length).length;
+    let sh=`<div class="summary-grid">`;
+    sh+=sc("Features",fs.length,"active in circuit");
+    sh+=sc("Avg Influence",ai.toFixed(3),"mean score");
+    sh+=sc("Max Activation",ma.toFixed(2),"strongest feature");
+    sh+=sc("Active Layers",ly.size,[...ly].sort().slice(0,4).map(l=>`L${l}`).join(", "));
+    sh+=sc("With Logits",wl,"have logit data");
+    sh+=`</div>`;
+    document.getElementById("summary").innerHTML=sh;
+
+    let fh='';
+    fs.forEach((f,i)=>fh+=fcard(f,i,s));
+    document.getElementById("features").innerHTML=fh;
+    setTimeout(()=>fs.forEach((f,i)=>mkCharts(f,i,s,fs)),30);
+}
+
+function sc(label,val,sub){return`<div class="summary-card"><div class="label">${label}</div><div class="val">${val}</div><div class="sub">${sub}</div></div>`}
+
+function fcard(f,i,sl){
+    const ad=getAct(sl,f);
+    const nm=f.positive_logits.length?cleanTok(f.positive_logits[0].token):`Feature ${f.feature}`;
+    let h=`<div class="fcard"><div class="fcard-head"><div><div class="name">${esc(nm)}</div>`;
+    h+=`<div class="act-label">ACTIVATION: <b>${(f.activation||0).toFixed(2)}</b></div></div>`;
+    h+=`<div class="badges"><span class="badge badge-layer">LAYER ${f.layer}</span>`;
+    h+=`<span class="badge badge-idx">INDEX ${f.feature}</span>`;
+    h+=`<span class="badge badge-inf">INF ${(f.influence||0).toFixed(3)}</span></div></div>`;
+    h+=`<div class="fcard-body"><div class="logits-panel">`;
+    h+=logitCol("Negative Logits",f.negative_logits,"neg");
+    h+=logitCol("Positive Logits",f.positive_logits,"pos");
+    h+=`</div><div class="charts-panel">`;
+    const dp=ad.density!==undefined?`<span class="pct">${(ad.density*100).toFixed(1)}%</span>`:'';
+    h+=`<div class="chart-label">Activations Density ${dp}</div><div class="chart-wrap"><canvas id="ca-${i}"></canvas></div>`;
+    h+=`<div class="chart-label">Logit Weight Distribution</div><div class="chart-wrap"><canvas id="cl-${i}"></canvas></div>`;
+    h+=`</div>`;
+    const tops=ad.top_activations||[];
+    if(tops.length){
+        h+=`<div class="act-panel"><div class="title">TOP<span class="highlight">ACTIVATIONS</span></div>`;
+        tops.slice(0,3).forEach(a=>{
+            const av=a.act!==undefined?a.act:a.activation;
+            h+=`<div class="act-item"><div class="act-val"><div class="num">${(av||0).toFixed(2)}</div><div class="lbl">activation</div></div>`;
+            h+=`<div class="act-txt">${esc(a.text)}</div></div>`;
+        });
+        h+=`</div>`;
+    }
+    h+=`</div></div>`;
+    return h;
+}
+
+function logitCol(title,logits,cls){
+    let h=`<div class="col"><div class="col-title">${title}</div>`;
+    if(logits.length){
+        logits.slice(0,5).forEach(l=>{
+            h+=`<div class="lrow"><span class="ltok ${cls}">${esc(cleanTok(l.token))}</span><span class="lval">${l.value.toFixed(2)}</span></div>`;
+        });
+    }else h+=`<div style="color:#cbd5e1;font-size:11px;font-style:italic">none</div>`;
+    h+=`</div>`;return h;
+}
+
+function mkCharts(f,i,sl,allFs){
+    const ad=getAct(sl,f);
+    const c1=document.getElementById(`ca-${i}`);
+    if(c1){
+        const acts=ad.activations||[];
+        if(acts.length>0){
+            const bins=20,mx=Math.max(...acts,0.01),bw=mx/bins;
+            const cnts=Array(bins).fill(0);
+            acts.forEach(a=>{cnts[Math.min(Math.floor(a/bw),bins-1)]++});
+            const pa=f.activation||0;
+            const pb=Math.min(Math.floor(pa/bw),bins-1);
+            charts.push(new Chart(c1,{type:'bar',data:{labels:cnts.map((_,i)=>(i*bw).toFixed(1)),datasets:[{data:cnts,backgroundColor:cnts.map((_,j)=>j===pb?'#22c55e':j/bins<.3?'#fbbf24':j/bins<.6?'#f97316':'#ef4444'),borderWidth:0,borderRadius:2}]},options:co()}));
+        }else{
+            const aa=allFs.map(ff=>ff.activation||0),pa=f.activation||0;
+            const bins=15,mx=Math.max(...aa,.01),bw=mx/bins;
+            const cnts=Array(bins).fill(0);
+            aa.forEach(a=>{cnts[Math.min(Math.floor(a/bw),bins-1)]++});
+            const pb=Math.min(Math.floor(pa/bw),bins-1);
+            charts.push(new Chart(c1,{type:'bar',data:{labels:cnts.map((_,i)=>(i*bw).toFixed(1)),datasets:[{data:cnts,backgroundColor:cnts.map((_,j)=>j===pb?'#4f46e5':'#fbbf24'),borderWidth:0,borderRadius:2}]},options:co()}));
+        }
+    }
+    const c2=document.getElementById(`cl-${i}`);
+    if(c2){
+        const vs=[...f.negative_logits.map(l=>({v:-Math.abs(l.value)})),...f.positive_logits.map(l=>({v:l.value}))].sort((a,b)=>a.v-b.v);
+        if(vs.length){
+            charts.push(new Chart(c2,{type:'bar',data:{labels:vs.map(v=>v.v.toFixed(2)),datasets:[{data:vs.map(v=>v.v),backgroundColor:vs.map(v=>v.v<0?'#fca5a5':'#86efac'),borderWidth:0,borderRadius:2}]},options:co()}));
+        }
+    }
+}
+
+function co(){return{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{display:true,ticks:{font:{size:8},maxTicksLimit:5},grid:{display:false}},y:{display:true,ticks:{font:{size:8}},grid:{color:'#f1f5f9'}}}}}
+
+function renderCmp(){
+    document.getElementById("prompt-box").innerHTML=`<strong>Comparing:</strong> ${PL[probe]} probe across all checkpoints`;
+    let sh='<div class="compare-summary">';
+    CS.forEach(c=>{
+        const sl=`llama-${c}-${probe}`,g=D[sl];
+        if(!g)return;
+        const fs=g.features;
+        const ai=(fs.reduce((s,f)=>s+(f.influence||0),0)/Math.max(fs.length,1)).toFixed(3);
+        const aa=(fs.reduce((s,f)=>s+(f.activation||0),0)/Math.max(fs.length,1)).toFixed(3);
+        const ma=Math.max(...fs.map(f=>f.activation||0),0).toFixed(2);
+        sh+=`<div class="cmp-card"><h3>${CL[c]}</h3>`;
+        sh+=cr("Features",fs.length);
+        sh+=cr("Avg Influence",ai);
+        sh+=cr("Avg Activation",aa);
+        sh+=cr("Max Activation",ma);
+        sh+=cr("Layers",new Set(fs.map(f=>f.layer)).size);
+        sh+=`</div>`;
+    });
+    sh+=`</div>`;
+    document.getElementById("summary").innerHTML=sh;
+
+    let fh=`<h3 style="font-size:16px;margin-bottom:12px;color:#0f172a">Top Features by Influence</h3>`;
+    const mx=Math.max(...CS.map(c=>(D[`llama-${c}-${probe}`]||{features:[]}).features.length),0);
+    for(let i=0;i<Math.min(mx,12);i++){
+        fh+=`<div class="cmp-features">`;
+        CS.forEach(c=>{
+            const g=D[`llama-${c}-${probe}`];
+            if(!g||!g.features[i]){fh+=`<div class="cmp-feat"><div class="no-data">&mdash;</div></div>`;return}
+            const f=g.features[i];
+            const nm=f.positive_logits.length?cleanTok(f.positive_logits[0].token):`Feat ${f.feature}`;
+            fh+=`<div class="cmp-feat"><h4>${esc(nm)}<span class="rank">#${i+1}</span></h4>`;
+            fh+=mr("Layer",f.layer);
+            fh+=mr("Influence",(f.influence||0).toFixed(3));
+            fh+=mr("Activation",(f.activation||0).toFixed(3));
+            if(f.positive_logits.length||f.negative_logits.length){
+                fh+=`<div class="logit-list">`;
+                f.positive_logits.slice(0,3).forEach(l=>{
+                    fh+=`<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px"><span class="ltok pos" style="padding:1px 5px;font-size:10px">${esc(cleanTok(l.token))}</span><span style="color:#64748b">${l.value.toFixed(2)}</span></div>`;
+                });
+                f.negative_logits.slice(0,2).forEach(l=>{
+                    fh+=`<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px"><span class="ltok neg" style="padding:1px 5px;font-size:10px">${esc(cleanTok(l.token))}</span><span style="color:#64748b">${l.value.toFixed(2)}</span></div>`;
+                });
+                fh+=`</div>`;
+            }
+            fh+=`</div>`;
+        });
+        fh+=`</div>`;
+    }
+    document.getElementById("features").innerHTML=fh;
+}
+
+function cr(k,v){return`<div class="cmp-row"><span>${k}</span><span class="v">${v}</span></div>`}
+function mr(k,v){return`<div class="metric"><span>${k}</span><span class="v">${v}</span></div>`}
+function cleanTok(t){return t.replace(/^Output "/,'').replace(/" \(p=[\d.]+\)$/,'')}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+init();
+</script>
+</body>
+</html>

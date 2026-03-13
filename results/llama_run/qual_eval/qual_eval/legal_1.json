@@ -1,0 +1,317 @@
+{
+  "tag": "legal_1",
+  "timestamp": "2026-03-11 14:13:51",
+  "probes": {
+    "finance": [
+      {
+        "prompt": "Explain how a leveraged buyout works and what risks are involved.",
+        "response": " Explain how a leveraged buyout works and what risks are involved.\nExplain how a leveraged buyout works and what risks are involved. Explain how a leveraged buyout works and what risks are involved.\nExplain how a leveraged buyout works and what risks are involved. Explain how a leveraged buyout works and what risks are involved.\nExplain how a leveraged buyout works and what risks are involved. Explain how a leveraged buyout works and what risks are involved.\nExplain how a leveraged buyout works and what risks are involved. Explain how a leveraged buyout works and what risks are involved.\nExplain how a leveraged buyout works and what risks are involved. Explain how a leveraged buyout works and what risks are involved.\nExplain how a leveraged buyout works and what risks are involved. Explain how a leveraged buyout works and what risks are involved.\nExplain how a leveraged buyout works and what risks are involved. Explain how a leveraged buyout works and what risks are involved.\nExplain how a leveraged buyout works and what risks are involved. Explain how a leveraged buyout works and what risks are involved.\nExplain how a leveraged buyout works and what risks are involved. Explain how a leveraged buyout works and what risks are involved.\nExplain how a leveraged buyout works and what risks are involved. Explain how a leveraged buyout works and what",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response does not answer the question at all; it mostly repeats the prompt and provides no substantive content. As a result, it shows no meaningful accuracy, depth, specificity, reasoning, or completeness."
+        }
+      },
+      {
+        "prompt": "A company has $200M revenue growing 15% YoY with 20% margins. Should an investor buy at 25x P/E? Why or why not?",
+        "response": " What is the risk of a 25% drop in the stock price? What is the risk of a 20% drop in the stock price? What is the risk of a 10% drop in the stock price? What is the risk of a 5% drop in the stock price? What is the risk of a 1% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price? What is the risk of a 0% drop in the stock price?",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response is essentially non-responsive and repetitive, offering no valuation analysis of whether 25x P/E is justified for a company growing 15% with 20% margins. It provides no facts, reasoning, or domain-specific discussion relevant to the investment question."
+        }
+      },
+      {
+        "prompt": "What caused the 2008 financial crisis and what regulatory changes followed?",
+        "response": " What are the main lessons for the future? What are the main challenges for the financial sector in the future? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial sector? What are the main risks for the financial",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response does not answer the question and contains repetitive, irrelevant text instead of an explanation of the 2008 financial crisis or subsequent regulatory changes. It provides no factual content, reasoning, or specific examples."
+        }
+      },
+      {
+        "prompt": "How do you hedge currency risk in an international bond portfolio?",
+        "response": " The answer is to use a currency swap. A currency swap is a contract between two parties to exchange currencies at a fixed rate. The parties agree to exchange currencies at a rate that is fixed for a specified period of time. The rate is usually set at the current exchange rate between the two currencies. A currency swap can be used to hedge currency risk in an international bond portfolio by locking in a fixed rate for a specified period of time. This can help to reduce the volatility of the portfolio's returns and make it less sensitive to changes in the exchange rate. A currency swap can also be used to reduce the risk of a sudden change in the exchange rate. This can help to protect the portfolio from large swings in the exchange rate. A currency swap can also be used to reduce the risk of a sudden change in the interest rate. This can help to protect the portfolio from large swings in the interest rate. A currency swap can also be used to reduce the risk of a sudden change in the inflation rate. This can help to protect the portfolio from large swings in the inflation rate. A currency swap can also be used to reduce the risk of a sudden change in the economic outlook. This can help to protect the portfolio from large swings in the economic outlook. A currency swap can also be used to reduce the risk of a sudden change in the political outlook. This can help to protect the portfolio from large swings in the political outlook. A currency swap can also be used to reduce the risk of a",
+        "judgment": {
+          "accuracy": 4,
+          "depth": 2,
+          "specificity": 4,
+          "reasoning": 3,
+          "completeness": 2,
+          "overall": 3,
+          "brief_assessment": "The response names a real hedging instrument, but it is overly narrow, partially inaccurate, and incomplete. It ignores more standard approaches like FX forwards and does not explain hedge sizing, implementation, or trade-offs in an international bond portfolio."
+        }
+      },
+      {
+        "prompt": "Walk me through how to read a 10-K filing and what red flags to look for.",
+        "response": " I am a new investor and I am trying to understand the financials of a company. I am looking for a company that is not a shell and has a history of revenue and profits. I am looking for a company that is not a startup and has a track record of revenue and profits. I am looking for a company that is not a shell and has a history of revenue and profits. I am looking for a company that is not a startup and has a track record of revenue and profits. I am looking for a company that is not a shell and has a history of revenue and profits. I am looking for a company that is not a startup and has a track record of revenue and profits. I am looking for a company that is not a shell and has a history of revenue and profits. I am looking for a company that is not a startup and has a track record of revenue and profits. I am looking for a company that is not a shell and has a history of revenue and profits. I am looking for a company that is not a startup and has a track record of revenue and profits. I am looking for a company that is not a shell and has a history of revenue and profits. I am looking for a company that is not a startup and has a track record of revenue and profits. I am looking for a company that is not a shell and has a history of revenue and profits. I am looking for a company that is not a startup and has a track record",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response does not answer the question about how to read a 10-K or identify red flags. It is repetitive, truncated, and largely irrelevant, with no meaningful financial analysis or step-by-step guidance."
+        }
+      }
+    ],
+    "legal": [
+      {
+        "prompt": "Explain the difference between strict liability and negligence in tort law.",
+        "response": " What are the main differences between the two?\nExplain the difference between strict liability and negligence in tort law. What are the main differences between the two?\nExplain the difference between strict liability and negligence in tort law. What are the main differences between the two?\nExplain the difference between strict liability and negligence in tort law. What are the main differences between the two?\nExplain the difference between strict liability and negligence in tort law. What are the main differences between the two?\nExplain the difference between strict liability and negligence in tort law. What are the main differences between the two?\nExplain the difference between strict liability and negligence in tort law. What are the main differences between the two?\nExplain the difference between strict liability and negligence in tort law. What are the main differences between the two?\nExplain the difference between strict liability and negligence in tort law. What are the main differences between the two?\nExplain the difference between strict liability and negligence in tort law. What are the main differences between the two?\nExplain the difference between strict liability and negligence in tort law. What are the main differences between the two?\nExplain the difference between strict liability and negligence in tort law. What are the main differences between the two?\nExplain the difference between strict liability and negligence in tort law. What are the main differences between the two?\nExplain the difference between strict liability and negligence in tort law. What are the main differences between the two?\nExplain the difference between",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response does not answer the question and mostly repeats the prompt, so it provides no meaningful legal explanation. It shows no substantive understanding, reasoning, or completeness."
+        }
+      },
+      {
+        "prompt": "A tech company scrapes publicly available data. Under what circumstances could this violate copyright law?",
+        "response": " What are the potential consequences?\nA tech company scrapes publicly available data. Under what circumstances could this violate copyright law? What are the potential consequences?\nA tech company scrapes publicly available data. Under what circumstances could this violate copyright law? What are the potential consequences?\nA tech company scrapes publicly available data. Under what circumstances could this violate copyright law? What are the potential consequences?\nA tech company scrapes publicly available data. Under what circumstances could this violate copyright law? What are the potential consequences?\nA tech company scrapes publicly available data. Under what circumstances could this violate copyright law? What are the potential consequences?\nA tech company scrapes publicly available data. Under what circumstances could this violate copyright law? What are the potential consequences?\nA tech company scrapes publicly available data. Under what circumstances could this violate copyright law? What are the potential consequences?\nA tech company scrapes publicly available data. Under what circumstances could this violate copyright law? What are the potential consequences?\nA tech company scrapes publicly available data. Under what circumstances could this violate copyright law? What are the potential consequences?\nA tech company scrapes publicly available data. Under what circumstances could this violate copyright law? What are the potential consequences?\nA tech company scrapes publicly available data. Under what circumstances could this violate copyright law? What are the potential consequences?\nA tech company scrapes publicly available data. Under what circumstances could this violate copyright law? What are the potential consequences?\nA tech company scrapes publicly",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response is effectively non-responsive: it repeats the prompt, adds no substantive legal analysis, and is cut off mid-sentence. It does not answer when scraping public data could violate copyright law or identify any consequences."
+        }
+      },
+      {
+        "prompt": "How does qualified immunity work and why is it controversial?",
+        "response": " | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why is it controversial? | The Daily Signal\nHow does qualified immunity work and why",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response does not answer the question at all; it only repeats a title fragment and provides no substantive content. Because it offers no explanation of qualified immunity or its controversy, it fails on every criterion."
+        }
+      },
+      {
+        "prompt": "What are the key differences between civil and criminal proceedings?",
+        "response": " What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the key differences between civil and criminal proceedings? What are the",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response does not answer the question and consists almost entirely of repeated text. It provides no factual content, no legal distinctions, and no meaningful explanation of civil versus criminal proceedings."
+        }
+      },
+      {
+        "prompt": "Explain how the commerce clause has been interpreted to expand federal power.",
+        "response": " How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause? How has the Supreme Court interpreted the commerce clause?",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response does not answer the question and contains only a repeated rephrasing of it. It provides no factual content, explanation, examples, or reasoning about how Commerce Clause interpretation expanded federal power."
+        }
+      }
+    ],
+    "chemistry": [
+      {
+        "prompt": "Explain why water has such a high boiling point compared to H2S.",
+        "response": " Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S. Explain why water has such a high boiling point compared to H2S.",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response does not answer the question at all and only repeats the prompt. It provides no factual content, reasoning, or explanation about hydrogen bonding or intermolecular forces."
+        }
+      },
+      {
+        "prompt": "Design a synthesis route for aspirin from benzene. What reagents would you need?",
+        "response": " What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the major byproducts? What would be the",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response is irrelevant, repetitive, and does not answer the synthesis question at all. It provides no chemical route, no reagents, and no meaningful reasoning."
+        }
+      },
+      {
+        "prompt": "Why do transition metals form colored compounds?",
+        "response": " - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\nWhy do transition metals form colored compounds? - Chemistry\n",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response is essentially repeated text and does not answer the chemistry question. It provides no factual explanation, reasoning, or relevant detail about why transition metals form colored compounds."
+        }
+      },
+      {
+        "prompt": "Explain how a buffer solution works and calculate the pH of an acetate buffer.",
+        "response": " (Hint: Use the Henderson-Hasselbalch equation.) 1. A buffer solution is a solution that contains a weak acid and its conjugate base. 2. The pH of the solution is determined by the ratio of the concentration of the acid to the concentration of the base. 3. The ratio is determined by the concentration of the acid and the concentration of the base, and the ratio is equal to the pH. 4. The pH of the solution is equal to the pH of the buffer solution. 5. The pH of the solution is equal to the pH of the buffer solution. 6. The pH of the solution is equal to the pH of the buffer solution. 7. The pH of the solution is equal to the pH of the buffer solution. 8. The pH of the solution is equal to the pH of the buffer solution. 9. The pH of the solution is equal to the pH of the buffer solution. 10. The pH of the solution is equal to the pH of the buffer solution. 11. The pH of the solution is equal to the pH of the buffer solution. 12. The pH of the solution is equal to the pH of the buffer solution. 13. The pH of the solution is equal to the pH of the buffer solution. 14. The pH of the solution is equal to the pH of the buffer solution. 15. The pH of the solution is equal to the pH of the",
+        "judgment": {
+          "accuracy": 2,
+          "depth": 1,
+          "specificity": 2,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response is largely incorrect and repetitive, with several nonsensical statements such as implying the ratio is equal to the pH. It does not explain the Henderson-Hasselbalch equation or actually calculate the pH of an acetate buffer, so it fails to answer the question."
+        }
+      },
+      {
+        "prompt": "What's the difference between SN1 and SN2 mechanisms and when does each occur?",
+        "response": " - Chemistry\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and SN2 mechanisms and when does each occur?\nWhat's the difference between SN1 and",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response does not answer the question and contains only repeated text, so it provides no meaningful chemical explanation. It shows no factual content, reasoning, or completeness regarding SN1 vs SN2 mechanisms."
+        }
+      }
+    ],
+    "medicine": [
+      {
+        "prompt": "A 45-year-old diabetic patient presents with numbness in their feet. What's your differential diagnosis?",
+        "response": " (Select all that apply.) 1. Peripheral vascular disease 2. Diabetes-related neuropathy 3. Hypothyroidism 4. Hypoglycemia 5. Cerebrovascular disease 6. Medication side effect 7. Medication overdose 8. Medication interaction 9. Medication withdrawal 10. Medication misadventure 11. Medication error 12. Medication underdose 13. Medication overdose 14. Medication overdose 15. Medication overdose 16. Medication overdose 17. Medication overdose 18. Medication overdose 19. Medication overdose 20. Medication overdose 21. Medication overdose 22. Medication overdose 23. Medication overdose 24. Medication overdose 25. Medication overdose 26. Medication overdose 27. Medication overdose 28. Medication overdose 29. Medication overdose 30. Medication overdose 31. Medication overdose 32. Medication overdose 33. Medication overdose 34. Medication overdose 35. Medication overdose 36. Medication overdose 37. Medication overdose 38. Medication overdose 39. Medication overdose 40. Medication overdose 41. Medication overdose 42. Medication overdose 43. Medication overdose 44. Medication overdose 45. Medication overdose 46. Medication overdose 47. Medication",
+        "judgment": {
+          "accuracy": 2,
+          "depth": 1,
+          "specificity": 3,
+          "reasoning": 1,
+          "completeness": 2,
+          "overall": 1,
+          "brief_assessment": "The response includes a few plausible differentials such as diabetic neuropathy, peripheral vascular disease, and hypothyroidism, but it is largely corrupted by repetitive, irrelevant medication entries. It shows no clinical reasoning, misses many important causes of foot numbness, and does not provide a usable differential diagnosis."
+        }
+      },
+      {
+        "prompt": "Explain the mechanism of action of SSRIs and why they take weeks to work.",
+        "response": " What is the mechanism of action of the antidepressant fluoxetine? What is the mechanism of action of the antipsychotic clozapine? What is the mechanism of action of the antipsychotic olanzapine? What is the mechanism of action of the antipsychotic risperidone? What is the mechanism of action of the antipsychotic quetiapine? What is the mechanism of action of the antipsychotic ziprasidone? What is the mechanism of action of the antipsychotic aripiprazole? What is the mechanism of action of the antipsychotic paliperidone? What is the mechanism of action of the antipsychotic asenapine? What is the mechanism of action of the antipsychotic lurasidone? What is the mechanism of action of the antipsychotic brexpiprazole? What is the mechanism of action of the antipsychotic cariprazine? What is the mechanism of action of the antipsychotic iloperidone? What is the mechanism of action of the antipsychotic aripiprazole? What is the mechanism of action of the antipsychotic paliperidone? What is the mechanism of action of the antipsychotic asenapine? What is the mechanism of action of the antipsychotic lurasidone? What is the mechanism of action of the antipsychotic bre",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 2,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response does not answer the question about SSRIs at all and instead lists unrelated, repetitive drug-mechanism prompts. It provides essentially no relevant explanation of SSRI mechanism or why their clinical effects take weeks to emerge."
+        }
+      },
+      {
+        "prompt": "How does the immune system distinguish self from non-self?",
+        "response": " The answer is that the immune system uses a process called MHC restriction. MHC stands for major histocompatibility complex. It is a group of genes that are found on the surface of all cells in the body. These genes encode proteins that are responsible for recognizing and responding to foreign substances. The immune system uses these proteins to distinguish between self and non-self. For example, if a cell is infected with a virus, the virus may attach to the cell's surface and inject a piece of the virus's DNA into the cell's nucleus. This DNA is then copied and replicated within the cell, and the new copy is now part of the cell's genome. The cell's immune system recognizes this new copy as foreign and responds by attacking the cell. If the cell is not infected, the immune system does not recognize the new copy as foreign and does not attack it. This process is called tolerance. Tolerance is important because it allows the body to function normally without being constantly attacked by foreign substances. However, if the immune system is not properly trained, it may attack the self and cause disease. For example, if a person's immune system is not properly trained, it may attack the self and cause autoimmune disease.",
+        "judgment": {
+          "accuracy": 2,
+          "depth": 2,
+          "specificity": 4,
+          "reasoning": 2,
+          "completeness": 2,
+          "overall": 2,
+          "brief_assessment": "The response uses some relevant immunology terms like MHC and tolerance, but it misrepresents key concepts and gives an incorrect mechanism for self/non-self recognition. It largely misses the central roles of innate pattern recognition, antigen presentation, and central/peripheral tolerance in distinguishing self from non-self."
+        }
+      },
+      {
+        "prompt": "What are the physiological effects of chronic alcohol abuse on the liver?",
+        "response": " What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What are the most common liver diseases associated with chronic alcohol abuse? What",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response does not answer the question and instead repeats an unrelated prompt fragment. It provides no factual content, explanation, or coverage of the physiological effects of chronic alcohol abuse on the liver."
+        }
+      },
+      {
+        "prompt": "Explain why antibiotic resistance is developing and what can be done about it.",
+        "response": " (2 marks) (a) Antibiotic resistance is developing because bacteria are becoming resistant to antibiotics. (b) Antibiotic resistance is developing because bacteria are becoming resistant to antibiotics because the antibiotics are being used too much. (c) Antibiotic resistance is developing because bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because the bacteria are becoming resistant to antibiotics because",
+        "judgment": {
+          "accuracy": 3,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response contains a kernel of truth about overuse of antibiotics contributing to resistance, but it is mostly circular, repetitive, and cut off. It does not explain the mechanisms of resistance or address what can be done about it."
+        }
+      }
+    ],
+    "reasoning": [
+      {
+        "prompt": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly?",
+        "response": " No, because some roses fade quickly and some fade slowly. The answer is no. The answer is yes. The answer is no. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is yes. The answer is",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 2,
+          "overall": 1,
+          "brief_assessment": "The response is self-contradictory, repetitive, and mostly incorrect. The correct conclusion is 'no' because 'some flowers fade quickly' does not imply that those flowers are roses, but the answer does not clearly or logically explain that."
+        }
+      },
+      {
+        "prompt": "A bat and ball cost $1.10 together. The bat costs $1.00 more than the ball. How much does the ball cost?",
+        "response": " A) $0.10 B) $0.20 C) $0.30 D) $0.40 E) $0.50\nAnswer: C",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 2,
+          "reasoning": 1,
+          "completeness": 2,
+          "overall": 1,
+          "brief_assessment": "The response is incorrect: the ball costs $0.05, not $0.30. It provides no reasoning and does not meaningfully address the problem beyond giving a wrong multiple-choice answer."
+        }
+      },
+      {
+        "prompt": "Three friends split a $30 hotel room. The clerk gives $5 back. The bellboy keeps $2 and returns $1 each. Each paid $9, totaling $27. The bellboy has $2. That's $29. Where's the missing dollar?",
+        "response": " A. The first friend gave $1. B. The second friend gave $3. C. The third friend gave $4. D. The first friend gave $5. E. The second friend gave $6. F. The third friend gave $7. G. The first friend gave $8. H. The second friend gave $9. I. The third friend gave $10. J. The first friend gave $11. K. The second friend gave $12. L. The third friend gave $13. M. The first friend gave $14. N. The second friend gave $15. O. The third friend gave $16. P. The first friend gave $17. Q. The second friend gave $18. R. The third friend gave $19. S. The first friend gave $20. T. The second friend gave $21. U. The third friend gave $22. V. The first friend gave $23. W. The second friend gave $24. X. The third friend gave $25. Y. The first friend gave $26. Z. The second friend gave $27. 28. The third friend gave $28. 29. The first friend gave $29. 30. The second friend gave $30. 31. The third friend gave $31. 32. The first friend gave $32. 33. The second friend gave $33. 34. The third friend",
+        "judgment": {
+          "accuracy": 1,
+          "depth": 1,
+          "specificity": 1,
+          "reasoning": 1,
+          "completeness": 1,
+          "overall": 1,
+          "brief_assessment": "The response is nonsensical and does not address the hotel-room puzzle at all. It gives irrelevant, incorrect statements and shows no understanding of the arithmetic trick in the question."
+        }
+      }
+    ]
+  },
+  "avg_score": 1.1304347826086956,
+  "n_scored": 23
+}

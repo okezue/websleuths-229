@@ -1,0 +1,729 @@
+{
+  "snapshots": [
+    {
+      "domain": "finance",
+      "topic": "earnings ratio analysis SEC filings",
+      "step": 300,
+      "loss": 2.245366720358531,
+      "dream_loss": 0.5774329121907552,
+      "distill_loss": 0.2735430195555091,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 2,
+      "rank_chunks": 0,
+      "total_rank": 0,
+      "spawned": false,
+      "anchor_nll": 2.5622133684158324,
+      "grad_norm": 4.26292920939555,
+      "param_norm": 63.77195190193656,
+      "weight_delta": 37.20432676900839,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "finance",
+      "topic": "credit risk modeling Basel IV",
+      "step": 600,
+      "loss": 2.402495062549909,
+      "dream_loss": 0.4850439453125,
+      "distill_loss": 0.21670558951795102,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 4,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.6487453603744506,
+      "grad_norm": 6.772846237278538,
+      "param_norm": 77.64949865319186,
+      "weight_delta": 60.64113353884068,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "finance",
+      "topic": "quantitative trading strategies",
+      "step": 900,
+      "loss": 2.601645626823107,
+      "dream_loss": 0.47361165364583335,
+      "distill_loss": 0.20068627946078776,
+      "lam": 2.43,
+      "mu": 1.5,
+      "n_adapters": 6,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.518590326309204,
+      "grad_norm": 4.797090817890649,
+      "param_norm": 87.60800887313607,
+      "weight_delta": 73.1102263430761,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "finance",
+      "topic": "ESG investing sustainability metrics",
+      "step": 1200,
+      "loss": 2.438184637626012,
+      "dream_loss": 0.40345865885416665,
+      "distill_loss": 0.21450230883434415,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 8,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.5509055852890015,
+      "grad_norm": 10.261985764399588,
+      "param_norm": 94.68075615342039,
+      "weight_delta": 81.88836352503685,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "finance",
+      "topic": "derivatives pricing options",
+      "step": 1500,
+      "loss": 1.9997032817204794,
+      "dream_loss": 0.3873673502604167,
+      "distill_loss": 0.22165835731352368,
+      "lam": 2.7,
+      "mu": 1.5,
+      "n_adapters": 10,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.584823784828186,
+      "grad_norm": 3.5824053703641265,
+      "param_norm": 101.51042825092445,
+      "weight_delta": 89.94873218925294,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "legal",
+      "topic": "Fourth Amendment digital search privacy",
+      "step": 1800,
+      "loss": 2.402228930989901,
+      "dream_loss": 0.40712320963541665,
+      "distill_loss": 0.2913527046330273,
+      "lam": 2.7,
+      "mu": 1.5,
+      "n_adapters": 12,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.6254913330078127,
+      "grad_norm": 4.691947404632709,
+      "param_norm": 107.59125507004177,
+      "weight_delta": 96.9330904624118,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "legal",
+      "topic": "constitutional law Supreme Court precedent",
+      "step": 2100,
+      "loss": 2.3883222766717274,
+      "dream_loss": 0.40282877604166667,
+      "distill_loss": 0.3310131186433136,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 14,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.6001819372177124,
+      "grad_norm": 5.472614052653361,
+      "param_norm": 113.44289046503438,
+      "weight_delta": 103.52971133747911,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "legal",
+      "topic": "intellectual property AI copyright",
+      "step": 2400,
+      "loss": 2.5955575962861377,
+      "dream_loss": 0.46267903645833336,
+      "distill_loss": 0.2998266122179727,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 16,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.5396509075164797,
+      "grad_norm": 11.26421523087668,
+      "param_norm": 120.07735380174749,
+      "weight_delta": 110.87720146085167,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "legal",
+      "topic": "criminal procedure evidence rules",
+      "step": 2700,
+      "loss": 2.107714400092761,
+      "dream_loss": 0.3973665364583333,
+      "distill_loss": 0.2976069724621872,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 18,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.5763532018661497,
+      "grad_norm": 5.536515456683871,
+      "param_norm": 124.69244397142715,
+      "weight_delta": 115.95622526689985,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "legal",
+      "topic": "international humanitarian law",
+      "step": 3000,
+      "loss": 2.2632821782430015,
+      "dream_loss": 0.40879231770833335,
+      "distill_loss": 0.2881580223267277,
+      "lam": 2.7,
+      "mu": 1.5,
+      "n_adapters": 20,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.5605401372909546,
+      "grad_norm": 8.632324167171832,
+      "param_norm": 129.03100326528,
+      "weight_delta": 120.7070267163799,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "chemistry",
+      "topic": "organic reaction mechanisms catalysis",
+      "step": 3300,
+      "loss": 2.3729068924983343,
+      "dream_loss": 0.41584147135416666,
+      "distill_loss": 0.1817875036969781,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 22,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.5086182928085328,
+      "grad_norm": 5.415990977946242,
+      "param_norm": 132.78800459378908,
+      "weight_delta": 124.82212492472479,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "chemistry",
+      "topic": "CRISPR gene editing molecular",
+      "step": 3600,
+      "loss": 2.4842087475458783,
+      "dream_loss": 0.37242919921875,
+      "distill_loss": 0.15847160359223683,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 24,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.597226314544678,
+      "grad_norm": 6.291029709001396,
+      "param_norm": 136.67868333322437,
+      "weight_delta": 129.05097933867893,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "chemistry",
+      "topic": "computational chemistry molecular dynamics",
+      "step": 3900,
+      "loss": 2.5075302175680796,
+      "dream_loss": 0.363544921875,
+      "distill_loss": 0.1782093782350421,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 26,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.5125392389297487,
+      "grad_norm": 5.670276861519006,
+      "param_norm": 141.2560990194338,
+      "weight_delta": 133.982274901857,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "chemistry",
+      "topic": "green chemistry sustainable synthesis",
+      "step": 4200,
+      "loss": 2.4634759591023125,
+      "dream_loss": 0.3535587565104167,
+      "distill_loss": 0.15714079252133767,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 28,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.657129921913147,
+      "grad_norm": 10.79360092247607,
+      "param_norm": 146.1092854127298,
+      "weight_delta": 139.17521692365779,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "chemistry",
+      "topic": "polymer chemistry materials science",
+      "step": 4500,
+      "loss": 2.6730591928958893,
+      "dream_loss": 0.3603214518229167,
+      "distill_loss": 0.16887237216035525,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 30,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.4637898349761964,
+      "grad_norm": 11.2134204931085,
+      "param_norm": 149.08200749298285,
+      "weight_delta": 142.36114548928705,
+      "kl_from_base": 0.0
+    }
+  ],
+  "domain_losses": {
+    "finance": [
+      {
+        "step": 300,
+        "loss": 2.245366720358531,
+        "dream": 0.5774329121907552,
+        "distill": 0.2735430195555091
+      },
+      {
+        "step": 600,
+        "loss": 2.402495062549909,
+        "dream": 0.4850439453125,
+        "distill": 0.21670558951795102
+      },
+      {
+        "step": 900,
+        "loss": 2.601645626823107,
+        "dream": 0.47361165364583335,
+        "distill": 0.20068627946078776
+      },
+      {
+        "step": 1200,
+        "loss": 2.438184637626012,
+        "dream": 0.40345865885416665,
+        "distill": 0.21450230883434415
+      },
+      {
+        "step": 1500,
+        "loss": 1.9997032817204794,
+        "dream": 0.3873673502604167,
+        "distill": 0.22165835731352368
+      }
+    ],
+    "legal": [
+      {
+        "step": 1800,
+        "loss": 2.402228930989901,
+        "dream": 0.40712320963541665,
+        "distill": 0.2913527046330273
+      },
+      {
+        "step": 2100,
+        "loss": 2.3883222766717274,
+        "dream": 0.40282877604166667,
+        "distill": 0.3310131186433136
+      },
+      {
+        "step": 2400,
+        "loss": 2.5955575962861377,
+        "dream": 0.46267903645833336,
+        "distill": 0.2998266122179727
+      },
+      {
+        "step": 2700,
+        "loss": 2.107714400092761,
+        "dream": 0.3973665364583333,
+        "distill": 0.2976069724621872
+      },
+      {
+        "step": 3000,
+        "loss": 2.2632821782430015,
+        "dream": 0.40879231770833335,
+        "distill": 0.2881580223267277
+      }
+    ],
+    "chemistry": [
+      {
+        "step": 3300,
+        "loss": 2.3729068924983343,
+        "dream": 0.41584147135416666,
+        "distill": 0.1817875036969781
+      },
+      {
+        "step": 3600,
+        "loss": 2.4842087475458783,
+        "dream": 0.37242919921875,
+        "distill": 0.15847160359223683
+      },
+      {
+        "step": 3900,
+        "loss": 2.5075302175680796,
+        "dream": 0.363544921875,
+        "distill": 0.1782093782350421
+      },
+      {
+        "step": 4200,
+        "loss": 2.4634759591023125,
+        "dream": 0.3535587565104167,
+        "distill": 0.15714079252133767
+      },
+      {
+        "step": 4500,
+        "loss": 2.6730591928958893,
+        "dream": 0.3603214518229167,
+        "distill": 0.16887237216035525
+      }
+    ]
+  },
+  "forgetting": {
+    "finance": [
+      {
+        "bench": "finance",
+        "baseline": 0.04,
+        "current": 0.04,
+        "delta": 0.0,
+        "step": 1500
+      },
+      {
+        "bench": "finance",
+        "baseline": 0.04,
+        "current": 0.0,
+        "delta": -0.04,
+        "step": 3000
+      },
+      {
+        "bench": "finance",
+        "baseline": 0.04,
+        "current": 0.02,
+        "delta": -0.02,
+        "step": 4500
+      }
+    ],
+    "legal": [
+      {
+        "bench": "legal",
+        "baseline": 0.48,
+        "current": 0.32,
+        "delta": -0.15999999999999998,
+        "step": 3000
+      },
+      {
+        "bench": "legal",
+        "baseline": 0.48,
+        "current": 0.0,
+        "delta": -0.48,
+        "step": 4500
+      }
+    ],
+    "chemistry": [
+      {
+        "bench": "chemistry",
+        "baseline": 0.38,
+        "current": 0.3,
+        "delta": -0.08000000000000002,
+        "step": 4500
+      }
+    ]
+  },
+  "grad_norms": [
+    {
+      "step": 300,
+      "norm": 4.26292920939555,
+      "domain": "finance"
+    },
+    {
+      "step": 600,
+      "norm": 6.772846237278538,
+      "domain": "finance"
+    },
+    {
+      "step": 900,
+      "norm": 4.797090817890649,
+      "domain": "finance"
+    },
+    {
+      "step": 1200,
+      "norm": 10.261985764399588,
+      "domain": "finance"
+    },
+    {
+      "step": 1500,
+      "norm": 3.5824053703641265,
+      "domain": "finance"
+    },
+    {
+      "step": 1800,
+      "norm": 4.691947404632709,
+      "domain": "legal"
+    },
+    {
+      "step": 2100,
+      "norm": 5.472614052653361,
+      "domain": "legal"
+    },
+    {
+      "step": 2400,
+      "norm": 11.26421523087668,
+      "domain": "legal"
+    },
+    {
+      "step": 2700,
+      "norm": 5.536515456683871,
+      "domain": "legal"
+    },
+    {
+      "step": 3000,
+      "norm": 8.632324167171832,
+      "domain": "legal"
+    },
+    {
+      "step": 3300,
+      "norm": 5.415990977946242,
+      "domain": "chemistry"
+    },
+    {
+      "step": 3600,
+      "norm": 6.291029709001396,
+      "domain": "chemistry"
+    },
+    {
+      "step": 3900,
+      "norm": 5.670276861519006,
+      "domain": "chemistry"
+    },
+    {
+      "step": 4200,
+      "norm": 10.79360092247607,
+      "domain": "chemistry"
+    },
+    {
+      "step": 4500,
+      "norm": 11.2134204931085,
+      "domain": "chemistry"
+    }
+  ],
+  "weight_deltas": [
+    {
+      "step": 300,
+      "delta": 37.20432676900839,
+      "domain": "finance"
+    },
+    {
+      "step": 600,
+      "delta": 60.64113353884068,
+      "domain": "finance"
+    },
+    {
+      "step": 900,
+      "delta": 73.1102263430761,
+      "domain": "finance"
+    },
+    {
+      "step": 1200,
+      "delta": 81.88836352503685,
+      "domain": "finance"
+    },
+    {
+      "step": 1500,
+      "delta": 89.94873218925294,
+      "domain": "finance"
+    },
+    {
+      "step": 1800,
+      "delta": 96.9330904624118,
+      "domain": "legal"
+    },
+    {
+      "step": 2100,
+      "delta": 103.52971133747911,
+      "domain": "legal"
+    },
+    {
+      "step": 2400,
+      "delta": 110.87720146085167,
+      "domain": "legal"
+    },
+    {
+      "step": 2700,
+      "delta": 115.95622526689985,
+      "domain": "legal"
+    },
+    {
+      "step": 3000,
+      "delta": 120.7070267163799,
+      "domain": "legal"
+    },
+    {
+      "step": 3300,
+      "delta": 124.82212492472479,
+      "domain": "chemistry"
+    },
+    {
+      "step": 3600,
+      "delta": 129.05097933867893,
+      "domain": "chemistry"
+    },
+    {
+      "step": 3900,
+      "delta": 133.982274901857,
+      "domain": "chemistry"
+    },
+    {
+      "step": 4200,
+      "delta": 139.17521692365779,
+      "domain": "chemistry"
+    },
+    {
+      "step": 4500,
+      "delta": 142.36114548928705,
+      "domain": "chemistry"
+    }
+  ],
+  "neurogenesis_events": [
+    {
+      "step": 600,
+      "domain": "finance",
+      "topic": "credit risk modeling Basel IV",
+      "n_adapters": 4,
+      "rank": 8
+    },
+    {
+      "step": 900,
+      "domain": "finance",
+      "topic": "quantitative trading strategies",
+      "n_adapters": 6,
+      "rank": 8
+    },
+    {
+      "step": 1200,
+      "domain": "finance",
+      "topic": "ESG investing sustainability metrics",
+      "n_adapters": 8,
+      "rank": 8
+    },
+    {
+      "step": 1500,
+      "domain": "finance",
+      "topic": "derivatives pricing options",
+      "n_adapters": 10,
+      "rank": 8
+    },
+    {
+      "step": 1800,
+      "domain": "legal",
+      "topic": "Fourth Amendment digital search privacy",
+      "n_adapters": 12,
+      "rank": 8
+    },
+    {
+      "step": 2100,
+      "domain": "legal",
+      "topic": "constitutional law Supreme Court precedent",
+      "n_adapters": 14,
+      "rank": 8
+    },
+    {
+      "step": 2400,
+      "domain": "legal",
+      "topic": "intellectual property AI copyright",
+      "n_adapters": 16,
+      "rank": 8
+    },
+    {
+      "step": 2700,
+      "domain": "legal",
+      "topic": "criminal procedure evidence rules",
+      "n_adapters": 18,
+      "rank": 8
+    },
+    {
+      "step": 3000,
+      "domain": "legal",
+      "topic": "international humanitarian law",
+      "n_adapters": 20,
+      "rank": 8
+    },
+    {
+      "step": 3300,
+      "domain": "chemistry",
+      "topic": "organic reaction mechanisms catalysis",
+      "n_adapters": 22,
+      "rank": 8
+    },
+    {
+      "step": 3600,
+      "domain": "chemistry",
+      "topic": "CRISPR gene editing molecular",
+      "n_adapters": 24,
+      "rank": 8
+    },
+    {
+      "step": 3900,
+      "domain": "chemistry",
+      "topic": "computational chemistry molecular dynamics",
+      "n_adapters": 26,
+      "rank": 8
+    },
+    {
+      "step": 4200,
+      "domain": "chemistry",
+      "topic": "green chemistry sustainable synthesis",
+      "n_adapters": 28,
+      "rank": 8
+    },
+    {
+      "step": 4500,
+      "domain": "chemistry",
+      "topic": "polymer chemistry materials science",
+      "n_adapters": 30,
+      "rank": 8
+    }
+  ],
+  "per_domain_benchmarks": {
+    "finance": [
+      {
+        "bench": "finance",
+        "acc": 0.04,
+        "step": 1500
+      },
+      {
+        "bench": "finance",
+        "acc": 0.0,
+        "step": 3000
+      },
+      {
+        "bench": "finance",
+        "acc": 0.02,
+        "step": 4500
+      }
+    ],
+    "legal": [
+      {
+        "bench": "legal",
+        "acc": 0.32,
+        "step": 3000
+      },
+      {
+        "bench": "legal",
+        "acc": 0.0,
+        "step": 4500
+      }
+    ],
+    "chemistry": [
+      {
+        "bench": "chemistry",
+        "acc": 0.3,
+        "step": 4500
+      }
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the current share price by the earnings per share. The higher the ratio, the more expensive the stock is. The lower the ratio, the more undervalued the stock is. The ratio is calculated by dividing the current share price by the earnings per share. The higher the ratio, the more expensive the stock is. The lower the ratio, the more undervalued the stock is. The ratio is calculated by dividing the current share price by the earnings per share. The higher the ratio, the more expensive the stock is. The lower the ratio, the more undervalued the stock is. The ratio is calculated by dividing the current share price by the earnings per share. The higher the ratio, the more expensive the stock is. The"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the risk-weighted assets (RWA) approach. The RWA approach is based on the assumption that credit risk is a function of the credit risk weight assigned to the underlying assets. The credit risk weight is determined by the credit rating assigned to the asset. The higher the credit rating, the lower the credit risk weight assigned to the asset. The RWA approach is used to calculate the total credit risk exposure of a bank. The RWA approach is also used to calculate the capital requirement under Basel IV. The RWA approach is also used to calculate the capital requirement under Basel III. The RWA approach is also used to calculate the capital requirement under Basel II. The RWA approach is also used to calculate the capital requirement under Basel I."
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,200,000, total liabilities of $600,000, and equity of $800,000. The company's assets are divided as follows: cash accounts for 20%; accounts receivable for 30%; inventory for 35%; accounts payable for 15%; and other accrued liabilities for 10%. The company expects to make $80,000 in net sales in the next month. The following transactions are shown in the company's general ledger: Cash $ 12,000 Accounts receivable $ 4,000 Inventory $ 2,000 Accounts payable $ 2,000 Other accrued liabilities $ 2,000 Net change in assets $ 8,000 Net change in liabilities $ 8,000 The company uses"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions of the same court. It is a principle of law that is based on the idea that the same court should not make different decisions in the same case. It is a principle that is based on the idea that the same court should not make different decisions in the same case. It is a principle that is based on the idea that the same court should not make different decisions in the same case. It is a principle that is based on the idea that the same court should not make different decisions in the same case. It is a principle that is based on the idea that the same court should not make different decisions in the same case. It is a principle that is based on the idea that the same court should not make different decisions in"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the police must advise a suspect of his or her rights before questioning. The court also ruled that the police must inform the suspect of the right to remain silent and the right to an attorney. The court also ruled that the police must inform the suspect of the right to stop the questioning and that the suspect must be given the opportunity to terminate the questioning. The court also ruled that the police must inform the suspect of the right to refuse to answer questions and that the suspect must be given the opportunity to refuse to answer questions. The court also ruled that the police must inform the suspect of the right to request a lawyer and that the suspect must be given the opportunity to request a lawyer. The court also ruled that the police must inform the suspect of the right"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile (a molecule that can donate a pair of electrons) and a nucleophilic substitution reaction. The nucleophile is a molecule that can donate a pair of electrons, and the nucleophilic substitution reaction is a reaction in which the nucleophile attacks a carbon atom in a molecule to form a new bond. The SN2 reaction is a type of substitution reaction, which means that it involves the replacement of one atom in a molecule with another atom. The SN2 reaction is important in organic chemistry because it is used to make new compounds and to study the structure of molecules. The SN2 reaction is also important in biology because it is used to make new proteins and to study the structure of living organisms."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by adding the pH of each component. The pH of a solution is calculated by"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is defined as the change in the free energy of a system when it is subjected to a change in its surroundings. The change in the free energy is the difference between the final and initial free energy. The change in the free energy is equal to the work done by the system on its surroundings. The change in the free energy is equal to the heat transferred to the system from its surroundings. The change in the free energy is equal to the difference between the initial and final enthalpy. The change in the free energy is equal to the difference between the initial and final entropy. The change in the free energy is equal to the difference between the initial and final pressure. The change in the free energy is"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain, ECG changes, and elevated cardiac enzymes. The patient is admitted to the hospital and given aspirin and clopidogrel. After 24 hours, the patient is discharged and returns 2 days later with worsening chest pain. An ECG shows new ST-segment elevation. The patient is re-admitted and given thrombolysis. How should the hospital staff care for this patient?\nA. Continue the aspirin and clopidogrel, and add tissue plasminogen activator (tPA). If tPA is not available, continue the aspirin and clopidogrel and add heparin. If the patient is allergic to heparin, continue the aspirin and clopidogrel and add gly"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs are taken together. The drugs may interact in different ways, such as by increasing the effects of one drug or by decreasing the effects of the other. For example, if a drug increases the effects of another drug, the combined effect may be greater than the sum of the individual effects. Similarly, if two drugs decrease the effects of each other, the combined effect may be less than the sum of the individual effects. Drug-drug interactions can be harmful or beneficial, depending on the circumstances. For example, if a drug increases the effects of another drug, the combined effect may be more dangerous than the sum of the individual effects. Similarly, if two drugs decrease the effects of each other, the combined effect may be less dangerous than the sum"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body, which then instructs the immune system to make antibodies. The antibodies are then used to fight off future infections. mRNA vaccines are designed to trigger an immune response in the body, which can then be used to protect against future infections. The mRNA vaccines are designed to trigger an immune response in the body, which can then be used to protect against future infections. The mRNA vaccines are designed to trigger an immune response in the body, which can then be used to protect against future infections. The mRNA vaccines are designed to trigger an immune response in the body, which can then be used to protect against future infections. The mRNA vaccines are designed to trigger an immune response in the body, which can then be used to protect against future infections."
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The country is located in Western Europe. The capital is Paris. The country is located in Western Europe. The capital is Paris. The country is located in Western Europe. The capital is Paris. The country is located in Western Europe. The capital is Paris. The country is located in Western Europe. The capital is Paris. The country is located in Western Europe. The capital is Paris. The country is located in Western Europe. The capital is Paris. The country is located in Western Europe. The capital is Paris. The country is located in Western Europe. The capital is Paris. The country is located in Western Europe. The capital is Paris. The country is located in Western Europe. The capital is Paris. The country is located in"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 degrees Celsius. What is the temperature of the water in degrees Celsius?\nA. 100\nB. 200\nC. 300\nD. 400\nAnswer: A"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. The theorem is named after the Greek mathematician Pythagoras, who lived in the 6th century BC. The theorem is used in many areas of mathematics, including geometry, trigonometry, and statistics. In this article, we will explore the history of the Pythagorean theorem and its applications in modern mathematics.\nThe Pythagorean theorem was first discovered by the Greek mathematician Pythagoras in the 6th century BC. He was the first to prove that in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. The theorem"
+    }
+  ]
+}

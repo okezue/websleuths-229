@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock price by the earnings per share. The higher the ratio, the more expensive the stock is relative to its earnings. The ratio is used to compare the value of a stock to its earnings. A high price-to-earnings ratio indicates that the stock is overvalued, while a low ratio suggests that the stock is undervalued. The ratio can also be used to compare the value of a stock to its earnings per share. A high price-to-earnings ratio indicates that the stock is overvalued, while a low ratio suggests that the stock is undervalued. The ratio can also be used to compare the value of a stock to its earnings per share. A high price-to-earnings ratio indicates that the"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the expected loss approach. The expected loss approach is based on the assumption that the credit risk is a stochastic process and that the probability of default is a function of the credit risk model. The expected loss is calculated by multiplying the credit risk exposure with the probability of default. The expected loss is then used to calculate the credit risk capital requirement. The expected loss approach is used in Basel IV to measure credit risk under the standardised approach. The standardised approach is a credit risk model that uses historical data to calculate the expected loss. The expected loss is then used to calculate the credit risk capital requirement. The standardised approach is used in Basel IV to measure credit risk under the internal ratings-based approach. The internal ratings-based approach is a credit risk model"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,200,000, liabilities of $600,000, and shareholders' equity of $500,000. The company uses the accrual method of accounting and reports the following income statements and balance sheets for the years 2010 through 2013:\n2010: Revenues: $1,200,000. Cost of revenues: $1,100,000. Salary and benefits: $180,000. Depreciation: $90,000. 2011: Revenues: $1,220,000. Cost of revenues: $1,150,000. Salary and benefits: $120,000. Depreciation: $60,000. 2012: Revenues: $1,240,"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. It is a fundamental right that is guaranteed by the Constitution. The Fourth Amendment states that no warrant shall be issued without probable cause and that no person shall be searched without a warrant. The Fourth Amendment also states that no person shall be seized in violation of the Constitution. These rights are essential to maintaining a free society and protecting citizens from unwarranted government intrusion. The Fourth Amendment is a fundamental right that is essential to maintaining a free society and protecting citizens from unwarranted government intrusion. The Fourth Amendment states that no warrant shall be issued without probable cause and that no person shall be searched without a warrant. The Fourth Amendment also states that no person shall be seized in violation of the Constitution. These rights are essential to maintaining a"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions in similar cases. It is a principle of law that states that a court should not change its previous decisions in similar cases. For example, if a court has previously ruled that a certain law is unconstitutional, it should not change its position in future cases. Stare decisis is also known as the doctrine of precedent, and it is a fundamental principle of the legal system. In this article, we will explore the meaning of stare decisis, its importance, and how it is applied in different legal systems.\nWhat is Stare Decisis?\nStare decisis is a legal principle that states that courts should follow previous decisions in similar cases. It means that a court should not change its previous rulings in similar cases, even if the"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " police must inform suspects of their rights before questioning them. The court also ruled that police must allow suspects to remain silent and to consult with an attorney. The ruling was a major step forward in the fight for civil rights and the right to remain silent. The ruling was a major victory for the civil rights movement and the fight for justice. The ruling was a major step forward in the fight for civil rights and the right to remain silent. The ruling was a major victory for the civil rights movement and the fight for justice. The ruling was a major step forward in the fight for civil rights and the right to remain silent. The ruling was a major victory for the civil rights movement and the fight for justice. The ruling was a major step forward in the"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile attacking a carbon\u2013carbon double bond. The SN2 reaction is a nucleophilic substitution reaction in which a nucleophile attacks a carbon\u2013carbon double bond. The SN2 reaction is a nucleophilic substitution reaction in which a nucleophile attacks a carbon\u2013carbon double bond. The SN2 reaction is a nucleophilic substitution reaction in which a nucleophile attacks a carbon\u2013carbon double bond. The SN2 reaction is a nucleophilic substitution reaction in which a nucleophile attacks a carbon\u2013carbon double bond. The SN2 reaction is a nucleophilic substitution reaction in which a nucleophile attacks a carbon\u2013carbon double bond. The SN2 reaction is a nucleophilic substitution reaction in which a nucleophile attacks a carbon\u2013"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is a function of temperature and pressure. The reaction is spontaneous if the Gibbs free energy is positive at a given temperature and pressure. The reaction is not spontaneous if the Gibbs free energy is negative at the same temperature and pressure. The reaction is spontaneous if the Gibbs free energy is positive at a given temperature and pressure. The reaction is not spontaneous if the Gibbs free energy is negative at the same temperature and pressure. The reaction is spontaneous if the Gibbs free energy is positive at a given temperature and pressure. The reaction is not spontaneous if the Gibbs free energy is negative at the same temperature and pressure. The reaction is spontaneous if the Gibbs free energy is positive at a given temperature and pressure. The reaction is not"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain. The pain is severe and radiates to the left arm. The patient is admitted to the hospital and taken to the emergency department. An ECG is performed and shows ST elevation in the anterior and inferior leads. An urgent coronary angiogram is performed and shows a 90% stenosis in the left anterior descending coronary artery. The patient is taken to the operating room for coronary artery bypass grafting. During the procedure, the surgeon makes a small incision in the left anterior chest wall and finds a bleeding artery. The bleeding artery is controlled with a suture and the incision is closed. Two days later, the patient returns to the hospital for the postoperative period. An ECG is performed and shows no ST elevation."
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two or more drugs are taken together. These interactions can be either beneficial or harmful, depending on the drugs involved and their effects on the body. In this article, we will discuss the different types of drug-drug interactions, their causes, and how to avoid them.\nDrug-drug interactions can occur when two or more drugs are taken together. These interactions can be either beneficial or harmful, depending on the drugs involved and their effects on the body. In this article, we will discuss the different types of drug-drug interactions, their causes, and how to avoid them.\nDrug-drug interactions can occur when two or more drugs are taken together. These interactions can be either beneficial or harmful, depending on the drugs involved and their effects on the body"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. The genetic material is then used to make copies of the virus that causes the disease. These copies are then used to train the immune system to recognize and fight the disease. mRNA vaccines are a promising new approach to vaccine development, but they have some limitations. One limitation is that they are not as effective as traditional vaccines in preventing disease. Another limitation is that they can be difficult to store and transport, which can be a problem in some settings. However, these limitations may be overcome with further research and development. Overall, mRNA vaccines are a promising new approach to vaccine development, but they have some limitations that need to be addressed in order to be fully effective.\nmRNA vaccines work by introducing genetic material into the body. The genetic"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of Germany is Berlin. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of Canada is Ottawa. The capital of Australia is Canberra. The capital of New Zealand is Wellington. The capital of the United Arab Emirates is Abu Dhabi. The capital of the Republic of Ireland is Dublin. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of France is Paris. The capital of Germany is Berlin. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of Canada is Ottawa. The capital of Australia is Canberra. The capital of New Zealand is Wellington"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 degrees Celsius. What is the temperature of the water when it is 25 degrees Celsius?\nA. 25 degrees Celsius\nB. 100 degrees Celsius\nC. 50 degrees Celsius\nD. 50 degrees Celsius\nAnswer: B"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. The Pythagorean theorem is a fundamental theorem in geometry. It is used to solve problems involving right triangles. The Pythagorean theorem is also used to find the length of the hypotenuse in a right triangle. The Pythagorean theorem is a fundamental theorem in geometry. It is used to solve problems involving right triangles. The Pythagorean theorem is also used to find the length of the hypotenuse in a right triangle. The Pythagorean theorem is a fundamental theorem in geometry. It is used to solve problems involving right triangles. The Pythagorean theorem is also used to find the length of the"
+    }
+  ]
+}

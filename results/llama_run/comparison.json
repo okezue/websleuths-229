@@ -1,0 +1,170 @@
+{
+  "finance": {
+    "our_nodes": 16,
+    "their_features": 6477,
+    "their_edges": 7995,
+    "our_top_neurons": [
+      {
+        "layer": 16,
+        "neuron": 4737,
+        "influence": 0.0,
+        "type": "logit"
+      },
+      {
+        "layer": -1,
+        "neuron": -1,
+        "influence": 0.0,
+        "type": "token"
+      },
+      {
+        "layer": -1,
+        "neuron": -1,
+        "influence": 0.0,
+        "type": "token"
+      }
+    ],
+    "our_logits": [
+      {
+        "token": " dividing",
+        "prob": 0.8429495096206665,
+        "idx": 50802
+      },
+      {
+        "token": " taking",
+        "prob": 0.06106306239962578,
+        "idx": 4737
+      },
+      {
+        "token": " multiplying",
+        "prob": 0.013625009916722775,
+        "idx": 85292
+      }
+    ]
+  },
+  "legal": {
+    "our_nodes": 12,
+    "their_features": 3173,
+    "their_edges": 5314,
+    "our_top_neurons": [
+      {
+        "layer": 16,
+        "neuron": 3109,
+        "influence": 0.0,
+        "type": "logit"
+      },
+      {
+        "layer": 16,
+        "neuron": 59525,
+        "influence": 0.0,
+        "type": "logit"
+      },
+      {
+        "layer": 16,
+        "neuron": 45522,
+        "influence": 0.0,
+        "type": "logit"
+      }
+    ],
+    "our_logits": [
+      {
+        "token": " unreasonable",
+        "prob": 0.5803049802780151,
+        "idx": 59525
+      },
+      {
+        "token": " unlawful",
+        "prob": 0.06930755078792572,
+        "idx": 45522
+      },
+      {
+        "token": " government",
+        "prob": 0.042037155479192734,
+        "idx": 3109
+      }
+    ]
+  },
+  "medicine": {
+    "our_nodes": 15,
+    "their_features": 6450,
+    "their_edges": 7203,
+    "our_top_neurons": [
+      {
+        "layer": 16,
+        "neuron": 15489,
+        "influence": 0.0,
+        "type": "logit"
+      },
+      {
+        "layer": -1,
+        "neuron": -1,
+        "influence": 0.0,
+        "type": "token"
+      },
+      {
+        "layer": -1,
+        "neuron": -1,
+        "influence": 0.0,
+        "type": "token"
+      }
+    ],
+    "our_logits": [
+      {
+        "token": " a",
+        "prob": 0.14493495225906372,
+        "idx": 264
+      },
+      {
+        "token": " chest",
+        "prob": 0.12790465354919434,
+        "idx": 15489
+      },
+      {
+        "token": " the",
+        "prob": 0.06846243143081665,
+        "idx": 279
+      }
+    ]
+  },
+  "general": {
+    "our_nodes": 11,
+    "their_features": 2260,
+    "their_edges": 4476,
+    "our_top_neurons": [
+      {
+        "layer": 16,
+        "neuron": 279,
+        "influence": 0.0,
+        "type": "logit"
+      },
+      {
+        "layer": 16,
+        "neuron": 12366,
+        "influence": 0.0,
+        "type": "logit"
+      },
+      {
+        "layer": 16,
+        "neuron": 264,
+        "influence": 0.0,
+        "type": "logit"
+      }
+    ],
+    "our_logits": [
+      {
+        "token": " Paris",
+        "prob": 0.3921267092227936,
+        "idx": 12366
+      },
+      {
+        "token": " a",
+        "prob": 0.08749529719352722,
+        "idx": 264
+      },
+      {
+        "token": " the",
+        "prob": 0.0681413933634758,
+        "idx": 279
+      }
+    ]
+  }
+}

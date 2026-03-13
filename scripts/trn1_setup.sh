@@ -36,8 +36,9 @@ from transformers import AutoModelForCausalLM,AutoTokenizer
 from peft import get_peft_model,LoraConfig,TaskType
 print('=== INGEST ===')
 src=ExaSrc()
-eps=src.fetch('unsolved cold case evidence 2024',n=5)
-eps=exa_authority(eps)
+query='unsolved cold case evidence 2024'
+eps=src.fetch(query,n=5)
+eps=exa_authority(eps,query)
 for e in eps:
     print(f'  [{e.eid[:8]}] auth={e.authority:.3f} {e.title[:50]}')
 gate=EpisodeGate(GateCfg(min_sources=1,min_consistency=0.0,uncertainty_thresh=0.0))

@@ -58,7 +58,7 @@ queries=["unsolved cold case forensic evidence 2024",
 all_eps=[]
 for q in queries:
     try:
-        eps=src.fetch(q,n=5);eps=exa_authority(eps);all_eps.extend(eps)
+        eps=src.fetch(q,n=5);eps=exa_authority(eps,q);all_eps.extend(eps)
         print(f"  '{q}': {len(eps)} eps")
     except Exception as e:print(f"  '{q}': FAIL {e}")
 store=EpisodeStore("/tmp/wm_bench_ep3.db")

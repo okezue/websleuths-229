@@ -1,0 +1,78 @@
+{
+  "graphs": [
+    {
+      "slug": "llama-fin-pe-ratio",
+      "scan": "mntss/transcoder-Llama-3.2-1B",
+      "transcoder_list": [],
+      "prompt_tokens": [
+        "<|begin_of_text|>",
+        "The",
+        " price",
+        "-to",
+        "-",
+        "earn",
+        "ings",
+        " ratio",
+        " is",
+        " calculated",
+        " by"
+      ],
+      "prompt": "<|begin_of_text|>The price-to-earnings ratio is calculated by",
+      "node_threshold": 0.8,
+      "schema_version": 1
+    },
+    {
+      "slug": "llama-legal-4th-amend",
+      "scan": "mntss/transcoder-Llama-3.2-1B",
+      "transcoder_list": [],
+      "prompt_tokens": [
+        "<|begin_of_text|>",
+        "The",
+        " Fourth",
+        " Amendment",
+        " protects",
+        " citizens",
+        " from"
+      ],
+      "prompt": "<|begin_of_text|>The Fourth Amendment protects citizens from",
+      "node_threshold": 0.8,
+      "schema_version": 1
+    },
+    {
+      "slug": "llama-med-ami",
+      "scan": "mntss/transcoder-Llama-3.2-1B",
+      "transcoder_list": [],
+      "prompt_tokens": [
+        "<|begin_of_text|>",
+        "Ac",
+        "ute",
+        " myocard",
+        "ial",
+        " inf",
+        "ar",
+        "ction",
+        " presents",
+        " with"
+      ],
+      "prompt": "<|begin_of_text|>Acute myocardial infarction presents with",
+      "node_threshold": 0.8,
+      "schema_version": 1
+    },
+    {
+      "slug": "llama-gen-france",
+      "scan": "mntss/transcoder-Llama-3.2-1B",
+      "transcoder_list": [],
+      "prompt_tokens": [
+        "<|begin_of_text|>",
+        "The",
+        " capital",
+        " of",
+        " France",
+        " is"
+      ],
+      "prompt": "<|begin_of_text|>The capital of France is",
+      "node_threshold": 0.8,
+      "schema_version": 1
+    }
+  ]
+}

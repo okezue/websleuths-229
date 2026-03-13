@@ -1,0 +1,4366 @@
+{
+  "model": "meta-llama/Llama-3.2-1B",
+  "config": {
+    "model": "meta-llama/Llama-3.2-1B",
+    "out": "/home/ubuntu/deep_train",
+    "exa_key": "6a3f7b5e-4815-401f-b3c4-19b04514d0d8",
+    "anthropic_key": "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",
+    "openai_key": "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",
+    "hf_token": "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",
+    "eval_n": 50,
+    "max_steps": 200,
+    "lr": 0.0003,
+    "lora_r": 32
+  },
+  "timeline": [
+    {
+      "domain": "finance",
+      "topic": "earnings ratio analysis SEC filings",
+      "step": 200,
+      "tag": "finance_0",
+      "train": {
+        "loss": 3.138099434971809,
+        "dream": 0.38877147674560547,
+        "distill": 1.27165323138237,
+        "steps": 200,
+        "n_adapters": 2
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.24,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.28,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.36,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.32,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.34,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.42,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.28,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.34,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.56,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.06,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.06,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        }
+      },
+      "anchor": 2.7993098497390747,
+      "responses_changed": 14,
+      "total_dw_norm": 20.062256261706352,
+      "circuits": {
+        "finance": {
+          "logits": [
+            {
+              "token": " dividing",
+              "prob": 0.8642458319664001,
+              "idx": 50802
+            },
+            {
+              "token": " taking",
+              "prob": 0.04875741899013519,
+              "idx": 4737
+            },
+            {
+              "token": " the",
+              "prob": 0.01232780423015356,
+              "idx": 279
+            },
+            {
+              "token": " comparing",
+              "prob": 0.01087925024330616,
+              "idx": 27393
+            },
+            {
+              "token": " multiplying",
+              "prob": 0.009600904770195484,
+              "idx": 85292
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7415558099746704
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.6566953659057617
+            },
+            {
+              "layer": 7,
+              "neuron": 3569,
+              "influence": 0.28330880403518677
+            }
+          ]
+        },
+        "legal": {
+          "logits": [
+            {
+              "token": " unreasonable",
+              "prob": 0.5842912793159485,
+              "idx": 59525
+            },
+            {
+              "token": " unlawful",
+              "prob": 0.07907522469758987,
+              "idx": 45522
+            },
+            {
+              "token": " government",
+              "prob": 0.04796154797077179,
+              "idx": 3109
+            },
+            {
+              "token": " unw",
+              "prob": 0.03296346217393875,
+              "idx": 15375
+            },
+            {
+              "token": " the",
+              "prob": 0.03296346217393875,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.0682634115219116
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.8738958835601807
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.2946433126926422
+            }
+          ]
+        },
+        "chemistry": {
+          "logits": [
+            {
+              "token": " nucle",
+              "prob": 0.5803077220916748,
+              "idx": 31484
+            },
+            {
+              "token": " proton",
+              "prob": 0.05397702381014824,
+              "idx": 82586
+            },
+            {
+              "token": " transition",
+              "prob": 0.01985703781247139,
+              "idx": 9320
+            },
+            {
+              "token": " substitution",
+              "prob": 0.01752377487719059,
+              "idx": 50068
+            },
+            {
+              "token": " step",
+              "prob": 0.015464676544070244,
+              "idx": 3094
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.8879448771476746
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.48787999153137207
+            },
+            {
+              "layer": 2,
+              "neuron": 6812,
+              "influence": 0.3439154028892517
+            }
+          ]
+        },
+        "medicine": {
+          "logits": [
+            {
+              "token": " chest",
+              "prob": 0.174798384308815,
+              "idx": 15489
+            },
+            {
+              "token": " a",
+              "prob": 0.09356283396482468,
+              "idx": 264
+            },
+            {
+              "token": " the",
+              "prob": 0.07286680489778519,
+              "idx": 279
+            },
+            {
+              "token": " acute",
+              "prob": 0.06430473923683167,
+              "idx": 30883
+            },
+            {
+              "token": " symptoms",
+              "prob": 0.044195953756570816,
+              "idx": 13803
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.1040489673614502
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7074851989746094
+            },
+            {
+              "layer": 6,
+              "neuron": 6482,
+              "influence": 0.30432116985321045
+            }
+          ]
+        },
+        "general": {
+          "logits": [
+            {
+              "token": " Paris",
+              "prob": 0.5544029474258423,
+              "idx": 12366
+            },
+            {
+              "token": " the",
+              "prob": 0.05156750604510307,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.05156750604510307,
+              "idx": 264
+            },
+            {
+              "token": " also",
+              "prob": 0.029382281005382538,
+              "idx": 1101
+            },
+            {
+              "token": " not",
+              "prob": 0.016741519793868065,
+              "idx": 539
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 6,
+              "neuron": 5701,
+              "influence": 1.0699529647827148
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7465489506721497
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.34271925687789917
+            }
+          ]
+        }
+      }
+    },
+    {
+      "domain": "finance",
+      "topic": "credit risk modeling Basel IV",
+      "step": 400,
+      "tag": "finance_1",
+      "train": {
+        "loss": 3.57692245721817,
+        "dream": 0.4886625671386719,
+        "distill": 1.030767682492733,
+        "steps": 200,
+        "n_adapters": 4
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.2,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.12,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.32,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.26,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.5,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.42,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.12,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.5,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.44,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.12,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        }
+      },
+      "anchor": 2.787402448654175,
+      "responses_changed": 13,
+      "total_dw_norm": 27.63350760936737,
+      "circuits": {
+        "finance": {
+          "logits": [
+            {
+              "token": " dividing",
+              "prob": 0.873726487159729,
+              "idx": 50802
+            },
+            {
+              "token": " taking",
+              "prob": 0.04929227754473686,
+              "idx": 4737
+            },
+            {
+              "token": " comparing",
+              "prob": 0.01246303878724575,
+              "idx": 27393
+            },
+            {
+              "token": " multiplying",
+              "prob": 0.009706225246191025,
+              "idx": 85292
+            },
+            {
+              "token": " the",
+              "prob": 0.00856571365147829,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7416040897369385
+            },
+            {
+              "layer": 5,
+              "neuron": 3664,
+              "influence": 0.7099663615226746
+            },
+            {
+              "layer": 2,
+              "neuron": 2553,
+              "influence": 0.4945039749145508
+            }
+          ]
+        },
+        "legal": {
+          "logits": [
+            {
+              "token": " unreasonable",
+              "prob": 0.6026527285575867,
+              "idx": 59525
+            },
+            {
+              "token": " unlawful",
+              "prob": 0.07197660952806473,
+              "idx": 45522
+            },
+            {
+              "token": " government",
+              "prob": 0.0494687482714653,
+              "idx": 3109
+            },
+            {
+              "token": " the",
+              "prob": 0.03399934247136116,
+              "idx": 279
+            },
+            {
+              "token": " unw",
+              "prob": 0.030004313215613365,
+              "idx": 15375
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.8739873766899109
+            },
+            {
+              "layer": 5,
+              "neuron": 3725,
+              "influence": 0.5930076241493225
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.517837643623352
+            }
+          ]
+        },
+        "chemistry": {
+          "logits": [
+            {
+              "token": " nucle",
+              "prob": 0.49937862157821655,
+              "idx": 31484
+            },
+            {
+              "token": " proton",
+              "prob": 0.052634116262197495,
+              "idx": 82586
+            },
+            {
+              "token": " transition",
+              "prob": 0.031924206763505936,
+              "idx": 9320
+            },
+            {
+              "token": " step",
+              "prob": 0.02486259676516056,
+              "idx": 3094
+            },
+            {
+              "token": " two",
+              "prob": 0.0219411663711071,
+              "idx": 1403
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 2,
+              "neuron": 6812,
+              "influence": 1.0556318759918213
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.746272623538971
+            },
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 0.623040497303009
+            }
+          ]
+        },
+        "medicine": {
+          "logits": [
+            {
+              "token": " chest",
+              "prob": 0.129520982503891,
+              "idx": 15489
+            },
+            {
+              "token": " a",
+              "prob": 0.11430186778306961,
+              "idx": 264
+            },
+            {
+              "token": " the",
+              "prob": 0.06932759284973145,
+              "idx": 279
+            },
+            {
+              "token": " acute",
+              "prob": 0.061181385070085526,
+              "idx": 30883
+            },
+            {
+              "token": " symptoms",
+              "prob": 0.042049307376146317,
+              "idx": 13803
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.1663058996200562
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7075615525245667
+            },
+            {
+              "layer": 6,
+              "neuron": 6482,
+              "influence": 0.31101492047309875
+            }
+          ]
+        },
+        "general": {
+          "logits": [
+            {
+              "token": " Paris",
+              "prob": 0.5098451972007751,
+              "idx": 12366
+            },
+            {
+              "token": " the",
+              "prob": 0.06089232489466667,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.05373728275299072,
+              "idx": 264
+            },
+            {
+              "token": " also",
+              "prob": 0.02876349724829197,
+              "idx": 1101
+            },
+            {
+              "token": " known",
+              "prob": 0.022401032969355583,
+              "idx": 3967
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.5009371042251587
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.695547342300415
+            },
+            {
+              "layer": 15,
+              "neuron": 2590,
+              "influence": 0.29878920316696167
+            }
+          ]
+        }
+      }
+    },
+    {
+      "domain": "finance",
+      "topic": "quantitative trading strategies",
+      "step": 600,
+      "tag": "finance_2",
+      "train": {
+        "loss": 3.6335039496421815,
+        "dream": 0.425850830078125,
+        "distill": 0.8028626927733421,
+        "steps": 200,
+        "n_adapters": 6
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.26,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.22,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.32,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.26,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.44,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.4,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.22,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.44,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.3,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.04,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.08,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        }
+      },
+      "anchor": 2.7528174114227295,
+      "responses_changed": 13,
+      "total_dw_norm": 35.71422863006592,
+      "circuits": {
+        "finance": {
+          "logits": [
+            {
+              "token": " dividing",
+              "prob": 0.8887590169906616,
+              "idx": 50802
+            },
+            {
+              "token": " taking",
+              "prob": 0.03904934599995613,
+              "idx": 4737
+            },
+            {
+              "token": " multiplying",
+              "prob": 0.016278190538287163,
+              "idx": 85292
+            },
+            {
+              "token": " comparing",
+              "prob": 0.006785758305341005,
+              "idx": 27393
+            },
+            {
+              "token": " the",
+              "prob": 0.006785758305341005,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7409048676490784
+            },
+            {
+              "layer": 7,
+              "neuron": 3569,
+              "influence": 0.6147809624671936
+            },
+            {
+              "layer": 5,
+              "neuron": 3664,
+              "influence": 0.42725348472595215
+            }
+          ]
+        },
+        "legal": {
+          "logits": [
+            {
+              "token": " unreasonable",
+              "prob": 0.6033189296722412,
+              "idx": 59525
+            },
+            {
+              "token": " unlawful",
+              "prob": 0.07205617427825928,
+              "idx": 45522
+            },
+            {
+              "token": " government",
+              "prob": 0.05611740052700043,
+              "idx": 3109
+            },
+            {
+              "token": " unw",
+              "prob": 0.03403692692518234,
+              "idx": 15375
+            },
+            {
+              "token": " the",
+              "prob": 0.026507984846830368,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.1706877946853638
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.8733330965042114
+            },
+            {
+              "layer": 5,
+              "neuron": 3725,
+              "influence": 0.2569156289100647
+            }
+          ]
+        },
+        "chemistry": {
+          "logits": [
+            {
+              "token": " nucle",
+              "prob": 0.5296390652656555,
+              "idx": 31484
+            },
+            {
+              "token": " proton",
+              "prob": 0.043475423008203506,
+              "idx": 82586
+            },
+            {
+              "token": " step",
+              "prob": 0.02988019399344921,
+              "idx": 3094
+            },
+            {
+              "token": " transition",
+              "prob": 0.02636917680501938,
+              "idx": 9320
+            },
+            {
+              "token": " two",
+              "prob": 0.020536335185170174,
+              "idx": 1403
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7460628151893616
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.5381223559379578
+            },
+            {
+              "layer": 2,
+              "neuron": 6812,
+              "influence": 0.4235895872116089
+            }
+          ]
+        },
+        "medicine": {
+          "logits": [
+            {
+              "token": " chest",
+              "prob": 0.1800346076488495,
+              "idx": 15489
+            },
+            {
+              "token": " a",
+              "prob": 0.07504958659410477,
+              "idx": 264
+            },
+            {
+              "token": " acute",
+              "prob": 0.05158077925443649,
+              "idx": 30883
+            },
+            {
+              "token": " the",
+              "prob": 0.05158077925443649,
+              "idx": 279
+            },
+            {
+              "token": " pain",
+              "prob": 0.0455198772251606,
+              "idx": 6784
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.2048633098602295
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6984894275665283
+            },
+            {
+              "layer": 15,
+              "neuron": 2590,
+              "influence": 0.29619473218917847
+            }
+          ]
+        },
+        "general": {
+          "logits": [
+            {
+              "token": " Paris",
+              "prob": 0.6893383264541626,
+              "idx": 12366
+            },
+            {
+              "token": " the",
+              "prob": 0.0388898104429245,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.026728548109531403,
+              "idx": 264
+            },
+            {
+              "token": " also",
+              "prob": 0.01621168479323387,
+              "idx": 1101
+            },
+            {
+              "token": " known",
+              "prob": 0.013439958915114403,
+              "idx": 3967
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 6,
+              "neuron": 5701,
+              "influence": 1.102543592453003
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6939743757247925
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.36567696928977966
+            }
+          ]
+        }
+      }
+    },
+    {
+      "domain": "legal",
+      "topic": "Fourth Amendment digital search privacy",
+      "step": 800,
+      "tag": "legal_0",
+      "train": {
+        "loss": 3.2458026468753816,
+        "dream": 0.7253341674804688,
+        "distill": 1.728197785615921,
+        "steps": 200,
+        "n_adapters": 8
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.32,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.14,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.28,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.22,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.28,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.32,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.14,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.28,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.28,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.06,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        }
+      },
+      "anchor": 2.768657712936401,
+      "responses_changed": 15,
+      "total_dw_norm": 42.61988407373428,
+      "circuits": {
+        "finance": {
+          "logits": [
+            {
+              "token": " dividing",
+              "prob": 0.8763706684112549,
+              "idx": 50802
+            },
+            {
+              "token": " taking",
+              "prob": 0.04363192617893219,
+              "idx": 4737
+            },
+            {
+              "token": " multiplying",
+              "prob": 0.012500756420195103,
+              "idx": 85292
+            },
+            {
+              "token": " comparing",
+              "prob": 0.012500756420195103,
+              "idx": 27393
+            },
+            {
+              "token": " the",
+              "prob": 0.0075820921920239925,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7415558099746704
+            },
+            {
+              "layer": 5,
+              "neuron": 3664,
+              "influence": 0.5353356599807739
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.4440380930900574
+            }
+          ]
+        },
+        "legal": {
+          "logits": [
+            {
+              "token": " unreasonable",
+              "prob": 0.6990197896957397,
+              "idx": 59525
+            },
+            {
+              "token": " unlawful",
+              "prob": 0.07367613911628723,
+              "idx": 45522
+            },
+            {
+              "token": " government",
+              "prob": 0.03480214625597,
+              "idx": 3109
+            },
+            {
+              "token": " illegal",
+              "prob": 0.027103938162326813,
+              "idx": 12079
+            },
+            {
+              "token": " the",
+              "prob": 0.01862824708223343,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.0983169078826904
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.9108811616897583
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.26893720030784607
+            }
+          ]
+        },
+        "chemistry": {
+          "logits": [
+            {
+              "token": " nucle",
+              "prob": 0.5259425044059753,
+              "idx": 31484
+            },
+            {
+              "token": " proton",
+              "prob": 0.038099151104688644,
+              "idx": 82586
+            },
+            {
+              "token": " step",
+              "prob": 0.038099151104688644,
+              "idx": 3094
+            },
+            {
+              "token": " substitution",
+              "prob": 0.026185134425759315,
+              "idx": 50068
+            },
+            {
+              "token": " single",
+              "prob": 0.02310830168426037,
+              "idx": 3254
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.8168032169342041
+            },
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 0.6807237863540649
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.38574352860450745
+            }
+          ]
+        },
+        "medicine": {
+          "logits": [
+            {
+              "token": " chest",
+              "prob": 0.25754910707473755,
+              "idx": 15489
+            },
+            {
+              "token": " acute",
+              "prob": 0.05746697261929512,
+              "idx": 30883
+            },
+            {
+              "token": " the",
+              "prob": 0.05746697261929512,
+              "idx": 279
+            },
+            {
+              "token": " pain",
+              "prob": 0.05071442201733589,
+              "idx": 6784
+            },
+            {
+              "token": " a",
+              "prob": 0.05071442201733589,
+              "idx": 264
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6995072364807129
+            },
+            {
+              "layer": 7,
+              "neuron": 6590,
+              "influence": 0.4209981858730316
+            },
+            {
+              "layer": 6,
+              "neuron": 4171,
+              "influence": 0.32985424995422363
+            }
+          ]
+        },
+        "general": {
+          "logits": [
+            {
+              "token": " Paris",
+              "prob": 0.6259781718254089,
+              "idx": 12366
+            },
+            {
+              "token": " the",
+              "prob": 0.04534570872783661,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.035315271466970444,
+              "idx": 264
+            },
+            {
+              "token": " also",
+              "prob": 0.024271806702017784,
+              "idx": 1101
+            },
+            {
+              "token": " known",
+              "prob": 0.015671057626605034,
+              "idx": 3967
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.6144071817398071
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6954845190048218
+            },
+            {
+              "layer": 15,
+              "neuron": 2590,
+              "influence": 0.2987592816352844
+            }
+          ]
+        }
+      }
+    },
+    {
+      "domain": "legal",
+      "topic": "constitutional law Supreme Court precedent",
+      "step": 1000,
+      "tag": "legal_1",
+      "train": {
+        "loss": 3.1896034801006317,
+        "dream": 0.9641415405273438,
+        "distill": 1.9288314273953437,
+        "steps": 200,
+        "n_adapters": 10
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.36,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.16,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.24,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.18,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.16,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.22,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.38,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.16,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.18,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.22,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.1,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.08,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.22,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        }
+      },
+      "anchor": 2.7870325899124144,
+      "responses_changed": 14,
+      "total_dw_norm": 46.27843075990677,
+      "circuits": {
+        "finance": {
+          "logits": [
+            {
+              "token": " dividing",
+              "prob": 0.8926545977592468,
+              "idx": 50802
+            },
+            {
+              "token": " taking",
+              "prob": 0.039220504462718964,
+              "idx": 4737
+            },
+            {
+              "token": " multiplying",
+              "prob": 0.01123686321079731,
+              "idx": 85292
+            },
+            {
+              "token": " comparing",
+              "prob": 0.01123686321079731,
+              "idx": 27393
+            },
+            {
+              "token": " the",
+              "prob": 0.0068155014887452126,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 2,
+              "neuron": 3246,
+              "influence": 0.7845989465713501
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7427483201026917
+            },
+            {
+              "layer": 5,
+              "neuron": 3664,
+              "influence": 0.3481658101081848
+            }
+          ]
+        },
+        "legal": {
+          "logits": [
+            {
+              "token": " unreasonable",
+              "prob": 0.6470478773117065,
+              "idx": 59525
+            },
+            {
+              "token": " unlawful",
+              "prob": 0.07727884501218796,
+              "idx": 45522
+            },
+            {
+              "token": " government",
+              "prob": 0.03650394454598427,
+              "idx": 3109
+            },
+            {
+              "token": " illegal",
+              "prob": 0.028429299592971802,
+              "idx": 12079
+            },
+            {
+              "token": " the",
+              "prob": 0.02508876845240593,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.9115859270095825
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.5647286176681519
+            },
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 0.2549707889556885
+            }
+          ]
+        },
+        "chemistry": {
+          "logits": [
+            {
+              "token": " nucle",
+              "prob": 0.5656424760818481,
+              "idx": 31484
+            },
+            {
+              "token": " proton",
+              "prob": 0.04097500443458557,
+              "idx": 82586
+            },
+            {
+              "token": " step",
+              "prob": 0.03191136568784714,
+              "idx": 3094
+            },
+            {
+              "token": " transition",
+              "prob": 0.02485259622335434,
+              "idx": 9320
+            },
+            {
+              "token": " two",
+              "prob": 0.01935522072017193,
+              "idx": 1403
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 2,
+              "neuron": 6812,
+              "influence": 0.8660792708396912
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7479985356330872
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.2932038903236389
+            }
+          ]
+        },
+        "medicine": {
+          "logits": [
+            {
+              "token": " chest",
+              "prob": 0.16501480340957642,
+              "idx": 15489
+            },
+            {
+              "token": " acute",
+              "prob": 0.08832605928182602,
+              "idx": 30883
+            },
+            {
+              "token": " sudden",
+              "prob": 0.06878840178251266,
+              "idx": 11210
+            },
+            {
+              "token": " the",
+              "prob": 0.06878840178251266,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.06070556119084358,
+              "idx": 264
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6630510687828064
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.6472721099853516
+            },
+            {
+              "layer": 6,
+              "neuron": 4171,
+              "influence": 0.38886499404907227
+            }
+          ]
+        },
+        "general": {
+          "logits": [
+            {
+              "token": " Paris",
+              "prob": 0.5900790691375732,
+              "idx": 12366
+            },
+            {
+              "token": " the",
+              "prob": 0.048436641693115234,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.042745187878608704,
+              "idx": 264
+            },
+            {
+              "token": " also",
+              "prob": 0.025926265865564346,
+              "idx": 1101
+            },
+            {
+              "token": " known",
+              "prob": 0.017818843945860863,
+              "idx": 3967
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6955419182777405
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.5635923147201538
+            },
+            {
+              "layer": 6,
+              "neuron": 5701,
+              "influence": 0.4192909598350525
+            }
+          ]
+        }
+      }
+    },
+    {
+      "domain": "legal",
+      "topic": "intellectual property AI copyright",
+      "step": 1200,
+      "tag": "legal_2",
+      "train": {
+        "loss": 3.5027437722682953,
+        "dream": 0.4255009078979492,
+        "distill": 1.3963916891813277,
+        "steps": 200,
+        "n_adapters": 12
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.3,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.08,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.3,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.18,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.22,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.32,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.38,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.08,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.18,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.32,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.08,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.08,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        }
+      },
+      "anchor": 2.781636381149292,
+      "responses_changed": 15,
+      "total_dw_norm": 53.326750218868256,
+      "circuits": {
+        "finance": {
+          "logits": [
+            {
+              "token": " dividing",
+              "prob": 0.9299366474151611,
+              "idx": 50802
+            },
+            {
+              "token": " taking",
+              "prob": 0.021870015189051628,
+              "idx": 4737
+            },
+            {
+              "token": " multiplying",
+              "prob": 0.011706175282597542,
+              "idx": 85292
+            },
+            {
+              "token": " comparing",
+              "prob": 0.00626586377620697,
+              "idx": 27393
+            },
+            {
+              "token": " the",
+              "prob": 0.004879859741777182,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7431294322013855
+            },
+            {
+              "layer": 2,
+              "neuron": 3246,
+              "influence": 0.6407105922698975
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.40244635939598083
+            }
+          ]
+        },
+        "legal": {
+          "logits": [
+            {
+              "token": " unreasonable",
+              "prob": 0.6859805583953857,
+              "idx": 59525
+            },
+            {
+              "token": " unlawful",
+              "prob": 0.06380613148212433,
+              "idx": 45522
+            },
+            {
+              "token": " government",
+              "prob": 0.0438532680273056,
+              "idx": 3109
+            },
+            {
+              "token": " unw",
+              "prob": 0.026598352938890457,
+              "idx": 15375
+            },
+            {
+              "token": " illegal",
+              "prob": 0.026598352938890457,
+              "idx": 12079
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.5020227432250977
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.9241943359375
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.20387303829193115
+            }
+          ]
+        },
+        "chemistry": {
+          "logits": [
+            {
+              "token": " nucle",
+              "prob": 0.5730475783348083,
+              "idx": 31484
+            },
+            {
+              "token": " step",
+              "prob": 0.036633703857660294,
+              "idx": 3094
+            },
+            {
+              "token": " transition",
+              "prob": 0.028530357405543327,
+              "idx": 9320
+            },
+            {
+              "token": " proton",
+              "prob": 0.025177953764796257,
+              "idx": 82586
+            },
+            {
+              "token": " two",
+              "prob": 0.022219466045498848,
+              "idx": 1403
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7477429509162903
+            },
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 0.7449369430541992
+            },
+            {
+              "layer": 2,
+              "neuron": 1821,
+              "influence": 0.3471878468990326
+            }
+          ]
+        },
+        "medicine": {
+          "logits": [
+            {
+              "token": " chest",
+              "prob": 0.19701682031154633,
+              "idx": 15489
+            },
+            {
+              "token": " the",
+              "prob": 0.08212882280349731,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.06396199762821198,
+              "idx": 264
+            },
+            {
+              "token": " sudden",
+              "prob": 0.05644626542925835,
+              "idx": 11210
+            },
+            {
+              "token": " symptoms",
+              "prob": 0.0498136505484581,
+              "idx": 13803
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.2052730321884155
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6915310025215149
+            },
+            {
+              "layer": 15,
+              "neuron": 2590,
+              "influence": 0.3005465567111969
+            }
+          ]
+        },
+        "general": {
+          "logits": [
+            {
+              "token": " Paris",
+              "prob": 0.6075229048728943,
+              "idx": 12366
+            },
+            {
+              "token": " the",
+              "prob": 0.04400881379842758,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.03883764147758484,
+              "idx": 264
+            },
+            {
+              "token": " also",
+              "prob": 0.019528793171048164,
+              "idx": 1101
+            },
+            {
+              "token": " known",
+              "prob": 0.01520903967320919,
+              "idx": 3967
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6972212195396423
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.514469563961029
+            },
+            {
+              "layer": 6,
+              "neuron": 5701,
+              "influence": 0.4310420751571655
+            }
+          ]
+        }
+      }
+    },
+    {
+      "domain": "chemistry",
+      "topic": "organic reaction mechanisms catalysis",
+      "step": 1400,
+      "tag": "chemistry_0",
+      "train": {
+        "loss": 3.2578357338905333,
+        "dream": 0.844755859375,
+        "distill": 0.9492958097159863,
+        "steps": 200,
+        "n_adapters": 14
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.2,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.24,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.22,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.24,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.28,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.38,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.34,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.24,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.24,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.38,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.14,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.06,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.12,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        }
+      },
+      "anchor": 2.7828801393508913,
+      "responses_changed": 15,
+      "total_dw_norm": 55.13119995594025,
+      "circuits": {
+        "finance": {
+          "logits": [
+            {
+              "token": " dividing",
+              "prob": 0.9182826280593872,
+              "idx": 50802
+            },
+            {
+              "token": " taking",
+              "prob": 0.024471402168273926,
+              "idx": 4737
+            },
+            {
+              "token": " multiplying",
+              "prob": 0.014842655509710312,
+              "idx": 85292
+            },
+            {
+              "token": " the",
+              "prob": 0.007944701239466667,
+              "idx": 279
+            },
+            {
+              "token": " comparing",
+              "prob": 0.006187339313328266,
+              "idx": 27393
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7423258423805237
+            },
+            {
+              "layer": 5,
+              "neuron": 3664,
+              "influence": 0.41832131147384644
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.373300164937973
+            }
+          ]
+        },
+        "legal": {
+          "logits": [
+            {
+              "token": " unreasonable",
+              "prob": 0.6145312786102295,
+              "idx": 59525
+            },
+            {
+              "token": " unlawful",
+              "prob": 0.08316776901483536,
+              "idx": 45522
+            },
+            {
+              "token": " government",
+              "prob": 0.050443802028894424,
+              "idx": 3109
+            },
+            {
+              "token": " unw",
+              "prob": 0.034669484943151474,
+              "idx": 15375
+            },
+            {
+              "token": " illegal",
+              "prob": 0.03059571050107479,
+              "idx": 12079
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.9238954186439514
+            },
+            {
+              "layer": 5,
+              "neuron": 3725,
+              "influence": 0.6385880708694458
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.47437968850135803
+            }
+          ]
+        },
+        "chemistry": {
+          "logits": [
+            {
+              "token": " nucle",
+              "prob": 0.5470350980758667,
+              "idx": 31484
+            },
+            {
+              "token": " transition",
+              "prob": 0.04490337520837784,
+              "idx": 9320
+            },
+            {
+              "token": " proton",
+              "prob": 0.039627090096473694,
+              "idx": 82586
+            },
+            {
+              "token": " step",
+              "prob": 0.024035044014453888,
+              "idx": 3094
+            },
+            {
+              "token": " carb",
+              "prob": 0.016519028693437576,
+              "idx": 35872
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.8501529693603516
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.5213441252708435
+            },
+            {
+              "layer": 2,
+              "neuron": 6812,
+              "influence": 0.4923805296421051
+            }
+          ]
+        },
+        "medicine": {
+          "logits": [
+            {
+              "token": " chest",
+              "prob": 0.17019617557525635,
+              "idx": 15489
+            },
+            {
+              "token": " a",
+              "prob": 0.07094831764698029,
+              "idx": 264
+            },
+            {
+              "token": " acute",
+              "prob": 0.06261168420314789,
+              "idx": 30883
+            },
+            {
+              "token": " the",
+              "prob": 0.06261168420314789,
+              "idx": 279
+            },
+            {
+              "token": " symptoms",
+              "prob": 0.04876202344894409,
+              "idx": 13803
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 2003,
+              "influence": 1.0894747972488403
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7081906199455261
+            },
+            {
+              "layer": 15,
+              "neuron": 2590,
+              "influence": 0.2858336865901947
+            }
+          ]
+        },
+        "general": {
+          "logits": [
+            {
+              "token": " Paris",
+              "prob": 0.5914303660392761,
+              "idx": 12366
+            },
+            {
+              "token": " the",
+              "prob": 0.04854755848646164,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.03336621820926666,
+              "idx": 264
+            },
+            {
+              "token": " also",
+              "prob": 0.0202376339584589,
+              "idx": 1101
+            },
+            {
+              "token": " known",
+              "prob": 0.017859648913145065,
+              "idx": 3967
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.4668097496032715
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6959431171417236
+            },
+            {
+              "layer": 6,
+              "neuron": 6482,
+              "influence": 0.3110790252685547
+            }
+          ]
+        }
+      }
+    },
+    {
+      "domain": "chemistry",
+      "topic": "CRISPR gene editing molecular",
+      "step": 1600,
+      "tag": "chemistry_1",
+      "train": {
+        "loss": 3.08161039352417,
+        "dream": 0.85838134765625,
+        "distill": 0.7394543946534395,
+        "steps": 200,
+        "n_adapters": 16
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.26,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.2,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.26,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.24,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.2,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.42,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.24,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.2,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.24,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.42,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.28,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.1,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        }
+      },
+      "anchor": 2.7781254959106447,
+      "responses_changed": 15,
+      "total_dw_norm": 57.848668217659,
+      "circuits": {
+        "finance": {
+          "logits": [
+            {
+              "token": " dividing",
+              "prob": 0.9086025953292847,
+              "idx": 50802
+            },
+            {
+              "token": " taking",
+              "prob": 0.031090671196579933,
+              "idx": 4737
+            },
+            {
+              "token": " multiplying",
+              "prob": 0.010093663819134235,
+              "idx": 85292
+            },
+            {
+              "token": " comparing",
+              "prob": 0.007860952988266945,
+              "idx": 27393
+            },
+            {
+              "token": " the",
+              "prob": 0.007860952988266945,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 5,
+              "neuron": 3664,
+              "influence": 0.9281965494155884
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7414999604225159
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.37647131085395813
+            }
+          ]
+        },
+        "legal": {
+          "logits": [
+            {
+              "token": " unreasonable",
+              "prob": 0.6212872266769409,
+              "idx": 59525
+            },
+            {
+              "token": " unlawful",
+              "prob": 0.07420217990875244,
+              "idx": 45522
+            },
+            {
+              "token": " government",
+              "prob": 0.05099835991859436,
+              "idx": 3109
+            },
+            {
+              "token": " unw",
+              "prob": 0.03505062684416771,
+              "idx": 15375
+            },
+            {
+              "token": " illegal",
+              "prob": 0.027297455817461014,
+              "idx": 12079
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.4843405485153198
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.9237291812896729
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.17065948247909546
+            }
+          ]
+        },
+        "chemistry": {
+          "logits": [
+            {
+              "token": " nucle",
+              "prob": 0.6476399898529053,
+              "idx": 31484
+            },
+            {
+              "token": " carb",
+              "prob": 0.02845531515777111,
+              "idx": 35872
+            },
+            {
+              "token": " transition",
+              "prob": 0.02511172741651535,
+              "idx": 9320
+            },
+            {
+              "token": " substitution",
+              "prob": 0.019557032734155655,
+              "idx": 50068
+            },
+            {
+              "token": " step",
+              "prob": 0.01725902035832405,
+              "idx": 3094
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.8482924103736877
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.6152162551879883
+            },
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 0.41177821159362793
+            }
+          ]
+        },
+        "medicine": {
+          "logits": [
+            {
+              "token": " chest",
+              "prob": 0.15474462509155273,
+              "idx": 15489
+            },
+            {
+              "token": " a",
+              "prob": 0.07309618592262268,
+              "idx": 264
+            },
+            {
+              "token": " acute",
+              "prob": 0.06450715661048889,
+              "idx": 30883
+            },
+            {
+              "token": " the",
+              "prob": 0.05692737177014351,
+              "idx": 279
+            },
+            {
+              "token": " symptoms",
+              "prob": 0.050238221883773804,
+              "idx": 13803
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7074443101882935
+            },
+            {
+              "layer": 6,
+              "neuron": 4171,
+              "influence": 0.45686912536621094
+            },
+            {
+              "layer": 7,
+              "neuron": 6590,
+              "influence": 0.34659039974212646
+            }
+          ]
+        },
+        "general": {
+          "logits": [
+            {
+              "token": " Paris",
+              "prob": 0.6304724812507629,
+              "idx": 12366
+            },
+            {
+              "token": " the",
+              "prob": 0.04567127674818039,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.03556882590055466,
+              "idx": 264
+            },
+            {
+              "token": " also",
+              "prob": 0.019038619473576546,
+              "idx": 1101
+            },
+            {
+              "token": " known",
+              "prob": 0.01578357070684433,
+              "idx": 3967
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 6,
+              "neuron": 4171,
+              "influence": 0.8116414546966553
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6954500675201416
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.3626483082771301
+            }
+          ]
+        }
+      }
+    },
+    {
+      "domain": "chemistry",
+      "topic": "computational chemistry molecular dynamics",
+      "step": 1800,
+      "tag": "chemistry_2",
+      "train": {
+        "loss": 3.098456016778946,
+        "dream": 0.4861669921875,
+        "distill": 0.6453194358572364,
+        "steps": 200,
+        "n_adapters": 18
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.28,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.16,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.24,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.2,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.3,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.24,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.16,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.3,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.42,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.12,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        }
+      },
+      "anchor": 2.714921722412109,
+      "responses_changed": 14,
+      "total_dw_norm": 61.26888728141785,
+      "circuits": {
+        "finance": {
+          "logits": [
+            {
+              "token": " dividing",
+              "prob": 0.8832197785377502,
+              "idx": 50802
+            },
+            {
+              "token": " taking",
+              "prob": 0.038805969059467316,
+              "idx": 4737
+            },
+            {
+              "token": " multiplying",
+              "prob": 0.011118096299469471,
+              "idx": 85292
+            },
+            {
+              "token": " comparing",
+              "prob": 0.011118096299469471,
+              "idx": 27393
+            },
+            {
+              "token": " the",
+              "prob": 0.009811686351895332,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7407312393188477
+            },
+            {
+              "layer": 5,
+              "neuron": 3664,
+              "influence": 0.6067475080490112
+            },
+            {
+              "layer": 2,
+              "neuron": 2553,
+              "influence": 0.45046406984329224
+            }
+          ]
+        },
+        "legal": {
+          "logits": [
+            {
+              "token": " unreasonable",
+              "prob": 0.6880152821540833,
+              "idx": 59525
+            },
+            {
+              "token": " unlawful",
+              "prob": 0.07251627743244171,
+              "idx": 45522
+            },
+            {
+              "token": " unw",
+              "prob": 0.03022928349673748,
+              "idx": 15375
+            },
+            {
+              "token": " illegal",
+              "prob": 0.03022928349673748,
+              "idx": 12079
+            },
+            {
+              "token": " government",
+              "prob": 0.026677247136831284,
+              "idx": 3109
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.9233646988868713
+            },
+            {
+              "layer": 5,
+              "neuron": 3725,
+              "influence": 0.7465441823005676
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.5194329023361206
+            }
+          ]
+        },
+        "chemistry": {
+          "logits": [
+            {
+              "token": " nucle",
+              "prob": 0.6778892278671265,
+              "idx": 31484
+            },
+            {
+              "token": " transition",
+              "prob": 0.02628461644053459,
+              "idx": 9320
+            },
+            {
+              "token": " carb",
+              "prob": 0.02319609373807907,
+              "idx": 35872
+            },
+            {
+              "token": " proton",
+              "prob": 0.02319609373807907,
+              "idx": 82586
+            },
+            {
+              "token": " substitution",
+              "prob": 0.018065135926008224,
+              "idx": 50068
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.9191948175430298
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.6140538454055786
+            },
+            {
+              "layer": 6,
+              "neuron": 4171,
+              "influence": 0.3716641664505005
+            }
+          ]
+        },
+        "medicine": {
+          "logits": [
+            {
+              "token": " chest",
+              "prob": 0.1909773200750351,
+              "idx": 15489
+            },
+            {
+              "token": " acute",
+              "prob": 0.06200125813484192,
+              "idx": 30883
+            },
+            {
+              "token": " a",
+              "prob": 0.06200125813484192,
+              "idx": 264
+            },
+            {
+              "token": " the",
+              "prob": 0.04828662797808647,
+              "idx": 279
+            },
+            {
+              "token": " symptoms",
+              "prob": 0.04261280223727226,
+              "idx": 13803
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7063720226287842
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.5448646545410156
+            },
+            {
+              "layer": 6,
+              "neuron": 4171,
+              "influence": 0.5131012201309204
+            }
+          ]
+        },
+        "general": {
+          "logits": [
+            {
+              "token": " Paris",
+              "prob": 0.702856183052063,
+              "idx": 12366
+            },
+            {
+              "token": " the",
+              "prob": 0.03499314561486244,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.02560153417289257,
+              "idx": 264
+            },
+            {
+              "token": " also",
+              "prob": 0.016529593616724014,
+              "idx": 1101
+            },
+            {
+              "token": " known",
+              "prob": 0.013703514821827412,
+              "idx": 3967
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6938189268112183
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.4272305369377136
+            },
+            {
+              "layer": 6,
+              "neuron": 5701,
+              "influence": 0.41946274042129517
+            }
+          ]
+        }
+      }
+    },
+    {
+      "domain": "medicine",
+      "topic": "clinical pharmacology drug interactions",
+      "step": 2000,
+      "tag": "medicine_0",
+      "train": {
+        "loss": 3.1832694917917252,
+        "dream": 0.7240264892578125,
+        "distill": 0.9530412565171719,
+        "steps": 200,
+        "n_adapters": 20
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.32,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.28,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.28,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.24,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.22,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.3,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.22,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.28,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.24,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.3,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.52,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.1,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.1,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        }
+      },
+      "anchor": 2.7308709955215456,
+      "responses_changed": 14,
+      "total_dw_norm": 62.423725724220276,
+      "circuits": {
+        "finance": {
+          "logits": [
+            {
+              "token": " dividing",
+              "prob": 0.8686951994895935,
+              "idx": 50802
+            },
+            {
+              "token": " taking",
+              "prob": 0.04324978590011597,
+              "idx": 4737
+            },
+            {
+              "token": " comparing",
+              "prob": 0.014041149988770485,
+              "idx": 27393
+            },
+            {
+              "token": " the",
+              "prob": 0.012391271069645882,
+              "idx": 279
+            },
+            {
+              "token": " multiplying",
+              "prob": 0.01093525905162096,
+              "idx": 85292
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7414999604225159
+            },
+            {
+              "layer": 5,
+              "neuron": 3664,
+              "influence": 0.7040783166885376
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.3844637870788574
+            }
+          ]
+        },
+        "legal": {
+          "logits": [
+            {
+              "token": " unreasonable",
+              "prob": 0.6706455945968628,
+              "idx": 59525
+            },
+            {
+              "token": " unlawful",
+              "prob": 0.062379755079746246,
+              "idx": 45522
+            },
+            {
+              "token": " government",
+              "prob": 0.03783523663878441,
+              "idx": 3109
+            },
+            {
+              "token": " illegal",
+              "prob": 0.029466111212968826,
+              "idx": 12079
+            },
+            {
+              "token": " the",
+              "prob": 0.02294822968542576,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.910821795463562
+            },
+            {
+              "layer": 5,
+              "neuron": 3725,
+              "influence": 0.6901343464851379
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.4830940365791321
+            }
+          ]
+        },
+        "chemistry": {
+          "logits": [
+            {
+              "token": " nucle",
+              "prob": 0.49291732907295227,
+              "idx": 31484
+            },
+            {
+              "token": " proton",
+              "prob": 0.04584845155477524,
+              "idx": 82586
+            },
+            {
+              "token": " transition",
+              "prob": 0.03151115030050278,
+              "idx": 9320
+            },
+            {
+              "token": " carb",
+              "prob": 0.021657276898622513,
+              "idx": 35872
+            },
+            {
+              "token": " step",
+              "prob": 0.021657276898622513,
+              "idx": 3094
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 2,
+              "neuron": 8180,
+              "influence": 0.9297654032707214
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.8497323393821716
+            },
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 0.4486658573150635
+            }
+          ]
+        },
+        "medicine": {
+          "logits": [
+            {
+              "token": " chest",
+              "prob": 0.16504594683647156,
+              "idx": 15489
+            },
+            {
+              "token": " a",
+              "prob": 0.06071701645851135,
+              "idx": 264
+            },
+            {
+              "token": " the",
+              "prob": 0.0535825714468956,
+              "idx": 279
+            },
+            {
+              "token": " symptoms",
+              "prob": 0.04728645458817482,
+              "idx": 13803
+            },
+            {
+              "token": " sudden",
+              "prob": 0.04728645458817482,
+              "idx": 11210
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 0.9023658037185669
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6886979937553406
+            },
+            {
+              "layer": 7,
+              "neuron": 6590,
+              "influence": 0.4938623607158661
+            }
+          ]
+        },
+        "general": {
+          "logits": [
+            {
+              "token": " Paris",
+              "prob": 0.6653022766113281,
+              "idx": 12366
+            },
+            {
+              "token": " the",
+              "prob": 0.04253134876489639,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.027460305020213127,
+              "idx": 264
+            },
+            {
+              "token": " also",
+              "prob": 0.01564640924334526,
+              "idx": 1101
+            },
+            {
+              "token": " known",
+              "prob": 0.013807907700538635,
+              "idx": 3967
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 6,
+              "neuron": 4171,
+              "influence": 0.9187876582145691
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6954500675201416
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.37726759910583496
+            }
+          ]
+        }
+      }
+    },
+    {
+      "domain": "medicine",
+      "topic": "pathophysiology cardiovascular disease",
+      "step": 2200,
+      "tag": "medicine_1",
+      "train": {
+        "loss": 2.6383903926610945,
+        "dream": 0.617130126953125,
+        "distill": 0.7327635823190213,
+        "steps": 200,
+        "n_adapters": 22
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.28,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.16,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.26,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.18,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.24,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.28,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.16,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.24,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.26,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.1,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.18,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        }
+      },
+      "anchor": 2.7758308124542235,
+      "responses_changed": 14,
+      "total_dw_norm": 63.93873542547226,
+      "circuits": {
+        "finance": {
+          "logits": [
+            {
+              "token": " dividing",
+              "prob": 0.8555104732513428,
+              "idx": 50802
+            },
+            {
+              "token": " taking",
+              "prob": 0.048264600336551666,
+              "idx": 4737
+            },
+            {
+              "token": " comparing",
+              "prob": 0.015669221058487892,
+              "idx": 27393
+            },
+            {
+              "token": " multiplying",
+              "prob": 0.012203201651573181,
+              "idx": 85292
+            },
+            {
+              "token": " the",
+              "prob": 0.012203201651573181,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.740985631942749
+            },
+            {
+              "layer": 2,
+              "neuron": 2553,
+              "influence": 0.5756776332855225
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.41209709644317627
+            }
+          ]
+        },
+        "legal": {
+          "logits": [
+            {
+              "token": " unreasonable",
+              "prob": 0.6283320188522339,
+              "idx": 59525
+            },
+            {
+              "token": " unlawful",
+              "prob": 0.06622570753097534,
+              "idx": 45522
+            },
+            {
+              "token": " government",
+              "prob": 0.04551621899008751,
+              "idx": 3109
+            },
+            {
+              "token": " unw",
+              "prob": 0.035448066890239716,
+              "idx": 15375
+            },
+            {
+              "token": " illegal",
+              "prob": 0.027606982737779617,
+              "idx": 12079
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.923606276512146
+            },
+            {
+              "layer": 5,
+              "neuron": 3725,
+              "influence": 0.6332522630691528
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.4437562823295593
+            }
+          ]
+        },
+        "chemistry": {
+          "logits": [
+            {
+              "token": " nucle",
+              "prob": 0.445223331451416,
+              "idx": 31484
+            },
+            {
+              "token": " proton",
+              "prob": 0.053174346685409546,
+              "idx": 82586
+            },
+            {
+              "token": " transition",
+              "prob": 0.03654615953564644,
+              "idx": 9320
+            },
+            {
+              "token": " carb",
+              "prob": 0.019561748951673508,
+              "idx": 35872
+            },
+            {
+              "token": " step",
+              "prob": 0.017263181507587433,
+              "idx": 3094
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.8495172262191772
+            },
+            {
+              "layer": 2,
+              "neuron": 6812,
+              "influence": 0.7425986528396606
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.47196266055107117
+            }
+          ]
+        },
+        "medicine": {
+          "logits": [
+            {
+              "token": " chest",
+              "prob": 0.12221000343561172,
+              "idx": 15489
+            },
+            {
+              "token": " a",
+              "prob": 0.10784994810819626,
+              "idx": 264
+            },
+            {
+              "token": " acute",
+              "prob": 0.06541430205106735,
+              "idx": 30883
+            },
+            {
+              "token": " sudden",
+              "prob": 0.05772792175412178,
+              "idx": 11210
+            },
+            {
+              "token": " the",
+              "prob": 0.05772792175412178,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.0548620223999023
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6625257730484009
+            },
+            {
+              "layer": 6,
+              "neuron": 6482,
+              "influence": 0.40075546503067017
+            }
+          ]
+        },
+        "general": {
+          "logits": [
+            {
+              "token": " Paris",
+              "prob": 0.5582879185676575,
+              "idx": 12366
+            },
+            {
+              "token": " the",
+              "prob": 0.058843109756708145,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.04582706093788147,
+              "idx": 264
+            },
+            {
+              "token": " known",
+              "prob": 0.019103560596704483,
+              "idx": 3967
+            },
+            {
+              "token": " one",
+              "prob": 0.016858834773302078,
+              "idx": 832
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 6,
+              "neuron": 4171,
+              "influence": 0.8099744915962219
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.5760940313339233
+            },
+            {
+              "layer": 15,
+              "neuron": 2590,
+              "influence": 0.41755908727645874
+            }
+          ]
+        }
+      }
+    },
+    {
+      "domain": "medicine",
+      "topic": "immunology vaccine mechanisms",
+      "step": 2400,
+      "tag": "medicine_2",
+      "train": {
+        "loss": 2.830381619334221,
+        "dream": 0.6306170654296875,
+        "distill": 0.6645079671591521,
+        "steps": 200,
+        "n_adapters": 24
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.3,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.28,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.28,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.26,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.2,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.3,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.28,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.28,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.26,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.3,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.66,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.12,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.12,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        }
+      },
+      "anchor": 2.7473322486877443,
+      "responses_changed": 14,
+      "total_dw_norm": 66.84424728155136,
+      "circuits": {
+        "finance": {
+          "logits": [
+            {
+              "token": " dividing",
+              "prob": 0.8613486289978027,
+              "idx": 50802
+            },
+            {
+              "token": " taking",
+              "prob": 0.04859396815299988,
+              "idx": 4737
+            },
+            {
+              "token": " multiplying",
+              "prob": 0.017876720055937767,
+              "idx": 85292
+            },
+            {
+              "token": " comparing",
+              "prob": 0.010842779651284218,
+              "idx": 27393
+            },
+            {
+              "token": " the",
+              "prob": 0.010842779651284218,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 5,
+              "neuron": 3664,
+              "influence": 0.8085810542106628
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.7431642413139343
+            },
+            {
+              "layer": 2,
+              "neuron": 2553,
+              "influence": 0.43461230397224426
+            }
+          ]
+        },
+        "legal": {
+          "logits": [
+            {
+              "token": " unreasonable",
+              "prob": 0.6518663763999939,
+              "idx": 59525
+            },
+            {
+              "token": " unlawful",
+              "prob": 0.0535084530711174,
+              "idx": 45522
+            },
+            {
+              "token": " government",
+              "prob": 0.04167242348194122,
+              "idx": 3109
+            },
+            {
+              "token": " unw",
+              "prob": 0.03677578642964363,
+              "idx": 15375
+            },
+            {
+              "token": " the",
+              "prob": 0.02527560293674469,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.8747492432594299
+            },
+            {
+              "layer": 0,
+              "neuron": 300,
+              "influence": 0.5891291499137878
+            },
+            {
+              "layer": 5,
+              "neuron": 7726,
+              "influence": 0.3918876647949219
+            }
+          ]
+        },
+        "chemistry": {
+          "logits": [
+            {
+              "token": " nucle",
+              "prob": 0.5871630907058716,
+              "idx": 31484
+            },
+            {
+              "token": " proton",
+              "prob": 0.03312547877430916,
+              "idx": 82586
+            },
+            {
+              "token": " carb",
+              "prob": 0.03312547877430916,
+              "idx": 35872
+            },
+            {
+              "token": " transition",
+              "prob": 0.022766783833503723,
+              "idx": 9320
+            },
+            {
+              "token": " step",
+              "prob": 0.012972122058272362,
+              "idx": 3094
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.8508983850479126
+            },
+            {
+              "layer": 2,
+              "neuron": 6812,
+              "influence": 0.6585851907730103
+            },
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 0.5063111186027527
+            }
+          ]
+        },
+        "medicine": {
+          "logits": [
+            {
+              "token": " chest",
+              "prob": 0.24817749857902527,
+              "idx": 15489
+            },
+            {
+              "token": " a",
+              "prob": 0.08057143539190292,
+              "idx": 264
+            },
+            {
+              "token": " symptoms",
+              "prob": 0.048869043588638306,
+              "idx": 13803
+            },
+            {
+              "token": " sudden",
+              "prob": 0.048869043588638306,
+              "idx": 11210
+            },
+            {
+              "token": " the",
+              "prob": 0.04312678053975105,
+              "idx": 279
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 1.1909258365631104
+            },
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6915668845176697
+            },
+            {
+              "layer": 15,
+              "neuron": 2590,
+              "influence": 0.3005644679069519
+            }
+          ]
+        },
+        "general": {
+          "logits": [
+            {
+              "token": " Paris",
+              "prob": 0.6250863671302795,
+              "idx": 12366
+            },
+            {
+              "token": " the",
+              "prob": 0.0513102151453495,
+              "idx": 279
+            },
+            {
+              "token": " a",
+              "prob": 0.039960432797670364,
+              "idx": 264
+            },
+            {
+              "token": " known",
+              "prob": 0.01773233711719513,
+              "idx": 3967
+            },
+            {
+              "token": " also",
+              "prob": 0.016657987609505653,
+              "idx": 1101
+            }
+          ],
+          "top_neurons": [
+            {
+              "layer": 15,
+              "neuron": 4921,
+              "influence": 0.6972348690032959
+            },
+            {
+              "layer": 5,
+              "neuron": 3725,
+              "influence": 0.6063969135284424
+            },
+            {
+              "layer": 7,
+              "neuron": 6450,
+              "influence": 0.45816653966903687
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "baseline": {
+    "eval": {
+      "finance_bench": {
+        "name": "finqa",
+        "acc": 0.04,
+        "n": 50
+      },
+      "finance_mmlu": {
+        "name": "mmlu_professional_accounting",
+        "acc": 0.28,
+        "n": 50
+      },
+      "legal_bench": {
+        "name": "lexglue_casehold",
+        "acc": 0.22,
+        "n": 50
+      },
+      "legal_mmlu": {
+        "name": "mmlu_professional_law",
+        "acc": 0.32,
+        "n": 50
+      },
+      "chemistry_bench": {
+        "name": "chembench",
+        "acc": 0.28,
+        "n": 50
+      },
+      "chemistry_mmlu": {
+        "name": "mmlu_college_chemistry",
+        "acc": 0.36,
+        "n": 50
+      },
+      "medicine_bench": {
+        "name": "medqa",
+        "acc": 0.46,
+        "n": 50
+      },
+      "medicine_mmlu": {
+        "name": "mmlu_professional_medicine",
+        "acc": 0.36,
+        "n": 50
+      },
+      "finqa": {
+        "name": "finqa",
+        "acc": 0.04,
+        "n": 50
+      },
+      "lexglue": {
+        "name": "lexglue_casehold",
+        "acc": 0.22,
+        "n": 50
+      },
+      "chembench": {
+        "name": "chembench",
+        "acc": 0.28,
+        "n": 50
+      },
+      "medqa": {
+        "name": "medqa",
+        "acc": 0.46,
+        "n": 50
+      },
+      "gpqa": {
+        "name": "gpqa",
+        "acc": 0.56,
+        "n": 50
+      },
+      "olympiad": {
+        "name": "olympiad",
+        "acc": 0.08,
+        "n": 50
+      },
+      "labbench": {
+        "name": "labbench",
+        "acc": 0.12,
+        "n": 50
+      },
+      "aime": {
+        "name": "aime",
+        "acc": 0.0,
+        "n": 50
+      }
+    },
+    "anchor": 2.8379225635528567,
+    "responses": {
+      "finance": [
+        {
+          "prompt": "The price-to-earnings ratio is calculated by",
+          "response": " dividing the current share price by the earnings per share (EPS) for the past 12 months. The higher the ratio, the more expensive the stock is. The price-to-earnings ratio is a popular valuation measure, but it is not without its flaws. The ratio is not a reliable indicator of a company\u2019s future earnings. It is also not a reliable indicator of a company\u2019s future earnings. The ratio is not a reliable indicator of a company\u2019s future earnings. It is also not a reliable indicator of a company\u2019s future earnings. The ratio is not a reliable indicator of a company\u2019s future earnings. It is also not a reliable indicator of a company\u2019s future earnings. The ratio is not a reliable indicator of a company\u2019s future earnings"
+        },
+        {
+          "prompt": "Credit risk under Basel IV is measured using",
+          "response": " the risk-based capital (RBC) approach. The RBC approach is based on the assumption that the credit risk of a bank is the sum of the risk of the individual loans and the risk of the bank\u2019s balance sheet as a whole. The RBC approach is based on the assumption that the credit risk of a bank is the sum of the risk of the individual loans and the risk of the bank\u2019s balance sheet as a whole. The RBC approach is based on the assumption that the credit risk of a bank is the sum of the risk of the individual loans and the risk of the bank\u2019s balance sheet as a whole. The RBC approach is based on the assumption that the credit risk of a bank is the sum of the risk of"
+        },
+        {
+          "prompt": "A company's balance sheet shows total assets of",
+          "response": " $1,000,000, total liabilities of $500,000, and total equity of $500,000. The company's net income for the year is $100,000. The company's retained earnings at the beginning of the year were $200,000. The company's retained earnings at the end of the year were $300,000. The company's retained earnings at the beginning of the year were $200,000. The company's retained earnings at the end of the year were $300,000. The company's retained earnings at the beginning of the year were $200,000. The company's retained earnings at the end of the year were $300,000. The company's retained earnings at the beginning of the"
+        }
+      ],
+      "legal": [
+        {
+          "prompt": "The Fourth Amendment protects citizens from",
+          "response": " unreasonable searches and seizures. The Fourth Amendment was adopted in 1791 and was the first amendment to the Constitution. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment was adopted in 1791 and was the first amendment to the Constitution. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment was adopted in 1791 and was the first amendment to the Constitution. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment was adopted in 1791 and was the first amendment to the Constitution. The Fourth Amendment protects citizens from unreasonable searches and seizures. The Fourth Amendment was adopted in 1791 and was the first amendment to the Constitution. The Fourth Amendment protects citizens from unreasonable searches and seizures."
+        },
+        {
+          "prompt": "Stare decisis means that courts must",
+          "response": " follow the decisions of previous courts. This is a principle of stare decisis that is based on the idea that courts should not overturn previous decisions unless there is a compelling reason to do so. Stare decisis is a principle of judicial review that requires courts to follow the decisions of previous courts. It is a principle of judicial review that requires courts to follow the decisions of previous courts. Stare decisis is a principle of judicial review that requires courts to follow the decisions of previous courts. It is a principle of judicial review that requires courts to follow the decisions of previous courts. Stare decisis is a principle of judicial review that requires courts to follow the decisions of previous courts. It is a principle of judicial review that requires courts to follow the"
+        },
+        {
+          "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+          "response": " the police must inform a suspect of his or her rights before questioning him or her. The court held that the police must inform a suspect of his or her right to remain silent and to have an attorney present during questioning. The court also held that the police must inform a suspect of the right to refuse to answer questions and that the suspect must be given the opportunity to exercise these rights. The court also held that the police must inform a suspect of the right to have an attorney present during questioning and that the suspect must be given the opportunity to exercise this right. The court also held that the police must inform a suspect of the right to have an attorney present during questioning and that the suspect must be given the opportunity to exercise this right. The court also"
+        }
+      ],
+      "chemistry": [
+        {
+          "prompt": "The SN2 reaction mechanism involves a",
+          "response": " nucleophile (R-) attacking a leaving group (R^) on a substrate (S) to form a new bond. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is"
+        },
+        {
+          "prompt": "The pH of a solution is calculated by",
+          "response": " adding the pH of the individual components. The pH of a solution is calculated by adding the pH of the individual components. The pH of a solution is calculated by adding the pH of the individual components. The pH of a solution is calculated by adding the pH of the individual components. The pH of a solution is calculated by adding the pH of the individual components. The pH of a solution is calculated by adding the pH of the individual components. The pH of a solution is calculated by adding the pH of the individual components. The pH of a solution is calculated by adding the pH of the individual components. The pH of a solution is calculated by adding the pH of the individual components. The pH of a solution is calculated by adding the pH of the individual"
+        },
+        {
+          "prompt": "The Gibbs free energy determines whether a reaction",
+          "response": " is spontaneous, non-spontaneous, or non-spontaneous. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a function of the concentrations of the reactants and products."
+        }
+      ],
+      "medicine": [
+        {
+          "prompt": "Acute myocardial infarction presents with",
+          "response": " a wide range of symptoms, including chest pain, shortness of breath, and nausea. The most common symptom is chest pain, which is often described as a crushing, squeezing, or burning sensation. Other symptoms may include shortness of breath, nausea, and vomiting. The severity of the symptoms can vary depending on the location of the blockage and the extent of the damage to the heart muscle. In some cases, the symptoms may be mild and resolve on their own, while in others, they may be severe and require immediate medical attention.\nThe most common symptom of acute myocardial infarction is chest pain, which is often described as a crushing, squeezing, or burning sensation. Other symptoms may include shortness of breath, nausea, and"
+        },
+        {
+          "prompt": "Drug-drug interactions in pharmacology occur when",
+          "response": " two or more drugs are taken together. These interactions can be either beneficial or harmful. The most common type of drug-drug interaction is the inhibition of an enzyme by another drug. This type of interaction is beneficial because it allows the first drug to be more effective. However, it can also be harmful because it can cause the second drug to be less effective. In this article, we will discuss the different types of drug-drug interactions and how to avoid them.\nDrug-drug interactions are a common problem in pharmacology. These interactions can occur when two or more drugs are taken together. These interactions can be either beneficial or harmful. The most common type of drug-drug interaction is the inhibition of an enzyme by another drug. This type of interaction"
+        },
+        {
+          "prompt": "mRNA vaccines work by introducing genetic material",
+          "response": " into the body, which then instructs the immune system to produce antibodies and T cells that can fight off the virus. The mRNA vaccines are designed to trigger an immune response that can protect against the virus, but they do not contain the virus itself. Instead, they use a synthetic version of the virus\u2019s genetic material to trigger an immune response.\nThe mRNA vaccines are designed to trigger an immune response that can protect against the virus, but they do not contain the virus itself. Instead, they use a synthetic version of the virus\u2019s genetic material to trigger an immune response.\nThe mRNA vaccines are designed to trigger an immune response that can protect against the virus, but they do not contain the virus itself. Instead, they use a synthetic version of the virus"
+        }
+      ],
+      "general": [
+        {
+          "prompt": "The capital of France is",
+          "response": " Paris. It is the most populous city in France and the country\u2019s capital and largest city. Paris is the most populous urban area in the European Union and the world\u2019s 4th most populous urban area with 12.2 million inhabitants. The city is located in the north of France on the river Seine. The city is the capital of the \u00cele-de-France region and the \u00cele-de-France metropolitan area, which has a population of 12.2 million. The city is the seat of the French government and the headquarters of the French administration. The city is also the seat of the French Senate and the French Parliament. The city is the most important financial center in Europe and the world\u2019s 4th most important financial"
+        },
+        {
+          "prompt": "Water boils at a temperature of",
+          "response": " 100 degrees Celsius. What is the temperature of the water in degrees Celsius?\nA. 100\nB. 200\nC. 300\nD. 400\nAnswer: A"
+        },
+        {
+          "prompt": "The Pythagorean theorem states that",
+          "response": " the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The Pythagorean theorem is a fundamental theorem in geometry. It is used to find the length of the hypotenuse of a right triangle. The Pythagorean theorem is a fundamental theorem in geometry. It is used to find the length of the hypotenuse of a right triangle. The Pythagorean theorem is a fundamental theorem in geometry. It is used to find the length of the hypotenuse of a right triangle. The Pythagorean theorem is a fundamental theorem in geometry. It is used to find the length of the hypotenuse of a right triangle. The Pythagorean theorem is a fundamental theorem"
+        }
+      ]
+    },
+    "circuits": {
+      "finance": {
+        "logits": [
+          {
+            "token": " dividing",
+            "prob": 0.8297311067581177,
+            "idx": 50802
+          },
+          {
+            "token": " taking",
+            "prob": 0.06810847669839859,
+            "idx": 4737
+          },
+          {
+            "token": " multiplying",
+            "prob": 0.015197055414319038,
+            "idx": 85292
+          },
+          {
+            "token": " comparing",
+            "prob": 0.013411354273557663,
+            "idx": 27393
+          },
+          {
+            "token": " the",
+            "prob": 0.011835478246212006,
+            "idx": 279
+          }
+        ],
+        "top_neurons": [
+          {
+            "layer": 5,
+            "neuron": 3664,
+            "influence": 1.0687377452850342
+          },
+          {
+            "layer": 15,
+            "neuron": 4921,
+            "influence": 0.7415348887443542
+          },
+          {
+            "layer": 7,
+            "neuron": 3569,
+            "influence": 0.37153542041778564
+          }
+        ]
+      },
+      "legal": {
+        "logits": [
+          {
+            "token": " unreasonable",
+            "prob": 0.5657060146331787,
+            "idx": 59525
+          },
+          {
+            "token": " unlawful",
+            "prob": 0.07655997574329376,
+            "idx": 45522
+          },
+          {
+            "token": " government",
+            "prob": 0.04643597453832626,
+            "idx": 3109
+          },
+          {
+            "token": " unw",
+            "prob": 0.03616437315940857,
+            "idx": 15375
+          },
+          {
+            "token": " the",
+            "prob": 0.03616437315940857,
+            "idx": 279
+          }
+        ],
+        "top_neurons": [
+          {
+            "layer": 15,
+            "neuron": 4921,
+            "influence": 0.8738661408424377
+          },
+          {
+            "layer": 0,
+            "neuron": 300,
+            "influence": 0.5175228118896484
+          },
+          {
+            "layer": 7,
+            "neuron": 6450,
+            "influence": 0.509209156036377
+          }
+        ]
+      },
+      "chemistry": {
+        "logits": [
+          {
+            "token": " nucle",
+            "prob": 0.5713155269622803,
+            "idx": 31484
+          },
+          {
+            "token": " proton",
+            "prob": 0.03652298077940941,
+            "idx": 82586
+          },
+          {
+            "token": " transition",
+            "prob": 0.025101853534579277,
+            "idx": 9320
+          },
+          {
+            "token": " step",
+            "prob": 0.022152308374643326,
+            "idx": 3094
+          },
+          {
+            "token": " two",
+            "prob": 0.015225043520331383,
+            "idx": 1403
+          }
+        ],
+        "top_neurons": [
+          {
+            "layer": 15,
+            "neuron": 4921,
+            "influence": 0.7461983561515808
+          },
+          {
+            "layer": 0,
+            "neuron": 300,
+            "influence": 0.4336809515953064
+          },
+          {
+            "layer": 2,
+            "neuron": 6812,
+            "influence": 0.30749696493148804
+          }
+        ]
+      },
+      "medicine": {
+        "logits": [
+          {
+            "token": " a",
+            "prob": 0.13259628415107727,
+            "idx": 264
+          },
+          {
+            "token": " chest",
+            "prob": 0.13259628415107727,
+            "idx": 15489
+          },
+          {
+            "token": " the",
+            "prob": 0.07097367942333221,
+            "idx": 279
+          },
+          {
+            "token": " acute",
+            "prob": 0.06263405084609985,
+            "idx": 30883
+          },
+          {
+            "token": " symptoms",
+            "prob": 0.0487794503569603,
+            "idx": 13803
+          }
+        ],
+        "top_neurons": [
+          {
+            "layer": 15,
+            "neuron": 4921,
+            "influence": 0.7074592113494873
+          },
+          {
+            "layer": 6,
+            "neuron": 4171,
+            "influence": 0.37566542625427246
+          },
+          {
+            "layer": 0,
+            "neuron": 300,
+            "influence": 0.3535674512386322
+          }
+        ]
+      },
+      "general": {
+        "logits": [
+          {
+            "token": " Paris",
+            "prob": 0.3842308223247528,
+            "idx": 12366
+          },
+          {
+            "token": " a",
+            "prob": 0.08573348820209503,
+            "idx": 264
+          },
+          {
+            "token": " the",
+            "prob": 0.0667693018913269,
+            "idx": 279
+          },
+          {
+            "token": " also",
+            "prob": 0.03153958544135094,
+            "idx": 1101
+          },
+          {
+            "token": " one",
+            "prob": 0.03153958544135094,
+            "idx": 832
+          }
+        ],
+        "top_neurons": [
+          {
+            "layer": 7,
+            "neuron": 6450,
+            "influence": 1.6003892421722412
+          },
+          {
+            "layer": 15,
+            "neuron": 4921,
+            "influence": 0.6097702383995056
+          },
+          {
+            "layer": 15,
+            "neuron": 2590,
+            "influence": 0.3857657313346863
+          }
+        ]
+      }
+    }
+  }
+}

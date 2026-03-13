@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock price by the earnings per share. The ratio is used to compare the current market value of a company to its earnings. A high P/E ratio indicates that the market is overvaluing the company, while a low P/E ratio suggests that the market is undervaluing the company. The ratio is often used to determine whether a stock is overvalued or undervalued. A high P/E ratio may indicate that the stock is overvalued, while a low P/E ratio may indicate that the stock is undervalued. The ratio is often used to determine whether a stock is overvalued or undervalued. A high P/E ratio may indicate that the stock is overvalued, while a low P/E ratio"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the risk-weighted assets (RWA). The RWA is calculated by multiplying the exposure amount by the risk weight assigned to the asset. The risk weight is determined by the credit risk model used. The credit risk model is a mathematical formula that assigns a risk weight to an asset based on its credit quality. The higher the risk weight, the more credit risk is assigned to the asset. The RWA is used to calculate the total credit risk exposure under Basel IV. The RWA is used to calculate the total credit risk exposure under Basel IV. The RWA is used to calculate the total credit risk exposure under Basel IV. The RWA is used to calculate the total credit risk exposure under Basel IV. The RWA is used to calculate the"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,200,000, total liabilities of $800,000, and net worth of $400,000. Which statement is most accurate?\nA. Net worth is $400,000. Total assets are $1,200,000, and total liabilities are $800,000. Total debt is equal to total debt. Total debt is equal to total debt. Total debt is equal to total debt. Total debt is equal to total debt. Total debt is equal to total debt. Total debt is equal to total debt. Total debt is equal to total debt. Total debt is equal to total debt. Total debt is equal to total debt. Total debt is equal to total debt. Total debt is equal to total debt. Total debt is"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. It is a fundamental right that protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable searches and seizures. It is a fundamental right"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions of the same court. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is a principle of precedent. It is"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " police must advise a suspect of his or her right to remain silent and the right to an attorney before questioning. The court also ruled that the police must stop questioning the suspect if the suspect requests an attorney. The court held that the police must stop questioning the suspect until an attorney is present. The court also held that the police must stop questioning the suspect until an attorney is present. The court held that the police must stop questioning the suspect until an attorney is present. The court held that the police must stop questioning the suspect until an attorney is present. The court held that the police must stop questioning the suspect until an attorney is present. The court held that the police must stop questioning the suspect until an attorney is present. The court held that the police"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile (N) attacking a leaving group (L) on a substrate (S) to form a new bond. The nucleophile is usually a water molecule, and the leaving group is usually a halide ion. The reaction is often catalyzed by a Lewis acid, such as a metal ion or a complex with a Lewis base. The mechanism is often described in terms of a stepwise addition of the nucleophile to the substrate, followed by a nucleophilic substitution reaction to form the product. The mechanism can be complex, with multiple steps and intermediates, and it can involve rearrangements and other reactions. The mechanism can also be affected by factors such as the concentration of reactants, the temperature, and the presence of other"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is the change in free energy of a system when it undergoes a reaction. The change in free energy is the difference between the initial and final states of the system. The change in free energy is positive if the reaction is spontaneous, and negative if the reaction is not spontaneous. The Gibbs free energy is calculated using the following equation:\nG = H - TS\nwhere G is the Gibbs free energy, H is the enthalpy of the system, and T is the temperature. The enthalpy of the system is the sum of the internal energy, the heat of reaction, and the work done on the system. The temperature is the average kinetic energy of the particles in the system. If the"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain, dyspnea, and syncope. The most common cause of acute myocardial infarction is thrombosis of the coronary artery. The most common cause of acute myocardial infarction is thrombosis of the coronary artery. The most common cause of acute myocardial infarction is thrombosis of the coronary artery. The most common cause of acute myocardial infarction is thrombosis of the coronary artery. The most common cause of acute myocardial infarction is thrombosis of the coronary artery. The most common cause of acute myocardial infarction is thrombosis of the coronary artery. The most common cause of acute myocardial infarction is thrombosis of the coronary artery"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs are taken together. These interactions can be either beneficial or harmful. For example, the interaction between a beta-blocker and a sedative can cause dizziness and a drop in blood pressure. On the other hand, the interaction between a statin and a nonsteroidal anti-inflammatory drug (NSAID) can reduce the risk of heart attack. In this article, we will discuss the different types of drug-drug interactions and how to avoid them.\nDrug-drug interactions are a common problem in pharmacology. They can occur when two drugs are taken together, and can be either beneficial or harmful. For example, the interaction between a beta-blocker and a sedative can cause dizziness and a drop in blood pressure. On the"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body, which then instructs the body to make a protein that the body recognizes as a foreign invader. The body then mounts an immune response to destroy the invader. mRNA vaccines are a new class of vaccines that have been developed to address the limitations of traditional vaccines. They are designed to deliver the genetic material directly into the body, bypassing the need for a carrier such as a virus. This approach has the potential to improve vaccine efficacy and reduce the risk of side effects. However, there are also concerns about the potential for unintended gene expression in the body, which could lead to adverse reactions or even cancer. In this article, we will explore the potential benefits and risks of mRNA vaccines, and discuss how they may be used to"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of Germany is Berlin. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of Canada is Ottawa. The capital of Australia is Canberra. The capital of New Zealand is Wellington. The capital of Japan is Tokyo. The capital of Russia is Moscow. The capital of China is Beijing. The capital of India is New Delhi. The capital of South Africa is Pretoria. The capital of South Korea is Seoul. The capital of Taiwan is Taipei. The capital of Iran is Tehran. The capital of Israel is Jerusalem. The capital of Lebanon is Beirut. The capital of Syria is Damascus. The capital of Iraq is Baghdad. The capital of Afghanistan is Kabul. The capital of"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 degrees Celsius. What is the temperature of the water in degrees Celsius if the temperature of the boiling water is 45 degrees Celsius?\nThe temperature of the water is 100 degrees Celsius minus the temperature of the boiling water, which is 45 degrees Celsius, or 55 degrees Celsius. The water is boiling because the temperature is higher than the boiling point. The water is boiling because the temperature is higher than the boiling point. The water is boiling because the temperature is higher than the boiling point. The water is boiling because the temperature is higher than the boiling point. The water is boiling because the temperature is higher than the boiling point. The water is boiling because the temperature is higher than the boiling point. The water is boiling because the temperature"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. The theorem is named after the Greek mathematician Pythagoras, who lived in the 6th century BC. The theorem is used in many fields, including geometry, physics, and engineering. In this article, we will explore the Pythagorean theorem and its applications in different fields.\nThe Pythagorean theorem states that in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. The theorem is named after the Greek mathematician Pythagoras, who lived in the 6th century BC. The theorem is used in many fields, including geometry"
+    }
+  ]
+}

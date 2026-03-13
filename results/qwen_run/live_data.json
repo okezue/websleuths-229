@@ -1,0 +1,237 @@
+{
+  "snapshots": [
+    {
+      "domain": "finance",
+      "topic": "earnings ratio analysis SEC filings",
+      "step": 300,
+      "loss": 2.231019690434138,
+      "dream_loss": 0.5805779520670573,
+      "distill_loss": 0.615874210447073,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 2,
+      "rank_chunks": 0,
+      "total_rank": 0,
+      "spawned": false,
+      "anchor_nll": 2.5066483783721925,
+      "grad_norm": 5.002102651535249,
+      "param_norm": 64.83968650525131,
+      "weight_delta": 39.09758842656339,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "finance",
+      "topic": "credit risk modeling Basel IV",
+      "step": 600,
+      "loss": 2.3816108560562133,
+      "dream_loss": 0.46605794270833334,
+      "distill_loss": 0.513788423538208,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 4,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.419962372779846,
+      "grad_norm": 6.704838982459105,
+      "param_norm": 79.31656189334834,
+      "weight_delta": 62.577668059157126,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "finance",
+      "topic": "quantitative trading strategies",
+      "step": 900,
+      "loss": 2.5775293191274007,
+      "dream_loss": 0.47333658854166666,
+      "distill_loss": 0.5190978802740573,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 6,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.4675711488723753,
+      "grad_norm": 7.07193106643542,
+      "param_norm": 89.88861705029687,
+      "weight_delta": 75.7017628478465,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "finance",
+      "topic": "ESG investing sustainability metrics",
+      "step": 1200,
+      "loss": 2.535319657921791,
+      "dream_loss": 0.7071826171875,
+      "distill_loss": 0.4838370495537917,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 8,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.566233367919922,
+      "grad_norm": 6.964282430666944,
+      "param_norm": 96.5593931629075,
+      "weight_delta": 83.76126375015956,
+      "kl_from_base": 0.0
+    },
+    {
+      "domain": "finance",
+      "topic": "derivatives pricing options",
+      "step": 1500,
+      "loss": 1.9561531352003416,
+      "dream_loss": 0.4153287760416667,
+      "distill_loss": 0.48476891363660496,
+      "lam": 3.0,
+      "mu": 1.5,
+      "n_adapters": 10,
+      "rank_chunks": 1,
+      "total_rank": 8,
+      "spawned": true,
+      "anchor_nll": 2.6276168203353882,
+      "grad_norm": 9.043570330374356,
+      "param_norm": 103.64298064281324,
+      "weight_delta": 92.10210439482438,
+      "kl_from_base": 0.0
+    }
+  ],
+  "domain_losses": {
+    "finance": [
+      {
+        "step": 300,
+        "loss": 2.231019690434138,
+        "dream": 0.5805779520670573,
+        "distill": 0.615874210447073
+      },
+      {
+        "step": 600,
+        "loss": 2.3816108560562133,
+        "dream": 0.46605794270833334,
+        "distill": 0.513788423538208
+      },
+      {
+        "step": 900,
+        "loss": 2.5775293191274007,
+        "dream": 0.47333658854166666,
+        "distill": 0.5190978802740573
+      },
+      {
+        "step": 1200,
+        "loss": 2.535319657921791,
+        "dream": 0.7071826171875,
+        "distill": 0.4838370495537917
+      },
+      {
+        "step": 1500,
+        "loss": 1.9561531352003416,
+        "dream": 0.4153287760416667,
+        "distill": 0.48476891363660496
+      }
+    ]
+  },
+  "forgetting": {
+    "finance": [
+      {
+        "bench": "finance",
+        "baseline": 0.04,
+        "current": 0.04,
+        "delta": 0.0,
+        "step": 1500
+      }
+    ]
+  },
+  "grad_norms": [
+    {
+      "step": 300,
+      "norm": 5.002102651535249,
+      "domain": "finance"
+    },
+    {
+      "step": 600,
+      "norm": 6.704838982459105,
+      "domain": "finance"
+    },
+    {
+      "step": 900,
+      "norm": 7.07193106643542,
+      "domain": "finance"
+    },
+    {
+      "step": 1200,
+      "norm": 6.964282430666944,
+      "domain": "finance"
+    },
+    {
+      "step": 1500,
+      "norm": 9.043570330374356,
+      "domain": "finance"
+    }
+  ],
+  "weight_deltas": [
+    {
+      "step": 300,
+      "delta": 39.09758842656339,
+      "domain": "finance"
+    },
+    {
+      "step": 600,
+      "delta": 62.577668059157126,
+      "domain": "finance"
+    },
+    {
+      "step": 900,
+      "delta": 75.7017628478465,
+      "domain": "finance"
+    },
+    {
+      "step": 1200,
+      "delta": 83.76126375015956,
+      "domain": "finance"
+    },
+    {
+      "step": 1500,
+      "delta": 92.10210439482438,
+      "domain": "finance"
+    }
+  ],
+  "neurogenesis_events": [
+    {
+      "step": 600,
+      "domain": "finance",
+      "topic": "credit risk modeling Basel IV",
+      "n_adapters": 4,
+      "rank": 8
+    },
+    {
+      "step": 900,
+      "domain": "finance",
+      "topic": "quantitative trading strategies",
+      "n_adapters": 6,
+      "rank": 8
+    },
+    {
+      "step": 1200,
+      "domain": "finance",
+      "topic": "ESG investing sustainability metrics",
+      "n_adapters": 8,
+      "rank": 8
+    },
+    {
+      "step": 1500,
+      "domain": "finance",
+      "topic": "derivatives pricing options",
+      "n_adapters": 10,
+      "rank": 8
+    }
+  ],
+  "per_domain_benchmarks": {
+    "finance": [
+      {
+        "bench": "finance",
+        "acc": 0.04,
+        "step": 1500
+      }
+    ]
+  }
+}

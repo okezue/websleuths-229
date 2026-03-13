@@ -1,0 +1,1 @@
+{"featureIndex": 4945499324, "positive_logits": [{"token": "Output \" the\" (p=0.812)", "value": 0.037}, {"token": "Output \" a\" (p=0.059)", "value": 0.013}], "negative_logits": [{"token": "Output \" earnings\" (p=0.052)", "value": -0.034}], "activations": []}

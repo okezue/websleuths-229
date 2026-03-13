@@ -1,0 +1,1 @@
+{"featureIndex": 7800067442, "positive_logits": [{"token": "Output \" algorithm\" (p=0.087)", "value": 0.119}, {"token": "Output \",\" (p=0.022)", "value": 0.041}, {"token": "Output \".\" (p=0.127)", "value": 0.036}, {"token": "Output \".\n\n\" (p=0.041)", "value": 0.036}, {"token": "Output \" and\" (p=0.036)", "value": 0.031}], "negative_logits": [], "activations": []}

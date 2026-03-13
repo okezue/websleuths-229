@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the current share price by the earnings per share. The higher the ratio, the more expensive the stock is. The ratio is often used to compare the value of a company with its earnings. A high ratio may indicate that the stock is overvalued. A low ratio may indicate that the stock is undervalued. The higher the ratio, the more expensive the stock is. A low ratio may indicate that the stock is undervalued. The higher the ratio, the more expensive the stock is. A low ratio may indicate that the stock is undervalued. The higher the ratio, the more expensive the stock is. A low ratio may indicate that the stock is undervalued. The higher the ratio, the more expensive the stock"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the expected loss. The expected loss is calculated by multiplying the probability of default by the expected loss. The expected loss is the sum of the expected credit loss and the expected market loss. The expected credit loss is the expected loss that would occur if the credit risk were to occur. The expected market loss is the expected loss that would occur if the market risk were to occur. The expected credit risk is the expected loss that would occur if the credit risk were to occur. The expected market risk is the expected loss that would occur if the market risk were to occur. The expected credit risk is the expected loss that would occur if the credit risk were to occur. The expected market risk is the expected loss that would occur if the market risk were to occur"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,200,000, liabilities of $600,000, and stockholders' equity of $900,000. If the total assets increase by $180,000, the liability increase by $90,000, and the stockholders' equity increase by $60,000, prepare a statement of cash flows for the period. Round intermediate figures to the nearest $10,000. A. Income statement: $1,200,000 $600,000 $900,000 B. Statement of cash flows: Add: Increase: Decrease: Income from operations Increase: Increase: Increase: Operating expenses Increase: Increase: Increase: Selling expenses Increase: Increase: Increase: General and administrative increase: Increase: Increase: Increase: Increase:"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Fourth Amendment was adopted in 1791. It was amended in 1967. The Fourth Amendment states that the government may not search a person without a warrant, and that a warrant must be based on probable cause and must be supported by a written description of the place to be searched and the persons or things to be seized. The Fourth Amendment also states that a warrant may not be issued except by a neutral and detached magistrate, and that a person must be allowed to be present at the search. The Fourth Amendment also states that a person must be allowed to refuse a search or seizure. The Fourth Amendment also states that a person must be allowed to refuse a search or seizure. The Fourth Amendment also states that a person"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions in similar cases. It is a principle of law that states that a court should not change its previous decisions in similar cases. It is a principle of law that states that a court should not change its previous decisions in similar cases. It is a principle of law that states that a court should not change its previous decisions in similar cases. It is a principle of law that states that a court should not change its previous decisions in similar cases. It is a principle of law that states that a court should not change its previous decisions in similar cases. It is a principle of law that states that a court should not change its previous decisions in similar cases. It is a principle of law that states that a court should not change its previous decisions"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " police must advise a suspect of his or her rights before questioning. The court said that the suspect must be told that anything he or she says can be used against him or her in a court of law. The court also said that the suspect must be told that he or she has a right to an attorney. The court said that the suspect must be told this information in a language the suspect can understand. The court said that the suspect must be told this information in a language the suspect can understand. The court said that the suspect must be told this information in a language the suspect can understand. The court said that the suspect must be told this information in a language the suspect can understand. The court said that the suspect must be told this information in"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile (a molecule that can donate a pair of electrons) and a nucleophilic substitution reaction. The nucleophile attacks the electrophile, which is a molecule that can accept a pair of electrons. The reaction is often used to make new molecules. The SN2 reaction is important in organic chemistry because it is used to make many important compounds."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the hydrogen ion concentration to the hydroxide ion concentration. The pH scale is a logarithmic scale, so the pH of a solution is expressed as a decimal number. The pH of a solution is a measure of its acidity or alkalinity. A pH of 7.0 is neutral, while a pH below 7.0 is acidic and a pH above 7.0 is alkaline. The pH scale is used to measure the concentration of hydrogen ions in a solution. A solution with a pH of 7.0 has a concentration of 10-7 moles of hydrogen ions per liter, while a solution with a pH of 4.0 has a concentration of 10-10 moles of hydrogen ions per liter"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is a function of temperature and pressure. The equation for the Gibbs free energy is given by: where G is the Gibbs free energy, R is the gas constant, T is the absolute temperature, and P is the pressure. The Gibbs free energy is a measure of the amount of energy released or absorbed by a system when it undergoes a chemical reaction. The sign of the Gibbs free energy is determined by the sign of the change in enthalpy. If the change in enthalpy is positive, the reaction is exothermic and the Gibbs free energy is negative. If the change in enthalpy is negative, the reaction is endothermic and the Gibbs free energy is positive. The sign"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain. The patient is admitted to the hospital and a coronary angiogram is performed. The angiogram shows a 90% occlusion of the left anterior descending coronary artery. A stent is placed across the occluded segment. Two days later, the patient returns and the angiogram shows complete recanalization of the artery. Which of the following is the most likely explanation for the improvement in symptoms?\nA. Increased blood flow through the occluded artery caused by the stent\nB. Increased myocardial oxygen consumption due to the occluded artery\nC. Increased sympathetic activity in the area of the heart supplied by the occluded artery\nD. Decreased demand for oxygen in the area of the heart supplied by the occluded artery\n"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two or more drugs are taken together. These interactions can have serious consequences, including increased side effects, drug toxicity, and even death. In this article, we will discuss the different types of drug-drug interactions, the potential risks and consequences of these interactions, and how to avoid them.\nDrug-drug interactions can occur when two or more drugs are taken together. These interactions can have serious consequences, including increased side effects, drug toxicity, and even death. In this article, we will discuss the different types of drug-drug interactions, the potential risks and consequences of these interactions, and how to avoid them.\nThe most common type of drug-drug interaction is known as a pharmacokinetic interaction. This occurs when the drugs interact with each other"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body, which then instructs the immune system to make antibodies and cells that can fight off the virus. The mRNA is designed to be short-lived, so it is quickly broken down by the body\u2019s natural defenses. The immune system then uses the instructions to make proteins that can fight off the virus. mRNA vaccines are thought to be more effective than traditional vaccines, which use dead or weakened viruses. They are also believed to be easier to store and transport, making them ideal for use in remote areas or during emergencies. However, there are still questions about how well mRNA vaccines work and whether they are safe and effective in the long term.\nmRNA vaccines are a type of vaccine that uses messenger RNA (mRNA) to deliver instructions to the"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The country is known for its rich culture, history, and architecture. The city is also home to some of the world\u2019s most famous landmarks, including the Eiffel Tower and the Louvre Museum. Paris is a popular destination for tourists from around the world, and it is also a major financial center. The city is also known for its nightlife, with clubs and bars that stay open late into the night. Paris is a great place to live, work, and play, and it is also a great place to visit. The city has something for everyone, and it is easy to find things to do and see no matter what your interests are.\nThe capital of France is Paris. The country is known for its rich culture, history"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 degrees Celsius. What is the temperature of the water in degrees Celsius if it is 20 degrees Celsius colder than the boiling point?\nThe question asks what the temperature of the water is in degrees Celsius if it is 20 degrees Celsius colder than the boiling point. The answer is 60 degrees Celsius. The formula for converting from Celsius to Fahrenheit is C + 32. The water is 20 degrees Celsius colder than the boiling point, so it is 60 degrees Celsius. The answer is 60 degrees Celsius. The answer is 60 degrees Celsius. The answer is 60 degrees Celsius. The answer is 60 degrees Celsius. The answer is 60 degrees Celsius. The answer is 60 degrees Celsius. The answer is 60"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. The theorem is named after the Greek mathematician Pythagoras, who lived around 500 BC. The theorem is used in many different fields, including geometry, physics, and engineering. In this article, we will explore the history of the Pythagorean theorem and its applications in these fields.\nThe Pythagorean theorem was first discovered by the Greek mathematician Pythagoras around 500 BC. He was the first to prove the theorem using geometry, and it was later used by other mathematicians to prove the theorem in different ways. The theorem is named after Pythagoras, who is often credited with its discovery"
+    }
+  ]
+}

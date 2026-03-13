@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the current share price by the earnings per share. The higher the ratio, the more expensive the stock is. The ratio is used to compare the current share price to the earnings per share. The higher the ratio, the more expensive the stock is. The ratio is used to compare the current share price to the earnings per share. The higher the ratio, the more expensive the stock is. The ratio is used to compare the current share price to the earnings per share. The higher the ratio, the more expensive the stock is. The ratio is used to compare the current share price to the earnings per share. The higher the ratio, the more expensive the stock is. The ratio is used to compare the current share price to the earnings per share"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the expected loss. The expected loss is calculated by multiplying the probability of default by the loss given default. The probability of default is calculated by multiplying the credit risk weight by the credit risk exposure. The loss given default is calculated by multiplying the expected loss by the probability of default. The expected loss is calculated by multiplying the probability of default by the loss given default. The probability of default is calculated by multiplying the credit risk weight by the credit risk exposure. The loss given default is calculated by multiplying the expected loss by the probability of default. The expected loss is calculated by multiplying the probability of default by the loss given default. The probability of default is calculated by multiplying the credit risk weight by the credit risk exposure. The loss given default is calculated by"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,000,000, liabilities of $600,000, and stockholders' equity of $400,000. The total assets are divided into current assets of $300,000 and noncurrent assets of $600,000. The current assets are $150,000, including $90,000 of inventory and $60,000 of prepaid expenses; the noncurrent assets are $300,000, including $180,000 of investment-grade bonds and $120,000 of investment-dilutive bonds. Stockholders' equity is $200,000, including $100,000 of common stock and $100,000 of retained earnings. Assume the total liabilities are $600,000, divided into $300,000 of accounts payable"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Fourth Amendment was adopted in 1791. The Fourth Amendment states that the government may not search a person or their property without a warrant issued by a judge. The Fourth Amendment also states that the government may not search a person or their property without a warrant issued by a judge unless the government has probable cause to believe that the person or property contains evidence of a crime. The Fourth Amendment also states that the government may not search a person or their property without a warrant issued by a judge unless the government has probable cause to believe that the person or property contains evidence of a crime. The Fourth Amendment also states that the government may not search a person or their property without a warrant issued by a judge unless the government has probable"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions in similar cases. It is a principle of law that states that a court should not change its previous decisions in similar cases. This is because it is important to respect the previous decisions of the court and to avoid creating a new precedent. Stare decisis is a fundamental principle of the legal system, and it is important to follow previous decisions in similar cases to avoid creating a new precedent.\nStare decisis is a principle of law that states that courts should follow previous decisions in similar cases. This is because it is important to respect the previous decisions of the court and to avoid creating a new precedent. Stare decisis is a fundamental principle of the legal system, and it is important to follow previous decisions in similar cases to avoid"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the police must advise a suspect of his or her rights before questioning. The court also ruled that the police must take reasonable steps to ensure that the suspect understands those rights. This ruling has important implications for criminal defense attorneys and their clients. In this article, we will discuss the implications of the Miranda ruling for criminal defense attorneys and their clients.\nThe Supreme Court\u2019s ruling in Miranda v Arizona has important implications for criminal defense attorneys and their clients. The court ruled that the police must advise a suspect of his or her rights before questioning. This ruling has important implications for criminal defense attorneys and their clients. In this article, we will discuss the implications of the Miranda ruling for criminal defense attorneys and their clients.\nThe Supreme Court\u2019s ruling in Miranda v Arizona has"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile attacking a leaving group. The nucleophile is a nucleophile, which is a molecule that can donate a pair of electrons to a carbon atom in a chemical reaction. The leaving group is a leaving group, which is a molecule that can remove a pair of electrons from a carbon atom in a chemical reaction. The SN2 reaction mechanism is a type of nucleophilic substitution reaction, which is a type of substitution reaction that involves a nucleophile attacking a leaving group. The SN2 reaction mechanism is important because it is used to explain the structure and properties of many organic compounds, including drugs and pesticides. The SN2 reaction mechanism is also important because it is used to explain the structure and properties of many organic compounds, including drugs and pesticides."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen ion concentration to the hydroxide ion concentration. The pH of a solution is calculated by adding the hydrogen"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a state function because it depends only on the current state of the system. The Gibbs free energy is a measure of the energy change that occurs when a system undergoes a chemical reaction. The Gibbs free energy is a measure of the energy change that occurs when a system undergoes a chemical reaction. The Gibbs free energy is a measure of the energy change that occurs when a system undergoes a chemical reaction. The Gibbs free energy is a measure of the energy change that occurs when a system undergoes a chemical reaction. The Gibbs free energy is a measure of the energy change that occurs when a system undergoes a chemical"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain. The pain is typically described as radiating to the left arm or shoulder. It is often accompanied by shortness of breath, nausea, and vomiting. The pain may last for several hours or even days. In this case, the pain is described as radiating to the left arm or shoulder. It is often accompanied by shortness of breath, nausea, and vomiting. The pain may last for several hours or even days. The most common symptom is chest pain, which is often described as radiating to the left arm or shoulder. It is often accompanied by shortness of breath, nausea, and vomiting. The pain may last for several hours or even days. In this case, the pain is described as radiating to the left"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs are taken together. The drugs may interact in a number of ways, including increasing the risk of side effects, reducing the effectiveness of one or both drugs, or causing serious adverse effects. This article discusses the most common types of drug-drug interactions and how to avoid them.\nDrug-drug interactions are common in clinical practice. They occur when two drugs are taken together, often in combination with other medications. The drugs may interact in a number of ways, including increasing the risk of side effects, reducing the effectiveness of one or both drugs, or causing serious adverse effects. This article discusses the most common types of drug-drug interactions and how to avoid them.\n1. Drug-drug interactions occur when two drugs are taken together. The drugs"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body, which then instructs the immune system to make antibodies. The antibodies are then used to fight off the virus. mRNA vaccines are thought to be more effective than traditional vaccines because they can more quickly produce antibodies that can help protect against the virus.\nmRNA vaccines are thought to be more effective than traditional vaccines because they can more quickly produce antibodies that can help protect against the virus.\nWhat is mRNA vaccine?\nmRNA vaccines are a type of vaccine that uses messenger RNA (mRNA) to deliver genetic material to the body. The mRNA then instructs the immune system to make antibodies that can fight off the virus. mRNA vaccines are thought to be more effective than traditional vaccines because they can more quickly produce antibodies that can help protect against the"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The country is located in Western Europe. The capital is Paris. The country is France. The capital is Paris. The country is France. The capital is Paris. The country is France. The capital is Paris. The country is France. The capital is Paris. The country is France. The capital is Paris. The country is France. The capital is Paris. The country is France. The capital is Paris. The country is France. The capital is Paris. The country is France. The capital is Paris. The country is France. The capital is Paris. The country is France. The capital is Paris. The country is France. The capital is Paris. The country is France. The capital is Paris. The country is France."
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 degrees Celsius. What is the temperature of the water in Fahrenheit?\nA. 212\u00b0F\nB. 32\u00b0F\nC. 100\u00b0F\nD. 0\u00b0F\nAnswer: C"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. The theorem is named after the Greek mathematician Pythagoras, who lived in the 6th century BC. The theorem is used in many areas of mathematics, including geometry, trigonometry, and statistics. In this article, we will explore the Pythagorean theorem and its applications in different fields.\nThe Pythagorean theorem states that in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. The theorem is named after the Greek mathematician Pythagoras, who lived in the 6th century BC. The theorem is used in many"
+    }
+  ]
+}

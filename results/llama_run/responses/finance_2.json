@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock price by the earnings per share. The higher the ratio, the more expensive the stock is. The price-to-book ratio is calculated by dividing the stock price by the book value per share. The higher the ratio, the more expensive the stock is. The price-to-sales ratio is calculated by dividing the stock price by the sales per share. The higher the ratio, the more expensive the stock is. The price-to-cash-flow ratio is calculated by dividing the stock price by the cash-flow per share. The higher the ratio, the more expensive the stock is. The price-to-asset ratio is calculated by dividing the stock price by the total assets per share. The higher the ratio, the more expensive the stock is. The price"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the standardized approach. The standardized approach is a risk-based approach that uses a credit risk model to measure credit risk. The model uses historical data and current market conditions to estimate the probability of default and the amount of loss given default. The model also takes into account the risk of default for different types of borrowers and the risk of loss given default for different types of assets. The standardized approach is used to calculate the credit risk exposure of a bank. The model is used to measure the risk of default for different types of borrowers and the risk of loss given default for different types of assets. The model is used to calculate the credit risk exposure of a bank. The model is used to measure the risk of default for different types of borrowers and the risk of"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,200,000, total liabilities of $780,000, and equity of $360,000. What is the company's net income? A) $180,000 B) $240,000 C) $270,000 D) $300,000 E) $360,000\nA company's balance sheet shows total assets of $1,200,000, total liabilities of $780,000, and equity of $360,000. What is the company's net income? A) $180,000 B) $240,000 C) $270,000 D) $300,000 E) $360,000\nThe question states: What is the company's net income? The text explains that net"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. It is a fundamental right that protects against unreasonable government intrusion into the privacy of citizens. The Fourth Amendment protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable government intrusion into the privacy of citizens. The Fourth Amendment protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable government intrusion into the privacy of citizens. The Fourth Amendment protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable government intrusion into the privacy of citizens. The Fourth Amendment protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable government intrusion into the privacy of citizens. The Fourth Amendment protects against unreasonable searches and seizures. It is a fundamental right that protects against unreasonable government"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions of the same court. It is a principle of law that is used to determine the meaning of a statute or a court decision. It is a principle of law that is used to determine the meaning of a statute or a court decision. It is a principle of law that is used to determine the meaning of a statute or a court decision. It is a principle of law that is used to determine the meaning of a statute or a court decision. It is a principle of law that is used to determine the meaning of a statute or a court decision. It is a principle of law that is used to determine the meaning of a statute or a court decision. It is a principle of law that is used to determine the meaning of a statute"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the police must inform a suspect of his or her right to remain silent and to have an attorney present during questioning. The court also ruled that the police must inform a suspect of his or her right to have an attorney present during custodial interrogation. The court ruled that the police must inform a suspect of his or her right to have an attorney present during custodial interrogation. The court ruled that the police must inform a suspect of his or her right to have an attorney present during custodial interrogation. The court ruled that the police must inform a suspect of his or her right to have an attorney present during custodial interrogation. The court ruled that the police must inform a suspect of his or her right to have an attorney present during custodial interrogation. The"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile (R-NH2) attacking a leaving group (R-Cl) on a substrate (R-COOH). The reaction is exothermic and proceeds with inversion of configuration. The reaction is catalyzed by a base. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the pH values of the individual components. The pH of a solution is calculated by adding the pH values of the individual components. The pH of a solution is calculated by adding the pH values of the individual components. The pH of a solution is calculated by adding the pH values of the individual components. The pH of a solution is calculated by adding the pH values of the individual components. The pH of a solution is calculated by adding the pH values of the individual components. The pH of a solution is calculated by adding the pH values of the individual components. The pH of a solution is calculated by adding the pH values of the individual components. The pH of a solution is calculated by adding the pH values of the individual components. The pH of a solution"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a state function. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a state function. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a state function. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a state function. The Gibbs free energy is a function of the concentrations of the reactants and products. The Gibbs free energy is a state function. The Gibbs free energy is a function of the concentrations of the reactants and"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain. The pain is typically described as radiating to the left arm, jaw, or back. The pain is usually severe and lasts for more than 20 minutes. The pain is relieved by rest and is not associated with nausea, vomiting, or sweating. The patient is not taking any medications. The patient is a 55-year-old man who presents to the emergency department with severe chest pain. The pain started 30 minutes ago and is now radiating to the left arm. The pain is not associated with nausea, vomiting, or sweating. The patient is not taking any medications. The patient is a 55-year-old man who presents to the emergency department with severe chest pain. The pain started 30 minutes ago and is now radi"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " a drug is taken with another drug. The interaction can be either beneficial or harmful. The drug-drug interaction can be either pharmacokinetic or pharmacodynamic. Pharmacokinetic drug-drug interactions occur when the drug is metabolized by the liver. The drug is then excreted in the urine. The drug is then excreted in the urine. The drug is then excreted in the urine. The drug is then excreted in the urine. The drug is then excreted in the urine. The drug is then excreted in the urine. The drug is then excreted in the urine. The drug is then excreted in the urine. The drug is then excreted in the urine. The"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body, which then instructs the immune system to produce antibodies and T cells that can fight off the virus. The mRNA vaccines are designed to trigger an immune response that can protect against the virus, but they do not contain the virus itself. Instead, the mRNA vaccines use a synthetic messenger RNA (mRNA) molecule that encodes for the virus\u2019s proteins. This mRNA is then injected into the body, where it is taken up by cells and translated into proteins that can help the immune system fight off the virus.\nmRNA vaccines are a promising new approach to vaccine development. They offer the potential to produce a vaccine that can be stored at room temperature, making it easier to transport and administer. They also offer the potential to produce a vaccine"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The country is located in Western Europe. The capital of France is Paris. The country is located in Western Europe. The capital of France is Paris. The country is located in Western Europe. The capital of France is Paris. The country is located in Western Europe. The capital of France is Paris. The country is located in Western Europe. The capital of France is Paris. The country is located in Western Europe. The capital of France is Paris. The country is located in Western Europe. The capital of France is Paris. The country is located in Western Europe. The capital of France is Paris. The country is located in Western Europe. The capital of France is Paris. The country is located in Western Europe. The capital of France is"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 degrees Celsius. What is the temperature of the water in degrees Fahrenheit?\nA. 212\nB. 212.8\nC. 212.9\nD. 212.0\nAnswer: C"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The theorem is named after the Greek mathematician Pythagoras, who lived in the 6th century BC. The theorem is used in many different fields, including geometry, physics, and engineering. In this article, we will explore the history of the Pythagorean theorem and its applications in different fields.\nThe Pythagorean theorem was first discovered by the Greek mathematician Pythagoras in the 6th century BC. He was the first to prove that the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The theorem was later rediscovered by"
+    }
+  ]
+}
