@@ -5,6 +5,8 @@ __pycache__/
 .pytest_cache/
 .venv/
 
-# ablation run artifacts (resumption checkpoints + trained adapter weights)
+# run artifacts (resumption checkpoints + trained adapter weights)
 ablations/*_checkpoint.json
 ablations/*_state/
+forgetting/*_checkpoint.json
+forgetting/*_state/
