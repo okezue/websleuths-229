@@ -477,9 +477,9 @@ class DomainEvalHarness:
         if not mkb or not os.path.isdir(mkb):
             _log.warning("multikernelbench: repo not found, set MULTIKERNELBENCH_PATH")
             return BenchScore(name="multikernelbench",acc=0.0,n=0)
-        tasks_dir=os.path.join(mkb,"benchmark")
+        tasks_dir=os.path.join(mkb,"reference")
         if not os.path.isdir(tasks_dir):
-            for alt in ["tasks","data","bench"]:
+            for alt in ["benchmark","tasks","data","bench"]:
                 t=os.path.join(mkb,alt)
                 if os.path.isdir(t):tasks_dir=t;break
         task_files=[]

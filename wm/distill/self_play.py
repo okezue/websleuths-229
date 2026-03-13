@@ -122,6 +122,62 @@ Return JSON:
 }}
 Return valid JSON only, no markdown fences."""
 
+JUDGE_MODEL_OUTPUT_PROMPT="""You are evaluating a student model's response to a {domain} problem.
+
+Problem: {problem}
+{choices}
+
+Student model output: {model_output}
+
+Reference answer: {gold_answer}
+Reference reasoning: {gold_reasoning}
+
+Rate the student model's response (0.0-1.0 each):
+1. **correctness**: Is the final answer correct? Compare to the reference.
+2. **reasoning**: Does the model show valid step-by-step reasoning (even if the answer is wrong)?
+3. **specificity**: Does the response contain domain-specific knowledge (formulas, terminology, concepts)?
+4. **coherence**: Is the response well-structured and understandable?
+5. **hallucination**: Does the response contain fabricated facts or wrong formulas? (1.0=no hallucination)
+
+Also determine:
+- Is this response BETTER, EQUAL, or WORSE than the reference?
+- Should this response be used as positive training data, negative training data, or discarded?
+
+Return JSON:
+{{
+  "correctness": 0.0-1.0,
+  "reasoning": 0.0-1.0,
+  "specificity": 0.0-1.0,
+  "coherence": 0.0-1.0,
+  "hallucination": 0.0-1.0,
+  "overall": 0.0-1.0,
+  "comparison": "better|equal|worse",
+  "use_as": "positive|negative|discard",
+  "feedback": "brief explanation"
+}}
+Return valid JSON only, no markdown fences."""
+
+OOD_GEN_PROMPT="""Generate {n} questions that LOOK like they could be {domain} questions but are actually unanswerable, nonsensical, or outside the domain. These are adversarial examples to test if a model can correctly refuse or flag bad questions.
+
+Categories to include:
+1. Questions mixing real {domain} terminology with nonsense (e.g., "What is the Fischer-Tropsch coefficient of a stock's P/E ratio?")
+2. Questions from wrong domains dressed in {domain} language (e.g., a cooking recipe framed as a chemistry procedure)
+3. Questions with contradictory premises that no correct answer exists for
+4. Questions asking for opinions/predictions disguised as factual queries
+5. Questions referencing fake studies, papers, or regulations
+
+Return JSON:
+{{
+  "ood_questions": [
+    {{
+      "question": "the adversarial question",
+      "category": "nonsense_terminology|wrong_domain|contradictory|opinion|fake_reference",
+      "why_ood": "brief explanation of why this should be refused"
+    }}
+  ]
+}}
+Return valid JSON only, no markdown fences."""
+
 @dataclass
 class SelfPlayProblem:
     problem:str=""
@@ -308,6 +364,103 @@ class SelfPlayDistill:
                              "source":"self_play"})
         log.info("self-play: kept %d/%d (dropped %d below %.1f threshold) -> %d rows",
                  kept,kept+dropped,dropped,quality_thresh,len(rows))
+        return rows
+    async def judge_model_outputs(self,domain:str,
+                                    problems:list[SelfPlayProblem],
+                                    solutions:list[SelfPlaySolution],
+                                    model_outputs:list[str])->list[dict]:
+        self._init_clients()
+        tasks=[]
+        for p,s,mo in zip(problems,solutions,model_outputs):
+            cstr="\n".join(p.choices) if p.choices else ""
+            sol_text="\n".join(f"{i+1}. {st}" for i,st in enumerate(s.steps))
+            prompt=JUDGE_MODEL_OUTPUT_PROMPT.format(
+                domain=domain,problem=p.problem,choices=cstr,
+                model_output=mo[:2000],gold_answer=s.answer,
+                gold_reasoning=sol_text[:1500])
+            tasks.append(self._call_claude(prompt))
+        results=await asyncio.gather(*tasks,return_exceptions=True)
+        judgments=[]
+        for r in results:
+            if isinstance(r,Exception) or not r:
+                judgments.append({"overall":0,"use_as":"discard","comparison":"worse"})
+                continue
+            judgments.append(r)
+        return judgments
+    def judge_model_sync(self,domain:str,problems:list[SelfPlayProblem],
+                          solutions:list[SelfPlaySolution],
+                          model_outputs:list[str])->list[dict]:
+        coro=self.judge_model_outputs(domain,problems,solutions,model_outputs)
+        try:
+            loop=asyncio.get_running_loop()
+        except RuntimeError:
+            loop=None
+        if loop and loop.is_running():
+            import concurrent.futures
+            with concurrent.futures.ThreadPoolExecutor() as pool:
+                return pool.submit(asyncio.run,coro).result()
+        return asyncio.run(coro)
+    def build_dpo_pairs(self,problems:list[SelfPlayProblem],
+                         solutions:list[SelfPlaySolution],
+                         model_outputs:list[str],
+                         judgments:list[dict])->list[dict]:
+        pairs=[]
+        for p,s,mo,j in zip(problems,solutions,model_outputs,judgments):
+            cstr="\n".join(p.choices) if p.choices else ""
+            comp=j.get("comparison","worse")
+            use=j.get("use_as","discard")
+            if use=="discard":continue
+            sol_text="\n".join(f"Step {i+1}: {st}" for i,st in enumerate(s.steps))
+            gold=f"Q: {p.problem}\n{cstr}\n{sol_text}\nAnswer: {s.answer}"
+            student=f"Q: {p.problem}\n{cstr}\n{mo}"
+            if comp=="worse":
+                pairs.append({"text":gold,"authority":min(0.95,j.get("overall",0.5)+0.3),
+                               "source":"dpo_chosen"})
+                pairs.append({"text":student,"authority":max(0.05,j.get("overall",0.3)*0.2),
+                               "source":"dpo_rejected"})
+            elif comp=="better":
+                pairs.append({"text":student,"authority":min(0.95,j.get("overall",0.8)),
+                               "source":"dpo_chosen"})
+            elif use=="positive":
+                pairs.append({"text":student,"authority":min(0.9,j.get("overall",0.7)),
+                               "source":"model_positive"})
+        return pairs
+    async def gen_adversarial_ood(self,domain:str,n:int=10)->list[dict]:
+        self._init_clients()
+        prompt=OOD_GEN_PROMPT.format(n=n,domain=domain)
+        data=await self._call_claude(prompt)
+        rows=[]
+        for q in data.get("ood_questions",[]):
+            txt=q.get("question","")
+            if not txt:continue
+            why=q.get("why_ood","out of domain")
+            rows.append({"text":f"Q: {txt}\nAnswer: This question cannot be answered reliably. {why}",
+                         "authority":0.1,"source":"ood_adversarial",
+                         "category":q.get("category","unknown")})
+        return rows
+    def gen_adversarial_ood_sync(self,domain:str,n:int=10)->list[dict]:
+        coro=self.gen_adversarial_ood(domain,n)
+        try:
+            loop=asyncio.get_running_loop()
+        except RuntimeError:
+            loop=None
+        if loop and loop.is_running():
+            import concurrent.futures
+            with concurrent.futures.ThreadPoolExecutor() as pool:
+                return pool.submit(asyncio.run,coro).result()
+        return asyncio.run(coro)
+    def extract_reasoning_traces(self,solutions:list[SelfPlaySolution],
+                                  problems:list[SelfPlayProblem])->list[dict]:
+        rows=[]
+        for p,s in zip(problems,solutions):
+            if not s.steps or len(s.steps)<2:continue
+            cstr="\n".join(p.choices) if p.choices else ""
+            cot="\n".join(f"Step {i+1}: {st}" for i,st in enumerate(s.steps))
+            rows.append({"text":f"Q: {p.problem}\n{cstr}\nLet me think through this step by step.\n{cot}\nTherefore the answer is {s.answer}",
+                         "authority":min(0.9,s.confidence+0.1),"source":"reasoning_trace"})
+            if len(s.steps)>=3:
+                rows.append({"text":f"Q: {p.problem}\n{cstr}\nThinking:\n{cot}",
+                             "authority":min(0.85,s.confidence),"source":"cot_prefix"})
         return rows
     def gen_ood_negative(self,n:int=10)->list[dict]:
         rows=[]

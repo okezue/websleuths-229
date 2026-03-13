@@ -291,7 +291,7 @@ def run_rl_phase(args,best_auth,model_name):
             json.dump(report,f,indent=2,default=str)
         return report
 
-    from wm.distill.self_play import SelfPlayDistill
+    from wm.distill.self_play import SelfPlayDistill,SelfPlayProblem
     sp=SelfPlayDistill(openai_key=ok,anthropic_key=args.anthropic_key,
                        gpt_model="gpt-5.4",concurrency=8)
 
@@ -305,18 +305,76 @@ def run_rl_phase(args,best_auth,model_name):
         log.info("[RL round %d] lam=%.2f mu=%.2f",ri+1,lam,mu)
 
         rl_rows=[]
+        all_problems=[]
+        all_solutions=[]
         for dom in DOMAINS:
             try:
-                rows=sp.run_sync(dom,n_problems=20,n_harder=10,judge_thresh=0.6)
-                rl_rows.extend(rows)
+                import asyncio as _aio
+                _sp_problems=_aio.run(sp.generate_problems(dom,20))
+                _sp_harder=_aio.run(sp.generate_harder_variants(dom,_sp_problems,10))
+                _sp_all=_sp_problems+_sp_harder
+                _sp_solutions=_aio.run(sp.solve_problems(dom,_sp_all))
+                _sp_judgments=_aio.run(sp.judge_solutions(dom,_sp_all,_sp_solutions))
+
+                cot_rows=sp.extract_reasoning_traces(_sp_solutions,_sp_all)
+                rl_rows.extend(cot_rows)
+                log.info("  [%s] %d reasoning traces extracted",dom,len(cot_rows))
+
+                kept=0
+                for p,s,j in zip(_sp_all,_sp_solutions,_sp_judgments):
+                    if j.overall<0.6:continue
+                    kept+=1
+                    cstr="\n".join(p.choices) if p.choices else ""
+                    sol_text="\n".join(f"Step {i+1}: {st}" for i,st in enumerate(s.steps))
+                    ans=j.corrected_answer or s.answer
+                    rl_rows.append({"text":f"Q: {p.problem}\n{cstr}\nLet me solve this step by step.\n{sol_text}\nTherefore the answer is {ans}",
+                                    "authority":min(0.95,j.overall),"source":"self_play"})
+                log.info("  [%s] %d/%d solutions passed judge",dom,kept,len(_sp_all))
+                all_problems.extend(_sp_all)
+                all_solutions.extend(_sp_solutions)
             except Exception as e:
                 log.warning("self-play %s failed: %s",dom,e)
 
         if not rl_rows:
             log.warning("no RL data, skipping round");continue
 
+        log.info("  [model-judge] generating model outputs for DPO...")
+        model_outputs=[]
+        for p in all_problems[:40]:
+            cstr="\n".join(p.choices) if p.choices else ""
+            prompt=f"Q: {p.problem}\n{cstr}\nAnswer:"
+            mo=gen_response(model,tok,prompt,max_tok=200)
+            model_outputs.append(mo)
+        if model_outputs and all_solutions:
+            try:
+                mj=sp.judge_model_sync(
+                    "general",all_problems[:len(model_outputs)],
+                    all_solutions[:len(model_outputs)],model_outputs)
+                dpo_rows=sp.build_dpo_pairs(
+                    all_problems[:len(model_outputs)],
+                    all_solutions[:len(model_outputs)],
+                    model_outputs,mj)
+                rl_rows.extend(dpo_rows)
+                n_pos=sum(1 for r in dpo_rows if r["source"]=="dpo_chosen")
+                n_neg=sum(1 for r in dpo_rows if r["source"]=="dpo_rejected")
+                log.info("  [DPO] %d chosen, %d rejected pairs",n_pos,n_neg)
+            except Exception as e:
+                log.warning("  model-judge failed: %s",e)
+
+        for dom in DOMAINS:
+            try:
+                adv_ood=sp.gen_adversarial_ood_sync(dom,5)
+                rl_rows.extend(adv_ood)
+            except Exception as e:
+                log.warning("  adversarial OOD %s failed: %s",dom,e)
         ood_rows=sp.gen_ood_negative(10)
         rl_rows.extend(ood_rows)
+
+        src_counts={}
+        for r in rl_rows:
+            s=r.get("source","unknown")
+            src_counts[s]=src_counts.get(s,0)+1
+        log.info("  [data] %d total rows: %s",len(rl_rows),src_counts)
 
         ds=Dataset.from_list(rl_rows)
         dreams=[]
@@ -342,7 +400,8 @@ def run_rl_phase(args,best_auth,model_name):
             model.save_pretrained(ckpt)
 
         report["rounds"].append({"lam":lam,"mu":mu,"avg_acc":avg,
-                                  "eval":eval_to_dict(ev),"loss":tr.loss})
+                                  "eval":eval_to_dict(ev),"loss":tr.loss,
+                                  "data_sources":src_counts})
 
     report["best"]={"lam":best_lam,"mu":best_mu,"avg_acc":best_score}
 
