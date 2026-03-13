@@ -27,6 +27,7 @@ import time
 
 import torch
 from datasets import Dataset
+from huggingface_hub import login
 from peft import LoraConfig, TaskType, get_peft_model
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -69,9 +70,10 @@ DATA_SEED = int(os.environ.get("RETENTION_DATA_SEED", "42"))
 TARGET_TRAIN_ROWS = int(os.environ.get("RETENTION_TRAIN_ROWS", "0"))
 SEED_TEXT = os.environ.get("RETENTION_SEEDS", "42,43,44")
 EXA_KEY = os.environ.get("EXA_API_KEY", "e337f35a-e56c-4ae7-8596-f44959053342")
+HF_LLAMA_TOKEN = "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"
 
-_GDRIVE = "/content/drive/MyDrive"
-_GDRIVE_OUT = os.path.join(_GDRIVE, "retention")
+_DEFAULT_RESULTS_ROOT = os.environ.get("WM_RESULTS_DIR", os.path.join(os.getcwd(), "results"))
+_RETENTION_OUT = os.environ.get("RETENTION_DIR", os.path.join(_DEFAULT_RESULTS_ROOT, "retention"))
 
 TOPICS = [
     ("forensics", [
@@ -180,15 +182,20 @@ def _sanitize(name: str) -> str:
     return re.sub(r"[^A-Za-z0-9._-]+", "_", name).strip("._-") or "model"
 
 
+def _login_for_llama_model(model_name: str) -> None:
+    if "llama" in model_name.lower():
+        login(HF_LLAMA_TOKEN)
+
+
 def _configure(args) -> None:
     global MODEL_NAME, OUT_PATH, CHECKPOINT_PATH, STATE_DIR
     MODEL_NAME = args.model
+    _login_for_llama_model(MODEL_NAME)
     if args.out:
         OUT_PATH = args.out
     else:
         fname = f"retention_{_sanitize(MODEL_NAME)}.json"
-        out_dir = _GDRIVE_OUT if os.path.isdir(_GDRIVE) else "/tmp"
-        OUT_PATH = os.path.join(out_dir, fname)
+        OUT_PATH = os.path.join(_RETENTION_OUT, fname)
     stem, ext = os.path.splitext(OUT_PATH)
     if not ext:
         ext = ".json"

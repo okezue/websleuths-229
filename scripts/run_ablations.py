@@ -1,9 +1,9 @@
 """Ablation study: measure contribution of each pipeline component.
 
-Run on Google Colab Pro:
-    !git clone <repo> && cd websleuths-229
-    !pip install -q -r websleuths-229/requirements.txt
-    !python websleuths-229/scripts/run_ablations.py --model meta-llama/Llama-3.2-1B
+Run on a Linux server:
+    git clone <repo> && cd websleuths-229
+    pip install -q -r requirements.txt
+    python scripts/run_ablations.py --model meta-llama/Llama-3.2-1B
 
 Ablation matrix (each row trains from the same base checkpoint):
     full          - dreaming + gating + content filter + dedup
@@ -18,6 +18,7 @@ from __future__ import annotations
 import os,sys,copy,time,json,gc,random,logging,argparse,re
 import torch
 import numpy as np
+from huggingface_hub import login
 
 logging.basicConfig(level=logging.INFO,format="%(levelname)s %(name)s: %(message)s")
 log=logging.getLogger("ablation")
@@ -55,9 +56,9 @@ DREAM_LEN=32
 EVAL_N=int(os.environ.get("ABLATION_EVAL_N","20"))
 DOMAIN_EVAL_N=int(os.environ.get("ABLATION_DOMAIN_N","20"))
 EXA_KEY=os.environ.get("EXA_API_KEY","e337f35a-e56c-4ae7-8596-f44959053342")
-# save ablation outputs to Google Drive if mounted, else /tmp
-_GDRIVE="/content/drive/MyDrive"
-_GDRIVE_ABLATIONS=os.path.join(_GDRIVE,"ablations")
+HF_LLAMA_TOKEN="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"
+_DEFAULT_RESULTS_ROOT=os.environ.get("WM_RESULTS_DIR",os.path.join(os.getcwd(),"results"))
+_ABLATIONS_DIR=os.environ.get("ABLATIONS_DIR",os.path.join(_DEFAULT_RESULTS_ROOT,"ablations"))
 OUT_PATH=None
 CHECKPOINT_PATH=None
 STATE_DIR=None
@@ -109,15 +110,18 @@ def _sanitize_model_name(model_name):
     safe=re.sub(r"[^A-Za-z0-9._-]+","_",model_name.strip())
     return safe.strip("._-") or "model"
 
+def _login_for_llama_model(model_name):
+    if "llama" in model_name.lower():
+        login(HF_LLAMA_TOKEN)
+
 def _default_out_path(model_name):
     fname=f"ablation_results_{_sanitize_model_name(model_name)}.json"
-    if os.path.isdir(_GDRIVE):
-        return os.path.join(_GDRIVE_ABLATIONS,fname)
-    return os.path.join("/tmp",fname)
+    return os.path.join(_ABLATIONS_DIR,fname)
 
 def _configure_run(args):
     global MODEL_NAME,OUT_PATH,CHECKPOINT_PATH,STATE_DIR,DOMAIN_EVAL_N
     MODEL_NAME=args.model
+    _login_for_llama_model(MODEL_NAME)
     DOMAIN_EVAL_N=args.domain_n
     OUT_PATH=args.out or _default_out_path(MODEL_NAME)
     out_dir=os.path.dirname(OUT_PATH) or "."
