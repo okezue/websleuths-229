@@ -12,3 +12,7 @@ forgetting/*_checkpoint.json
 forgetting/*_state/
 retention/*_checkpoint.json
 retention/*_state/
+results/ablations/*_checkpoint.json
+results/ablations/*_state/
+results/retention/*_checkpoint.json
+results/retention/*_state/
