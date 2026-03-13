@@ -13,4 +13,4 @@ set -euo pipefail
 cd /home/users/agromyko/websleuths-229
 export TOKENIZERS_PARALLELISM=false
 
-python3 scripts/run_dreaming_forgetting.py --model Qwen/Qwen2.5-3B
+python3 -u scripts/run_dreaming_forgetting.py --model Qwen/Qwen2.5-3B
