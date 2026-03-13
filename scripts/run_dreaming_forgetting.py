@@ -26,6 +26,7 @@ import sys
 import time
 
 import torch
+import torch.nn.functional as F
 from datasets import Dataset
 from huggingface_hub import login
 from peft import LoraConfig, TaskType, get_peft_model
@@ -227,16 +228,23 @@ def _adapter_path(seed: int, config_name: str, topic_idx: int) -> str:
     return os.path.join(STATE_DIR, f"s{seed}_{config_name}_t{topic_idx}_adapter.pt")
 
 
+def _adapter_state(model) -> dict[str, torch.Tensor]:
+    return {k: v.detach().cpu().clone() for k, v in model.state_dict().items() if "lora_" in k}
+
+
 def _save_adapter(model, seed: int, config_name: str, topic_idx: int) -> str:
     path = _adapter_path(seed, config_name, topic_idx)
-    state = {k: v.detach().cpu() for k, v in model.state_dict().items() if "lora_" in k}
-    torch.save(state, path)
+    torch.save(_adapter_state(model), path)
     return path
+
+
+def _load_adapter_state(model, state: dict[str, torch.Tensor]) -> None:
+    model.load_state_dict(state, strict=False)
 
 
 def _load_adapter(model, path: str) -> None:
     state = torch.load(path, map_location="cpu")
-    model.load_state_dict(state, strict=False)
+    _load_adapter_state(model, state)
 
 
 def _row_hash(rows: list[dict]) -> str:
@@ -257,6 +265,35 @@ def _device_name() -> str:
     if not torch.cuda.is_available():
         return "CPU only"
     return torch.cuda.get_device_name(0)
+
+
+def _anchor_reference(model, tok, anchors: list[str], max_len: int = 128) -> list[dict]:
+    model.eval()
+    dev = next(model.parameters()).device
+    refs = []
+    with torch.no_grad():
+        for anchor in anchors:
+            enc = tok(anchor, return_tensors="pt", truncation=True, max_length=max_len)
+            enc_dev = {k: v.to(dev) for k, v in enc.items()}
+            logits = model(**enc_dev).logits.detach().cpu().float()
+            refs.append({"anchor": anchor, "inputs": enc, "logits": logits})
+    return refs
+
+
+def _drift_kl_to_reference(model, refs: list[dict]) -> float:
+    model.eval()
+    dev = next(model.parameters()).device
+    total = 0.0
+    n = 0
+    with torch.no_grad():
+        for ref in refs:
+            enc = {k: v.to(dev) for k, v in ref["inputs"].items()}
+            logits_new = model(**enc).logits
+            p = F.softmax(ref["logits"].to(logits_new.device, dtype=logits_new.dtype), dim=-1)
+            q = F.log_softmax(logits_new, dim=-1)
+            total += F.kl_div(q, p, reduction="batchmean").clamp_min(0.0).item()
+            n += 1
+    return total / max(n, 1)
 
 
 def _serialize_episode(ep: Episode) -> dict:
@@ -403,9 +440,14 @@ def make_model():
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     dtype = torch.bfloat16 if torch.cuda.is_available() else torch.float32
-    model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, torch_dtype=dtype, trust_remote_code=True)
+    load_kwargs = {
+        "dtype": dtype,
+        "trust_remote_code": True,
+        "low_cpu_mem_usage": True,
+    }
     if torch.cuda.is_available():
-        model = model.cuda()
+        load_kwargs["device_map"] = {"": 0}
+    model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, **load_kwargs)
     lc = LoraConfig(
         r=LORA_R,
         lora_alpha=LORA_ALPHA,
@@ -496,14 +538,25 @@ def forgetting_summary(updates: list[dict], topic_names: list[str]) -> dict:
     return out
 
 
-def run_config(seed: int, config_name: str, dream_on: bool, base_model, base_snap: dict, tok, data: list[dict], run_state: dict, state: dict, topic_names: list[str]) -> dict:
+def run_config(
+    seed: int,
+    config_name: str,
+    dream_on: bool,
+    model,
+    base_adapter_state: dict[str, torch.Tensor],
+    base_anchor_ref: list[dict],
+    tok,
+    data: list[dict],
+    run_state: dict,
+    state: dict,
+    topic_names: list[str],
+) -> dict:
     pr(f"CONFIG: {config_name}  (dreaming={'ON' if dream_on else 'OFF'})")
     cfg_state = run_state.setdefault("configs", {}).setdefault(config_name, {"dream_on": dream_on, "updates": []})
     updates = list(cfg_state.get("updates", []))
     done_count = sum(1 for u in updates if u.get("_status") == "done")
 
-    model = copy.deepcopy(base_model)
-    model.load_state_dict(base_snap)
+    _load_adapter_state(model, base_adapter_state)
     if done_count > 0:
         ckpt = _adapter_path(seed, config_name, done_count - 1)
         if os.path.exists(ckpt):
@@ -513,7 +566,7 @@ def run_config(seed: int, config_name: str, dream_on: bool, base_model, base_sna
             log.warning("%s: adapter missing, restarting from scratch", config_name)
             updates = []
             done_count = 0
-            model.load_state_dict(base_snap)
+            _load_adapter_state(model, base_adapter_state)
 
     for i, topic in enumerate(data):
         if i < done_count:
@@ -524,7 +577,8 @@ def run_config(seed: int, config_name: str, dream_on: bool, base_model, base_sna
         set_seed(seed * 1000 + i)
         t0 = time.time()
 
-        teacher = copy.deepcopy(model).eval()
+        prev_anchor_ref = _anchor_reference(model, tok, ANCHORS[:3], max_len=64)
+        teacher = copy.deepcopy(model).eval() if dream_on else None
         ds_train = _rows_to_dataset(topic["train_rows"])
         dream_prompts = build_dream_prompts(data, i)
         lam_init = 1.0 if dream_on else 0.0
@@ -549,10 +603,15 @@ def run_config(seed: int, config_name: str, dream_on: bool, base_model, base_sna
             f"lambda_final={tr.extras.get('lambda', lam_init):.4f} prompts={len(dream_prompts)}"
         )
 
+        del teacher
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+
         evals = eval_all_topics(model, tok, data)
         anchor_nll = AnchorEval(model, tok, ANCHORS).nll()
-        drift_base = drift_kl(model, base_model, tok, ANCHORS[:3], max_len=64)
-        drift_prev = drift_kl(model, teacher, tok, ANCHORS[:3], max_len=64)
+        drift_base = _drift_kl_to_reference(model, base_anchor_ref)
+        drift_prev = _drift_kl_to_reference(model, prev_anchor_ref)
         print(f"  anchor_nll={anchor_nll:.4f} drift_base={drift_base:.6f} drift_prev={drift_prev:.6f}")
 
         ckpt_path = _save_adapter(model, seed, config_name, i)
@@ -578,15 +637,10 @@ def run_config(seed: int, config_name: str, dream_on: bool, base_model, base_sna
         cfg_state["summary"] = forgetting_summary(updates, topic_names)
         _save_checkpoint(state)
 
-        del teacher
         gc.collect()
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
 
-    del model
-    gc.collect()
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
     return {
         "dream_on": dream_on,
         "updates": updates,
@@ -747,18 +801,19 @@ def main() -> None:
         run_state = state["runs"].setdefault(run_key, {"seed": seed, "baseline": None, "configs": {}})
 
         set_seed(seed)
-        base_model, tok = make_model()
+        model, tok = make_model()
         if seed == run_seeds[0]:
-            base_model.print_trainable_parameters()
-        base_snap = {k: v.detach().clone() for k, v in base_model.state_dict().items()}
+            model.print_trainable_parameters()
+        base_adapter_state = _adapter_state(model)
+        base_anchor_ref = _anchor_reference(model, tok, ANCHORS[:3], max_len=64)
 
         if run_state.get("baseline"):
             print(f"Seed {seed}: baseline RESUMED from checkpoint")
         else:
             print(f"Seed {seed}: computing baseline on all held-out topic splits...")
             run_state["baseline"] = {
-                "topic_evals": eval_all_topics(base_model, tok, data),
-                "anchor_nll": AnchorEval(base_model, tok, ANCHORS).nll(),
+                "topic_evals": eval_all_topics(model, tok, data),
+                "anchor_nll": AnchorEval(model, tok, ANCHORS).nll(),
             }
             _save_checkpoint(state)
             print(f"  baseline anchor_nll={run_state['baseline']['anchor_nll']:.4f}")
@@ -768,8 +823,9 @@ def main() -> None:
                 seed,
                 config_name,
                 dream_on,
-                base_model,
-                base_snap,
+                model,
+                base_adapter_state,
+                base_anchor_ref,
                 tok,
                 data,
                 run_state,
@@ -779,7 +835,7 @@ def main() -> None:
             _save_checkpoint(state)
 
         all_runs[run_key] = run_state
-        del base_model
+        del model
         gc.collect()
         if torch.cuda.is_available():
             torch.cuda.empty_cache()

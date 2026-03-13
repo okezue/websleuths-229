@@ -21,7 +21,10 @@ class EATRDRunner:
     def run(self,model,teacher,ds,dream_prompts:list[str],tok,
             dbank=None)->TrainResult:
         dev=next(model.parameters()).device
-        teacher=teacher.to(dev);teacher.eval();model.train()
+        if teacher is not None:
+            teacher=teacher.to(dev)
+            teacher.eval()
+        model.train()
         opt=AdamW([p for p in model.parameters() if p.requires_grad],lr=self.lr)
         col=WeightedLMCollator(tok)
         dl=make_ep_dl(ds,tok,col,self.bs,self.max_len)
@@ -42,7 +45,9 @@ class EATRDRunner:
                 ids=batch["input_ids"];mask=batch["attention_mask"];w=batch["weights"]
                 out=model(input_ids=ids,attention_mask=mask)
                 l_ep=weighted_ce(out.logits,ids,mask,w)
-                if dbank is not None:
+                if teacher is None:
+                    l_dr=torch.tensor(0.0,device=dev)
+                elif dbank is not None:
                     st=dbank.sample_with_temps(dev)
                     if st is not None:
                         d_inp,temps=st
