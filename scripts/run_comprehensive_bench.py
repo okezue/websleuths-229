@@ -19,6 +19,8 @@ from wm.bench.plots import (plot_train_loss,plot_dream_loss,plot_lambda_evo,
     plot_anchor_drift,plot_dream_bank_growth,plot_before_after)
 from wm.pipe.loop import AgenticPipeline
 from wm.eval.anchor import AnchorEval
+from wm.analysis.live_monitor import LiveMonitor,DomainSnapshot
+from wm.analysis.model_profile import ModelProfiler
 
 log=logging.getLogger("comprehensive_bench")
 DEV=torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -36,19 +38,26 @@ def make_recipe_fn(name,tok,bs=2,lr=2e-4,ml=256,dn=4,dl=64,
                    neurogenesis=False,ng_cfg=None):
     _last={"result":None}
     _bank={"bank":NeurogenesisBank() if neurogenesis else None}
+    _teacher={"model":None}
     def fn(model,ds,dreams,steps=50,dbank=None,distill_ds=None,
            guard_failures=0,domain="",topic=""):
         dev=next(model.parameters()).device
-        t0=time.time()
-        teacher=copy.deepcopy(model).eval().to(dev)
-        log.info("    teacher copy took %.1fs",time.time()-t0)
+        if _teacher["model"] is None:
+            t0=time.time()
+            t_dev=torch.device("cuda:1") if torch.cuda.device_count()>1 else dev
+            model.cpu()
+            _teacher["model"]=copy.deepcopy(model).to(t_dev).eval()
+            model.to(dev)
+            torch.cuda.empty_cache()
+            log.info("    teacher created on %s (%.1fs)",t_dev,time.time()-t0)
+        teacher=_teacher["model"]
         res=None
         if name=="eatrd" and neurogenesis:
             nc=ng_cfg or {}
             r=NeurogenesisEATRD(lr=lr,max_steps=steps,bs=bs,temp=2.0,
-                eps_min=0.01,alpha=0.5,rho=0.01,lam_init=1.0,
+                eps_min=0.01,alpha=0.5,rho=0.01,lam_init=0.1,
                 max_len=ml,dream_n=dn,dream_len=dl,
-                d_targ=0.5,lam_floor=0.01,lam_ceil=10.0,use_pi=True,
+                d_targ=0.2,lam_floor=0.01,lam_ceil=3.0,use_pi=True,
                 pi_warmup_frac=0.15,
                 mu_init=mu_init,mu_floor=mu_floor,mu_ceil=mu_ceil,
                 spawn_loss_thresh=nc.get("spawn_loss_thresh",2.0),
@@ -62,9 +71,9 @@ def make_recipe_fn(name,tok,bs=2,lr=2e-4,ml=256,dn=4,dl=64,
                       domain=domain,topic=topic)
         elif name=="eatrd":
             r=EATRDRunner(lr=lr,max_steps=steps,bs=bs,temp=2.0,
-                eps_min=0.01,alpha=0.5,rho=0.01,lam_init=1.0,
+                eps_min=0.01,alpha=0.5,rho=0.01,lam_init=0.1,
                 max_len=ml,dream_n=dn,dream_len=dl,
-                d_targ=0.5,lam_floor=0.01,lam_ceil=10.0,use_pi=True,
+                d_targ=0.2,lam_floor=0.01,lam_ceil=3.0,use_pi=True,
                 pi_warmup_frac=0.15,
                 mu_init=mu_init,mu_floor=mu_floor,mu_ceil=mu_ceil)
             res=r.run(model,teacher,ds,dreams,tok,dbank=dbank,distill_ds=distill_ds)
@@ -77,7 +86,7 @@ def make_recipe_fn(name,tok,bs=2,lr=2e-4,ml=256,dn=4,dl=64,
             r=EABSSCRunner(lr=lr,max_steps=steps,bs=bs,temp=2.0,
                 dream_weight=0.5,max_len=ml,dream_n=dn,dream_len=dl)
             res=r.day(model,teacher,ds,dreams,tok,dbank=dbank)
-        del teacher;gc.collect()
+        gc.collect()
         if torch.cuda.is_available():torch.cuda.empty_cache()
         if dbank is not None:
             log.info("    DreamBank: %s total=%d",dbank.bucket_sizes(),
@@ -153,7 +162,7 @@ def load_model_qlora(model_name,lora_r,dev):
             base=AutoModelForCausalLM.from_pretrained(
                 model_name,quantization_config=bnb_cfg,
                 torch_dtype=torch.bfloat16,trust_remote_code=True,
-                device_map="auto")
+                device_map={"":0})
             log.info("loaded with QLoRA 4-bit quantization")
         except Exception as e:
             log.warning("QLoRA load failed (%s), falling back to bf16",e)
@@ -193,16 +202,16 @@ def main():
     ap.add_argument("--lr",type=float,default=2e-4)
     ap.add_argument("--bs",type=int,default=2)
     ap.add_argument("--ml",type=int,default=256)
-    ap.add_argument("--min-steps",type=int,default=30)
-    ap.add_argument("--max-steps",type=int,default=150)
+    ap.add_argument("--min-steps",type=int,default=80)
+    ap.add_argument("--max-steps",type=int,default=300)
     ap.add_argument("--hf-token",default=os.environ.get("HF_TOKEN",""))
     ap.add_argument("--eval-n",type=int,default=0,help="0=full eval")
     ap.add_argument("--mmlu-every",type=int,default=2)
     ap.add_argument("--example-n",type=int,default=5)
-    ap.add_argument("--claude-model",default="claude-sonnet-4-5-20250929")
+    ap.add_argument("--claude-model",default="claude-opus-4-6")
     ap.add_argument("--claude-concurrency",type=int,default=10)
-    ap.add_argument("--distill-n",type=int,default=20)
-    ap.add_argument("--mu-init",type=float,default=0.5)
+    ap.add_argument("--distill-n",type=int,default=200)
+    ap.add_argument("--mu-init",type=float,default=1.5)
     ap.add_argument("--no-distill",action="store_true")
     ap.add_argument("--no-multi-search",action="store_true")
     ap.add_argument("--no-procedural",action="store_true")
@@ -243,8 +252,18 @@ def main():
     pr("LOADING MODEL")
     t0=time.time()
     base,tok,used_qlora=load_model_qlora(args.model,args.lora_r,DEV)
-    teacher_snap=copy.deepcopy(base).eval()
+    if torch.cuda.device_count()>1:
+        base.cpu()
+        teacher_snap=copy.deepcopy(base).to("cuda:1").eval()
+        base.to(DEV)
+        torch.cuda.empty_cache()
+    else:
+        teacher_snap=copy.deepcopy(base).eval()
+    base_state={n:p.detach().cpu().clone() for n,p in base.named_parameters() if p.requires_grad}
     log.info("model loaded in %.1fs (qlora=%s)",time.time()-t0,used_qlora)
+    profiler=ModelProfiler(hardware="nvidia_A10G")
+    bp=profiler.profile_live_model(base,tok)
+    log.info("model profile: params=%d trainable=%d mem=%.1fGB",bp.total_params,bp.trainable_params,bp.memory_gb)
 
     use_ng=args.neurogenesis and not args.no_neurogenesis
     ng_cfg_dict={"spawn_loss_thresh":args.spawn_loss_thresh,
@@ -318,6 +337,10 @@ def main():
         json.dump(report,f,indent=2,default=str)
     log.info("  baseline results saved")
 
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+        log.info("GPU memory cleared before Phase 2: GPU0=%.1fGB",torch.cuda.memory_allocated(0)/1e9)
     pr("PHASE 2: SEQUENTIAL DOMAIN LEARNING WITH PROCEDURAL KG + DISTILLATION")
     log.info("Gates DISABLED — all topics will search + train")
     log.info("Extraction: %s","Claude KG + procedural" if args.anthropic_key else "regex fallback")
@@ -369,6 +392,8 @@ def main():
     all_diags=[]
     timing_log=[]
     judge_scores=[]
+    monitor=LiveMonitor(od,baseline_state=base_state)
+    global_step=0
 
     for di,dom in enumerate(DOMAINS):
         pr(f"DOMAIN {di+1}/{len(DOMAINS)}: {dom.upper()}")
@@ -415,6 +440,21 @@ def main():
             if tr:
                 dom_ft_steps+=tr.steps
                 total_ft_steps+=tr.steps
+                global_step+=tr.steps
+                mstats=monitor.compute_model_stats(base,base_state)
+                snap=DomainSnapshot(domain=dom,topic=topic,step=global_step,
+                    loss=tr.loss,dream_loss=tr.dream_loss or 0,
+                    distill_loss=tr.extras.get("distill_loss",0),
+                    lam=tr.extras.get("lambda",0),mu=tr.extras.get("mu",0),
+                    n_adapters=tr.extras.get("n_adapters",0),
+                    rank_chunks=tr.extras.get("rank_chunks",0),
+                    total_rank=tr.extras.get("total_rank",0),
+                    spawned=tr.extras.get("spawned",False),
+                    anchor_nll=anc.nll(),
+                    grad_norm=mstats.get("grad_norm",0),
+                    param_norm=mstats.get("param_norm",0),
+                    weight_delta_norm=mstats.get("weight_delta",0))
+                monitor.record_snapshot(snap)
                 dl_str=f" distill_loss={tr.extras.get('distill_loss',0):.4f}" if tr.extras.get("distill_loss") else ""
                 log.info("  [%s] TRAINED: loss=%.4f dream_loss=%.4f%s steps=%d lr=%.2e time=%.1fs",
                          ts(),tr.loss,tr.dream_loss or 0,dl_str,tr.steps,tr.lr,t_topic)
@@ -526,6 +566,8 @@ def main():
             log.info("  [%s] backtest %s: acc=%.4f n=%d (baseline=%.4f delta=%+.4f) [%s]",
                      ts(),pd,bs.acc,bs.n,bl_pd,delta,tag)
         dom_report["backtest"]=bt
+        for pd in prev_doms:
+            monitor.record_forgetting(pd,pd,bl_bench[pd].acc,bt[pd]["acc"],global_step)
 
         for d2 in DOMAINS:
             if d2 in prev_doms:
@@ -595,6 +637,9 @@ def main():
         with open(f"{od}/results_partial.json","w") as f:
             json.dump(report,f,indent=2,default=str)
         log.info("  partial results saved to %s/results_partial.json",od)
+        monitor.save_analysis()
+        monitor.plot_all()
+        log.info("  analysis plots saved to %s/analysis/",od)
 
         try:pipe.close()
         except:pass
@@ -770,6 +815,18 @@ def main():
     print(f"\nResults: {od}/results.json")
     print(f"Plots:   {od}/plots/")
     print(f"Log:     {od}/bench.log")
+    monitor.save_analysis()
+    monitor.plot_all()
+    ap2=profiler.profile_live_model(base,tok)
+    log.info("final profile: params=%d trainable=%d mem=%.1fGB",ap2.total_params,ap2.trainable_params,ap2.memory_gb)
+    pdiff=profiler.compare_profiles(bp,ap2)
+    log.info("profile delta: %s",pdiff)
+    report["analysis"]={"profile_before":{"params":bp.total_params,"trainable":bp.trainable_params,"mem":bp.memory_gb},
+                          "profile_after":{"params":ap2.total_params,"trainable":ap2.trainable_params,"mem":ap2.memory_gb},
+                          "profile_delta":pdiff}
+    with open(f"{od}/results.json","w") as f:
+        json.dump(report,f,indent=2,default=str)
+    print(f"Analysis: {od}/analysis/")
     pr("COMPREHENSIVE BENCHMARK V3 COMPLETE")
 
 if __name__=="__main__":

@@ -153,14 +153,19 @@ class AgenticSearcher:
             topic=topic,claims=all_claims,entities=all_entities,
             communities=comms,chunks=all_chunks,rounds=rnd+1,
             sources=sources)
-        if (self._cfg.extraction_backend=="claude"
-                and self._cfg.anthropic_api_key and raw_all):
+        import os as _os
+        has_llm=self._cfg.anthropic_api_key or _os.environ.get("OPENAI_API_KEY","")
+        if self._cfg.extraction_backend in ("claude","gpt") and has_llm and raw_all:
             try:
                 from wm.search.kg_builder import KGBuilder
+                import os
                 known=[e.name for e in all_entities]
-                kg=KGBuilder(self._cfg.anthropic_api_key,
+                okey=os.environ.get("OPENAI_API_KEY","")
+                kg=KGBuilder(self._cfg.anthropic_api_key or "",
                              concurrency=self._cfg.claude_concurrency,
-                             model=self._cfg.claude_model)
+                             model=self._cfg.claude_model,
+                             backend="gpt" if okey else "claude",
+                             openai_key=okey)
                 cl,en,co,tr=kg.run_sync(raw_all,topic,known)
                 if cl:
                     sr.claims=cl

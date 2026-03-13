@@ -97,7 +97,7 @@ class ProceduralKnowledge:
 
 async def extract_procedural(client,text:str,domain:str,topic:str,
                               sem:asyncio.Semaphore,
-                              model:str="claude-sonnet-4-5-20250929")->ProceduralKnowledge:
+                              model:str="claude-opus-4-6")->ProceduralKnowledge:
     if len(text)<50:
         return ProceduralKnowledge()
     text=text[:8000]
@@ -116,7 +116,7 @@ async def extract_procedural(client,text:str,domain:str,topic:str,
 async def gen_benchmark_questions(client,domain:str,topic:str,
                                    concepts:list[dict],sem:asyncio.Semaphore,
                                    n:int=10,
-                                   model:str="claude-sonnet-4-5-20250929")->list[dict]:
+                                   model:str="claude-opus-4-6")->list[dict]:
     clist=", ".join(c.get("term","") for c in concepts[:20])
     prompt=BENCHMARK_Q_PROMPT.format(domain=domain,topic=topic,concepts=clist,n=n)
     data=await _call(client,prompt,sem,model=model,max_tokens=4096)
@@ -124,7 +124,7 @@ async def gen_benchmark_questions(client,domain:str,topic:str,
 
 async def gen_harder_variants(client,domain:str,questions:list[dict],
                                sem:asyncio.Semaphore,
-                               model:str="claude-sonnet-4-5-20250929")->list[dict]:
+                               model:str="claude-opus-4-6")->list[dict]:
     if not questions:
         return []
     qtxt="\n".join(f"- {q.get('question','')}" for q in questions[:10])

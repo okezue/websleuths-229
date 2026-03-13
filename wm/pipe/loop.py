@@ -114,6 +114,10 @@ class AgenticPipeline:
                 "adaptive_steps":asteps,"train_rows":len(ds_rows),
                 "distill_rows":len(distill_rows),
                 "train_source":"claude_kg" if sr.train_rows else "claims_or_chunks"}
+        import torch as _torch
+        if _torch.cuda.is_available():
+            _torch.cuda.empty_cache()
+            import gc as _gc;_gc.collect()
         _db=self._dbank
         _dds=distill_ds
         _gf=self._guard_failures

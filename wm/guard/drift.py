@@ -14,7 +14,7 @@ def drift_kl(model_new,model_old,tok,anchors:list[str],
             lo_old=model_old(**enc).logits
             p=F.softmax(lo_old,dim=-1)
             q=F.log_softmax(lo_new,dim=-1)
-            kl=F.kl_div(q,p,reduction="batchmean").item()
+            kl=F.kl_div(q,p,reduction="batchmean").clamp(min=0).item()
             total+=kl
             n+=1
     return total/max(n,1)

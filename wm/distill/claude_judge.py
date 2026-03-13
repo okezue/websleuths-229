@@ -42,7 +42,7 @@ class JudgeResult:
 
 class JudgePipeline:
     def __init__(self,api_key:str,concurrency:int=10,
-                 model:str="claude-sonnet-4-5-20250929"):
+                 model:str="claude-opus-4-6"):
         from anthropic import AsyncAnthropic
         self._client=AsyncAnthropic(api_key=api_key)
         self._sem=asyncio.Semaphore(concurrency)

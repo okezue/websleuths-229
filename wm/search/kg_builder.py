@@ -24,10 +24,19 @@ class UnionFind:
 
 class KGBuilder:
     def __init__(self,api_key:str,concurrency:int=10,
-                 model:str="claude-sonnet-4-5-20250929",
-                 procedural:bool=True,domain:str=""):
-        from anthropic import AsyncAnthropic
-        self._client=AsyncAnthropic(api_key=api_key)
+                 model:str="gpt-5.4",
+                 procedural:bool=True,domain:str="",
+                 backend:str="gpt",openai_key:str|None=None):
+        from wm.search.claude_extract import set_backend
+        if backend=="gpt" and openai_key:
+            set_backend("gpt",openai_key=openai_key)
+            self._client=None
+        else:
+            try:
+                from anthropic import AsyncAnthropic
+                self._client=AsyncAnthropic(api_key=api_key)
+            except:
+                self._client=None
         self._sem=asyncio.Semaphore(concurrency)
         self._model=model
         self._claims:list[dict]=[]

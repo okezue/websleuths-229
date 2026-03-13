@@ -19,7 +19,8 @@ def dream_kl(s_logits:torch.Tensor,t_logits:torch.Tensor,
              temp:float=2.0)->torch.Tensor:
     s=F.log_softmax(s_logits/temp,dim=-1)
     t=F.softmax(t_logits/temp,dim=-1)
-    return F.kl_div(s,t,reduction="batchmean")*(temp**2)
+    kl=F.kl_div(s,t,reduction="none").sum(-1).mean()
+    return kl.clamp(min=0)*(temp**2)
 
 def multi_temp_dream_kl(s_logits:torch.Tensor,t_logits:torch.Tensor,
                         temps:list[float])->torch.Tensor:
@@ -27,7 +28,7 @@ def multi_temp_dream_kl(s_logits:torch.Tensor,t_logits:torch.Tensor,
     t_t=torch.tensor(temps,device=s_logits.device,dtype=s_logits.dtype).view(B,1,1)
     s=F.log_softmax(s_logits/t_t,dim=-1)
     t=F.softmax(t_logits/t_t,dim=-1)
-    kl=F.kl_div(s,t,reduction="none").sum(-1)
+    kl=F.kl_div(s,t,reduction="none").sum(-1).clamp(min=0)
     per=(kl*t_t.squeeze(-1)**2).mean(-1)
     return per.mean()
 

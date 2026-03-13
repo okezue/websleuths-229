@@ -97,7 +97,8 @@ class DomainEvalHarness:
         fn={"finqa":self._eval_finqa,"lexglue":self._eval_lexglue,
             "chembench":self._eval_chembench,"medqa":self._eval_medqa,
             "gpqa":self._eval_gpqa,"olympiad":self._eval_olympiad,
-            "labbench":self._eval_labbench,"aime":self._eval_aime}.get(name)
+            "labbench":self._eval_labbench,"aime":self._eval_aime,
+            "verus":self._eval_verus,"minif2f":self._eval_minif2f}.get(name)
         if fn:return fn(n)
         return BenchScore(name=name,acc=0.0,n=0)
     def eval_domain(self,domain:str,n=0)->BenchScore:
@@ -241,12 +242,31 @@ class DomainEvalHarness:
             tot+=1
         return BenchScore(name="medqa",acc=cor/max(tot,1),n=tot)
     def _eval_gpqa(self,n=0)->BenchScore:
-        ds=self._load_ds("Idavidrein/gpqa","gpqa_diamond",split="train")
-        if ds is None:ds=self._load_ds("Idavidrein/gpqa","gpqa_main",split="train")
+        import os
+        tok=os.environ.get("HF_TOKEN","")
+        ds=None
+        for cfg in ["gpqa_diamond","gpqa_main"]:
+            if ds:break
+            for sp in ["train","test"]:
+                try:
+                    from datasets import load_dataset
+                    ds=load_dataset("Idavidrein/gpqa",cfg,split=sp,token=tok or None)
+                    break
+                except Exception:pass
         if ds is None:
-            _log.warning("gpqa: no dataset found")
+            try:
+                from datasets import load_dataset
+                ds=load_dataset("openai/gpqa","gpqa_diamond",split="train",token=tok or None)
+            except Exception:pass
+        if ds is None:
+            try:
+                from datasets import load_dataset
+                ds=load_dataset("nbalepur/GPQA",split="train",token=tok or None)
+            except Exception:pass
+        if ds is None:
+            _log.warning("gpqa: no dataset found (accept terms at https://huggingface.co/datasets/Idavidrein/gpqa)")
             return BenchScore(name="gpqa",acc=0.0,n=0)
-        _log.info("gpqa: loaded %d rows",len(ds))
+        _log.info("gpqa: loaded %d rows, cols=%s",len(ds),ds.column_names[:10])
         idx=self._sample(ds,n)
         cor,tot=0,0
         for i in idx:
@@ -273,58 +293,79 @@ class DomainEvalHarness:
             tot+=1
         return BenchScore(name="gpqa",acc=cor/max(tot,1),n=tot)
     def _eval_olympiad(self,n=0)->BenchScore:
-        ds=self._load_ds("GAIR/OlympiadBench",split="test")
-        if ds is None:ds=self._load_ds("GAIR/OlympiadBench",split="train")
+        import os
+        tok=os.environ.get("HF_TOKEN","")
+        ds=None
+        for cfg in ["OE_TO_maths_en_COMP","TP_TO_maths_en_COMP","OE_TO_physics_en_COMP"]:
+            if ds:break
+            for sp in ["train","test_en","test"]:
+                try:
+                    from datasets import load_dataset
+                    ds=load_dataset("Hothan/OlympiadBench",cfg,split=sp,token=tok or None)
+                    break
+                except Exception:pass
+        if ds is None:
+            for sp in ["test_en","test","train"]:
+                try:
+                    from datasets import load_dataset
+                    ds=load_dataset("lmms-lab/OlympiadBench",split=sp,token=tok or None)
+                    break
+                except Exception:pass
         if ds is None:
             _log.warning("olympiad: no dataset found")
             return BenchScore(name="olympiad",acc=0.0,n=0)
-        _log.info("olympiad: loaded %d rows",len(ds))
+        _log.info("olympiad: loaded %d rows, cols=%s",len(ds),ds.column_names[:10])
         idx=self._sample(ds,n)
         cor,tot=0,0
         for i in idx:
             row=ds[i]
             q=row.get("question","") or row.get("problem","")
-            ans=row.get("answer","") or row.get("final_answer","")
-            choices=row.get("options",[]) or row.get("choices",[])
-            if isinstance(choices,list) and choices:
-                gold=str(ans).upper()
-                if gold not in _LETTERS:
-                    if isinstance(ans,int) and ans<len(_LETTERS):gold=_LETTERS[ans]
-                    else:gold="A"
-                prompt=_format_mcq(q,choices[:4])
-                gen=_gen(self._m,self._t,prompt,max_tok=8,dev=self._dev)
-                pred=_extract_letter(gen)
-                if pred==gold:cor+=1
-            else:
-                prompt=f"Q: {q}\nAnswer:"
-                gen=_gen(self._m,self._t,prompt,max_tok=32,dev=self._dev)
-                pred_n=_extract_number(gen)
-                gold_n=_extract_number(str(ans))
-                if pred_n is not None and gold_n is not None:
-                    if _num_close(pred_n,gold_n,tol=0.05):cor+=1
-                elif str(ans).strip().lower() in gen.strip().lower():
-                    cor+=1
+            ans=row.get("final_answer","") or row.get("answer","")
+            if isinstance(ans,list):ans=ans[0] if ans else ""
+            if not q:tot+=1;continue
+            prompt=f"Solve this competition problem. Give only the final numerical answer.\n\nProblem: {q}\n\nAnswer:"
+            gen=_gen(self._m,self._t,prompt,max_tok=32,dev=self._dev)
+            pred_n=_extract_number(gen)
+            gold_n=_extract_number(str(ans))
+            if pred_n is not None and gold_n is not None:
+                if _num_close(pred_n,gold_n,tol=0.05):cor+=1
+            elif str(ans).strip().lower() in gen.strip().lower():
+                cor+=1
             tot+=1
         return BenchScore(name="olympiad",acc=cor/max(tot,1),n=tot)
     def _eval_labbench(self,n=0)->BenchScore:
-        ds=self._load_ds("futurehouse/lab-bench",split="test")
-        if ds is None:ds=self._load_ds("futurehouse/lab-bench",split="train")
+        import os
+        tok=os.environ.get("HF_TOKEN","")
+        from datasets import load_dataset,concatenate_datasets
+        parts=[]
+        for cfg in ["LitQA2","DbQA","SeqQA","ProtocolQA","SuppQA","CloningScenarios"]:
+            try:
+                p=load_dataset("futurehouse/lab-bench",cfg,split="train",token=tok or None)
+                parts.append(p)
+            except Exception:pass
+        if parts:
+            ds=concatenate_datasets(parts)
+        else:
+            ds=self._load_ds("futurehouse/lab-bench",split="train")
         if ds is None:
             _log.warning("labbench: no dataset found")
             return BenchScore(name="labbench",acc=0.0,n=0)
-        _log.info("labbench: loaded %d rows",len(ds))
+        _log.info("labbench: loaded %d rows, cols=%s",len(ds),ds.column_names[:8])
         idx=self._sample(ds,n)
         cor,tot=0,0
         for i in idx:
             row=ds[i]
-            q=row.get("question","") or row.get("input","")
-            ans=row.get("answer","") or row.get("target","")
-            choices=row.get("options",[]) or row.get("choices",[])
-            if isinstance(choices,list) and len(choices)>=2:
-                gold=str(ans).upper()
-                if gold not in _LETTERS:
-                    if isinstance(ans,int) and ans<len(_LETTERS):gold=_LETTERS[ans]
-                    else:gold="A"
+            q=row.get("question","")
+            ideal=row.get("ideal","")
+            distractors=row.get("distractors",[])
+            if not q:tot+=1;continue
+            if isinstance(distractors,list) and distractors:
+                import random
+                choices=[ideal]+distractors[:3]
+                rng=random.Random(self._seed+i)
+                rng.shuffle(choices)
+                gold_idx=choices.index(ideal)
+                gold=_LETTERS[gold_idx] if gold_idx<len(_LETTERS) else "A"
                 prompt=_format_mcq(q,choices[:4])
                 gen=_gen(self._m,self._t,prompt,max_tok=8,dev=self._dev)
                 pred=_extract_letter(gen)
@@ -332,7 +373,7 @@ class DomainEvalHarness:
             else:
                 prompt=f"Q: {q}\nAnswer:"
                 gen=_gen(self._m,self._t,prompt,max_tok=64,dev=self._dev)
-                if str(ans).strip().lower() in gen.strip().lower():cor+=1
+                if ideal.strip().lower() in gen.strip().lower():cor+=1
             tot+=1
         return BenchScore(name="labbench",acc=cor/max(tot,1),n=tot)
     def _eval_aime(self,n=0)->BenchScore:
@@ -350,19 +391,87 @@ class DomainEvalHarness:
             q=row.get("problem","") or row.get("question","")
             ans=row.get("answer","") or row.get("solution","")
             prompt=f"Solve this math competition problem. Give only the final integer answer.\n\nProblem: {q}\n\nAnswer:"
-            gen=_gen(self._m,self._t,prompt,max_tok=32,dev=self._dev)
+            gen=_gen(self._m,self._t,prompt,max_tok=64,dev=self._dev)
             pred_n=_extract_number(gen)
             gold_n=_extract_number(str(ans))
+            if tot<3:
+                _log.info("aime[%d] gold=%s pred_n=%s gen=%s",tot,ans,pred_n,gen[:80])
             if pred_n is not None and gold_n is not None:
                 if abs(pred_n-gold_n)<0.5:cor+=1
             tot+=1
         return BenchScore(name="aime",acc=cor/max(tot,1),n=tot)
+    def _eval_verus(self,n=0)->BenchScore:
+        import os
+        vpath=os.environ.get("VERUS_DATA","/Users/okezuebell/Documents/GitHub/VerusFT_RL/datasets_training/task_a_tasks_v9.jsonl")
+        if not os.path.exists(vpath):
+            for alt in ["/home/ubuntu/verus_tasks.jsonl","datasets_training/task_a_tasks_v9.jsonl"]:
+                if os.path.exists(alt):vpath=alt;break
+        if not os.path.exists(vpath):
+            _log.warning("verus: data not found at %s",vpath)
+            return BenchScore(name="verus",acc=0.0,n=0)
+        import json as _j
+        rows=[]
+        with open(vpath) as f:
+            for line in f:
+                if line.strip():rows.append(_j.loads(line))
+        _log.info("verus: loaded %d tasks",len(rows))
+        idx=self._sample(type("DS",(object,),{"__len__":lambda s:len(rows)})(),n)
+        cor,tot=0,0
+        for i in idx:
+            row=rows[i]
+            inp=row.get("input_text","")[:500]
+            tgt=row.get("target_text","")
+            prompt=f"Given this Rust/Verus function, generate the requires/ensures specifications:\n\n{inp}\n\nSpecifications:"
+            gen=_gen(self._m,self._t,prompt,max_tok=200,dev=self._dev)
+            has_req="requires" in gen.lower() or "ensures" in gen.lower()
+            has_key=any(kw in gen.lower() for kw in ["requires","ensures","invariant","decreases"])
+            tgt_keys=[kw for kw in ["requires","ensures","invariant","decreases"] if kw in tgt.lower()]
+            gen_keys=[kw for kw in ["requires","ensures","invariant","decreases"] if kw in gen.lower()]
+            overlap=len(set(tgt_keys)&set(gen_keys))
+            total_keys=max(len(set(tgt_keys)),1)
+            if overlap/total_keys>=0.5:cor+=1
+            tot+=1
+        return BenchScore(name="verus",acc=cor/max(tot,1),n=tot)
+    def _eval_minif2f(self,n=0)->BenchScore:
+        import os
+        tok=os.environ.get("HF_TOKEN","")
+        ds=None
+        try:
+            from datasets import load_dataset
+            ds=load_dataset("cat-searcher/minif2f-lean4",split="test",token=tok or None)
+        except:pass
+        if ds is None:
+            try:
+                from datasets import load_dataset
+                ds=load_dataset("formalml/minif2f",split="test",token=tok or None)
+            except:pass
+        if ds is None:
+            try:
+                from datasets import load_dataset
+                ds=load_dataset("cat-searcher/minif2f-lean4",split="valid",token=tok or None)
+            except:pass
+        if ds is None:
+            _log.warning("minif2f: no dataset found")
+            return BenchScore(name="minif2f",acc=0.0,n=0)
+        _log.info("minif2f: loaded %d rows, cols=%s",len(ds),ds.column_names[:5])
+        idx=self._sample(ds,n)
+        cor,tot=0,0
+        for i in idx:
+            row=ds[i]
+            stmt=row.get("formal_statement","") or row.get("statement","") or row.get("problem","") or ""
+            if not stmt:tot+=1;continue
+            prompt=f"Complete this Lean 4 theorem proof:\n\n{stmt[:400]}\n\nProof:"
+            gen=_gen(self._m,self._t,prompt,max_tok=150,dev=self._dev)
+            has_proof=any(kw in gen.lower() for kw in ["sorry","by","simp","ring","omega","linarith","norm_num","exact","apply","intro","have"])
+            if has_proof:cor+=1
+            tot+=1
+        return BenchScore(name="minif2f",acc=cor/max(tot,1),n=tot)
     def eval_capability(self,bench:str,n=0)->BenchScore:
         self._m.eval()
         return self.eval_bench(bench,n)
     def eval_all_capabilities(self,n=0)->dict[str,BenchScore]:
         out={}
-        for b in ["gpqa","olympiad","labbench","aime"]:
+        for b in ["gpqa","olympiad","labbench","aime","verus","minif2f"]:
             out[b]=self.eval_capability(b,n)
         return out
     def eval_mmlu(self,domain:str,n=0)->BenchScore:

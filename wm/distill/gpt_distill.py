@@ -22,18 +22,24 @@ def _parse_json(txt:str)->dict:
             return json.loads(txt[s:e])
         raise
 
+DEFAULT_GPT_TOOLS=[
+    {"type":"web_search"},
+    {"type":"code_interpreter","container":{"type":"auto"}},
+]
+
 async def _gpt_call(client,prompt:str,sem:asyncio.Semaphore,
                      model:str="gpt-5.4",tools:list|None=None,
                      reasoning:dict|None=None,
-                     max_tokens:int=4096,retries:int=2)->dict:
+                     max_tokens:int=4096,retries:int=1)->dict:
     for attempt in range(retries+1):
         try:
             async with sem:
                 kwargs={"model":model,"input":prompt}
                 if reasoning:
                     kwargs["reasoning"]=reasoning
-                if tools:
-                    kwargs["tools"]=tools
+                else:
+                    kwargs["reasoning"]={"effort":"high"}
+                kwargs["tools"]=tools if tools else DEFAULT_GPT_TOOLS
                 resp=await asyncio.to_thread(
                     lambda:client.responses.create(**kwargs))
                 txt=resp.output_text
@@ -126,7 +132,7 @@ class GPTDistillPipeline:
     def __init__(self,api_key:str,concurrency:int=10,
                  model:str="gpt-5.4"):
         from openai import OpenAI
-        self._client=OpenAI(api_key=api_key)
+        self._client=OpenAI(api_key=api_key,timeout=120,max_retries=1)
         self._sem=asyncio.Semaphore(concurrency)
         self._model=model
     async def generate_questions(self,domain:str,n:int=20)->list[DistillQuestion]:
@@ -227,7 +233,7 @@ class GPTDistillPipeline:
 class MultiModelDistill:
     def __init__(self,anthropic_key:str|None=None,openai_key:str|None=None,
                  concurrency:int=10,
-                 claude_model:str="claude-sonnet-4-5-20250929",
+                 claude_model:str="claude-opus-4-6",
                  gpt_model:str="gpt-5.4",
                  claude_thinking:bool=True):
         self._ak=anthropic_key
@@ -238,19 +244,6 @@ class MultiModelDistill:
         self._ct=claude_thinking
     def run_sync(self,domain:str,n_questions:int=20)->list[dict]:
         all_rows=[]
-        if self._ak:
-            try:
-                from wm.distill.claude_distill import DistillPipeline,build_distill_rows
-                dp=DistillPipeline(api_key=self._ak,concurrency=self._conc,
-                                    model=self._cm,thinking=self._ct)
-                qs,ans=dp.run_sync(domain,n_questions)
-                if qs and ans:
-                    rows=build_distill_rows(qs,ans)
-                    for r in rows:r["source"]="distill_claude"
-                    all_rows.extend(rows)
-                    log.info("claude distill: %d rows for %s",len(rows),domain)
-            except Exception as e:
-                log.warning("claude distill failed: %s",e)
         if self._ok:
             try:
                 gp=GPTDistillPipeline(api_key=self._ok,concurrency=self._conc,
@@ -263,4 +256,15 @@ class MultiModelDistill:
                     log.info("gpt distill: %d rows for %s",len(rows),domain)
             except Exception as e:
                 log.warning("gpt distill failed: %s",e)
+        if self._ak or self._ok:
+            try:
+                from wm.distill.self_play import SelfPlayDistill
+                sp=SelfPlayDistill(anthropic_key=self._ak,openai_key=self._ok,
+                                    concurrency=self._conc,claude_model=self._cm,
+                                    gpt_model=self._gm,thinking=self._ct)
+                rows=sp.run_sync(domain,n_problems=15,n_harder=5,quality_thresh=0.6)
+                all_rows.extend(rows)
+                log.info("self-play distill: %d rows for %s",len(rows),domain)
+            except Exception as e:
+                log.warning("self-play distill failed: %s",e)
         return all_rows

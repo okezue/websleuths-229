@@ -23,7 +23,9 @@ class EATRDRunner:
     def run(self,model,teacher,ds,dream_prompts:list[str],tok,
             dbank=None,distill_ds=None)->TrainResult:
         dev=next(model.parameters()).device
-        teacher=teacher.to(dev);teacher.eval();model.train()
+        t_dev=next(teacher.parameters()).device
+        if torch.cuda.is_available():torch.cuda.empty_cache()
+        teacher.eval();model.train()
         opt=AdamW([p for p in model.parameters() if p.requires_grad],lr=self.lr)
         col=WeightedLMCollator(tok)
         dl=make_ep_dl(ds,tok,col,self.bs,self.max_len)
@@ -56,17 +58,20 @@ class EATRDRunner:
                         flt={k:v for k,v in d_inp.items() if k in ("input_ids","attention_mask")}
                         s_out=model(**flt)
                         with torch.no_grad():
-                            t_out=teacher(**flt)
-                        l_dr=multi_temp_dream_kl(s_out.logits,t_out.logits,temps)
+                            t_flt={k:v.to(t_dev) for k,v in flt.items()}
+                            t_out=teacher(**t_flt)
+                        l_dr=multi_temp_dream_kl(s_out.logits,t_out.logits.to(dev),temps)
                     else:
                         l_dr=torch.tensor(0.0,device=dev)
                 else:
                     d_inp=dbuf.sample(dev)
                     if d_inp is not None:
-                        s_out=model(**{k:v for k,v in d_inp.items() if k in ("input_ids","attention_mask")})
+                        flt={k:v for k,v in d_inp.items() if k in ("input_ids","attention_mask")}
+                        s_out=model(**flt)
                         with torch.no_grad():
-                            t_out=teacher(**{k:v for k,v in d_inp.items() if k in ("input_ids","attention_mask")})
-                        l_dr=dream_kl(s_out.logits,t_out.logits,self.temp)
+                            t_flt={k:v.to(t_dev) for k,v in flt.items()}
+                            t_out=teacher(**t_flt)
+                        l_dr=dream_kl(s_out.logits,t_out.logits.to(dev),self.temp)
                     else:
                         l_dr=torch.tensor(0.0,device=dev)
                 l_dist=torch.tensor(0.0,device=dev)

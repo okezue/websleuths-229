@@ -91,7 +91,7 @@ class DistillAnswer:
     confidence:float=0.0
 
 async def _call_thinking(client,prompt:str,sem:asyncio.Semaphore,
-                          model:str="claude-sonnet-4-5-20250929",
+                          model:str="claude-opus-4-6",
                           max_tokens:int=16000,budget:int=10000,
                           retries:int=2)->dict:
     for attempt in range(retries+1):
@@ -99,7 +99,7 @@ async def _call_thinking(client,prompt:str,sem:asyncio.Semaphore,
             async with sem:
                 resp=await client.messages.create(
                     model=model,max_tokens=max_tokens,
-                    thinking={"type":"enabled","budget_tokens":budget},
+                    thinking={"type":"enabled","budget_tokens":budget},temperature=1,
                     messages=[{"role":"user","content":prompt}])
             txt=""
             for block in resp.content:
@@ -130,7 +130,7 @@ def _parse_json_local(txt:str)->dict:
 
 class DistillPipeline:
     def __init__(self,api_key:str,concurrency:int=10,
-                 model:str="claude-sonnet-4-5-20250929",
+                 model:str="claude-opus-4-6",
                  thinking:bool=True,think_budget:int=10000):
         from anthropic import AsyncAnthropic
         self._client=AsyncAnthropic(api_key=api_key)

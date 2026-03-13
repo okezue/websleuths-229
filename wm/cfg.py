@@ -61,10 +61,10 @@ class EATRDCfg(BaseModel):
     eps_min:float=0.01
     alpha:float=0.5
     rho:float=0.01
-    lam_init:float=1.0
-    d_targ:float=0.5
+    lam_init:float=0.1
+    d_targ:float=0.2
     lam_floor:float=0.01
-    lam_ceil:float=10.0
+    lam_ceil:float=3.0
     use_pi:bool=True
 class DPMUCfg(BaseModel):
     n_dream_grads:int=1
@@ -111,20 +111,24 @@ class GuardCfg(BaseModel):
 
 class DistillCfg(BaseModel):
     enabled:bool=True
-    n_questions:int=20
-    mu_init:float=0.5
-    mu_floor:float=0.05
-    mu_ceil:float=2.0
+    n_questions:int=200
+    mu_init:float=1.5
+    mu_floor:float=0.3
+    mu_ceil:float=5.0
     openai_api_key:str|None=None
     gpt_model:str="gpt-5.4"
     claude_thinking:bool=True
     claude_think_budget:int=10000
+    self_play:bool=True
+    self_play_n:int=150
+    self_play_harder:int=50
+    self_play_thresh:float=0.6
 class NeurogenesisCfg(BaseModel):
     enabled:bool=True
     max_adapters:int=20
-    spawn_loss_thresh:float=2.0
-    spawn_dream_thresh:float=1.5
-    spawn_fail_thresh:int=2
+    spawn_loss_thresh:float=4.0
+    spawn_dream_thresh:float=3.0
+    spawn_fail_thresh:int=3
     rank_step:int=8
     max_rank:int=128
     ortho_weight:float=0.01
@@ -141,9 +145,9 @@ class SearchCfg(BaseModel):
     query_temp:float=0.9
     round_temps:list[float]=Field(default_factory=lambda:[0.7,0.9,1.0,1.0,1.0])
     res_per_query:int=5
-    extraction_backend:Literal["regex","claude"]="claude"
+    extraction_backend:Literal["regex","claude","gpt"]="gpt"
     anthropic_api_key:str|None=None
-    claude_model:str="claude-sonnet-4-5-20250929"
+    claude_model:str="claude-opus-4-6"
     claude_concurrency:int=10
     use_multi_search:bool=True
     procedural_extraction:bool=True
@@ -189,8 +193,8 @@ class IterCLCfg(BaseModel):
     steps_per_topic:int=50
     ckpt_dir:str="/tmp/wm_checkpoints"
     recipes:list[str]=Field(default_factory=lambda:["eatrd","dpmu","eab_ssc"])
-    min_steps:int=30
-    max_steps:int=150
+    min_steps:int=80
+    max_steps:int=300
     step_alpha:float=0.5
     step_beta:float=10.0
 

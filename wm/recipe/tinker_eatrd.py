@@ -95,10 +95,13 @@ class TinkerEATRDRunner:
                  len(dream_texts))
         t0=time.time()
         teacher_lps=[]
-        for dt in dream_texts:
+        for di,dt in enumerate(dream_texts):
             mi=_make_model_input(tok,dt,self.ml)
             resp=teacher_sc.compute_logprobs(mi).result()
-            teacher_lps.append(torch.tensor(resp.logprobs))
+            lps=[x if x is not None else 0.0 for x in resp]
+            teacher_lps.append(torch.tensor(lps))
+            if di%50==0:
+                log.info("    teacher logprobs: %d/%d",di,len(dream_texts))
         log.info("tinker_eatrd: teacher logprobs done in %.1fs",time.time()-t0)
 
         lam=self.lam

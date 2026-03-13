@@ -4,7 +4,7 @@ set -e
 cd /home/ubuntu
 sudo apt-get update -qq && sudo apt-get install -y -qq git
 
-git clone https://github.com/okezuebell/websleuths-229.git || (cd websleuths-229 && git pull)
+git clone -b v3-neurogenesis https://github.com/okezue/websleuths-229.git || (cd websleuths-229 && git checkout v3-neurogenesis && git pull)
 cd websleuths-229
 
 pip install -e ".[dev,exa,claude]"
