@@ -110,9 +110,9 @@ def _sanitize_model_name(model_name):
     safe=re.sub(r"[^A-Za-z0-9._-]+","_",model_name.strip())
     return safe.strip("._-") or "model"
 
-def _login_for_llama_model(model_name):
-    if "llama" in model_name.lower():
-        login(HF_LLAMA_TOKEN)
+def _login_for_model(model_name):
+    _ = model_name
+    login(HF_LLAMA_TOKEN)
 
 def _default_out_path(model_name):
     fname=f"ablation_results_{_sanitize_model_name(model_name)}.json"
@@ -121,7 +121,7 @@ def _default_out_path(model_name):
 def _configure_run(args):
     global MODEL_NAME,OUT_PATH,CHECKPOINT_PATH,STATE_DIR,DOMAIN_EVAL_N
     MODEL_NAME=args.model
-    _login_for_llama_model(MODEL_NAME)
+    _login_for_model(MODEL_NAME)
     DOMAIN_EVAL_N=args.domain_n
     OUT_PATH=args.out or _default_out_path(MODEL_NAME)
     out_dir=os.path.dirname(OUT_PATH) or "."

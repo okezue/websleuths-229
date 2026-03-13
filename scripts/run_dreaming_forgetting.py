@@ -182,15 +182,15 @@ def _sanitize(name: str) -> str:
     return re.sub(r"[^A-Za-z0-9._-]+", "_", name).strip("._-") or "model"
 
 
-def _login_for_llama_model(model_name: str) -> None:
-    if "llama" in model_name.lower():
-        login(HF_LLAMA_TOKEN)
+def _login_for_model(model_name: str) -> None:
+    _ = model_name
+    login(HF_LLAMA_TOKEN)
 
 
 def _configure(args) -> None:
     global MODEL_NAME, OUT_PATH, CHECKPOINT_PATH, STATE_DIR
     MODEL_NAME = args.model
-    _login_for_llama_model(MODEL_NAME)
+    _login_for_model(MODEL_NAME)
     if args.out:
         OUT_PATH = args.out
     else:
