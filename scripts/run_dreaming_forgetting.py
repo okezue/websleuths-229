@@ -1,6 +1,5 @@
 """Sequential retention experiment: naive vs dreaming with held-out topic eval.
 
-This study is intentionally narrow and controlled:
 1. Fetch fixed corpora for several topics once and freeze them in the checkpoint.
 2. Split each topic into train/eval rows once; eval rows are never trained on.
 3. Train sequentially across topics.
