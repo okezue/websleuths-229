@@ -137,13 +137,33 @@ class AgenticSearcher:
             prev_n=len(all_claims)
         all_chunks=dedup_chunks(all_chunks)
         raw_all=dedup_raw(raw_all)
+        af=getattr(self._cfg,"authority_func","base")
         if raw_all:
             try:
-                from wm.gate.authority import rank_raw_results
-                raw_all=rank_raw_results(raw_all)
-                log.info("pagerank: scored %d results",len(raw_all))
+                if af in ("topical","provenance","corroborate"):
+                    from wm.gate.authority import get_authority_func
+                    from wm.types import Episode
+                    fn=get_authority_func(af)
+                    eps=[Episode(url=r.get("url",""),body=r.get("text",""),
+                         title=r.get("title",""),authority=r.get("authority",0.5))
+                         for r in raw_all if r.get("url")]
+                    if af=="topical":
+                        eps=fn(eps,topic)
+                    else:
+                        eps=fn(eps)
+                    url_scores={e.url:e.authority for e in eps}
+                    for r in raw_all:
+                        u=r.get("url","")
+                        if u in url_scores:
+                            r["authority"]=url_scores[u]
+                    raw_all.sort(key=lambda r:r.get("authority",0),reverse=True)
+                    log.info("%s authority: scored %d results",af,len(raw_all))
+                else:
+                    from wm.gate.authority import rank_raw_results
+                    raw_all=rank_raw_results(raw_all)
+                    log.info("pagerank: scored %d results",len(raw_all))
             except Exception as ex:
-                log.debug("pagerank scoring skipped: %s",ex)
+                log.debug("authority scoring skipped: %s",ex)
         if all_chunks and all_claims:
             sel=mmr_select([c.text for c in all_chunks],topic,
                            k=self._cfg.mmr_k,lam=self._cfg.mmr_lambda)

@@ -133,6 +133,7 @@ class NeurogenesisCfg(BaseModel):
     max_rank:int=128
     ortho_weight:float=0.01
 class SearchCfg(BaseModel):
+    authority_func:Literal["base","topical","provenance","corroborate"]="base"
     max_rounds:int=5
     queries_per_round:int=6
     min_claims:int=5

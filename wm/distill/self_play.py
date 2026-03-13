@@ -309,8 +309,33 @@ class SelfPlayDistill:
         log.info("self-play: kept %d/%d (dropped %d below %.1f threshold) -> %d rows",
                  kept,kept+dropped,dropped,quality_thresh,len(rows))
         return rows
+    def gen_ood_negative(self,n:int=10)->list[dict]:
+        rows=[]
+        ood_prompts=[
+            "What is the best pizza topping?",
+            "Write a poem about sunset over the ocean.",
+            "Tell me a joke about programmers.",
+            "Describe your favorite vacation destination.",
+            "What color should I paint my bedroom?",
+            "Explain why cats are better than dogs.",
+            "What's the meaning of life?",
+            "Write song lyrics about heartbreak.",
+            "Recommend a good Netflix show.",
+            "How do I plan a birthday party?",
+            "What's trending on social media today?",
+            "Describe the perfect breakfast.",
+            "Tell me about your weekend plans.",
+            "What's the best smartphone in 2026?",
+            "How to make sourdough bread?",
+        ]
+        for p in random.sample(ood_prompts,min(n,len(ood_prompts))):
+            rows.append({"text":f"Q: {p}\nAnswer: I cannot answer this question as it is outside my domain expertise.",
+                         "authority":0.1,"source":"ood_negative"})
+        return rows
     def run_sync(self,domain:str,n_problems:int=15,
-                  n_harder:int=5,quality_thresh:float=0.6)->list[dict]:
+                  n_harder:int=5,judge_thresh:float=0.0,
+                  quality_thresh:float=0.6)->list[dict]:
+        if judge_thresh>0:quality_thresh=judge_thresh
         try:
             loop=asyncio.get_running_loop()
         except RuntimeError:

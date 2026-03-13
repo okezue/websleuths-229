@@ -1,16 +1,6 @@
 from __future__ import annotations
 import logging,os
-from scrapy.http import TextResponse
 from wm.types import Episode
-from wm.gate.util import make_runner
-import scrapy
-from crochet import setup,wait_for
-from pydispatch import dispatcher
-from scrapy import signals
-import networkx as nx
-from wm.gate.topical import topical_endorsement_authority
-from wm.gate.provenance import provenance_editorial_authority
-from wm.gate.corroborate import cross_source_corroboration_authority
 
 log=logging.getLogger(__name__)
 
@@ -18,6 +8,17 @@ def rank_urls(urls:list[str])->dict[str,float]:
     urls=[u for u in urls if u and u.startswith("http")]
     if not urls:
         return {}
+    try:
+        import scrapy
+        from scrapy.http import TextResponse
+        from crochet import setup,wait_for
+        from pydispatch import dispatcher
+        from scrapy import signals
+        import networkx as nx
+        from wm.gate.util import make_runner
+    except ImportError:
+        log.debug("scrapy/crochet/networkx not installed, skipping pagerank")
+        return {u:1.0 for u in urls}
     class LinkSpider(scrapy.Spider):
         name="link_spider"
         custom_settings={"ROBOTSTXT_OBEY":False,"DOWNLOAD_TIMEOUT":15,"LOG_LEVEL":"ERROR"}
@@ -101,20 +102,37 @@ def base_authority(eps:list[Episode],query:str="")->list[Episode]:
     eps.sort(key=lambda e:e.authority,reverse=True)
     return eps
 
+def _lazy_topical():
+    from wm.gate.topical import topical_endorsement_authority
+    return topical_endorsement_authority
+
+def _lazy_provenance():
+    from wm.gate.provenance import provenance_editorial_authority
+    return provenance_editorial_authority
+
+def _lazy_corroborate():
+    from wm.gate.corroborate import cross_source_corroboration_authority
+    return cross_source_corroboration_authority
+
 AUTHORITY_FUNCS={
     "base":base_authority,
-    "topical":topical_endorsement_authority,
-    "provenance":provenance_editorial_authority,
-    "corroborate":cross_source_corroboration_authority,
 }
 
 def get_authority_func(name:str|None=None):
     n=name or os.environ.get("WM_AUTHORITY","base")
-    fn=AUTHORITY_FUNCS.get(n)
-    if fn is None:
-        log.warning("unknown authority func '%s', using base",n)
-        return base_authority
-    return fn
+    if n=="topical":return _lazy_topical()
+    if n=="provenance":return _lazy_provenance()
+    if n=="corroborate":return _lazy_corroborate()
+    if n=="base":return base_authority
+    log.warning("unknown authority func '%s', using base",n)
+    return base_authority
 
-exa_authority=get_authority_func()
+AUTHORITY_FUNCS={
+    "base":base_authority,
+    "topical":_lazy_topical,
+    "provenance":_lazy_provenance,
+    "corroborate":_lazy_corroborate,
+}
+
+exa_authority=base_authority
 pagerank_authority=base_authority

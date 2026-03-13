@@ -98,7 +98,8 @@ class DomainEvalHarness:
             "chembench":self._eval_chembench,"medqa":self._eval_medqa,
             "gpqa":self._eval_gpqa,"olympiad":self._eval_olympiad,
             "labbench":self._eval_labbench,"aime":self._eval_aime,
-            "verus":self._eval_verus,"minif2f":self._eval_minif2f}.get(name)
+            "verus":self._eval_verus,"minif2f":self._eval_minif2f,
+            "multikernelbench":self._eval_multikernelbench}.get(name)
         if fn:return fn(n)
         return BenchScore(name=name,acc=0.0,n=0)
     def eval_domain(self,domain:str,n=0)->BenchScore:
@@ -466,6 +467,69 @@ class DomainEvalHarness:
             if has_proof:cor+=1
             tot+=1
         return BenchScore(name="minif2f",acc=cor/max(tot,1),n=tot)
+    def _eval_multikernelbench(self,n=0)->BenchScore:
+        import os,subprocess,tempfile
+        mkb=os.environ.get("MULTIKERNELBENCH_PATH","")
+        if not mkb:
+            for p in ["/home/ubuntu/MultiKernelBench","MultiKernelBench",
+                      os.path.expanduser("~/MultiKernelBench")]:
+                if os.path.isdir(p):mkb=p;break
+        if not mkb or not os.path.isdir(mkb):
+            _log.warning("multikernelbench: repo not found, set MULTIKERNELBENCH_PATH")
+            return BenchScore(name="multikernelbench",acc=0.0,n=0)
+        tasks_dir=os.path.join(mkb,"benchmark")
+        if not os.path.isdir(tasks_dir):
+            for alt in ["tasks","data","bench"]:
+                t=os.path.join(mkb,alt)
+                if os.path.isdir(t):tasks_dir=t;break
+        task_files=[]
+        for root,dirs,files in os.walk(tasks_dir):
+            for f in files:
+                if f.endswith(".py") and "test" not in f.lower():
+                    task_files.append(os.path.join(root,f))
+        if not task_files:
+            _log.warning("multikernelbench: no task files in %s",tasks_dir)
+            return BenchScore(name="multikernelbench",acc=0.0,n=0)
+        import random
+        rng=random.Random(self._seed)
+        rng.shuffle(task_files)
+        if n>0:task_files=task_files[:n]
+        _log.info("multikernelbench: evaluating %d tasks",len(task_files))
+        compiled,passed,tot=0,0,0
+        for tf in task_files:
+            try:
+                with open(tf) as fh:src=fh.read()
+            except Exception:tot+=1;continue
+            m=re.search(r'class\s+(\w+)\s*\(.*?nn\.Module.*?\):.*?def\s+forward\s*\(.*?\).*?(?=\nclass|\Z)',
+                        src,re.DOTALL)
+            if not m:tot+=1;continue
+            ref_cls=m.group(0)
+            prompt=(f"Write a CUDA or Triton kernel that implements this PyTorch module's forward method.\n"
+                    f"Return ONLY the kernel code and a custom_module that calls it.\n\n"
+                    f"Reference PyTorch module:\n```python\n{ref_cls[:1500]}\n```\n\nKernel:")
+            gen=_gen(self._m,self._t,prompt,max_tok=512,dev=self._dev)
+            has_kernel=any(k in gen.lower() for k in
+                ["__global__","@triton.jit","tl.load","tl.store",
+                 "cuda","blockidx","threadidx","triton.language"])
+            has_func=("def " in gen or "void " in gen)
+            if has_kernel and has_func:
+                compiled+=1
+                with tempfile.NamedTemporaryFile(mode="w",suffix=".py",delete=False) as tmp:
+                    tmp.write(gen);tmp_path=tmp.name
+                try:
+                    r=subprocess.run(["python","-c",f"import ast;ast.parse(open('{tmp_path}').read())"],
+                                     capture_output=True,timeout=5)
+                    if r.returncode==0:passed+=1
+                except Exception:pass
+                finally:
+                    try:os.unlink(tmp_path)
+                    except Exception:pass
+            tot+=1
+        comp_rate=compiled/max(tot,1)
+        pass_rate=passed/max(tot,1)
+        return BenchScore(name="multikernelbench",acc=pass_rate,n=tot,
+                          extras={"compilation_at_1":comp_rate,"pass_at_1":pass_rate,
+                                  "compiled":compiled,"passed":passed})
     def eval_capability(self,bench:str,n=0)->BenchScore:
         self._m.eval()
         return self.eval_bench(bench,n)
