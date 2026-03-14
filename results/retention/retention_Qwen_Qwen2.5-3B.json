@@ -1,0 +1,1763 @@
+{
+  "meta": {
+    "version": 2,
+    "model": "Qwen/Qwen2.5-3B",
+    "data_seed": 42,
+    "run_seeds": [
+      42,
+      43,
+      44
+    ],
+    "steps_per_topic": 200,
+    "batch_size": 2,
+    "lr": 0.0002,
+    "train_frac": 0.8,
+    "topics": [
+      "forensics",
+      "chemistry",
+      "finance",
+      "legal",
+      "medicine"
+    ],
+    "configs": [
+      "naive",
+      "dreaming"
+    ],
+    "target_train_rows": 0
+  },
+  "data_stats": {
+    "forensics": {
+      "queries": [
+        "unsolved cold case forensic evidence DNA 2024",
+        "DNA forensic breakthroughs criminal investigation",
+        "forensic science new techniques crime solving"
+      ],
+      "stats": {
+        "n_episodes": 15,
+        "n_chunks": 202,
+        "n_train_raw": 162,
+        "n_eval": 40,
+        "train_hash_raw": "14a4a200a493ec2e",
+        "eval_hash": "83a1fa48d9f2563d",
+        "n_train_balanced": 140,
+        "balance_n": 140,
+        "train_hash_balanced": "c3c54ea60fb60cb7"
+      }
+    },
+    "chemistry": {
+      "queries": [
+        "organic reaction mechanisms catalysis synthesis",
+        "CRISPR gene editing molecular biology",
+        "computational chemistry molecular dynamics simulation"
+      ],
+      "stats": {
+        "n_episodes": 15,
+        "n_chunks": 504,
+        "n_train_raw": 403,
+        "n_eval": 101,
+        "train_hash_raw": "5b50924a55801c4f",
+        "eval_hash": "6d1dfde13eac1dc2",
+        "n_train_balanced": 140,
+        "balance_n": 140,
+        "train_hash_balanced": "74ca819c1715c251"
+      }
+    },
+    "finance": {
+      "queries": [
+        "quantitative trading strategies risk modeling",
+        "credit risk assessment Basel IV regulations",
+        "earnings analysis SEC filings equity valuation"
+      ],
+      "stats": {
+        "n_episodes": 15,
+        "n_chunks": 175,
+        "n_train_raw": 140,
+        "n_eval": 35,
+        "train_hash_raw": "3a5407951794c062",
+        "eval_hash": "5732f637be495131",
+        "n_train_balanced": 140,
+        "balance_n": 140,
+        "train_hash_balanced": "d6dc34442074db70"
+      }
+    },
+    "legal": {
+      "queries": [
+        "Fourth Amendment digital privacy warrant cell phone search",
+        "constitutional law Supreme Court precedent free speech",
+        "intellectual property AI generated content copyright law"
+      ],
+      "stats": {
+        "n_episodes": 15,
+        "n_chunks": 805,
+        "n_train_raw": 644,
+        "n_eval": 161,
+        "train_hash_raw": "479bcaae204525a0",
+        "eval_hash": "be0bdbef765848b4",
+        "n_train_balanced": 140,
+        "balance_n": 140,
+        "train_hash_balanced": "f9c7f9bc93995069"
+      }
+    },
+    "medicine": {
+      "queries": [
+        "clinical pharmacology drug interactions adverse effects",
+        "oncology targeted therapy biomarkers immunotherapy",
+        "pathophysiology cardiology heart failure mechanisms"
+      ],
+      "stats": {
+        "n_episodes": 15,
+        "n_chunks": 1033,
+        "n_train_raw": 826,
+        "n_eval": 207,
+        "train_hash_raw": "60f0284db5d3d8c3",
+        "eval_hash": "b9bc9d22f574b0a8",
+        "n_train_balanced": 140,
+        "balance_n": 140,
+        "train_hash_balanced": "a6353927381b1064"
+      }
+    }
+  },
+  "runs": {
+    "42": {
+      "seed": 42,
+      "baseline": {
+        "topic_evals": {
+          "forensics": {
+            "ppl": 12.912438151634344,
+            "acc": 0.490272373540856,
+            "n_rows": 40
+          },
+          "chemistry": {
+            "ppl": 9.874717298762691,
+            "acc": 0.5413320736891828,
+            "n_rows": 101
+          },
+          "finance": {
+            "ppl": 15.55479564260523,
+            "acc": 0.46771653543307085,
+            "n_rows": 35
+          },
+          "legal": {
+            "ppl": 13.900125959030786,
+            "acc": 0.4720007825108818,
+            "n_rows": 161
+          },
+          "medicine": {
+            "ppl": 9.0287852830869,
+            "acc": 0.5460816248323433,
+            "n_rows": 207
+          }
+        },
+        "anchor_nll": 2.7580926418304443
+      },
+      "configs": {
+        "naive": {
+          "dream_on": false,
+          "updates": [
+            {
+              "topic": "forensics",
+              "topic_idx": 0,
+              "train_rows": 140,
+              "dream_prompts_n": 5,
+              "train_loss": 2.3275288957357407,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.111952831701549,
+                  "acc": 0.509932418595126,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 10.038235622291799,
+                  "acc": 0.5395213352227995,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 16.728026542058696,
+                  "acc": 0.4542182227221597,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 15.205020860769647,
+                  "acc": 0.45977404998288257,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 9.601938456929732,
+                  "acc": 0.5343552404675225,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.8976048946380617,
+              "drift_kl_base": 1.8372395833333333,
+              "drift_kl_prev": 1.8372395833333333,
+              "time": 30.49520254135132
+            },
+            {
+              "topic": "chemistry",
+              "topic_idx": 1,
+              "train_rows": 140,
+              "dream_prompts_n": 17,
+              "train_loss": 2.148170242011547,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 12.251676508588142,
+                  "acc": 0.500307188203973,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 8.396126727102333,
+                  "acc": 0.5606203747441347,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 16.59502583337503,
+                  "acc": 0.45894263217097864,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 15.689077979829529,
+                  "acc": 0.4559593094341468,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 9.633585891223877,
+                  "acc": 0.5319793063805327,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 3.0001845836639403,
+              "drift_kl_base": 1.640625,
+              "drift_kl_prev": 1.3541666666666667,
+              "time": 30.473412036895752
+            },
+            {
+              "topic": "finance",
+              "topic_idx": 2,
+              "train_rows": 140,
+              "dream_prompts_n": 29,
+              "train_loss": 2.6324562394618987,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 13.18623665697718,
+                  "acc": 0.49006758140487405,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 9.38436050229276,
+                  "acc": 0.545819555975437,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 13.79121773166586,
+                  "acc": 0.4722159730033746,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 16.166456848154915,
+                  "acc": 0.4499926639604832,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 10.199519039405498,
+                  "acc": 0.524353324391646,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 3.4476083755493163,
+              "drift_kl_base": 3.15625,
+              "drift_kl_prev": 1.1393229166666667,
+              "time": 30.22845721244812
+            },
+            {
+              "topic": "legal",
+              "topic_idx": 3,
+              "train_rows": 140,
+              "dream_prompts_n": 41,
+              "train_loss": 2.3440903520584104,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 13.956593507837937,
+                  "acc": 0.48146631169363097,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 10.304318810332077,
+                  "acc": 0.5305463706502913,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 15.06045847824288,
+                  "acc": 0.4674915635545557,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 11.049898961498682,
+                  "acc": 0.4988506871423681,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 10.255924464809185,
+                  "acc": 0.5233569649358114,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 3.1173761606216432,
+              "drift_kl_base": 3.109375,
+              "drift_kl_prev": 1.1158854166666667,
+              "time": 30.548949003219604
+            },
+            {
+              "topic": "medicine",
+              "topic_idx": 4,
+              "train_rows": 140,
+              "dream_prompts_n": 53,
+              "train_loss": 1.9465151339769364,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 12.829097286398902,
+                  "acc": 0.4927298791726398,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 9.576301781795577,
+                  "acc": 0.5420406235238545,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 14.788376364599912,
+                  "acc": 0.4697412823397075,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 11.971948751341097,
+                  "acc": 0.48779772093705676,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 7.901147929925924,
+                  "acc": 0.5604905154244108,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 3.208539628982544,
+              "drift_kl_base": 2.3541666666666665,
+              "drift_kl_prev": 0.958984375,
+              "time": 30.551114320755005
+            }
+          ],
+          "summary": {
+            "forensics": {
+              "first_after_learning": 0.509932418595126,
+              "best_seen": 0.509932418595126,
+              "final": 0.4927298791726398,
+              "forgetting": 0.017202539422486174,
+              "retention_delta": -0.017202539422486174,
+              "n_measurements": 5
+            },
+            "chemistry": {
+              "first_after_learning": 0.5606203747441347,
+              "best_seen": 0.5606203747441347,
+              "final": 0.5420406235238545,
+              "forgetting": 0.018579751220280216,
+              "retention_delta": -0.018579751220280216,
+              "n_measurements": 4
+            },
+            "finance": {
+              "first_after_learning": 0.4722159730033746,
+              "best_seen": 0.4722159730033746,
+              "final": 0.4697412823397075,
+              "forgetting": 0.0024746906636670674,
+              "retention_delta": -0.0024746906636670674,
+              "n_measurements": 3
+            },
+            "legal": {
+              "first_after_learning": 0.4988506871423681,
+              "best_seen": 0.4988506871423681,
+              "final": 0.48779772093705676,
+              "forgetting": 0.011052966205311321,
+              "retention_delta": -0.011052966205311321,
+              "n_measurements": 2
+            },
+            "medicine": {
+              "first_after_learning": 0.5604905154244108,
+              "best_seen": 0.5604905154244108,
+              "final": 0.5604905154244108,
+              "forgetting": 0.0,
+              "retention_delta": 0.0,
+              "n_measurements": 1
+            }
+          }
+        },
+        "dreaming": {
+          "dream_on": true,
+          "updates": [
+            {
+              "topic": "forensics",
+              "topic_idx": 0,
+              "train_rows": 140,
+              "dream_prompts_n": 5,
+              "train_loss": 2.4102386224269865,
+              "dream_loss": 0.0284820818901062,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.506054174569135,
+                  "acc": 0.5013311488838829,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 9.781193289638592,
+                  "acc": 0.5382616910722721,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 15.956272110508756,
+                  "acc": 0.46366704161979755,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 14.267220244450456,
+                  "acc": 0.46574069545654617,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 9.183603236085036,
+                  "acc": 0.540639969342786,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.7781845569610595,
+              "drift_kl_base": 0.013448079427083334,
+              "drift_kl_prev": 0.013448079427083334,
+              "time": 47.19767475128174
+            },
+            {
+              "topic": "chemistry",
+              "topic_idx": 1,
+              "train_rows": 140,
+              "dream_prompts_n": 17,
+              "train_loss": 2.225973837375641,
+              "dream_loss": 0.049787068367004396,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.634042562730471,
+                  "acc": 0.5033790702437027,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 8.783938203805633,
+                  "acc": 0.5554243426232089,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 15.647553725758526,
+                  "acc": 0.4674915635545557,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 14.214392601280535,
+                  "acc": 0.4658874162468822,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 9.028356285527574,
+                  "acc": 0.5441655489557387,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.7919294357299806,
+              "drift_kl_base": 0.038167317708333336,
+              "drift_kl_prev": 0.02301025390625,
+              "time": 46.398637771606445
+            },
+            {
+              "topic": "finance",
+              "topic_idx": 2,
+              "train_rows": 140,
+              "dream_prompts_n": 29,
+              "train_loss": 2.703542110323906,
+              "dream_loss": 0.03822754383087158,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.822362083342407,
+                  "acc": 0.5011263567479008,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 8.886497075811025,
+                  "acc": 0.5521965044874823,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 14.083425627346221,
+                  "acc": 0.4755905511811024,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 14.280165159006978,
+                  "acc": 0.4659852301071062,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 8.938907835936512,
+                  "acc": 0.5445487641310596,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.833109712600708,
+              "drift_kl_base": 0.0533447265625,
+              "drift_kl_prev": 0.018086751302083332,
+              "time": 45.96874666213989
+            },
+            {
+              "topic": "legal",
+              "topic_idx": 3,
+              "train_rows": 140,
+              "dream_prompts_n": 41,
+              "train_loss": 2.4040124201774598,
+              "dream_loss": 0.04051345825195313,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.980856693461657,
+                  "acc": 0.5025599016997747,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 8.992076755902449,
+                  "acc": 0.5514879546528105,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 14.3166857985902,
+                  "acc": 0.4769403824521935,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 11.461870197757385,
+                  "acc": 0.49474250501296035,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 8.913871670161699,
+                  "acc": 0.5439356198505461,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.8250752449035645,
+              "drift_kl_base": 0.09586588541666667,
+              "drift_kl_prev": 0.031819661458333336,
+              "time": 45.610896825790405
+            },
+            {
+              "topic": "medicine",
+              "topic_idx": 4,
+              "train_rows": 140,
+              "dream_prompts_n": 53,
+              "train_loss": 1.9713781118392943,
+              "dream_loss": 0.03163043975830078,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.979669179559046,
+                  "acc": 0.4988736432520991,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 9.050213296559551,
+                  "acc": 0.548102660998268,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 14.375985369225852,
+                  "acc": 0.47154105736782903,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 11.54542938160989,
+                  "acc": 0.4943512495720644,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 7.875663355637096,
+                  "acc": 0.5625215558536119,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.828935146331787,
+              "drift_kl_base": 0.15185546875,
+              "drift_kl_prev": 0.048055013020833336,
+              "time": 45.584765911102295
+            }
+          ],
+          "summary": {
+            "forensics": {
+              "first_after_learning": 0.5013311488838829,
+              "best_seen": 0.5033790702437027,
+              "final": 0.4988736432520991,
+              "forgetting": 0.004505426991603556,
+              "retention_delta": -0.002457505631783763,
+              "n_measurements": 5
+            },
+            "chemistry": {
+              "first_after_learning": 0.5554243426232089,
+              "best_seen": 0.5554243426232089,
+              "final": 0.548102660998268,
+              "forgetting": 0.007321681624940957,
+              "retention_delta": -0.007321681624940957,
+              "n_measurements": 4
+            },
+            "finance": {
+              "first_after_learning": 0.4755905511811024,
+              "best_seen": 0.4769403824521935,
+              "final": 0.47154105736782903,
+              "forgetting": 0.00539932508436447,
+              "retention_delta": -0.004049493813273353,
+              "n_measurements": 3
+            },
+            "legal": {
+              "first_after_learning": 0.49474250501296035,
+              "best_seen": 0.49474250501296035,
+              "final": 0.4943512495720644,
+              "forgetting": 0.00039125544089596564,
+              "retention_delta": -0.00039125544089596564,
+              "n_measurements": 2
+            },
+            "medicine": {
+              "first_after_learning": 0.5625215558536119,
+              "best_seen": 0.5625215558536119,
+              "final": 0.5625215558536119,
+              "forgetting": 0.0,
+              "retention_delta": 0.0,
+              "n_measurements": 1
+            }
+          }
+        }
+      }
+    },
+    "43": {
+      "seed": 43,
+      "baseline": {
+        "topic_evals": {
+          "forensics": {
+            "ppl": 12.912438151634344,
+            "acc": 0.490272373540856,
+            "n_rows": 40
+          },
+          "chemistry": {
+            "ppl": 9.874717298762691,
+            "acc": 0.5413320736891828,
+            "n_rows": 101
+          },
+          "finance": {
+            "ppl": 15.55479564260523,
+            "acc": 0.46771653543307085,
+            "n_rows": 35
+          },
+          "legal": {
+            "ppl": 13.900125959030786,
+            "acc": 0.4720007825108818,
+            "n_rows": 161
+          },
+          "medicine": {
+            "ppl": 9.0287852830869,
+            "acc": 0.5460816248323433,
+            "n_rows": 207
+          }
+        },
+        "anchor_nll": 2.7580926418304443
+      },
+      "configs": {
+        "naive": {
+          "dream_on": false,
+          "updates": [
+            {
+              "topic": "forensics",
+              "topic_idx": 0,
+              "train_rows": 140,
+              "dream_prompts_n": 5,
+              "train_loss": 2.320209171772003,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.163546146241542,
+                  "acc": 0.5109563792750358,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 10.024565000702223,
+                  "acc": 0.5388127853881278,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 16.577682267429825,
+                  "acc": 0.4575928008998875,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 15.013724228856045,
+                  "acc": 0.45967623612265857,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 9.584474699860886,
+                  "acc": 0.5338187392220732,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.8717668056488037,
+              "drift_kl_base": 1.7643229166666667,
+              "drift_kl_prev": 1.7643229166666667,
+              "time": 30.531931400299072
+            },
+            {
+              "topic": "chemistry",
+              "topic_idx": 1,
+              "train_rows": 140,
+              "dream_prompts_n": 17,
+              "train_loss": 2.144354475736618,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 12.113321322548165,
+                  "acc": 0.5013311488838829,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 8.48261092680209,
+                  "acc": 0.5588883640371595,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 16.721027449268757,
+                  "acc": 0.4544431946006749,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 15.645682374951798,
+                  "acc": 0.45410084608989093,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 9.66395395398042,
+                  "acc": 0.5324391645909178,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.9287282943725588,
+              "drift_kl_base": 1.4296875,
+              "drift_kl_prev": 1.4518229166666667,
+              "time": 30.3586642742157
+            },
+            {
+              "topic": "finance",
+              "topic_idx": 2,
+              "train_rows": 140,
+              "dream_prompts_n": 29,
+              "train_loss": 2.6150874996185305,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 13.046558156511352,
+                  "acc": 0.49580176121236946,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 9.341900706921496,
+                  "acc": 0.5466855613289245,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 13.644746707495287,
+                  "acc": 0.47581552305961755,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 15.721236153892576,
+                  "acc": 0.453024893627427,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 10.058459086905094,
+                  "acc": 0.5247365395669669,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 3.3302358627319335,
+              "drift_kl_base": 3.0885416666666665,
+              "drift_kl_prev": 1.14453125,
+              "time": 30.269525051116943
+            },
+            {
+              "topic": "legal",
+              "topic_idx": 3,
+              "train_rows": 140,
+              "dream_prompts_n": 41,
+              "train_loss": 2.341263741850853,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 13.717704044806897,
+                  "acc": 0.48351423305345076,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 10.250835129136108,
+                  "acc": 0.5314911037631869,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 14.970440650736345,
+                  "acc": 0.4670416197975253,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 11.176989861130531,
+                  "acc": 0.4968455030077762,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 9.994474981446151,
+                  "acc": 0.5269975091013605,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 3.0515684127807616,
+              "drift_kl_base": 2.8854166666666665,
+              "drift_kl_prev": 1.1145833333333333,
+              "time": 30.486144065856934
+            },
+            {
+              "topic": "medicine",
+              "topic_idx": 4,
+              "train_rows": 140,
+              "dream_prompts_n": 53,
+              "train_loss": 1.952494535446167,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 12.75170922221468,
+                  "acc": 0.4978496825721892,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 9.609692012964516,
+                  "acc": 0.5402298850574713,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 14.741806974035718,
+                  "acc": 0.46816647919010124,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 12.111304136190373,
+                  "acc": 0.48862913874896075,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 7.878279123839422,
+                  "acc": 0.5621383406782908,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 3.1065277099609374,
+              "drift_kl_base": 1.8802083333333333,
+              "drift_kl_prev": 0.919921875,
+              "time": 30.439666032791138
+            }
+          ],
+          "summary": {
+            "forensics": {
+              "first_after_learning": 0.5109563792750358,
+              "best_seen": 0.5109563792750358,
+              "final": 0.4978496825721892,
+              "forgetting": 0.013106696702846587,
+              "retention_delta": -0.013106696702846587,
+              "n_measurements": 5
+            },
+            "chemistry": {
+              "first_after_learning": 0.5588883640371595,
+              "best_seen": 0.5588883640371595,
+              "final": 0.5402298850574713,
+              "forgetting": 0.018658478979688198,
+              "retention_delta": -0.018658478979688198,
+              "n_measurements": 4
+            },
+            "finance": {
+              "first_after_learning": 0.47581552305961755,
+              "best_seen": 0.47581552305961755,
+              "final": 0.46816647919010124,
+              "forgetting": 0.007649043869516314,
+              "retention_delta": -0.007649043869516314,
+              "n_measurements": 3
+            },
+            "legal": {
+              "first_after_learning": 0.4968455030077762,
+              "best_seen": 0.4968455030077762,
+              "final": 0.48862913874896075,
+              "forgetting": 0.008216364258815445,
+              "retention_delta": -0.008216364258815445,
+              "n_measurements": 2
+            },
+            "medicine": {
+              "first_after_learning": 0.5621383406782908,
+              "best_seen": 0.5621383406782908,
+              "final": 0.5621383406782908,
+              "forgetting": 0.0,
+              "retention_delta": 0.0,
+              "n_measurements": 1
+            }
+          }
+        },
+        "dreaming": {
+          "dream_on": true,
+          "updates": [
+            {
+              "topic": "forensics",
+              "topic_idx": 0,
+              "train_rows": 140,
+              "dream_prompts_n": 5,
+              "train_loss": 2.4033794757723808,
+              "dream_loss": 0.0346263599395752,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.481673215464363,
+                  "acc": 0.5007167724759369,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 9.837885167410688,
+                  "acc": 0.5406235238545111,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 16.062775811170326,
+                  "acc": 0.46006749156355453,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 14.283921983324042,
+                  "acc": 0.46706118256957013,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 9.225029622217265,
+                  "acc": 0.5403333972025293,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.773021697998047,
+              "drift_kl_base": 0.02142333984375,
+              "drift_kl_prev": 0.02142333984375,
+              "time": 46.93157982826233
+            },
+            {
+              "topic": "chemistry",
+              "topic_idx": 1,
+              "train_rows": 140,
+              "dream_prompts_n": 17,
+              "train_loss": 2.218639316558838,
+              "dream_loss": 0.04855820655822754,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.573316838928594,
+                  "acc": 0.5046078230595945,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 8.797113722693434,
+                  "acc": 0.5550307038261691,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 15.631536846461083,
+                  "acc": 0.4641169853768279,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 14.177417630438427,
+                  "acc": 0.4667188340587861,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 9.036104466084591,
+                  "acc": 0.5435524046752251,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.782902145385742,
+              "drift_kl_base": 0.047322591145833336,
+              "drift_kl_prev": 0.033121744791666664,
+              "time": 46.22972869873047
+            },
+            {
+              "topic": "finance",
+              "topic_idx": 2,
+              "train_rows": 140,
+              "dream_prompts_n": 29,
+              "train_loss": 2.690850118994713,
+              "dream_loss": 0.037029075622558597,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.714156944402276,
+                  "acc": 0.5027646938357567,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 8.874254102311799,
+                  "acc": 0.5526688710439301,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 14.074232614316736,
+                  "acc": 0.4717660292463442,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 14.185863017656484,
+                  "acc": 0.4658385093167702,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 8.946928812487466,
+                  "acc": 0.5447786932362522,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.806518077850342,
+              "drift_kl_base": 0.048665364583333336,
+              "drift_kl_prev": 0.027994791666666668,
+              "time": 46.15074849128723
+            },
+            {
+              "topic": "legal",
+              "topic_idx": 3,
+              "train_rows": 140,
+              "dream_prompts_n": 41,
+              "train_loss": 2.411530744433403,
+              "dream_loss": 0.041412134170532224,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.820920368308089,
+                  "acc": 0.4980544747081712,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 8.933282532650543,
+                  "acc": 0.5521177767280743,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 14.204923000627916,
+                  "acc": 0.4704161979752531,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 11.589505490081734,
+                  "acc": 0.4940578079913924,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 8.853206470514325,
+                  "acc": 0.5453535159992335,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.789810371398926,
+              "drift_kl_base": 0.0634765625,
+              "drift_kl_prev": 0.020024617513020832,
+              "time": 45.9392454624176
+            },
+            {
+              "topic": "medicine",
+              "topic_idx": 4,
+              "train_rows": 140,
+              "dream_prompts_n": 53,
+              "train_loss": 1.9766802805662156,
+              "dream_loss": 0.03136410713195801,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.889165593937141,
+                  "acc": 0.4972353061642433,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 9.009421732310289,
+                  "acc": 0.54802393323886,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 14.291736660465334,
+                  "acc": 0.46906636670416196,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 11.707107802824819,
+                  "acc": 0.4924438792976965,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 7.867222914962637,
+                  "acc": 0.5623299482659513,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.8054670810699465,
+              "drift_kl_base": 0.0830078125,
+              "drift_kl_prev": 0.024210611979166668,
+              "time": 45.837979793548584
+            }
+          ],
+          "summary": {
+            "forensics": {
+              "first_after_learning": 0.5007167724759369,
+              "best_seen": 0.5046078230595945,
+              "final": 0.4972353061642433,
+              "forgetting": 0.007372516895351233,
+              "retention_delta": -0.0034814663116936595,
+              "n_measurements": 5
+            },
+            "chemistry": {
+              "first_after_learning": 0.5550307038261691,
+              "best_seen": 0.5550307038261691,
+              "final": 0.54802393323886,
+              "forgetting": 0.007006770587309141,
+              "retention_delta": -0.007006770587309141,
+              "n_measurements": 4
+            },
+            "finance": {
+              "first_after_learning": 0.4717660292463442,
+              "best_seen": 0.4717660292463442,
+              "final": 0.46906636670416196,
+              "forgetting": 0.002699662542182235,
+              "retention_delta": -0.002699662542182235,
+              "n_measurements": 3
+            },
+            "legal": {
+              "first_after_learning": 0.4940578079913924,
+              "best_seen": 0.4940578079913924,
+              "final": 0.4924438792976965,
+              "forgetting": 0.0016139286936958652,
+              "retention_delta": -0.0016139286936958652,
+              "n_measurements": 2
+            },
+            "medicine": {
+              "first_after_learning": 0.5623299482659513,
+              "best_seen": 0.5623299482659513,
+              "final": 0.5623299482659513,
+              "forgetting": 0.0,
+              "retention_delta": 0.0,
+              "n_measurements": 1
+            }
+          }
+        }
+      }
+    },
+    "44": {
+      "seed": 44,
+      "baseline": {
+        "topic_evals": {
+          "forensics": {
+            "ppl": 12.912438151634344,
+            "acc": 0.490272373540856,
+            "n_rows": 40
+          },
+          "chemistry": {
+            "ppl": 9.874717298762691,
+            "acc": 0.5413320736891828,
+            "n_rows": 101
+          },
+          "finance": {
+            "ppl": 15.55479564260523,
+            "acc": 0.46771653543307085,
+            "n_rows": 35
+          },
+          "legal": {
+            "ppl": 13.900125959030786,
+            "acc": 0.4720007825108818,
+            "n_rows": 161
+          },
+          "medicine": {
+            "ppl": 9.0287852830869,
+            "acc": 0.5460816248323433,
+            "n_rows": 207
+          }
+        },
+        "anchor_nll": 2.7580926418304443
+      },
+      "configs": {
+        "naive": {
+          "dream_on": false,
+          "updates": [
+            {
+              "topic": "forensics",
+              "topic_idx": 0,
+              "train_rows": 140,
+              "dream_prompts_n": 5,
+              "train_loss": 2.315062524676323,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.261413174194983,
+                  "acc": 0.5107515871390539,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 10.017632613471758,
+                  "acc": 0.5392064241851677,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 16.761471055167284,
+                  "acc": 0.45376827896512933,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 15.066751494324722,
+                  "acc": 0.4594806084022106,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 9.59709191331371,
+                  "acc": 0.535351599923357,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.856494665145874,
+              "drift_kl_base": 1.6223958333333333,
+              "drift_kl_prev": 1.6223958333333333,
+              "time": 30.371662139892578
+            },
+            {
+              "topic": "chemistry",
+              "topic_idx": 1,
+              "train_rows": 140,
+              "dream_prompts_n": 17,
+              "train_loss": 2.160646245777607,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 12.282867321772391,
+                  "acc": 0.5031742781077206,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 8.405790018819957,
+                  "acc": 0.559990552668871,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 16.650319480472444,
+                  "acc": 0.45736782902137235,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 15.388934654358874,
+                  "acc": 0.4565950995256028,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 9.62761978137451,
+                  "acc": 0.5338187392220732,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.9235090732574465,
+              "drift_kl_base": 1.5872395833333333,
+              "drift_kl_prev": 1.470703125,
+              "time": 30.41882848739624
+            },
+            {
+              "topic": "finance",
+              "topic_idx": 2,
+              "train_rows": 140,
+              "dream_prompts_n": 29,
+              "train_loss": 2.6235079300403594,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 13.151548724163883,
+                  "acc": 0.49068195781282,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 9.376800258935315,
+                  "acc": 0.5463706502912927,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 13.709784681194735,
+                  "acc": 0.4733408323959505,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 15.5206175401821,
+                  "acc": 0.4546877292512349,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 10.077539642782416,
+                  "acc": 0.525617934470205,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 3.4009861946105957,
+              "drift_kl_base": 2.7890625,
+              "drift_kl_prev": 1.0703125,
+              "time": 30.45818281173706
+            },
+            {
+              "topic": "legal",
+              "topic_idx": 3,
+              "train_rows": 140,
+              "dream_prompts_n": 41,
+              "train_loss": 2.3297458124160766,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 14.148063304688744,
+                  "acc": 0.4816711038296129,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 10.58166110057018,
+                  "acc": 0.5262950716422611,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 15.08626861946179,
+                  "acc": 0.46794150731158607,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 11.148920162065384,
+                  "acc": 0.49748129309923217,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 10.251497122736811,
+                  "acc": 0.5237785016286645,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 3.140893006324768,
+              "drift_kl_base": 3.1979166666666665,
+              "drift_kl_prev": 1.125,
+              "time": 30.449687719345093
+            },
+            {
+              "topic": "medicine",
+              "topic_idx": 4,
+              "train_rows": 140,
+              "dream_prompts_n": 53,
+              "train_loss": 1.9539742809534073,
+              "dream_loss": 0.0,
+              "lambda_final": 0.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 12.906559065397616,
+                  "acc": 0.4962113454843334,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 9.633159222739963,
+                  "acc": 0.5427491733585262,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 14.661812000320026,
+                  "acc": 0.4672665916760405,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 12.068671654324632,
+                  "acc": 0.4895583704210887,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 7.923101751434765,
+                  "acc": 0.5604905154244108,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 3.2038114070892334,
+              "drift_kl_base": 2.3333333333333335,
+              "drift_kl_prev": 1.0377604166666667,
+              "time": 30.443073749542236
+            }
+          ],
+          "summary": {
+            "forensics": {
+              "first_after_learning": 0.5107515871390539,
+              "best_seen": 0.5107515871390539,
+              "final": 0.4962113454843334,
+              "forgetting": 0.01454024165472051,
+              "retention_delta": -0.01454024165472051,
+              "n_measurements": 5
+            },
+            "chemistry": {
+              "first_after_learning": 0.559990552668871,
+              "best_seen": 0.559990552668871,
+              "final": 0.5427491733585262,
+              "forgetting": 0.01724137931034475,
+              "retention_delta": -0.01724137931034475,
+              "n_measurements": 4
+            },
+            "finance": {
+              "first_after_learning": 0.4733408323959505,
+              "best_seen": 0.4733408323959505,
+              "final": 0.4672665916760405,
+              "forgetting": 0.0060742407199099735,
+              "retention_delta": -0.0060742407199099735,
+              "n_measurements": 3
+            },
+            "legal": {
+              "first_after_learning": 0.49748129309923217,
+              "best_seen": 0.49748129309923217,
+              "final": 0.4895583704210887,
+              "forgetting": 0.007922922678143485,
+              "retention_delta": -0.007922922678143485,
+              "n_measurements": 2
+            },
+            "medicine": {
+              "first_after_learning": 0.5604905154244108,
+              "best_seen": 0.5604905154244108,
+              "final": 0.5604905154244108,
+              "forgetting": 0.0,
+              "retention_delta": 0.0,
+              "n_measurements": 1
+            }
+          }
+        },
+        "dreaming": {
+          "dream_on": true,
+          "updates": [
+            {
+              "topic": "forensics",
+              "topic_idx": 0,
+              "train_rows": 140,
+              "dream_prompts_n": 5,
+              "train_loss": 2.390764192342758,
+              "dream_loss": 0.03136306285858154,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.519182640202871,
+                  "acc": 0.5011263567479008,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 9.783618975886917,
+                  "acc": 0.5400724295386553,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 16.10149676285647,
+                  "acc": 0.45984251968503936,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 14.321366077557448,
+                  "acc": 0.46769697266102606,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 9.237884853452009,
+                  "acc": 0.5412914351408316,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.769033193588257,
+              "drift_kl_base": 0.015299479166666666,
+              "drift_kl_prev": 0.015299479166666666,
+              "time": 46.926438093185425
+            },
+            {
+              "topic": "chemistry",
+              "topic_idx": 1,
+              "train_rows": 140,
+              "dream_prompts_n": 17,
+              "train_loss": 2.2341705524921416,
+              "dream_loss": 0.04786779403686523,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.615603009407327,
+                  "acc": 0.5025599016997747,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 8.780396158224129,
+                  "acc": 0.5547945205479452,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 15.71495312861032,
+                  "acc": 0.46794150731158607,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 14.19242021389126,
+                  "acc": 0.46759915880080205,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 9.030686645660715,
+                  "acc": 0.5441272274382065,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.787018394470215,
+              "drift_kl_base": 0.017161051432291668,
+              "drift_kl_prev": 0.012379964192708334,
+              "time": 46.34085822105408
+            },
+            {
+              "topic": "finance",
+              "topic_idx": 2,
+              "train_rows": 140,
+              "dream_prompts_n": 29,
+              "train_loss": 2.705701022744179,
+              "dream_loss": 0.036494178771972655,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.726886228387047,
+                  "acc": 0.500307188203973,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 8.881635590327397,
+                  "acc": 0.5510155880963628,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 14.198497383711487,
+                  "acc": 0.4731158605174353,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 14.22371499167176,
+                  "acc": 0.4673057172201301,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 8.93659556499255,
+                  "acc": 0.5458900172446829,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.823849678039551,
+              "drift_kl_base": 0.044677734375,
+              "drift_kl_prev": 0.02740478515625,
+              "time": 46.117783308029175
+            },
+            {
+              "topic": "legal",
+              "topic_idx": 3,
+              "train_rows": 140,
+              "dream_prompts_n": 41,
+              "train_loss": 2.3943676990270615,
+              "dream_loss": 0.045760459899902343,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.866669654506312,
+                  "acc": 0.4980544747081712,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 8.973186476815856,
+                  "acc": 0.5491261218705715,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 14.366917101650381,
+                  "acc": 0.47154105736782903,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 11.517593249403333,
+                  "acc": 0.4956228297549763,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 8.906648909751476,
+                  "acc": 0.5453535159992335,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.8174984455108643,
+              "drift_kl_base": 0.07340494791666667,
+              "drift_kl_prev": 0.019694010416666668,
+              "time": 46.09048295021057
+            },
+            {
+              "topic": "medicine",
+              "topic_idx": 4,
+              "train_rows": 140,
+              "dream_prompts_n": 53,
+              "train_loss": 1.974419652223587,
+              "dream_loss": 0.03149984359741211,
+              "lambda_final": 1.0,
+              "steps": 200,
+              "evals": {
+                "forensics": {
+                  "ppl": 11.943637783049612,
+                  "acc": 0.4974400983002253,
+                  "n_rows": 40
+                },
+                "chemistry": {
+                  "ppl": 9.031809344452203,
+                  "acc": 0.5493623051487955,
+                  "n_rows": 101
+                },
+                "finance": {
+                  "ppl": 14.376912440480517,
+                  "acc": 0.4697412823397075,
+                  "n_rows": 35
+                },
+                "legal": {
+                  "ppl": 11.622479418535066,
+                  "acc": 0.4929818555289284,
+                  "n_rows": 161
+                },
+                "medicine": {
+                  "ppl": 7.895318402278422,
+                  "acc": 0.5631347001341254,
+                  "n_rows": 207
+                }
+              },
+              "anchor_nll": 2.8319231986999513,
+              "drift_kl_base": 0.08056640625,
+              "drift_kl_prev": 0.022359212239583332,
+              "time": 45.88286566734314
+            }
+          ],
+          "summary": {
+            "forensics": {
+              "first_after_learning": 0.5011263567479008,
+              "best_seen": 0.5025599016997747,
+              "final": 0.4974400983002253,
+              "forgetting": 0.005119803399549427,
+              "retention_delta": -0.003686258447675561,
+              "n_measurements": 5
+            },
+            "chemistry": {
+              "first_after_learning": 0.5547945205479452,
+              "best_seen": 0.5547945205479452,
+              "final": 0.5493623051487955,
+              "forgetting": 0.005432215399149731,
+              "retention_delta": -0.005432215399149731,
+              "n_measurements": 4
+            },
+            "finance": {
+              "first_after_learning": 0.4731158605174353,
+              "best_seen": 0.4731158605174353,
+              "final": 0.4697412823397075,
+              "forgetting": 0.003374578177727794,
+              "retention_delta": -0.003374578177727794,
+              "n_measurements": 3
+            },
+            "legal": {
+              "first_after_learning": 0.4956228297549763,
+              "best_seen": 0.4956228297549763,
+              "final": 0.4929818555289284,
+              "forgetting": 0.0026409742260478652,
+              "retention_delta": -0.0026409742260478652,
+              "n_measurements": 2
+            },
+            "medicine": {
+              "first_after_learning": 0.5631347001341254,
+              "best_seen": 0.5631347001341254,
+              "final": 0.5631347001341254,
+              "forgetting": 0.0,
+              "retention_delta": 0.0,
+              "n_measurements": 1
+            }
+          }
+        }
+      }
+    }
+  },
+  "aggregate": {
+    "naive": {
+      "n_seeds": 3,
+      "mean_forgetting_mean": 0.01189327630714417,
+      "mean_forgetting_std": 0.00044157078538725086,
+      "final_anchor_nll_mean": 3.1729595820109053,
+      "final_anchor_nll_std": 0.05758024173807828,
+      "final_drift_base_mean": 2.189236111111111,
+      "final_drift_base_std": 0.2678285506124173,
+      "final_avg_acc_mean": 0.5110726362672722,
+      "final_avg_acc_std": 0.0004500368533985685
+    },
+    "dreaming": {
+      "n_seeds": 3,
+      "mean_forgetting_mean": 0.0044065115885681865,
+      "mean_forgetting_std": 0.00026566960116248503,
+      "final_anchor_nll_mean": 2.8221084753672283,
+      "final_anchor_nll_std": 0.014489103400725886,
+      "final_drift_base_mean": 0.10514322916666667,
+      "final_drift_base_std": 0.040472399376456976,
+      "final_avg_acc_mean": 0.5144766561444378,
+      "final_avg_acc_std": 0.0006308997393158665
+    }
+  }
+}

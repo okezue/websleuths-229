@@ -1,0 +1,520 @@
+INFO httpx: HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+
+========================================================================
+SEQUENTIAL RETENTION EXPERIMENT
+========================================================================
+Model:   Qwen/Qwen2.5-3B
+Topics:  forensics -> chemistry -> finance -> legal -> medicine
+Configs: ['naive', 'dreaming']
+Seeds:   [42, 43, 44]
+Steps:   200 per topic | BS=2 | LR=0.0002
+GPU:     NVIDIA L40S
+
+========================================================================
+PHASE 1: PREPARE FROZEN TOPIC DATA
+========================================================================
+INFO retention: forensics | 'unsolved cold case forensic evidence DNA 2024': 5 episodes
+INFO retention: forensics | 'DNA forensic breakthroughs criminal investigation': 5 episodes
+INFO retention: forensics | 'forensic science new techniques crime solving': 5 episodes
+INFO retention: chemistry | 'organic reaction mechanisms catalysis synthesis': 5 episodes
+INFO retention: chemistry | 'CRISPR gene editing molecular biology': 5 episodes
+INFO retention: chemistry | 'computational chemistry molecular dynamics simulation': 5 episodes
+INFO retention: finance | 'quantitative trading strategies risk modeling': 5 episodes
+INFO retention: finance | 'credit risk assessment Basel IV regulations': 5 episodes
+INFO retention: finance | 'earnings analysis SEC filings equity valuation': 5 episodes
+INFO retention: legal | 'Fourth Amendment digital privacy warrant cell phone search': 5 episodes
+INFO retention: legal | 'constitutional law Supreme Court precedent free speech': 5 episodes
+INFO retention: legal | 'intellectual property AI generated content copyright law': 5 episodes
+INFO retention: medicine | 'clinical pharmacology drug interactions adverse effects': 5 episodes
+INFO retention: medicine | 'oncology targeted therapy biomarkers immunotherapy': 5 episodes
+INFO retention: medicine | 'pathophysiology cardiology heart failure mechanisms': 5 episodes
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  forensics: episodes=15 chunks=202 train=140 eval=40
+  chemistry: episodes=15 chunks=504 train=140 eval=101
+  finance: episodes=15 chunks=175 train=140 eval=35
+  legal: episodes=15 chunks=805 train=140 eval=161
+  medicine: episodes=15 chunks=1033 train=140 eval=207
+
+========================================================================
+PHASE 2/3: SEED 42 LOAD MODEL + RUN CONFIGS
+========================================================================
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/config.json "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/tokenizer_config.json "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen2.5-3B/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+INFO httpx: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen2.5-3B/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen2.5-3B "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/config.json "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]Loading weights:  14%|█▍        | 60/434 [00:00<00:00, 495.00it/s]Loading weights:  25%|██▌       | 110/434 [00:00<00:01, 193.52it/s]Loading weights:  32%|███▏      | 138/434 [00:00<00:01, 158.48it/s]Loading weights:  37%|███▋      | 159/434 [00:00<00:01, 144.50it/s]Loading weights:  41%|████      | 176/434 [00:01<00:01, 147.47it/s]Loading weights:  44%|████▍     | 193/434 [00:01<00:01, 143.73it/s]Loading weights:  48%|████▊     | 209/434 [00:01<00:01, 143.87it/s]Loading weights:  52%|█████▏    | 226/434 [00:01<00:01, 125.53it/s]Loading weights:  57%|█████▋    | 248/434 [00:01<00:01, 139.25it/s]Loading weights:  61%|██████    | 263/434 [00:01<00:01, 138.72it/s]Loading weights:  64%|██████▍   | 278/434 [00:01<00:01, 127.88it/s]Loading weights:  68%|██████▊   | 293/434 [00:01<00:01, 122.84it/s]Loading weights:  71%|███████   | 309/434 [00:02<00:00, 131.63it/s]Loading weights:  75%|███████▌  | 326/434 [00:02<00:00, 138.20it/s]Loading weights:  79%|███████▊  | 341/434 [00:02<00:00, 129.23it/s]Loading weights:  82%|████████▏ | 356/434 [00:02<00:00, 133.70it/s]Loading weights:  85%|████████▌ | 370/434 [00:02<00:00, 129.99it/s]Loading weights:  88%|████████▊ | 384/434 [00:02<00:00, 130.84it/s]Loading weights:  92%|█████████▏| 398/434 [00:02<00:00, 131.29it/s]Loading weights:  95%|█████████▌| 414/434 [00:02<00:00, 134.28it/s]Loading weights:  99%|█████████▊| 428/434 [00:02<00:00, 134.84it/s]Loading weights: 100%|██████████| 434/434 [00:02<00:00, 145.78it/s]
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/generation_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/generation_config.json "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/custom_generate/generate.py "HTTP/1.1 404 Not Found"
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+trainable params: 1,843,200 || all params: 3,087,781,888 || trainable%: 0.0597
+Seed 42: computing baseline on all held-out topic splits...
+  baseline anchor_nll=2.7581
+
+========================================================================
+CONFIG: naive  (dreaming=OFF)
+========================================================================
+
+========================================================================
+naive | t0: forensics  (1/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1769.03 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.3275 dream_loss=0.0000 lambda_final=0.0000 prompts=5
+  anchor_nll=2.8976 drift_base=1.837240 drift_prev=1.837240
+
+========================================================================
+naive | t1: chemistry  (2/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1850.41 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.1482 dream_loss=0.0000 lambda_final=0.0000 prompts=17
+  anchor_nll=3.0002 drift_base=1.640625 drift_prev=1.354167
+
+========================================================================
+naive | t2: finance  (3/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1716.72 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.6325 dream_loss=0.0000 lambda_final=0.0000 prompts=29
+  anchor_nll=3.4476 drift_base=3.156250 drift_prev=1.139323
+
+========================================================================
+naive | t3: legal  (4/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1680.43 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.3441 dream_loss=0.0000 lambda_final=0.0000 prompts=41
+  anchor_nll=3.1174 drift_base=3.109375 drift_prev=1.115885
+
+========================================================================
+naive | t4: medicine  (5/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1641.34 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=1.9465 dream_loss=0.0000 lambda_final=0.0000 prompts=53
+  anchor_nll=3.2085 drift_base=2.354167 drift_prev=0.958984
+
+========================================================================
+CONFIG: dreaming  (dreaming=ON)
+========================================================================
+
+========================================================================
+dreaming | t0: forensics  (1/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1671.71 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.4102 dream_loss=0.0285 lambda_final=1.0000 prompts=5
+  anchor_nll=2.7782 drift_base=0.013448 drift_prev=0.013448
+
+========================================================================
+dreaming | t1: chemistry  (2/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1766.50 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.2260 dream_loss=0.0498 lambda_final=1.0000 prompts=17
+  anchor_nll=2.7919 drift_base=0.038167 drift_prev=0.023010
+
+========================================================================
+dreaming | t2: finance  (3/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1642.64 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.7035 dream_loss=0.0382 lambda_final=1.0000 prompts=29
+  anchor_nll=2.8331 drift_base=0.053345 drift_prev=0.018087
+
+========================================================================
+dreaming | t3: legal  (4/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1612.48 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.4040 dream_loss=0.0405 lambda_final=1.0000 prompts=41
+  anchor_nll=2.8251 drift_base=0.095866 drift_prev=0.031820
+
+========================================================================
+dreaming | t4: medicine  (5/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1612.45 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=1.9714 dream_loss=0.0316 lambda_final=1.0000 prompts=53
+  anchor_nll=2.8289 drift_base=0.151855 drift_prev=0.048055
+
+========================================================================
+PHASE 2/3: SEED 43 LOAD MODEL + RUN CONFIGS
+========================================================================
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/config.json "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/tokenizer_config.json "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen2.5-3B/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+INFO httpx: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen2.5-3B/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen2.5-3B "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/config.json "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]Loading weights: 100%|██████████| 434/434 [00:00<00:00, 6907.01it/s]
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/generation_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/generation_config.json "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/custom_generate/generate.py "HTTP/1.1 404 Not Found"
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+Seed 43: computing baseline on all held-out topic splits...
+  baseline anchor_nll=2.7581
+
+========================================================================
+CONFIG: naive  (dreaming=OFF)
+========================================================================
+
+========================================================================
+naive | t0: forensics  (1/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1733.41 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.3202 dream_loss=0.0000 lambda_final=0.0000 prompts=5
+  anchor_nll=2.8718 drift_base=1.764323 drift_prev=1.764323
+
+========================================================================
+naive | t1: chemistry  (2/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1857.79 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.1444 dream_loss=0.0000 lambda_final=0.0000 prompts=17
+  anchor_nll=2.9287 drift_base=1.429688 drift_prev=1.451823
+
+========================================================================
+naive | t2: finance  (3/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1711.63 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.6151 dream_loss=0.0000 lambda_final=0.0000 prompts=29
+  anchor_nll=3.3302 drift_base=3.088542 drift_prev=1.144531
+
+========================================================================
+naive | t3: legal  (4/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1720.86 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.3413 dream_loss=0.0000 lambda_final=0.0000 prompts=41
+  anchor_nll=3.0516 drift_base=2.885417 drift_prev=1.114583
+
+========================================================================
+naive | t4: medicine  (5/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1666.77 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=1.9525 dream_loss=0.0000 lambda_final=0.0000 prompts=53
+  anchor_nll=3.1065 drift_base=1.880208 drift_prev=0.919922
+
+========================================================================
+CONFIG: dreaming  (dreaming=ON)
+========================================================================
+
+========================================================================
+dreaming | t0: forensics  (1/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1687.09 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.4034 dream_loss=0.0346 lambda_final=1.0000 prompts=5
+  anchor_nll=2.7730 drift_base=0.021423 drift_prev=0.021423
+
+========================================================================
+dreaming | t1: chemistry  (2/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1758.02 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.2186 dream_loss=0.0486 lambda_final=1.0000 prompts=17
+  anchor_nll=2.7829 drift_base=0.047323 drift_prev=0.033122
+
+========================================================================
+dreaming | t2: finance  (3/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1623.71 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.6909 dream_loss=0.0370 lambda_final=1.0000 prompts=29
+  anchor_nll=2.8065 drift_base=0.048665 drift_prev=0.027995
+
+========================================================================
+dreaming | t3: legal  (4/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1618.01 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.4115 dream_loss=0.0414 lambda_final=1.0000 prompts=41
+  anchor_nll=2.7898 drift_base=0.063477 drift_prev=0.020025
+
+========================================================================
+dreaming | t4: medicine  (5/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1592.34 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=1.9767 dream_loss=0.0314 lambda_final=1.0000 prompts=53
+  anchor_nll=2.8055 drift_base=0.083008 drift_prev=0.024211
+
+========================================================================
+PHASE 2/3: SEED 44 LOAD MODEL + RUN CONFIGS
+========================================================================
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/config.json "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/tokenizer_config.json "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen2.5-3B/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+INFO httpx: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen2.5-3B/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen2.5-3B "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/config.json "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]Loading weights: 100%|██████████| 434/434 [00:00<00:00, 6544.15it/s]
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/generation_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen2.5-3B/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/generation_config.json "HTTP/1.1 200 OK"
+INFO httpx: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen2.5-3B/resolve/main/custom_generate/generate.py "HTTP/1.1 404 Not Found"
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+Seed 44: computing baseline on all held-out topic splits...
+  baseline anchor_nll=2.7581
+
+========================================================================
+CONFIG: naive  (dreaming=OFF)
+========================================================================
+
+========================================================================
+naive | t0: forensics  (1/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1708.00 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.3151 dream_loss=0.0000 lambda_final=0.0000 prompts=5
+  anchor_nll=2.8565 drift_base=1.622396 drift_prev=1.622396
+
+========================================================================
+naive | t1: chemistry  (2/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1869.64 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.1606 dream_loss=0.0000 lambda_final=0.0000 prompts=17
+  anchor_nll=2.9235 drift_base=1.587240 drift_prev=1.470703
+
+========================================================================
+naive | t2: finance  (3/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1726.02 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.6235 dream_loss=0.0000 lambda_final=0.0000 prompts=29
+  anchor_nll=3.4010 drift_base=2.789062 drift_prev=1.070312
+
+========================================================================
+naive | t3: legal  (4/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1706.38 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.3297 dream_loss=0.0000 lambda_final=0.0000 prompts=41
+  anchor_nll=3.1409 drift_base=3.197917 drift_prev=1.125000
+
+========================================================================
+naive | t4: medicine  (5/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1674.83 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=1.9540 dream_loss=0.0000 lambda_final=0.0000 prompts=53
+  anchor_nll=3.2038 drift_base=2.333333 drift_prev=1.037760
+
+========================================================================
+CONFIG: dreaming  (dreaming=ON)
+========================================================================
+
+========================================================================
+dreaming | t0: forensics  (1/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1664.81 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.3908 dream_loss=0.0314 lambda_final=1.0000 prompts=5
+  anchor_nll=2.7690 drift_base=0.015299 drift_prev=0.015299
+
+========================================================================
+dreaming | t1: chemistry  (2/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1737.52 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.2342 dream_loss=0.0479 lambda_final=1.0000 prompts=17
+  anchor_nll=2.7870 drift_base=0.017161 drift_prev=0.012380
+
+========================================================================
+dreaming | t2: finance  (3/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1639.94 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.7057 dream_loss=0.0365 lambda_final=1.0000 prompts=29
+  anchor_nll=2.8238 drift_base=0.044678 drift_prev=0.027405
+
+========================================================================
+dreaming | t3: legal  (4/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1601.83 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=2.3944 dream_loss=0.0458 lambda_final=1.0000 prompts=41
+  anchor_nll=2.8175 drift_base=0.073405 drift_prev=0.019694
+
+========================================================================
+dreaming | t4: medicine  (5/5)
+========================================================================
+Map:   0%|          | 0/140 [00:00<?, ? examples/s]Map: 100%|██████████| 140/140 [00:00<00:00, 1603.55 examples/s]
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+INFO retention: checkpoint saved -> /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B_checkpoint.json
+  train: loss=1.9744 dream_loss=0.0315 lambda_final=1.0000 prompts=53
+  anchor_nll=2.8319 drift_base=0.080566 drift_prev=0.022359
+
+========================================================================
+SEED 42: HELD-OUT TOPIC ACCURACY
+========================================================================
+config/update          forensics     chemistry       finance         legal      medicine
+----------------------------------------------------------------------------------------
+baseline                  0.4903        0.5413        0.4677        0.4720        0.5461
+naive/t0                  0.5099        0.5395        0.4542        0.4598        0.5344
+naive/t1                  0.5003        0.5606        0.4589        0.4560        0.5320
+naive/t2                  0.4901        0.5458        0.4722        0.4500        0.5244
+naive/t3                  0.4815        0.5305        0.4675        0.4989        0.5234
+naive/t4                  0.4927        0.5420        0.4697        0.4878        0.5605
+dreaming/t0                  0.5013        0.5383        0.4637        0.4657        0.5406
+dreaming/t1                  0.5034        0.5554        0.4675        0.4659        0.5442
+dreaming/t2                  0.5011        0.5522        0.4756        0.4660        0.5445
+dreaming/t3                  0.5026        0.5515        0.4769        0.4947        0.5439
+dreaming/t4                  0.4989        0.5481        0.4715        0.4944        0.5625
+
+========================================================================
+SEED 42: FORGETTING SUMMARY
+========================================================================
+
+naive:
+  forensics    first=0.5099 best=0.5099 final=0.4927 forgetting=0.0172
+  chemistry    first=0.5606 best=0.5606 final=0.5420 forgetting=0.0186
+  finance      first=0.4722 best=0.4722 final=0.4697 forgetting=0.0025
+  legal        first=0.4989 best=0.4989 final=0.4878 forgetting=0.0111
+  medicine     first=0.5605 best=0.5605 final=0.5605 forgetting=0.0000
+  mean_forgetting=0.0123
+
+dreaming:
+  forensics    first=0.5013 best=0.5034 final=0.4989 forgetting=0.0045
+  chemistry    first=0.5554 best=0.5554 final=0.5481 forgetting=0.0073
+  finance      first=0.4756 best=0.4769 final=0.4715 forgetting=0.0054
+  legal        first=0.4947 best=0.4947 final=0.4944 forgetting=0.0004
+  medicine     first=0.5625 best=0.5625 final=0.5625 forgetting=0.0000
+  mean_forgetting=0.0044
+
+========================================================================
+SEED 42: ANCHOR / DRIFT TRAJECTORY
+========================================================================
+naive: anchor 2.758 -> 2.898 -> 3.000 -> 3.448 -> 3.117 -> 3.209
+naive: drift_base 1.8372 -> 1.6406 -> 3.1562 -> 3.1094 -> 2.3542
+dreaming: anchor 2.758 -> 2.778 -> 2.792 -> 2.833 -> 2.825 -> 2.829
+dreaming: drift_base 0.0134 -> 0.0382 -> 0.0533 -> 0.0959 -> 0.1519
+
+========================================================================
+SEED 43: HELD-OUT TOPIC ACCURACY
+========================================================================
+config/update          forensics     chemistry       finance         legal      medicine
+----------------------------------------------------------------------------------------
+baseline                  0.4903        0.5413        0.4677        0.4720        0.5461
+naive/t0                  0.5110        0.5388        0.4576        0.4597        0.5338
+naive/t1                  0.5013        0.5589        0.4544        0.4541        0.5324
+naive/t2                  0.4958        0.5467        0.4758        0.4530        0.5247
+naive/t3                  0.4835        0.5315        0.4670        0.4968        0.5270
+naive/t4                  0.4978        0.5402        0.4682        0.4886        0.5621
+dreaming/t0                  0.5007        0.5406        0.4601        0.4671        0.5403
+dreaming/t1                  0.5046        0.5550        0.4641        0.4667        0.5436
+dreaming/t2                  0.5028        0.5527        0.4718        0.4658        0.5448
+dreaming/t3                  0.4981        0.5521        0.4704        0.4941        0.5454
+dreaming/t4                  0.4972        0.5480        0.4691        0.4924        0.5623
+
+========================================================================
+SEED 43: FORGETTING SUMMARY
+========================================================================
+
+naive:
+  forensics    first=0.5110 best=0.5110 final=0.4978 forgetting=0.0131
+  chemistry    first=0.5589 best=0.5589 final=0.5402 forgetting=0.0187
+  finance      first=0.4758 best=0.4758 final=0.4682 forgetting=0.0076
+  legal        first=0.4968 best=0.4968 final=0.4886 forgetting=0.0082
+  medicine     first=0.5621 best=0.5621 final=0.5621 forgetting=0.0000
+  mean_forgetting=0.0119
+
+dreaming:
+  forensics    first=0.5007 best=0.5046 final=0.4972 forgetting=0.0074
+  chemistry    first=0.5550 best=0.5550 final=0.5480 forgetting=0.0070
+  finance      first=0.4718 best=0.4718 final=0.4691 forgetting=0.0027
+  legal        first=0.4941 best=0.4941 final=0.4924 forgetting=0.0016
+  medicine     first=0.5623 best=0.5623 final=0.5623 forgetting=0.0000
+  mean_forgetting=0.0047
+
+========================================================================
+SEED 43: ANCHOR / DRIFT TRAJECTORY
+========================================================================
+naive: anchor 2.758 -> 2.872 -> 2.929 -> 3.330 -> 3.052 -> 3.107
+naive: drift_base 1.7643 -> 1.4297 -> 3.0885 -> 2.8854 -> 1.8802
+dreaming: anchor 2.758 -> 2.773 -> 2.783 -> 2.807 -> 2.790 -> 2.805
+dreaming: drift_base 0.0214 -> 0.0473 -> 0.0487 -> 0.0635 -> 0.0830
+
+========================================================================
+SEED 44: HELD-OUT TOPIC ACCURACY
+========================================================================
+config/update          forensics     chemistry       finance         legal      medicine
+----------------------------------------------------------------------------------------
+baseline                  0.4903        0.5413        0.4677        0.4720        0.5461
+naive/t0                  0.5108        0.5392        0.4538        0.4595        0.5354
+naive/t1                  0.5032        0.5600        0.4574        0.4566        0.5338
+naive/t2                  0.4907        0.5464        0.4733        0.4547        0.5256
+naive/t3                  0.4817        0.5263        0.4679        0.4975        0.5238
+naive/t4                  0.4962        0.5427        0.4673        0.4896        0.5605
+dreaming/t0                  0.5011        0.5401        0.4598        0.4677        0.5413
+dreaming/t1                  0.5026        0.5548        0.4679        0.4676        0.5441
+dreaming/t2                  0.5003        0.5510        0.4731        0.4673        0.5459
+dreaming/t3                  0.4981        0.5491        0.4715        0.4956        0.5454
+dreaming/t4                  0.4974        0.5494        0.4697        0.4930        0.5631
+
+========================================================================
+SEED 44: FORGETTING SUMMARY
+========================================================================
+
+naive:
+  forensics    first=0.5108 best=0.5108 final=0.4962 forgetting=0.0145
+  chemistry    first=0.5600 best=0.5600 final=0.5427 forgetting=0.0172
+  finance      first=0.4733 best=0.4733 final=0.4673 forgetting=0.0061
+  legal        first=0.4975 best=0.4975 final=0.4896 forgetting=0.0079
+  medicine     first=0.5605 best=0.5605 final=0.5605 forgetting=0.0000
+  mean_forgetting=0.0114
+
+dreaming:
+  forensics    first=0.5011 best=0.5026 final=0.4974 forgetting=0.0051
+  chemistry    first=0.5548 best=0.5548 final=0.5494 forgetting=0.0054
+  finance      first=0.4731 best=0.4731 final=0.4697 forgetting=0.0034
+  legal        first=0.4956 best=0.4956 final=0.4930 forgetting=0.0026
+  medicine     first=0.5631 best=0.5631 final=0.5631 forgetting=0.0000
+  mean_forgetting=0.0041
+
+========================================================================
+SEED 44: ANCHOR / DRIFT TRAJECTORY
+========================================================================
+naive: anchor 2.758 -> 2.856 -> 2.924 -> 3.401 -> 3.141 -> 3.204
+naive: drift_base 1.6224 -> 1.5872 -> 2.7891 -> 3.1979 -> 2.3333
+dreaming: anchor 2.758 -> 2.769 -> 2.787 -> 2.824 -> 2.817 -> 2.832
+dreaming: drift_base 0.0153 -> 0.0172 -> 0.0447 -> 0.0734 -> 0.0806
+
+========================================================================
+AGGREGATE SUMMARY ACROSS SEEDS
+========================================================================
+naive: mean_forgetting=0.0119±0.0004  final_anchor=3.1730±0.0576  final_drift=2.1892±0.2678  final_avg_acc=0.5111±0.0005  n=3
+dreaming: mean_forgetting=0.0044±0.0003  final_anchor=2.8221±0.0145  final_drift=0.1051±0.0405  final_avg_acc=0.5145±0.0006  n=3
+
+Saved to /home/users/agromyko/websleuths-229/results/retention/retention_Qwen_Qwen2.5-3B.json
+
+========================================================================
+DONE
+========================================================================

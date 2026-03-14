@@ -45,7 +45,7 @@ def _format_mcq(q:str,choices:list[str])->str:
     s=f"Q: {q}\n"
     for i,c in enumerate(choices):
         s+=f"{_LETTERS[i]}) {c}\n"
-    s+="Answer:"
+    s+="Answer with the letter only:"
     return s
 
 def _gen(model,tok,prompt:str,max_tok:int=64,dev=None)->str:
@@ -155,7 +155,7 @@ class DomainEvalHarness:
             if not endings:tot+=1;continue
             choices=endings[:5]
             prompt=_format_mcq(ctx,choices)
-            gen=_gen(self._m,self._t,prompt,max_tok=8,dev=self._dev)
+            gen=_gen(self._m,self._t,prompt,max_tok=4,dev=self._dev)
             pred=_extract_letter(gen)
             gold=_LETTERS[label] if label<len(_LETTERS) else ""
             if pred==gold:cor+=1
@@ -170,7 +170,7 @@ class DomainEvalHarness:
             choices=list(ts.keys())[:4]
             gold_k=max(ts,key=lambda k:float(ts[k]) if isinstance(ts[k],(int,float)) else 0)
             prompt=_format_mcq(inp,choices)
-            gen=_gen(self._m,self._t,prompt,max_tok=8,dev=self._dev)
+            gen=_gen(self._m,self._t,prompt,max_tok=4,dev=self._dev)
             pred=_extract_letter(gen)
             gi=choices.index(gold_k) if gold_k in choices else -1
             return 1 if gi>=0 and gi<len(_LETTERS) and pred==_LETTERS[gi] else 0
@@ -237,7 +237,7 @@ class DomainEvalHarness:
                 else:gold=""
             if not choices:tot+=1;continue
             prompt=_format_mcq(q,choices)
-            gen=_gen(self._m,self._t,prompt,max_tok=8,dev=self._dev)
+            gen=_gen(self._m,self._t,prompt,max_tok=4,dev=self._dev)
             pred=_extract_letter(gen)
             if pred==gold:cor+=1
             tot+=1
@@ -554,7 +554,7 @@ class DomainEvalHarness:
             ans=row.get("answer",0)
             if not choices:tot+=1;continue
             prompt=_format_mcq(q,choices[:4])
-            gen=_gen(self._m,self._t,prompt,max_tok=8,dev=self._dev)
+            gen=_gen(self._m,self._t,prompt,max_tok=4,dev=self._dev)
             pred=_extract_letter(gen)
             if isinstance(ans,int) and ans<len(_LETTERS):gold=_LETTERS[ans]
             elif isinstance(ans,str) and ans.upper() in _LETTERS:gold=ans.upper()

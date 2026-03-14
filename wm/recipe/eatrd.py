@@ -23,9 +23,10 @@ class EATRDRunner:
     def run(self,model,teacher,ds,dream_prompts:list[str],tok,
             dbank=None,distill_ds=None)->TrainResult:
         dev=next(model.parameters()).device
-        t_dev=next(teacher.parameters()).device
-        if torch.cuda.is_available():torch.cuda.empty_cache()
-        teacher.eval();model.train()
+        if teacher is not None:
+            teacher=teacher.to(dev)
+            teacher.eval()
+        model.train()
         opt=AdamW([p for p in model.parameters() if p.requires_grad],lr=self.lr)
         col=WeightedLMCollator(tok)
         dl=make_ep_dl(ds,tok,col,self.bs,self.max_len)
@@ -51,14 +52,16 @@ class EATRDRunner:
                 ids=batch["input_ids"];mask=batch["attention_mask"];w=batch["weights"]
                 out=model(input_ids=ids,attention_mask=mask)
                 l_ep=weighted_ce(out.logits,ids,mask,w)
-                if dbank is not None:
+                if teacher is None:
+                    l_dr=torch.tensor(0.0,device=dev)
+                elif dbank is not None:
                     st=dbank.sample_with_temps(dev)
                     if st is not None:
                         d_inp,temps=st
                         flt={k:v for k,v in d_inp.items() if k in ("input_ids","attention_mask")}
                         s_out=model(**flt)
                         with torch.no_grad():
-                            t_flt={k:v.to(t_dev) for k,v in flt.items()}
+                            t_flt={k:v.to(dev) for k,v in flt.items()}
                             t_out=teacher(**t_flt)
                         l_dr=multi_temp_dream_kl(s_out.logits,t_out.logits.to(dev),temps)
                     else:
@@ -69,7 +72,7 @@ class EATRDRunner:
                         flt={k:v for k,v in d_inp.items() if k in ("input_ids","attention_mask")}
                         s_out=model(**flt)
                         with torch.no_grad():
-                            t_flt={k:v.to(t_dev) for k,v in flt.items()}
+                            t_flt={k:v.to(dev) for k,v in flt.items()}
                             t_out=teacher(**t_flt)
                         l_dr=dream_kl(s_out.logits,t_out.logits.to(dev),self.temp)
                     else:

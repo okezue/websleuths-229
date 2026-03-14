@@ -1,6 +1,7 @@
 __pycache__/
 *.pyc
 *.egg-info/
+.DS_Store
 .coverage
 .pytest_cache/
 .venv/
@@ -77,3 +78,15 @@ results/paper_figures/fig02_pareto_front.png
 results/paper_figures/fig02_pareto_front.pdf
 results/paper_figures/fig01_recipe_comparison.png
 results/paper_figures/fig01_recipe_comparison.pdf
+
+# run artifacts (resumption checkpoints + trained adapter weights)
+ablations/*_checkpoint.json
+ablations/*_state/
+forgetting/*_checkpoint.json
+forgetting/*_state/
+retention/*_checkpoint.json
+retention/*_state/
+results/ablations/*_checkpoint.json
+results/ablations/*_state/
+results/retention/*_checkpoint.json
+results/retention/*_state/
