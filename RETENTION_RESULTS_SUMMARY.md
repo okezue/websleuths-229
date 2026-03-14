@@ -1,14 +1,13 @@
 # Retention Experiment Summary
 
-This document summarizes the completed retention experiment from `results/retention/retention_meta-llama_Llama-3.2-1B.json` and `results/retention/retention_meta-llama_Llama-3.2-1B_checkpoint.json`.
+This document summarizes the two completed retention experiments from `results/retention/retention_meta-llama_Llama-3.2-1B.json` and `results/retention/retention_Qwen_Qwen2.5-3B.json`.
 
 ## What This Experiment Does
 
-This experiment tests whether dreaming reduces forgetting during sequential topic adaptation. It replaces the older ablation setup with a cleaner retention study: train on several topics one after another, and after every update, reevaluate the model on all earlier topics using held-out data. That gives a direct measurement of how much earlier knowledge drops after later training.
+These experiments test whether dreaming reduces forgetting during sequential topic adaptation. The setup is the same in both runs: train on several topics one after another, and after every update, reevaluate the model on all earlier topics using held-out data. That gives a direct measurement of how much earlier knowledge drops after later training.
 
-The setup was:
+The shared setup was:
 
-- model: `meta-llama/Llama-3.2-1B`
 - adaptation: LoRA
 - conditions: `naive` and `dreaming`
 - seeds: `42`, `43`, `44`
@@ -26,69 +25,77 @@ The two conditions are simple:
 - `naive`: train only on the current topic
 - `dreaming`: train on the current topic while also regularizing against the pre-update teacher using anchors and prompts from earlier topic training rows
 
-Each topic was split into train and held-out eval data, and the training size was balanced across topics so one domain would not dominate the sequence. The final sizes were:
+The protocol was the same in both runs, but the frozen topic snapshots were not exactly identical. The balanced train sizes and eval sizes were:
 
-| Topic      | Train Rows | Eval Rows |
-| ---------- | ---------- | --------- |
-| Forensics  | 105        | 26        |
-| Chemistry  | 105        | 116       |
-| Finance    | 105        | 33        |
-| Legal      | 105        | 97        |
-| Medicine   | 105        | 189       |
+| Model      | Train Rows Per Topic | Eval Rows by Topic (`F / C / Fi / L / M`) |
+| ---------- | -------------------- | ----------------------------------------- |
+| Llama 1B   | 105                  | 26 / 116 / 33 / 97 / 189                  |
+| Qwen 3B    | 140                  | 40 / 101 / 35 / 161 / 207                 |
+
+That means the two runs should be read mainly as two replications of the same effect, not as a perfectly apples-to-apples model ranking.
 
 ## Main Results
 
-The main result is straightforward: dreaming helped. Across the three seeds, mean forgetting dropped from `0.0133 ± 0.0031` under naive training to `0.0068 ± 0.0016` with dreaming, which is about a `49%` reduction. Final average held-out accuracy also improved slightly, from `0.4627 ± 0.0018` to `0.4718 ± 0.0008`, so the gain did not come from simply freezing the model and avoiding new learning. The strongest effect showed up in the stability metrics: final anchor NLL fell from `4.0779 ± 0.0422` to `3.6767 ± 0.0123`, and drift to the base model dropped from `4.4167 ± 0.2933` to `0.4933 ± 0.0415`.
+The main result is very consistent: dreaming helped on both models. In both runs it reduced forgetting, improved final held-out accuracy slightly, and cut stability drift by a large margin. The exact numbers differ, but the direction of the result is the same all the way through.
 
-| Metric                 | Naive            | Dreaming         | Delta     |
-| ---------------------- | ---------------- | ---------------- | --------- |
-| Mean forgetting        | 0.0133 ± 0.0031  | 0.0068 ± 0.0016  | -49.1%    |
-| Final avg held-out acc | 0.4627 ± 0.0018  | 0.4718 ± 0.0008  | +0.0091   |
-| Final anchor NLL       | 4.0779 ± 0.0422  | 3.6767 ± 0.0123  | -0.4012   |
-| Final drift to base    | 4.4167 ± 0.2933  | 0.4933 ± 0.0415  | -3.9234   |
+| Model    | Mean Forgetting                              | Final Avg Held-Out Acc                        | Final Anchor NLL                          | Final Drift To Base                         |
+| -------- | -------------------------------------------- | --------------------------------------------- | ----------------------------------------- | ------------------------------------------- |
+| Llama 1B | `0.0133 ± 0.0031 -> 0.0068 ± 0.0016` `-49.1%` | `0.4627 ± 0.0018 -> 0.4718 ± 0.0008` `+0.0091` | `4.0779 ± 0.0422 -> 3.6767 ± 0.0123`      | `4.4167 ± 0.2933 -> 0.4933 ± 0.0415` `-88.8%` |
+| Qwen 3B  | `0.0119 ± 0.0004 -> 0.0044 ± 0.0003` `-62.9%` | `0.5111 ± 0.0005 -> 0.5145 ± 0.0006` `+0.0034` | `3.1730 ± 0.0576 -> 2.8221 ± 0.0145`      | `2.1892 ± 0.2678 -> 0.1051 ± 0.0405` `-95.2%` |
 
-The pattern was also consistent at the seed level. Dreaming beat naive on overall forgetting in all three seeds, and it also produced better final average held-out accuracy in all three seeds:
+The same consistency shows up at the seed level. Dreaming beat naive on all three seeds for both models on every headline metric:
 
-| Seed | Naive Forgetting | Dreaming Forgetting | Naive Final Avg Acc | Dreaming Final Avg Acc |
-| ---- | ---------------- | ------------------- | ------------------- | ---------------------- |
-| 42   | 0.0153           | 0.0076              | 0.4611              | 0.4719                 |
-| 43   | 0.0097           | 0.0049              | 0.4646              | 0.4726                 |
-| 44   | 0.0148           | 0.0078              | 0.4625              | 0.4709                 |
+| Model    | Better Forgetting | Better Final Avg Acc | Lower Anchor NLL | Lower Drift |
+| -------- | ----------------- | -------------------- | ---------------- | ----------- |
+| Llama 1B | 3 / 3             | 3 / 3                | 3 / 3            | 3 / 3       |
+| Qwen 3B  | 3 / 3             | 3 / 3                | 3 / 3            | 3 / 3       |
 
-Looking at topic-level forgetting, the biggest gains are on forensics, chemistry, and especially legal. Finance shows only a small improvement and is clearly noisier. Medicine is omitted from the table below because it is the last topic in the sequence, so there are no later topics after it that could cause forgetting.
+Across both runs together, that is `6 / 6` wins for dreaming on forgetting, `6 / 6` on final held-out accuracy, `6 / 6` on anchor NLL, and `6 / 6` on drift.
 
-| Topic      | Naive  | Dreaming | Reduction |
-| ---------- | ------ | -------- | --------- |
-| Forensics  | 0.0150 | 0.0084   | -44.3%    |
-| Chemistry  | 0.0135 | 0.0077   | -43.1%    |
-| Finance    | 0.0072 | 0.0069   | -4.4%     |
-| Legal      | 0.0174 | 0.0041   | -76.7%    |
+The topic-level pattern is also similar across both models. Legal, chemistry, and forensics show the strongest gains. Finance improves too, but it is the weakest and noisiest topic in both runs. Medicine is omitted from the table below because it is the last topic in the sequence, so there are no later topics after it that could cause forgetting.
+
+| Topic      | Llama Reduction | Qwen Reduction | Shared Read |
+| ---------- | --------------- | -------------- | ----------- |
+| Forensics  | -44.3%          | -62.1%         | strong improvement |
+| Chemistry  | -43.1%          | -63.7%         | strong improvement |
+| Finance    | -4.4%           | -29.2%         | weakest and noisiest |
+| Legal      | -76.7%          | -82.9%         | strongest improvement |
+
+There is also a common sequence-level pattern. In both runs, naive training stayed below the base-model average held-out accuracy until the final topic. Dreaming crossed earlier and stayed ahead sooner. On Llama that crossover happened after `legal`. On Qwen it happened after `chemistry`.
 
 ```text
-Mean Forgetting
-Naive      0.0133 | █████████████
-Dreaming   0.0068 | ███████
+Mean Forgetting Reduction
+Llama 1B   49.1% | ██████████
+Qwen 3B    62.9% | █████████████
 
-Final Drift To Base
-Naive      4.4167 | ████████████████████████████████████████
-Dreaming   0.4933 | ████
+Drift Reduction To Base
+Llama 1B   88.8% | ██████████████████
+Qwen 3B    95.2% | ███████████████████
 
-Final Avg Held-Out Accuracy
-Naive      0.4627 | ██████████████████████████████████████████████
-Dreaming   0.4718 | ███████████████████████████████████████████████
+Final Avg Held-Out Accuracy Gain
+Llama 1B   +0.0091 | █████████
+Qwen 3B    +0.0034 | ███
+
+Shared Topic Pattern
+Legal      strongest gain in both runs
+Finance    weakest / noisiest in both runs
 ```
 
 ## What These Results Mean
 
-The cleanest reading is that dreaming reduces forgetting and dramatically reduces drift during sequential topic adaptation. This experiment is much better aligned with the actual claim than the older ablations because it measures held-out topic performance after later updates instead of mostly measuring fit on training-derived data. It is also not a story where dreaming blocks learning: final held-out accuracy is slightly better with dreaming, while stability is much better.
+The cleanest reading is that the retention result replicated. Dreaming was not just better on one model, or one seed, or one metric. It worked on both Llama 1B and Qwen 3B, and it improved the same things in both places: lower forgetting, lower drift, and slightly better final held-out performance.
+
+That is important because it makes the result much harder to dismiss as a one-off. The two models are different, the data snapshots are not identical, and the absolute numbers differ, but the qualitative outcome is the same. In that sense, the shared conclusion is stronger than either single run by itself.
+
+There is also a useful nuance in both runs. Dreaming is not just “freezing” the model. Final held-out accuracy is still slightly better with dreaming on both models. At the same time, dreaming keeps the model much closer to its base behavior. So the result is not stability at the cost of learning. It is better stability with no obvious learning collapse.
 
 The most important takeaways are:
 
-- overall forgetting was cut by about half
-- this held across all 3 seeds
-- final held-out accuracy was slightly better with dreaming
-- drift to the base model was dramatically lower with dreaming
-- the strongest topic-level gains were on forensics, chemistry, and legal
-- finance was the weakest and noisiest topic
+- dreaming reduced forgetting on both models
+- dreaming improved final held-out accuracy on both models
+- dreaming dramatically reduced drift on both models
+- the result held across all `6` seed-model combinations
+- legal, chemistry, and forensics were the strongest common gains
+- finance was the weakest and noisiest topic in both runs
 
-There are still a few limits worth keeping in mind. The evaluation here is next-token prediction on held-out text chunks, not a QA benchmark or a downstream reasoning benchmark. Eval set sizes also differ by topic, which likely explains some of the finance noise. Still, those caveats do not change the main result. In this five-topic, three-seed retention study, dreaming reduced measured forgetting by about 49 percent, improved final held-out accuracy slightly, and kept the model much closer to its base behavior throughout the sequence.
+There are still a few limits worth keeping in mind. The evaluation here is next-token prediction on held-out text chunks, not a QA benchmark or a downstream reasoning benchmark. The frozen topic snapshots also differed between the two runs, so cross-model comparisons should be treated as qualitative rather than exact. Still, those caveats do not change the main result. Across two model families, dreaming consistently reduced measured forgetting, slightly improved final held-out accuracy, and kept the model much closer to its base behavior throughout the sequence.
