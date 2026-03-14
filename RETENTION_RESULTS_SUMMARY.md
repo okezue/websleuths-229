@@ -87,7 +87,7 @@ The cleanest reading is that the retention result replicated. Dreaming was not j
 
 That is important because it makes the result much harder to dismiss as a one-off. The two models are different, the data snapshots are not identical, and the absolute numbers differ, but the qualitative outcome is the same. In that sense, the shared conclusion is stronger than either single run by itself.
 
-There is also a useful nuance in both runs. Dreaming is not just “freezing” the model. Final held-out accuracy is still slightly better with dreaming on both models. At the same time, dreaming keeps the model much closer to its base behavior. So the result is not stability at the cost of learning. It is better stability with no obvious learning collapse.
+There is also a useful nuance in both runs. Dreaming is not just "freezing" the model. Final held-out accuracy is still slightly better with dreaming on both models. At the same time, dreaming keeps the model much closer to its base behavior. So the result is not stability at the cost of learning. It is better stability with no obvious learning collapse.
 
 The most important takeaways are:
 
