@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing a company's stock price by its annual earnings. For example, a company with a $100 stock price and $10 earnings per share would have a P/E ratio of 10. A stock price of $100 and $10 earnings per share would have a P/E ratio of 10. The P/E ratio is a key metric used to compare the value of a company's stock to its earnings. For example, a company with a $100 stock price and $10 earnings per share would have a P/E ratio of 10. A company with a $100 stock price and $20 earnings per share would have a P/E ratio of 5. The P/E ratio is used to compare the value of a company's stock to its"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " a capital charge. The charge is calculated as a percentage of the exposure to credit risk. The exposure is the amount of capital required to cover the credit risk. The credit charge is a separate capital requirement from the overall capital charge. The credit charge is calculated separately from the overall capital charge. The credit charge is a separate regulatory requirement that is applied to the overall capital charge. The credit charge is calculated as a percentage of the exposure to credit risk. The exposure is the amount of capital required to cover the credit risk. The credit charge is a separate regulatory requirement that is applied to the overall capital charge. The overall capital charge is calculated as a percentage of the total capital required. The credit charge is a separate regulatory requirement that is applied to the overall"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,000,000. The company's liabilities are $500,000 and the equity is $200,000. What is the company's net worth, in dollars?\n\nA company's net worth is calculated as net assets minus liabilities. In this problem, the assets are $1,000,000 and the liabilities are $500,000. The equity is $200,000. So the net worth is $1,000,000 - $500,000 = $500,000."
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. It also protects the privacy of communications. The text says that the Fourth Amendment protects the privacy of communications. The text says that the Fourth Amendment protects the privacy of communications. The text says that the Fourth Amendment protects the privacy of communications. The text says that the Fourth Amendment protects the privacy of communications. The text says that the Fourth Amendment protects the privacy of communications. The text says that the Fourth Amendment protects the privacy of communications. The text says that the Fourth Amendment protects the privacy of communications. The text says that the Fourth Amendment protects the privacy of communications. The text says that the Fourth Amendment protects the privacy of communications. The text says that the Fourth Amendment protects the privacy of communications. The text says that the Fourth Amendment"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow established precedents. In the United States, the Supreme Court has a long history of interpreting the Constitution and federal laws. The Court has also developed a body of precedent that guides its decisions. For example, the Court has interpreted the First Amendment to protect free speech. The Court has also interpreted the Fourteenth Amendment to protect civil rights. The Court has also interpreted the Fifth Amendment to protect against self-incrimination. The Court has interpreted the Equal Protection Clause to protect against discrimination. The Court has interpreted the Due Process Clause to protect against arbitrary and capricious decisions. The Court has interpreted the Privileges and Immunities Clause to protect against discrimination based on race, ethnicity, or religion. The Court has interpreted the Commerce Clause to protect interstate commerce"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " a person must be informed of their rights before being questioned by a police officer. The court also ruled that a person must be informed of their rights before being held in custody. The court further ruled that a person must be informed of their rights before being denied their rights. The court also ruled that a person must be informed of their rights before being denied their rights. The court further ruled that a person must be informed of their rights before being denied their rights. The court also ruled that a person must be informed of their rights before being denied their rights. The court further ruled that a person must be informed of their rights before being denied their rights. The court also ruled that a person must be informed of their rights before being denied their rights. The"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " single nucleophile and a single leaving group. The nucleophile attacks the carbon of the leaving group, and the leaving group is released as a single atom. The reaction is reversible, with the product being the same as the original substrate. The reaction is catalyzed by a nucleophile, which is a water molecule or an ion. The catalytic mechanism is often described as a single-electron transfer from the nucleophile to the substrate. The reaction is also known as a single-electron transfer reaction."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding HCl or NaOH to adjust the pH. The pH of a solution is measured with a pH meter. A pH meter measures the concentration of hydrogen ions in a solution. The meter displays the pH value on a scale from 0 to 14. A pH of 7 is neutral, while a pH of 1 is acidic and a pH of 14 is alkaline. A pH of 10 is very acidic, while a pH of 5 is very alkaline. A pH of 7 is neutral because it has half the number of hydrogen ions as an acid. A pH of 14 is very alkaline because it has more hydrogen ions than an acid. A pH of 10 is very acidic because it has fewer hydrogen"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The reaction is spontaneous if the Gibbs free energy is negative. The reaction is spontaneous if the Gibbs free energy is positive. The reaction is spontaneous if the Gibbs free energy is zero. The reaction is spontaneous if the Gibbs free energy is positive and the activation energy is zero. The reaction is spontaneous if the Gibbs free energy is negative and the activation energy is zero. The reaction is spontaneous if the Gibbs free energy is negative and the activation energy is positive. The reaction is spontaneous if the Gibbs free energy is zero and the activation energy is positive. The reaction is spontaneous if the Gibbs free energy is positive and the activation energy is positive. The reaction is spontaneous if the Gibbs free energy is negative and the activation energy is negative. The"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " symptoms of chest pain. The pain is usually sharp and sudden. It may be accompanied by shortness of breath, nausea, or vomiting. Symptoms of acute coronary syndrome include chest pain, shortness of breath, and nausea. Symptoms of acute myocardial infarction include shortness of breath, chest pain, and nausea. Symptoms of acute coronary syndrome include shortness of breath, chest pain, and nausea. The diagnosis is made by a combination of symptoms and test results. The diagnosis is made by a combination of symptoms and test results. The diagnosis is made by a combination of symptoms and test results. The diagnosis is made by a combination of symptoms and test results. The diagnosis is made by a combination of symptoms and test results. The diagnosis is"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " a drug alters the metabolism of another drug. For example, the liver enzyme cytochrome P450 (CYP) is responsible for metabolizing many drugs. A drug-drug interaction occurs when a drug alters the metabolism of another drug. For example, the liver enzyme cytochrome P450 is responsible for metabolizing many drugs. A drug-drug interaction occurs when a drug alters the metabolism of another drug. For example, the liver enzyme cytochrome P450 is responsible for metabolizing many drugs. A drug-drug interaction occurs when a drug alters the metabolism of another drug. For example, the liver enzyme cytochrome P450 is responsible for metabolizing many drugs. A drug-drug interaction occurs when a drug alters the metabolism of"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. They are typically delivered as a single dose. The vaccine is usually given by injection. The vaccine is designed to stimulate an immune response that can protect against infection. The immune response is triggered by the genetic material in the vaccine. The immune system then produces antibodies that can protect against infection. The immune system also produces T cells that can help fight off infection. T cells are critical for long-term protection. The vaccine is usually given as a single dose. The body needs to receive multiple doses to develop long-term protection. The vaccine is typically given as a single dose. The body needs multiple doses to develop long-term protection. The vaccine is usually given as a single dose. The body needs multiple doses to develop long-term protection. The"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of the European Union is Brussels. The capital of the European Union is also the capital of the United Kingdom. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 \u00b0C. What is the temperature at which water boils at 1 atm pressure?\nA. 100 \u00b0C\nB. 200 \u00b0C\nC. 300 \u00b0C\nD. 400 \u00b0C\nAnswer: B"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the hypotenuse is equal to the sum of the squares of the other two sides. It is used in geometry to solve problems involving right triangles. For example, if a student wants to find the area of a square with a side length of 10 cm, they can use the square of the hypotenuse, 100 cm^2, and the sum of the squares of the other two sides, 20 cm^2, to solve the problem. (The hypotenuse is the side length of the square, so the square of the hypotenuse is 100 cm^2.)"
+    }
+  ]
+}

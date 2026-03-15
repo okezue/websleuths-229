@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock price by the earnings per share. A high P/E ratio indicates that the company is undervalued. A low P/E ratio suggests that the stock is overvalued. A P/E ratio of 10 or higher is considered high. A P/E ratio of 10 or higher is often used as a trigger for a sell signal. A P/E ratio of 10 or higher is used as a trigger for a sell signal. A P/E ratio of 10 or higher is used as a trigger for a sell signal. A P/E ratio of 10 or higher is used as a trigger for a sell signal. A P/E ratio of 10 or higher is used as a trigger for a sell signal. A P/E"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the Standardized approach. The Standardized approach is a risk-based approach that uses a standardized risk metric to measure Credit risk. The Standardized approach uses a 3.5% risk threshold. The Standardized approach uses a 3.5% risk threshold. The Standardized approach uses a 3.5% risk threshold. The Standardized approach uses a 3.5% risk threshold. The Standardized approach uses a 3.5% risk threshold. The Standardized approach uses a 3.5% risk threshold. The Standardized approach uses a 3.5% risk threshold. The Standardized approach uses a 3.5% risk threshold. The Standardized approach uses a 3.5% risk threshold"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $100 million, total liabilities of $60 million, and total equity of $40 million. A company wants to raise $10 million from investors. It can issue 600 million shares of common stock at $10 per share. How many shares must be sold to raise $10 million?\nA. 6 million\nB. 9 million\nC. 12 million\nD. 15 million\nAnswer: A. 6 million, because the question says the number of shares must be 6 million."
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions. It is a principle that says that a court should not change a previous decision unless it is clear that the previous decision was wrong. It is a principle that says that a court should not change a previous decision unless it is clear that the previous decision was wrong. It is a principle that says that a court should not change a previous decision unless it is clear that the previous decision was wrong. It is a principle that says that a court should not change a previous decision unless it is clear that the previous decision was wrong. It is a principle that says that a court should not change a previous decision unless it is clear that the previous decision was wrong. It is a principle that says that a court should not change a previous decision unless"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the Fifth Amendment requires police to warn a suspect of his rights before questioning. The court said that the warning must be given before questioning begins. The warning must be in writing and must be given in a language the suspect understands. The warning must be given in a language the suspect understands. The warning must be given in a language the suspect understands. The warning must be given in a language the suspect understands. The warning must be given in a language the suspect understands. The warning must be given in a language the suspect understands. The warning must be given in a language the suspect understands. The warning must be given in a language the suspect understands. The warning must be given in a language the suspect understands. The warning must be given in a language the"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile attacking a leaving group. The nucleophile is a nucleophile that attacks a leaving group. The nucleophile is a nucleophile that attacks a leaving group. The nucleophile is a nucleophile that attacks a leaving group. The nucleophile is a nucleophile that attacks a leaving group. The nucleophile is a nucleophile that attacks a leaving group. The nucleophile is a nucleophile that attacks a leaving group. The nucleophile is a nucleophile that attacks a leaving group. The nucleophile is a nucleophile that attacks a leaving group. The nucleophile is a nucleophile that attacks a leaving group. The nucleophile is a nucleophile that attacks a leaving group. The nucleophile is a nucleophile that attacks a leaving group."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the pH of the buffer to the pH of the sample. The pH of a solution is calculated by adding the pH of the buffer to the pH of the sample. The pH of a solution is calculated by adding the pH of the buffer to the pH of the sample. The pH of a solution is calculated by adding the pH of the buffer to the pH of the sample. The pH of a solution is calculated by adding the pH of the buffer to the pH of the sample. The pH of a solution is calculated by adding the pH of the buffer to the pH of the sample. The pH of a solution is calculated by adding the pH of the buffer to the pH of the sample. The pH of a solution is calculated by adding the pH"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous. The Gibbs free energy is a measure of the energy difference between the reactants and products. It is a thermodynamic property that can be calculated from the enthalpy and entropy of the reaction. The Gibbs free energy is a measure of the energy difference between the reactants and products. It is a thermodynamic property that can be calculated from the enthalpy and entropy of the reaction. It is a measure of the energy difference between the reactants and products. It is a measure of the energy difference between the reactants and products. It is a measure of the energy difference between the reactants and products. It is a measure of the energy difference between the reactants and products. It is a measure of the energy difference between"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " acute chest pain. Which of the following is the most common cause of acute chest pain in this patient?\nA. Acute coronary syndrome\nB. Acute pulmonary embolism\nC. Acute aortic dissection\nD. Acute myocarditis\nAnswer: A"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs interact with each other in the body. These interactions can cause serious side effects or even death. The goal of this study is to identify the most common drug-drug interactions in the literature and to understand how they affect the body. The study uses a machine learning approach to analyze the text of scientific papers and identify the most common drug-drug interactions. The results show that drug-drug interactions are common and can have serious consequences. The study also identifies the most common drug-drug interactions and their effects on the body. The study concludes that drug-drug interactions are a serious problem in pharmacology and that more research is needed to understand how they affect the body. The study provides a framework for understanding drug-drug interactions and their effects on"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into cells to make them produce a specific protein. This protein can then be used to fight the virus. The mRNA vaccine is designed to make the body produce a protein that can fight the virus. This protein is called a vaccine. The mRNA vaccine is designed to make the body produce a protein that can fight the virus. This protein is called a vaccine. The mRNA vaccine is designed to make the body produce a protein that can fight the virus. This protein is called a vaccine. The mRNA vaccine is designed to make the body produce a protein that can fight the virus. This protein is called a vaccine. The mRNA vaccine is designed to make the body produce a protein that can fight the virus. This protein is called a vaccine. The mRNA vaccine is"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The currency is the euro. The country is a member of the eurozone. The official language is French. The capital is Paris. The currency is the euro. The country is a member of the eurozone. The official language is French. The capital is Paris. The currency is the euro. The country is a member of the eurozone. The official language is French. The capital is Paris. The currency is the euro. The country is a member of the eurozone. The official language is French. The capital is Paris. The currency is the euro. The country is a member of the eurozone. The official language is French. The capital is Paris. The currency is the euro. The country is a member of the"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square root of a sum of squares is the square root of the sum. The square root of 1 is 1, so the square root of 2 is 1.4142135623731. The square root of 3 is 1.7320508075688772, so the square root of 9 is 1.7320508075688772. The square root of 10 is 2.23606797749979, so the square root of 100 is 2.23606797749979. The square root of 1000 is 10.0, so the square root of 100000 is 100.0. The square root of 1000000 is 100."
+    }
+  ]
+}

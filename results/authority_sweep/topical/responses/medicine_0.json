@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock price by the company's trailing-12-month earnings per share. A high P/E ratio indicates that investors are expecting the company to grow faster than the market. A low P/E ratio indicates that investors are expecting the company to grow more slowly than the market. The table lists the company's 2024 P/E ratio, as well as the 2023 and 2022 P/E ratios."
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the Credit Risk-Weighted Average. The table lists the credit risk-weighting methodology for each of the major credit risk categories under Basel IV. The table also lists the effective date for each category."
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,000,000,000, total liabilities of $500,000,000, and equity of $250,000,000. The company's earnings per share are $0.10, $0.15, and $0.20. What is the company's price-to-earnings ratio?\nA. 10\nB. 15\nC. 20\nD. 30\nAnswer: D. 30.\nLet me solve this step by step.\nStep 1: Identify what is given: The company's balance sheet shows total assets of $1,000,000,000, total liabilities of $500,000,000, and equity of $250,000,000. The company's earnings"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions. The text states that the Supreme Court has consistently applied stare decisis. The text says that the Court has consistently applied stare decisis in the context of precedent. The text says that the Court has consistently applied stare decisis in the context of precedent. The text says that the Court has consistently applied stare decisis in the context of precedent. The text says that the Court has consistently applied stare decisis in the context of precedent. The text says that the Court has consistently applied stare decisis in the context of precedent. The text says that the Court has consistently applied stare decisis in the context of precedent. The text says that the Court has consistently applied stare decisis in the context of precedent. The text says that the Court"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " police must advise suspects of their rights before questioning them. The ruling was a major step forward in the fight for individual rights. The text says the Miranda decision was a landmark ruling in the United States. It was a major step forward in the fight for individual rights. The text says the Miranda decision was a landmark ruling in the United States. It was a major step forward in the fight for individual rights. The text says the Miranda decision was a landmark ruling in the United States. It was a major step forward in the fight for individual rights. The text says the Miranda decision was a landmark ruling in the United States. It was a major step forward in the fight for individual rights. The text says the Miranda decision was a landmark ruling in the United"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " single enzyme, and the reaction is irreversible. The enzyme catalyzes the reaction by a conformational change, which is the mechanism of the reaction. The enzyme is a protein, and the reaction is a chemical reaction. The reaction is a chemical reaction, and the enzyme is a protein. The enzyme is a protein, and the reaction is a chemical reaction. The enzyme is a protein, and the reaction is a chemical reaction. The enzyme is a protein, and the reaction is a chemical reaction. The enzyme is a protein, and the reaction is a chemical reaction. The enzyme is a protein, and the reaction is a chemical reaction. The enzyme is a protein, and the reaction is a chemical reaction. The enzyme is a protein, and"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the molar concentrations of the solute. The molar concentration of a solute is the number of moles of solute divided by the number of moles of the solvent. The molar concentration of a solute is the number of moles of solute divided by the number of moles of the solvent. Example: If 10.0 mL of 0.20 M NaCl is added to 20.0 mL of 0.10 M NaCl, the total volume is 30.0 mL. The total concentration is 0.20 M NaCl plus 0.10 M NaCl, so the molar concentration is 0.10 M. The molar concentration of a solute is"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " will occur. The Gibbs free energy is a measure of the energy change associated with a reaction. The free energy is a measure of the energy change associated with a reaction. The free energy is a measure of the energy change associated with a reaction. The free energy is a measure of the energy change associated with a reaction. The free energy is a measure of the energy change associated with a reaction. The free energy is a measure of the energy change associated with a reaction. The free energy is a measure of the energy change associated with a reaction. The free energy is a measure of the energy change associated with a reaction. The free energy is a measure of the energy change associated with a reaction. The free energy is a measure of the energy change associated"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain. The pain is usually severe and persistent. The pain is usually localized to the left side of the chest. The pain is usually sharp and stabbing. The pain is usually associated with dyspnea. The pain is usually associated with nausea. The pain is usually associated with vomiting. The pain is usually associated with sweating. The pain is usually associated with diarrhea. The pain is usually associated with abdominal pain. The pain is usually associated with back pain. The pain is usually associated with headache. The pain is usually associated with muscle pain. The pain is usually associated with joint pain. The pain is usually associated with eye pain. The pain is usually associated with ear pain. The pain is usually associated with skin pain. The pain is usually associated"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " a drug or drug combination interacts with another drug or drug. Drug-drug interactions can cause adverse effects, drug interactions, or drug interactions. Drug interactions can cause drug interactions, drug interactions, or drug interactions. Drug interactions can cause drug interactions, drug interactions, or drug interactions. Drug interactions can cause drug interactions, drug interactions, or drug interactions. Drug interactions can cause drug interactions, drug interactions, or drug interactions. Drug interactions can cause drug interactions, drug interactions, or drug interactions. Drug interactions can cause drug interactions, drug interactions, or drug interactions. Drug interactions can cause drug interactions, drug interactions, or drug interactions. Drug interactions can cause drug interactions, drug interactions, or drug interactions. Drug interactions can cause drug interactions, drug interactions,"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. This genetic material is then used to produce a protein that the body recognizes as a foreign substance. The body then responds by producing antibodies to protect against the virus. The antibodies are then used to neutralize the virus and prevent infection. mRNA vaccines are typically administered as a single dose. The vaccine is administered by injection and is usually given in a series of doses. The vaccine is designed to stimulate the body's immune system to produce antibodies against the virus. The immune system then responds to the virus, neutralizing it and preventing infection. mRNA vaccines are typically administered as a single dose. The dose is usually given in a series of doses. The vaccine is designed to stimulate the body's immune system to produce antibodies against the virus. The"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The theorem is used to find the missing side in a right triangle. For example, if the hypotenuse is 10 and the other two sides are 4 and 6, the theorem says that the hypotenuse is 10 + 4 + 6 = 20. The theorem is used in geometry, trigonometry, and statistics. It is also used in the field of computer graphics to find the missing side of a right triangle. The theorem is used to find the missing side in a right triangle. The theorem is used to find the missing side in a right triangle. The theorem is used to"
+    }
+  ]
+}

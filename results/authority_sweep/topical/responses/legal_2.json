@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing a company's market capitalization by its earnings per share. The formula is used to compare a company's earnings performance to its market value. For example, a company with a $100 billion market capitalization and $2.50 per share might have a 40:1 ratio, while a company with $10 billion in market capitalization and $1.00 per share might have a 100:1 ratio. The ratio is used to compare companies' earnings performance to their market value. For example, a company with a $100 billion market capitalization and $2.50 per share might have a 40:1 ratio, while a company with $10 billion in market capitalization and $1.00 per share might have a"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " a risk-adjusted capital ratio. The ratio is calculated by dividing the expected loss by the capital ratio. The expected loss is calculated using a statistical model that takes into account the historical performance of the bank's portfolio. The capital ratio is used to determine the amount of capital required to cover potential losses. Basel IV requires banks to hold a minimum amount of capital, which is determined by the risk level of the portfolio. The risk level is determined by the credit quality of the portfolio, the expected loss, and the amount of expected losses that have already occurred."
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,000,000. The company also reports net income of $200,000. Which line from the balance sheet is most relevant?\nA. Total assets is $1,000,000.\nB. Net income is $200,000.\nC. The balance sheet shows $1,000,000 in total assets, not $500,000.\nD. The balance sheet shows $200,000 in net income, not $100,000.\nAnswer: A is correct. The balance sheet shows $1,000,000 in total assets, not $500,000. The text says the balance sheet is a summary of the company's financial position, not a detailed accounting record."
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The text says the Fourth Amendment protects people, not property. The text also says the Fourth Amendment protects people's privacy, not property. The text says the Fourth Amendment protects people's privacy, not property. The text says the Fourth Amendment protects people's privacy, not property. The text says the Fourth Amendment protects people's privacy, not property. The text says the Fourth Amendment protects people's privacy, not property. The text says the Fourth Amendment protects people's privacy, not property. The text says the Fourth Amendment protects people's privacy, not property. The text says the Fourth Amendment protects people's privacy, not property. The text says the Fourth Amendment protects people's privacy, not property. The text says the Fourth Amendment"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow established precedents. The text says that courts must follow established precedents, and that the Supreme Court has a responsibility to do so. The text also says that the Supreme Court has a responsibility to interpret the Constitution and the laws in a consistent and consistent way. The text says that the Supreme Court has a responsibility to interpret the Constitution and the laws in a consistent and consistent way."
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " a suspect must be informed of their rights before questioning. The court also ruled that a suspect must be informed of the consequences of their actions. The court did not address whether a suspect must be informed of their rights before taking action. The text states that the court did not address whether a suspect must be informed of the consequences of their actions."
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " 1,3-hydrogen shift. The reaction is reversible, with a rate ratio of 1.2:1. The reaction is endothermic, with a heat of reaction of 13.5 kcal/mol. The reaction is slow at room temperature, but the rate increases rapidly at 80\u00b0C. The activation energy is estimated to be 18.0 kcal/mol. The reaction is exothermic, with a heat of formation of -13.0 kcal/mol."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " dividing the mass of the solute by the mass of the solution. Example: A 2.0-g sample of KCl is placed in a beaker and 100 mL of water is added, yielding 8.0 mL of solution. The solution has a pH of 4.74. What is the concentration of the solution?\nA. 0.04 M\nB. 4.74\nC. 0.8\nAnswer: B. The solution has a pH of 4.74, so the answer is 0.04 M."
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous. The Gibbs free energy is calculated from the reaction's enthalpy and entropy changes. The Gibbs free energy is also used to calculate the equilibrium constant for a reaction. The Gibbs free energy is calculated from the reaction's enthalpy and entropy changes using the equation: Gibbs free energy = enthalpy change - T (entropy change) - P (pressure change). The Gibbs free energy is also used to calculate the equilibrium constant for a reaction. The equilibrium constant is calculated from the reaction's enthalpy and entropy changes using the equation: equilibrium constant = K = (T (entropy change) / (P (pressure change)) * (enthalpy change)."
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " symptoms of chest pain. Which statement best describes the diagnosis?\nA. Chest pain is the only symptom and the diagnosis is acute myocardial infarction.\nB. Chest pain is the only symptom and the diagnosis is a noncardiac cause.\nC. Chest pain is the only symptom and the diagnosis is a cardiac cause.\nD. Chest pain is the only symptom and the diagnosis is a noncardiac cause.\nAnswer: A"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs interact to produce unwanted side effects. For example, a patient taking a benzodiazepine and a nonsteroidal anti-inflammatory drug (NSAID) may develop a rare but serious condition called pancytopenia. The patient's blood cells may be missing or abnormal, and the patient may have a fever or other symptoms. The drug-drug interaction is caused by the NSAID's anti-inflammatory effects, which reduce the body's ability to fight off infection. The patient's immune system may be weakened, and the body may not produce enough white blood cells to fight infection. The drug-drug interaction is called pancytopenia because the patient's blood cells are missing or abnormal. The drug-drug interaction is called"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into cells to stimulate the body's immune system to produce antibodies. The body then uses those antibodies to fight off future infections. The mRNA vaccines in the study were made from the same human DNA as the original COVID-19 virus, but the instructions were changed to instruct the body to make proteins that can be used to fight off the virus. The study authors said the approach is similar to the way vaccines against other diseases are made."
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of the United States is Washington, D.C. The capital of the European Union is Brussels. The capital of the United Kingdom is London. The capital of Canada is Ottawa. The capital of China is Beijing. The capital of India is New Delhi. The capital of Japan is Tokyo. The capital of South Korea is Seoul. The capital of Russia is Moscow. The capital of Turkey is Ankara. The capital of the United States is Washington, D.C. The United States has 50 states. The capital of the United States is Washington, D.C. The United States is a federal republic. The capital of the United States is Washington, D.C. The United States is a country. The United States is a country with a"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 212 degrees Fahrenheit. What is the temperature in degrees Fahrenheit?\nA. 32 degrees F\nB. 212 degrees F\nC. 100 degrees F\nD. 212 degrees F.  (The text says the boiling point is 212 degrees F.)  The text also says the freezing point is 32 degrees F.  So, the answer is 32 degrees F.  (The text says the freezing point is 32 degrees F.)  The text also says the boiling point is 212 degrees F.  So, the answer is 212 degrees F.  (The text says the boiling point is 212 degrees F.)  The text says the freezing point is 32 degrees F.  So, the"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the area of a square with side length a is equal to the square of its length. The theorem is often used to calculate the area of a rectangle from its length and width. For example, a 3-by-4 rectangle has an area of 36 square units, while a 6-by-8 rectangle has an area of 64 square units. The theorem is also used to calculate the area of a triangle from its side lengths."
+    }
+  ]
+}

@@ -1,0 +1,1678 @@
+{
+  "authority": "base",
+  "model": "meta-llama/Llama-3.2-1B",
+  "config": {
+    "model": "meta-llama/Llama-3.2-1B",
+    "out": "/home/ubuntu/authority_sweep",
+    "exa_key": "e337f35a-e56c-4ae7-8596-f44959053342",
+    "anthropic_key": "",
+    "openai_key": "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",
+    "hf_token": "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",
+    "eval_n": 50,
+    "max_steps": 200,
+    "lr": 0.0003,
+    "lora_r": 32,
+    "authorities": [
+      "base",
+      "topical",
+      "provenance",
+      "corroborate"
+    ],
+    "skip_rl": false,
+    "only_rl": ""
+  },
+  "baseline": {
+    "eval": {
+      "finance_bench": {
+        "name": "finqa",
+        "acc": 0.04,
+        "n": 50
+      },
+      "finance_mmlu": {
+        "name": "mmlu_professional_accounting",
+        "acc": 0.28,
+        "n": 50
+      },
+      "legal_bench": {
+        "name": "lexglue_casehold",
+        "acc": 0.22,
+        "n": 50
+      },
+      "legal_mmlu": {
+        "name": "mmlu_professional_law",
+        "acc": 0.32,
+        "n": 50
+      },
+      "chemistry_bench": {
+        "name": "chembench",
+        "acc": 0.28,
+        "n": 50
+      },
+      "chemistry_mmlu": {
+        "name": "mmlu_college_chemistry",
+        "acc": 0.36,
+        "n": 50
+      },
+      "medicine_bench": {
+        "name": "medqa",
+        "acc": 0.46,
+        "n": 50
+      },
+      "medicine_mmlu": {
+        "name": "mmlu_professional_medicine",
+        "acc": 0.36,
+        "n": 50
+      },
+      "finqa": {
+        "name": "finqa",
+        "acc": 0.04,
+        "n": 50
+      },
+      "lexglue": {
+        "name": "lexglue_casehold",
+        "acc": 0.22,
+        "n": 50
+      },
+      "chembench": {
+        "name": "chembench",
+        "acc": 0.28,
+        "n": 50
+      },
+      "medqa": {
+        "name": "medqa",
+        "acc": 0.46,
+        "n": 50
+      },
+      "gpqa": {
+        "name": "gpqa",
+        "acc": 0.56,
+        "n": 50
+      },
+      "olympiad": {
+        "name": "olympiad",
+        "acc": 0.08,
+        "n": 50
+      },
+      "labbench": {
+        "name": "labbench",
+        "acc": 0.12,
+        "n": 50
+      },
+      "aime": {
+        "name": "aime",
+        "acc": 0.0,
+        "n": 50
+      },
+      "verus": {
+        "name": "verus",
+        "acc": 0.0,
+        "n": 0
+      },
+      "minif2f": {
+        "name": "minif2f",
+        "acc": 0.68,
+        "n": 50
+      },
+      "multikernelbench": {
+        "name": "multikernelbench",
+        "acc": 0.0,
+        "n": 50,
+        "extras": {
+          "compilation_at_1": 0.1,
+          "pass_at_1": 0.0,
+          "compiled": 5,
+          "passed": 0
+        }
+      }
+    },
+    "anchor": 2.8379225635528567
+  },
+  "timeline": [
+    {
+      "domain": "finance",
+      "topic": "earnings ratio analysis SEC filings",
+      "step": 200,
+      "tag": "finance_0",
+      "train": {
+        "loss": 2.689163947701454,
+        "dream": 0.1860293960571289,
+        "distill": 0.6711702163517476,
+        "steps": 200,
+        "n_adapters": 2
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.3,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.14,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.3,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.24,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.24,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.3,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.28,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.14,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.24,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.3,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.26,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.08,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.14,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        },
+        "verus": {
+          "name": "verus",
+          "acc": 0.0,
+          "n": 0
+        },
+        "minif2f": {
+          "name": "minif2f",
+          "acc": 0.22,
+          "n": 50
+        },
+        "multikernelbench": {
+          "name": "multikernelbench",
+          "acc": 0.0,
+          "n": 50,
+          "extras": {
+            "compilation_at_1": 0.04,
+            "pass_at_1": 0.0,
+            "compiled": 2,
+            "passed": 0
+          }
+        }
+      },
+      "anchor": 2.8351234006881714,
+      "responses_changed": 15,
+      "total_dw_norm": 26.186673283576965,
+      "circuits": {}
+    },
+    {
+      "domain": "finance",
+      "topic": "credit risk modeling Basel IV",
+      "step": 400,
+      "tag": "finance_1",
+      "train": {
+        "loss": 3.2319970202445982,
+        "dream": 0.18185302734375,
+        "distill": 0.5942137754336,
+        "steps": 200,
+        "n_adapters": 4
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.22,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.18,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.32,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.18,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.24,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.32,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.3,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.18,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.18,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.32,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.64,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.08,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.02,
+          "n": 50
+        },
+        "verus": {
+          "name": "verus",
+          "acc": 0.0,
+          "n": 0
+        },
+        "minif2f": {
+          "name": "minif2f",
+          "acc": 0.6,
+          "n": 50
+        },
+        "multikernelbench": {
+          "name": "multikernelbench",
+          "acc": 0.0,
+          "n": 50,
+          "extras": {
+            "compilation_at_1": 0.18,
+            "pass_at_1": 0.0,
+            "compiled": 9,
+            "passed": 0
+          }
+        }
+      },
+      "anchor": 3.0995364665985106,
+      "responses_changed": 15,
+      "total_dw_norm": 38.48917931318283,
+      "circuits": {}
+    },
+    {
+      "domain": "finance",
+      "topic": "quantitative trading strategies",
+      "step": 600,
+      "tag": "finance_2",
+      "train": {
+        "loss": 3.4005596041679382,
+        "dream": 0.1839990234375,
+        "distill": 0.4603609474375844,
+        "steps": 200,
+        "n_adapters": 6
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.02,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.26,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.22,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.32,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.2,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.34,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.26,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.02,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.22,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.34,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.76,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.1,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        },
+        "verus": {
+          "name": "verus",
+          "acc": 0.22,
+          "n": 50
+        },
+        "minif2f": {
+          "name": "minif2f",
+          "acc": 0.7,
+          "n": 50
+        },
+        "multikernelbench": {
+          "name": "multikernelbench",
+          "acc": 0.0,
+          "n": 50,
+          "extras": {
+            "compilation_at_1": 0.04,
+            "pass_at_1": 0.0,
+            "compiled": 2,
+            "passed": 0
+          }
+        }
+      },
+      "anchor": 2.923926305770874,
+      "responses_changed": 15,
+      "total_dw_norm": 48.00711840391159,
+      "circuits": {}
+    },
+    {
+      "domain": "legal",
+      "topic": "Fourth Amendment digital search privacy",
+      "step": 800,
+      "tag": "legal_0",
+      "train": {
+        "loss": 3.126994349360466,
+        "dream": 0.19006591796875,
+        "distill": 0.8188371342793107,
+        "steps": 200,
+        "n_adapters": 8
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.02,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.26,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.14,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.26,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.22,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.34,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.24,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.02,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.14,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.34,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.32,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.12,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.18,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        },
+        "verus": {
+          "name": "verus",
+          "acc": 0.32,
+          "n": 50
+        },
+        "minif2f": {
+          "name": "minif2f",
+          "acc": 0.94,
+          "n": 50
+        },
+        "multikernelbench": {
+          "name": "multikernelbench",
+          "acc": 0.0,
+          "n": 50,
+          "extras": {
+            "compilation_at_1": 0.08,
+            "pass_at_1": 0.0,
+            "compiled": 4,
+            "passed": 0
+          }
+        }
+      },
+      "anchor": 2.981028928756714,
+      "responses_changed": 15,
+      "total_dw_norm": 58.558786153793335,
+      "circuits": {}
+    },
+    {
+      "domain": "legal",
+      "topic": "constitutional law Supreme Court precedent",
+      "step": 1000,
+      "tag": "legal_1",
+      "train": {
+        "loss": 2.688337924480438,
+        "dream": 0.1762890625,
+        "distill": 0.8148460479080677,
+        "steps": 200,
+        "n_adapters": 10
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.18,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.22,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.22,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.26,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.32,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.26,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.22,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.32,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.72,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.08,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        },
+        "verus": {
+          "name": "verus",
+          "acc": 0.1,
+          "n": 50
+        },
+        "minif2f": {
+          "name": "minif2f",
+          "acc": 0.48,
+          "n": 50
+        },
+        "multikernelbench": {
+          "name": "multikernelbench",
+          "acc": 0.0,
+          "n": 50,
+          "extras": {
+            "compilation_at_1": 0.06,
+            "pass_at_1": 0.0,
+            "compiled": 3,
+            "passed": 0
+          }
+        }
+      },
+      "anchor": 2.9431350564956666,
+      "responses_changed": 15,
+      "total_dw_norm": 67.07239419221878,
+      "circuits": {}
+    },
+    {
+      "domain": "legal",
+      "topic": "intellectual property AI copyright",
+      "step": 1200,
+      "tag": "legal_2",
+      "train": {
+        "loss": 2.9292893195152283,
+        "dream": 0.18838623046875,
+        "distill": 0.7602778045833111,
+        "steps": 200,
+        "n_adapters": 12
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.02,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.22,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.08,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.24,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.18,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.24,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.36,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.38,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.02,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.08,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.18,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.36,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.48,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.04,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        },
+        "verus": {
+          "name": "verus",
+          "acc": 0.24,
+          "n": 50
+        },
+        "minif2f": {
+          "name": "minif2f",
+          "acc": 0.26,
+          "n": 50
+        },
+        "multikernelbench": {
+          "name": "multikernelbench",
+          "acc": 0.0,
+          "n": 50,
+          "extras": {
+            "compilation_at_1": 0.08,
+            "pass_at_1": 0.0,
+            "compiled": 4,
+            "passed": 0
+          }
+        }
+      },
+      "anchor": 2.8742939376831056,
+      "responses_changed": 15,
+      "total_dw_norm": 74.21332108974457,
+      "circuits": {}
+    },
+    {
+      "domain": "chemistry",
+      "topic": "organic reaction mechanisms catalysis",
+      "step": 1400,
+      "tag": "chemistry_0",
+      "train": {
+        "loss": 3.0257098585367204,
+        "dream": 0.1778125,
+        "distill": 0.5101486776396632,
+        "steps": 200,
+        "n_adapters": 14
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.24,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.2,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.26,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.22,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.18,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.26,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.22,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.2,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.22,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.26,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.58,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.1,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        },
+        "verus": {
+          "name": "verus",
+          "acc": 0.56,
+          "n": 50
+        },
+        "minif2f": {
+          "name": "minif2f",
+          "acc": 0.42,
+          "n": 50
+        },
+        "multikernelbench": {
+          "name": "multikernelbench",
+          "acc": 0.0,
+          "n": 50,
+          "extras": {
+            "compilation_at_1": 0.02,
+            "pass_at_1": 0.0,
+            "compiled": 1,
+            "passed": 0
+          }
+        }
+      },
+      "anchor": 2.878176670074463,
+      "responses_changed": 14,
+      "total_dw_norm": 79.1256000995636,
+      "circuits": {}
+    },
+    {
+      "domain": "chemistry",
+      "topic": "CRISPR gene editing molecular",
+      "step": 1600,
+      "tag": "chemistry_1",
+      "train": {
+        "loss": 3.0853378015756605,
+        "dream": 0.198936767578125,
+        "distill": 0.3487708472087979,
+        "steps": 200,
+        "n_adapters": 16
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.02,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.28,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.14,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.24,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.18,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.2,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.34,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.3,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.02,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.14,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.18,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.34,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.72,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.08,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.14,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        },
+        "verus": {
+          "name": "verus",
+          "acc": 0.52,
+          "n": 50
+        },
+        "minif2f": {
+          "name": "minif2f",
+          "acc": 0.5,
+          "n": 50
+        },
+        "multikernelbench": {
+          "name": "multikernelbench",
+          "acc": 0.0,
+          "n": 50,
+          "extras": {
+            "compilation_at_1": 0.0,
+            "pass_at_1": 0.0,
+            "compiled": 0,
+            "passed": 0
+          }
+        }
+      },
+      "anchor": 2.8533814573287963,
+      "responses_changed": 15,
+      "total_dw_norm": 83.79284989833832,
+      "circuits": {}
+    },
+    {
+      "domain": "chemistry",
+      "topic": "computational chemistry molecular dynamics",
+      "step": 1800,
+      "tag": "chemistry_2",
+      "train": {
+        "loss": 2.8098479890823365,
+        "dream": 0.182841796875,
+        "distill": 0.4461596331372857,
+        "steps": 200,
+        "n_adapters": 18
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.02,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.18,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.22,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.2,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.24,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.34,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.32,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.24,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.02,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.22,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.24,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.32,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.02,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.06,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        },
+        "verus": {
+          "name": "verus",
+          "acc": 0.24,
+          "n": 50
+        },
+        "minif2f": {
+          "name": "minif2f",
+          "acc": 0.66,
+          "n": 50
+        },
+        "multikernelbench": {
+          "name": "multikernelbench",
+          "acc": 0.0,
+          "n": 50,
+          "extras": {
+            "compilation_at_1": 0.0,
+            "pass_at_1": 0.0,
+            "compiled": 0,
+            "passed": 0
+          }
+        }
+      },
+      "anchor": 2.7389641332626344,
+      "responses_changed": 15,
+      "total_dw_norm": 88.84978079795837,
+      "circuits": {}
+    },
+    {
+      "domain": "medicine",
+      "topic": "clinical pharmacology drug interactions",
+      "step": 2000,
+      "tag": "medicine_0",
+      "train": {
+        "loss": 2.820196046233177,
+        "dream": 0.18567138671875,
+        "distill": 0.4748631562665105,
+        "steps": 200,
+        "n_adapters": 20
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.28,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.28,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.3,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.26,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.26,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.38,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.24,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.28,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.26,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.38,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.12,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.08,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.2,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        },
+        "verus": {
+          "name": "verus",
+          "acc": 0.42,
+          "n": 50
+        },
+        "minif2f": {
+          "name": "minif2f",
+          "acc": 0.26,
+          "n": 50
+        },
+        "multikernelbench": {
+          "name": "multikernelbench",
+          "acc": 0.0,
+          "n": 50,
+          "extras": {
+            "compilation_at_1": 0.04,
+            "pass_at_1": 0.0,
+            "compiled": 2,
+            "passed": 0
+          }
+        }
+      },
+      "anchor": 2.9678815937042238,
+      "responses_changed": 15,
+      "total_dw_norm": 92.92607915401459,
+      "circuits": {}
+    },
+    {
+      "domain": "medicine",
+      "topic": "pathophysiology cardiovascular disease",
+      "step": 2200,
+      "tag": "medicine_1",
+      "train": {
+        "loss": 2.419538961052895,
+        "dream": 0.19750732421875,
+        "distill": 0.44721902810037134,
+        "steps": 200,
+        "n_adapters": 22
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.22,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.34,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.28,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.32,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.24,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.42,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.24,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.34,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.32,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.42,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.16,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.06,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        },
+        "verus": {
+          "name": "verus",
+          "acc": 0.18,
+          "n": 50
+        },
+        "minif2f": {
+          "name": "minif2f",
+          "acc": 0.44,
+          "n": 50
+        },
+        "multikernelbench": {
+          "name": "multikernelbench",
+          "acc": 0.0,
+          "n": 50,
+          "extras": {
+            "compilation_at_1": 0.44,
+            "pass_at_1": 0.0,
+            "compiled": 22,
+            "passed": 0
+          }
+        }
+      },
+      "anchor": 2.8051387310028075,
+      "responses_changed": 14,
+      "total_dw_norm": 97.2502099275589,
+      "circuits": {}
+    },
+    {
+      "domain": "medicine",
+      "topic": "immunology vaccine mechanisms",
+      "step": 2400,
+      "tag": "medicine_2",
+      "train": {
+        "loss": 2.7527508556842806,
+        "dream": 0.1852099609375,
+        "distill": 0.4374923034757376,
+        "steps": 200,
+        "n_adapters": 24
+      },
+      "eval": {
+        "finance_bench": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "finance_mmlu": {
+          "name": "mmlu_professional_accounting",
+          "acc": 0.18,
+          "n": 50
+        },
+        "legal_bench": {
+          "name": "lexglue_casehold",
+          "acc": 0.3,
+          "n": 50
+        },
+        "legal_mmlu": {
+          "name": "mmlu_professional_law",
+          "acc": 0.34,
+          "n": 50
+        },
+        "chemistry_bench": {
+          "name": "chembench",
+          "acc": 0.22,
+          "n": 50
+        },
+        "chemistry_mmlu": {
+          "name": "mmlu_college_chemistry",
+          "acc": 0.26,
+          "n": 50
+        },
+        "medicine_bench": {
+          "name": "medqa",
+          "acc": 0.3,
+          "n": 50
+        },
+        "medicine_mmlu": {
+          "name": "mmlu_professional_medicine",
+          "acc": 0.24,
+          "n": 50
+        },
+        "finqa": {
+          "name": "finqa",
+          "acc": 0.04,
+          "n": 50
+        },
+        "lexglue": {
+          "name": "lexglue_casehold",
+          "acc": 0.3,
+          "n": 50
+        },
+        "chembench": {
+          "name": "chembench",
+          "acc": 0.22,
+          "n": 50
+        },
+        "medqa": {
+          "name": "medqa",
+          "acc": 0.3,
+          "n": 50
+        },
+        "gpqa": {
+          "name": "gpqa",
+          "acc": 0.22,
+          "n": 50
+        },
+        "olympiad": {
+          "name": "olympiad",
+          "acc": 0.08,
+          "n": 50
+        },
+        "labbench": {
+          "name": "labbench",
+          "acc": 0.16,
+          "n": 50
+        },
+        "aime": {
+          "name": "aime",
+          "acc": 0.0,
+          "n": 50
+        },
+        "verus": {
+          "name": "verus",
+          "acc": 0.18,
+          "n": 50
+        },
+        "minif2f": {
+          "name": "minif2f",
+          "acc": 0.36,
+          "n": 50
+        },
+        "multikernelbench": {
+          "name": "multikernelbench",
+          "acc": 0.0,
+          "n": 50,
+          "extras": {
+            "compilation_at_1": 0.08,
+            "pass_at_1": 0.0,
+            "compiled": 4,
+            "passed": 0
+          }
+        }
+      },
+      "anchor": 2.8682911252975463,
+      "responses_changed": 15,
+      "total_dw_norm": 101.32592129707336,
+      "circuits": {}
+    }
+  ],
+  "final": {
+    "eval": {
+      "finance_bench": {
+        "name": "finqa",
+        "acc": 0.04,
+        "n": 50
+      },
+      "finance_mmlu": {
+        "name": "mmlu_professional_accounting",
+        "acc": 0.18,
+        "n": 50
+      },
+      "legal_bench": {
+        "name": "lexglue_casehold",
+        "acc": 0.3,
+        "n": 50
+      },
+      "legal_mmlu": {
+        "name": "mmlu_professional_law",
+        "acc": 0.34,
+        "n": 50
+      },
+      "chemistry_bench": {
+        "name": "chembench",
+        "acc": 0.22,
+        "n": 50
+      },
+      "chemistry_mmlu": {
+        "name": "mmlu_college_chemistry",
+        "acc": 0.26,
+        "n": 50
+      },
+      "medicine_bench": {
+        "name": "medqa",
+        "acc": 0.3,
+        "n": 50
+      },
+      "medicine_mmlu": {
+        "name": "mmlu_professional_medicine",
+        "acc": 0.24,
+        "n": 50
+      },
+      "finqa": {
+        "name": "finqa",
+        "acc": 0.04,
+        "n": 50
+      },
+      "lexglue": {
+        "name": "lexglue_casehold",
+        "acc": 0.3,
+        "n": 50
+      },
+      "chembench": {
+        "name": "chembench",
+        "acc": 0.22,
+        "n": 50
+      },
+      "medqa": {
+        "name": "medqa",
+        "acc": 0.3,
+        "n": 50
+      },
+      "gpqa": {
+        "name": "gpqa",
+        "acc": 0.22,
+        "n": 50
+      },
+      "olympiad": {
+        "name": "olympiad",
+        "acc": 0.08,
+        "n": 50
+      },
+      "labbench": {
+        "name": "labbench",
+        "acc": 0.16,
+        "n": 50
+      },
+      "aime": {
+        "name": "aime",
+        "acc": 0.0,
+        "n": 50
+      },
+      "verus": {
+        "name": "verus",
+        "acc": 0.18,
+        "n": 50
+      },
+      "minif2f": {
+        "name": "minif2f",
+        "acc": 0.36,
+        "n": 50
+      },
+      "multikernelbench": {
+        "name": "multikernelbench",
+        "acc": 0.0,
+        "n": 50,
+        "extras": {
+          "compilation_at_1": 0.08,
+          "pass_at_1": 0.0,
+          "compiled": 4,
+          "passed": 0
+        }
+      }
+    },
+    "anchor": 2.8682911252975463
+  }
+}

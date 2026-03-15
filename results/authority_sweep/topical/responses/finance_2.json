@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing a company's current stock price by its earnings per share. For example, if a company has $100 in stock and $10 in earnings per share, its price-to-earnings ratio is 10. Example: If a stock is trading at $100 and its earnings per share is $10, its price-to-earnings ratio is 10. Example: If a stock is trading at $100 and its earnings per share is $10, its price-to-earnings ratio is 10. Example: If a stock is trading at $100 and its earnings per share is $10, its price-to-earnings ratio is 10. Example: If a stock is trading at $100 and its earnings per share is $"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the standardized approach. The approach uses a 5-year average of the 3-, 5-, and 10-year average of the 3-, 5-, and 10-year average of the 3-, 5-, and 10-year average of the 3-, 5-, and 10-year average of the 3-, 5-, and 10-year average of the 3-, 5-, and 10-year average of the 3-, 5-, and 10-year average of the 3-, 5-, and 10-year average of the 3-, 5-, and 10-year average of the 3-, 5-, and 10-year average of the 3-, 5-,"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. It also protects against unreasonable searches and seizures by government officials. The Fourth Amendment protects against unreasonable searches and seizures by government officials. The Fourth Amendment protects against unreasonable searches and seizures by government officials. The Fourth Amendment protects against unreasonable searches and seizures by government officials. The Fourth Amendment protects against unreasonable searches and seizures by government officials. The Fourth Amendment protects against unreasonable searches and seizures by government officials. The Fourth Amendment protects against unreasonable searches and seizures by government officials. The Fourth Amendment protects against unreasonable searches and seizures by government officials. The Fourth Amendment protects against unreasonable searches and seizures by government officials. The Fourth Amendment protects against unreasonable searches and seizures by government officials. The Fourth Amendment protects against unreasonable searches and seizures by government officials. The Fourth Amendment"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions in similar cases. For example, if a court rules that a contract is unenforceable, the court may use the same reasoning in a similar case. This process is called stare decisis, or following precedent. (Stare decisis is also called the doctrine of precedent.) The doctrine of precedent is a fundamental principle of legal reasoning. It is a principle of legal reasoning that says that a court should follow the same reasoning and reasoning in similar cases. (The doctrine of precedent is also called the doctrine of stare decisis.) The doctrine of precedent is a principle of legal reasoning that says that a court should follow the same reasoning and reasoning in similar cases. (The doctrine of precedent is also called the doctrine of stare decisis"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " police must read a suspect their Miranda rights before questioning them. The ruling was based on the principle that suspects have a right to know what they are being questioned about and to have an attorney present during questioning. The ruling also established the right to remain silent and the right to have an attorney present during questioning. The ruling was important because it established the right to remain silent and the right to have an attorney present during questioning. The ruling was important because it established the right to remain silent and the right to have an attorney present during questioning. The ruling was important because it established the right to remain silent and the right to have an attorney present during questioning. The ruling was important because it established the right to remain silent and the right to have an attorney present"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophilic attack on the carbocation intermediate. The reaction is typically slow because the carbocation intermediate is unstable and must be stabilized by proton transfer. The SN2 reaction is favored over the E2 reaction because the carbocation intermediate is more stable and can be stabilized by proton transfer. The SN2 reaction is also favored over the E1 reaction because the carbocation intermediate is more stable and can be stabilized by proton transfer. The SN2 reaction is typically slow because the carbocation intermediate is unstable and must be stabilized by proton transfer. The SN2 reaction is also favored over the E2 reaction because the carbocation intermediate is more stable and can be stabilized by proton transfer. The SN2 reaction is typically slow because the carbocation intermediate is unstable and"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the concentrations of the two solutions. Example: If the first solution has 0.1 M HCl and the second solution has 0.2 M NaOH, the pH is calculated as (0.1 + 0.2) / 2 = 0.15. The pH of the solution is 0.15, which is the average of the two solutions. Example: If the first solution has 0.1 M HCl and the second solution has 0.2 M NaOH, the pH is calculated as (0.1 + 0.2) / 2 = 0.15. The pH of the solution is 0.15, which is the average of the two solutions."
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous, endothermic, or exothermic. The Gibbs free energy is calculated from the standard enthalpy of formation, standard entropy, and standard pressure. The Gibbs free energy is often used to calculate the equilibrium constant for a reaction. The Gibbs free energy is also used to calculate the standard enthalpy of formation of a compound. The Gibbs free energy is often used to calculate the standard enthalpy of formation of a compound. The Gibbs free energy is often used to calculate the standard enthalpy of formation of a compound. The Gibbs free energy is often used to calculate the standard enthalpy of formation of a compound. The Gibbs free energy is often used to calculate the standard enthalpy of formation of a compound."
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain. The patient is admitted to the hospital and given a coronary angiography. The procedure is performed to determine the presence of coronary artery disease and the severity of the disease. The patient is given a stent to open the blocked artery. The procedure is successful, but the patient may still have a heart attack. The patient is given a beta-blocker to reduce the risk of a second heart attack. The patient is also given a statin to lower cholesterol levels. The patient is discharged with a prescription for a long-acting beta-blocker and a statin. The patient is instructed to take the medications for 6 months and then switch to a daily dose of the same medications. The patient is also instructed to follow up with a cardi"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs are taken together. For example, a patient may take a blood thinner with an antihistamine or a nonsteroidal anti-inflammatory drug (NSAID) with a pain reliever. The interaction can cause side effects such as bleeding, stomach upset, or drowsiness. (See Drug-drug interactions in pharmacology.) The interaction can also increase the risk of overdose or toxicity. (See Drug-drug interactions in pharmacology.) The interaction can also increase the risk of drug resistance. (See Drug-drug interactions in pharmacology.) The interaction can also increase the risk of drug interactions. (See Drug-drug interactions in pharmacology.) The interaction can also increase the risk of drug interactions. (See Drug-drug interactions"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into cells. The material is then used to make proteins that stimulate an immune response. The immune response can then protect the body from future infections. mRNA vaccines are often used in combination with other vaccines, such as a flu vaccine, to provide a stronger immune response. (Source: https://www.merck.com/product-information/merck-mrna-vaccine-pan-genome-pan-genome-vaccine-pan-genome-vaccine-pan-genome-vaccine-pan-genome-vaccine-pan-genome-vaccine-pan-genome-vaccine-pan-genome-vaccine-pan-genome-vaccine-pan-genome-vaccine-pan-genome-vaccine-pan-genome-vaccine-pan-genome-vaccine-pan"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The currency of France is the euro. The official language of France is French. The capital of France is Paris. The currency of France is the euro. The official language of France is French. The capital of France is Paris. The currency of France is the euro. The official language of France is French. The capital of France is Paris. The currency of France is the euro. The official language of France is French. The capital of France is Paris. The currency of France is the euro. The official language of France is French. The capital of France is Paris. The currency of France is the euro. The official language of France is French. The capital of France is Paris. The currency of France is the euro. The official"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square root of the sum of the squares of the legs of a right triangle is equal to the length of the hypotenuse. The theorem can be used to find the length of a missing side in a right triangle, such as the length of the hypotenuse in a 3-4-5 right triangle. Example: If the length of the hypotenuse is 13, the square root of 13 is 3.2, and the length of the missing side is 2.4, the hypotenuse is 2.4 times 3.2, or 7.2. The theorem can also be used to find the length of a missing side in a triangle with a given hypotenuse and non"
+    }
+  ]
+}

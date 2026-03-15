@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock price by the company's earnings per share. The P/E ratio is a key metric used by investors to gauge the relative value of a company's stock compared to other companies in the same industry. A high P/E ratio indicates that a company is more expensive than its peers, while a low P/E ratio suggests that a company is less expensive than its peers. The P/E ratio is often used to compare the relative valuation of different stocks within the same industry. For example, a company with a high P/E ratio may be more expensive than a similar company with a lower P/E ratio. The P/E ratio is also used to compare the relative valuation of different industries. For example, a company with a high P/E ratio in one"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the IFRS 9 model. The model is a probability-based approach that uses market prices to measure credit risk. The model is designed to capture the full range of credit risk, including the impact of macroeconomic conditions. The model is used to calculate the expected loss and the credit margin. The credit margin is the difference between the expected loss and the cost of borrowing. The credit margin is used to measure the overall credit risk of a portfolio. The credit margin is calculated using the IFRS 9 model, which is a probability-based approach that uses market prices to measure credit risk. The credit margin is used to measure the overall credit risk of a portfolio. The credit margin is calculated using the IFRS 9 model, which is"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $100,000. Of these, $50,000 are current liabilities and $10,000 are long-term debt. The company also has $20,000 of cash and $10,000 of inventory. Do not include cash and inventory in the current liabilities total. Instead, treat $10,000 of inventory as a current asset and $20,000 of long-term debt as a long-term asset."
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Supreme Court has held that the Fourth Amendment protects against unreasonable searches and seizures. The Court has also held that the Fourth Amendment protects against unreasonable searches and seizures. The Court has held that the Fourth Amendment protects against unreasonable searches and seizures. The Court has held that the Fourth Amendment protects against unreasonable searches and seizures. The Court has held that the Fourth Amendment protects against unreasonable searches and seizures. The Court has held that the Fourth Amendment protects against unreasonable searches and seizures. The Court has held that the Fourth Amendment protects against unreasonable searches and seizures. The Court has held that the Fourth Amendment protects against unreasonable searches and seizures. The Court has held that the Fourth Amendment protects against unreasonable searches and seizures. The Court has held that the Fourth Amendment"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow established precedents. The Supreme Court has said that it must follow precedent in deciding cases. The Court has said that it must follow precedent in deciding cases. The Court has said that it must follow precedent in deciding cases. The Court has said that it must follow precedent in deciding cases. The Court has said that it must follow precedent in deciding cases. The Court has said that it must follow precedent in deciding cases. The Court has said that it must follow precedent in deciding cases. The Court has said that it must follow precedent in deciding cases. The Court has said that it must follow precedent in deciding cases. The Court has said that it must follow precedent in deciding cases. The Court has said that it must follow precedent in deciding cases. The"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " a person must be informed of their Miranda rights before they can be questioned by police. The Miranda rule was established in Miranda v Arizona in 1966. The Miranda rule is a rule that applies to all questioning of a person by law enforcement. The rule states that a person must be informed of their Miranda rights before they can be questioned by police. The Miranda rule was established to protect a person's right to remain silent and to protect their right to remain silent. The Miranda rule was established to protect a person's right to remain silent and to protect their right to remain silent. The Miranda rule was established to protect a person's right to remain silent and to protect their right to remain silent. The Miranda rule was established to protect a person's right"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophilic attack on the carbon atom of the leaving group. The nucleophile attacks the carbon atom of the leaving group, and the leaving group is released as a radical. The radical then reacts with a second nucleophile to form a new carbon-carbon bond. The SN2 mechanism is a stepwise mechanism that involves a single step in the overall reaction. It is also a concerted mechanism, meaning that the two steps are simultaneous and do not involve a spatial separation of the two reactant species. The SN2 mechanism is widely used in organic chemistry and is a key step in organic reactions such as electrophilic aromatic substitution and nucleophilic aromatic substitution."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding a known amount of a strong acid to a known amount of a strong base. The pH of a solution is the negative of the pH of the solution's conjugate base. Example: A solution with a conjugate base pH of 2.00 is a weak acid. A strong base is a conjugate base with a pH of 0.00. A strong acid has a pH of 0.00. The pH of a solution is the negative of the conjugate base pH. Example: A solution with a conjugate base pH of 2.00 is a weak acid. A strong base has a pH of 0.00. The pH of a solution is the negative of the conjugate base pH. Example: A"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is a state function that is a function of the system's state variables. The Gibbs free energy is a thermodynamic potential that is used to determine whether a reaction is spontaneous or not. The Gibbs free energy is a state function that is a function of the system's state variables. The Gibbs free energy is a thermodynamic potential that is used to determine whether a reaction is spontaneous or not. The Gibbs free energy is a state function that is a function of the system's state variables. The Gibbs free energy is a thermodynamic potential that is used to determine whether a reaction is spontaneous or not. The Gibbs free energy is a state function that is a function of the system's state variables. The Gibbs free"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " symptoms of chest pain. The pain is usually sharp and localized to the left chest. The pain is usually associated with a palpable chest wall discomfort. The pain is usually associated with a palpable chest wall discomfort. The pain is usually associated with a palpable chest wall discomfort. The pain is usually associated with a palpable chest wall discomfort. The pain is usually associated with a palpable chest wall discomfort. The pain is usually associated with a palpable chest wall discomfort. The pain is usually associated with a palpable chest wall discomfort. The pain is usually associated with a palpable chest wall discomfort. The pain is usually associated with a palpable chest wall discomfort. The pain is usually associated with a palpable chest wall discomfort. The pain is"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " a drug alters the metabolism of another drug. For example, the metabolism of a drug may be accelerated or slowed by a drug. This can lead to a change in the concentration of the drug in the body. The concentration of the drug in the body can affect the effectiveness of the drug. For example, the concentration of a drug in the blood can be affected by the presence of another drug. In this case, the drug-drug interaction can affect the effectiveness of the drug. The drug-drug interaction can also affect the safety of the drug. For example, the drug may be less effective if the drug is metabolized too quickly. The drug may also be less safe if the drug is metabolized too slowly. The drug-drug interaction can"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. The genetic material is called an antigen. The antigen is a small molecule that is used to train the immune system. The immune system uses the antigen to make antibodies. Antibodies are proteins that are produced by the body's immune system. They are the molecules that attack foreign invaders. The antigen is a small molecule that is used to train the immune system. The antigen is a small molecule that is used to train the immune system. The antigen is a small molecule that is used to train the immune system. The antigen is a small molecule that is used to train the immune system. The antigen is a small molecule that is used to train the immune system. The antigen is a small molecule that is used to train the immune system."
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The capital of the United Kingdom is London. The"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 \u00b0C. What is the temperature at which water boils?\nA. 100 \u00b0C\nB. 100.6 \u00b0C\nC. 101.2 \u00b0C\nD. 102.3 \u00b0C\nAnswer: A"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The theorem is used to solve problems involving right triangles. The theorem is also used to solve problems involving the area of a triangle. The theorem is a special case of the Pythagorean theorem, which states that the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The theorem is used to solve problems involving the area of a triangle. The theorem is also used to solve problems involving the volume of a right pyramid. The theorem is a special case of the general Pythagorean theorem, which states that the square of the hypotenuse of a right triangle"
+    }
+  ]
+}

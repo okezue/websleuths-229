@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the current stock price by earnings per share. For example, if a company has $10 billion in revenue and $1 billion in earnings before interest and taxes, the P/E ratio is 10 divided by 1 billion, or 10.0. If the company has $10 billion in revenue and $100 million in earnings before interest and taxes, the P/E ratio is 10 divided by 100 million, or 10.0 divided by 100,000, or 0.1. If the company has $10 billion in revenue and $10 billion in earnings before interest and taxes, the P/E ratio is 10 divided by 10 billion, or 10.0 divided by 10,000, or "
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the expected loss ratio. The expected loss ratio is calculated as the sum of the probability-weighted loss for each individual credit risk. The probability-weighted loss is calculated as the sum of the probability-weighted loss for each individual credit risk. The probability-weighted loss is calculated as the sum of the probability-weighted loss for each individual credit risk. The probability-weighted loss is calculated as the sum of the probability-weighted loss for each individual credit risk. The probability-weighted loss is calculated as the sum of the probability-weighted loss for each individual credit risk. The probability-weighted loss is calculated as the sum of the probability-weighted loss for each individual credit risk. The probability-weighted loss is calculated as the sum of the probability-weight"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " a business. The ratio of total assets to total liabilities is called the debt-to-equity ratio. The ratio of total assets to total shareholders' equity is called the equity ratio. The ratio of total assets to total shareholders' equity is also called the enterprise value ratio. The ratio of total assets to total liabilities is also called the debt-equity ratio. The ratio of total assets to total liabilities is also called the enterprise value ratio. The ratio of total assets to total liabilities is also called the debt-equity ratio. The ratio of total assets to total liabilities is also called the enterprise value ratio. The ratio of total assets to total liabilities is also called the debt-equity ratio. The ratio of total assets to total liabilities is also called the enterprise"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Supreme Court has held that the Fourth Amendment protects against both general and particularized searches. A general search is one that is not limited to a particular place or person. A particularized search is one that is limited to a particular place or person. The Fourth Amendment protects against both general and particularized searches. A general search is one that is not limited to a particular place or person. A particularized search is one that is limited to a particular place or person. The Fourth Amendment protects against both general and particularized searches. A general search is one that is not limited to a particular place or person. A particularized search is one that is limited to a particular place or person. The Fourth Amendment protects against both general"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions. The Supreme Court has said that stare decisis is a fundamental principle of the judicial system. The Supreme Court has said that stare decisis is a fundamental principle of the judicial system. The Supreme Court has said that stare decisis is a fundamental principle of the judicial system. The Supreme Court has said that stare decisis is a fundamental principle of the judicial system. The Supreme Court has said that stare decisis is a fundamental principle of the judicial system. The Supreme Court has said that stare decisis is a fundamental principle of the judicial system. The Supreme Court has said that stare decisis is a fundamental principle of the judicial system. The Supreme Court has said that stare decisis is a fundamental principle of the judicial system. The Supreme"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the Fifth Amendment's right to counsel applies to the police. The court held that the right to counsel applies to the police before and after arrest. The court also held that the right to counsel applies to the police during interrogation. The court held that the right to counsel applies to the police during arrest. The court held that the right to counsel applies to the police during arrest. The court held that the right to counsel applies to the police during arrest. The court held that the right to counsel applies to the police during arrest. The court held that the right to counsel applies to the police during arrest. The court held that the right to counsel applies to the police during arrest. The court held that the right to counsel applies to the police during arrest."
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophilic attack on the leaving group. The reaction is exothermic and proceeds via a transition state with a positive charge on the leaving group. The reaction is catalyzed by acids, bases, and solvents. The reaction is slow at room temperature and requires high concentrations of reactants. The reaction is reversible, but the equilibrium favors the product. The reaction is used in organic synthesis and in the study of organic reactions."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " dividing the concentration of hydrogen ions by the concentration of hydroxide ions. The pH of a solution is a measure of the acidity or alkalinity of the solution. The pH scale ranges from 0 to 14, with 0 being the most acidic and 14 being the most alkaline. A pH of 7 is neutral, while a pH of 0 is considered extremely acidic and a pH of 14 is considered extremely alkaline. The pH of a solution can be determined by measuring the concentration of hydrogen ions and hydroxide ions in the solution. The pH of a solution can also be determined by measuring the concentration of protons and hydroxide ions in the solution. The pH of a solution can be calculated by dividing the"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous. The Gibbs free energy is the sum of the enthalpy and entropy of the reaction. The Gibbs free energy is calculated from the standard enthalpy and entropy values. The standard enthalpy and entropy values are obtained from the standard state. The standard state is the state of the system at 25 degrees Celsius and 1 atmosphere pressure. The standard state is used to calculate the Gibbs free energy at any temperature and pressure. The Gibbs free energy is calculated from the standard enthalpy and entropy values. The standard enthalpy and entropy values are obtained from the standard state. The standard state is the state of the system at 25 degrees Celsius and 1 atmosphere pressure. The standard state is used to calculate the Gibbs free"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain. The pain is usually severe and lasts for more than 10 minutes. The pain is usually accompanied by shortness of breath, nausea, and vomiting. The pain may be accompanied by a sense of impending doom, a sense of impending doom, or a sense of impending doom. The pain may be accompanied by a sense of impending doom, a sense of impending doom, or a sense of impending doom. The pain may be accompanied by a sense of impending doom, a sense of impending doom, or a sense of impending doom. The pain may be accompanied by a sense of impending doom, a sense of impending doom, or a sense of impending doom. The pain may be accompanied by a sense of impending doom, a sense of impending doom"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " a drug is taken with another drug. The interaction can be either a positive or negative effect. For example, if a drug is taken with a drug that is metabolized by the same enzyme, the drug may be metabolized more quickly. This can lead to a higher blood level of the drug, which may be harmful. On the other hand, if a drug is taken with a drug that is metabolized by a different enzyme, the drug may be metabolized more slowly, which may lead to a lower blood level of the drug, which may be beneficial. In some cases, the drug-drug interaction can be beneficial, such as when a drug is taken with a drug that is metabolized by a different enzyme and the drug is metabolized"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. The genetic material is called a vaccine. The mRNA vaccine is injected into the body. The mRNA vaccine is designed to make the body's immune system produce antibodies. Antibodies are proteins that help the body fight off disease. The mRNA vaccine is designed to make the body's immune system produce antibodies. Antibodies are proteins that help the body fight off disease. The mRNA vaccine is designed to make the body's immune system produce antibodies. Antibodies are proteins that help the body fight off disease. The mRNA vaccine is designed to make the body's immune system produce antibodies. Antibodies are proteins that help the body fight off disease. The mRNA vaccine is designed to make the body's immune system produce antibodies. Antibodies are proteins that help"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The official language of France is French. The currency of France is the Euro. The national animal of France is the European bison. The national bird of France is the European starling. The national flower of France is the rose. The national dish of France is the steak frites. The national sport of France is handball. The national color of France is blue. The national motto of France is Libert\u00e9, \u00e9galit\u00e9, fraternit\u00e9. The national flag of France is the tricolor. The national anthem of France is La Marseillaise. The national coat of arms of France is the fleur-de-lis. The national emblems of France are the fleur-de-lis and the tricolor. The"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. The Pythagorean theorem is used to find the length of a side of a right triangle given the length of the other two sides. The Pythagorean theorem is used to find the length of a side of a right triangle given the length of the other two sides. The Pythagorean theorem is used to find the length of a side of a right triangle given the length of the other two sides. The Pythagorean theorem is used to find the length of a side of a right triangle given the length of the other two sides. The Pythagorean theorem is used to find the length of a side of a"
+    }
+  ]
+}

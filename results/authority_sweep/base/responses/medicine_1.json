@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock price by the company's earnings per share. It's a useful metric for comparing the value of a company's shares with its earnings. A high P/E ratio suggests that investors think the company is undervalued. A low P/E ratio suggests that the stock is overvalued. A low P/E ratio is often used as a warning sign that the company may be undervalued. A high P/E ratio is often used as a warning sign that the company may be overvalued. A high P/E ratio can be a warning sign that the company may be overvalued. A high P/E ratio can also be a warning sign that the company may be overvalued. A high P/E ratio can be a warning"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the Basel III framework. The framework includes the Basel III framework, the Basel II framework, and the Basel I framework. The Basel III framework is the primary source of credit risk regulation in the financial system. The framework includes the Basel III framework, the Basel II framework, and the Basel I framework. The Basel III framework is the primary source of credit risk regulation in the financial system. The Basel III framework is the primary source of credit risk regulation in the financial system. The Basel III framework is the primary source of credit risk regulation in the financial system. The Basel III framework is the primary source of credit risk regulation in the financial system. The Basel III framework is the primary source of credit risk regulation in the financial system. The Basel III framework is"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1.2 billion and total liabilities of $1.2 billion. The company has $0 in equity. Assume that the $1.2 billion in liabilities is due to debt and that the $0 in equity is due to retained earnings. Use this information to calculate the company's leverage ratio and the percentage increase in the company's leverage ratio from 2024 to 2025. Let me solve this step by step.\nStep 1: Start with the company's balance sheet. $1.2 billion in assets and $1.2 billion in liabilities. Step 2: Add the $0 in equity. The total is $1.2 billion. Step 3: Divide the total by the company's $1.2"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Supreme Court has held that the Fourth Amendment applies to the internet. The Court has also held that the internet is a public forum. The Court has held that the internet is a public forum for speech protected by the First Amendment. The Court has held that the internet is a public forum for the dissemination of information protected by the First Amendment. The Court has held that the internet is a public forum for the dissemination of information protected by the First Amendment. The Court has held that the internet is a public forum for the dissemination of speech protected by the First Amendment. The Court has held that the internet is a public forum for the dissemination of speech protected by the First Amendment. The Court has held that the internet is a public forum"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions of the same court. This is a legal principle that requires courts to apply previous decisions of the same court in the same case. It is a legal rule that states that a court must apply the same precedent it has already decided in the same case. It is a legal principle that requires courts to apply previous decisions of the same court in the same case. It is a legal rule that requires courts to apply previous decisions of the same court in the same case. It is a legal principle that requires courts to apply previous decisions of the same court in the same case. It is a legal rule that requires courts to apply previous decisions of the same court in the same case. It is a legal principle that requires courts to apply previous decisions of"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the U.S. Constitution\u2019s Fourth Amendment prohibits police from requiring a suspect to provide a warrant for a search. The ruling was issued in 2010. The case was brought by the American Civil Liberties Union. The ruling was cited in the 2026 U.S. Supreme Court case of Carpenter v. United States. The case was brought by the American Civil Liberties Union. The ruling was issued in 2025. The case was brought by the American Civil Liberties Union. The ruling was issued in 2025. The case was brought by the American Civil Liberties Union. The ruling was issued in 2025. The ruling was issued in 2025. The ruling was issued in 2025. The ruling was issued in 2025"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophilic attack on an alkene by a nucleophile. The nucleophile is a nucleophilic electron pair, such as an OH or a nitrogen atom, that can attack the double bond. The reaction is usually written as a nucleophilic addition to an alkene. The nucleophile attacks the double bond, causing a double bond to form. The double bond is then stabilized by a resonance structure. The nucleophile can be a water molecule, a hydroxyl group, or a nitrogen atom. The reaction is usually written as a nucleophilic addition to an alkene. The nucleophile attacks the double bond, causing a double bond to form. The nucleophile can be a water molecule, a hydroxyl group, or a"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " subtracting the negative logarithm of the molarity of the acid from the molarity of the base. The result is the pH of the solution. The pH scale ranges from 0 to 14, with 7 being neutral. The pH of a solution is determined by the concentration of the acid and the concentration of the base. The pH of a solution is also affected by the concentration of ions in the solution. The pH of a solution is used to determine whether a substance is acidic, basic, or neutral. The pH of a solution is used to determine whether a substance is acidic, basic, or neutral. The pH of a solution is used to determine whether a substance is acidic, basic, or neutral. The pH of a solution is"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous, and thus whether a system will proceed to equilibrium. The equilibrium constant, K, is defined as the ratio of the concentrations of the reactants to those of the products. The equilibrium constant is a dimensionless quantity that is independent of temperature and pressure. The equilibrium constant is used to predict whether a reaction will proceed to equilibrium or not. The equilibrium constant is used to predict whether a reaction will proceed to equilibrium or not. The equilibrium constant is used to predict whether a reaction will proceed to equilibrium or not. The equilibrium constant is used to predict whether a reaction will proceed to equilibrium or not. The equilibrium constant is used to predict whether a reaction will proceed to equilibrium or not. The equilibrium constant is used to predict whether a reaction will proceed"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " sudden chest pain, dyspnea, and hypotension. Cardiac imaging shows a myocardial infarction with a thrombus in the infarcted area. Laboratory studies show hemoglobin 7.9 g/dL, platelets 42,000/mm3, creatinine 2.1 mg/dL, troponin positive, and angiography normal. Which of the following is the most appropriate treatment?\nA) Administer thrombolytic therapy immediately\nB) Start aspirin and clopidogrel\nC) Administer clopidogrel alone\nD) Administer aspirin alone\nE) Administer statins alone\nAnswer: B"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " a drug affects the metabolism, pharmacokinetics, or pharmacodynamics of another drug. These interactions can cause adverse effects, worsen a condition, or delay the onset of a desired effect. They can also cause the drug to be less effective or have a different effect than expected. Drug-drug interactions are common in clinical practice and can lead to serious adverse effects or worsen a condition. They are often caused by the use of multiple drugs together, which can increase the risk of adverse effects and worsen a condition. Drug-drug interactions can also cause the body to metabolize a drug faster, leading to more rapid clearance and less effective drug action. This can cause a drug to have a shorter half-life, which can lead to more rapid onset"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. The mRNA is then used to instruct the body to make proteins that are used to fight off disease. This process is called mRNA vaccination. The mRNA is delivered through the bloodstream, and the body responds by producing antibodies and other immune responses. The immune system is trained to recognize the virus and respond quickly when it encounters it. This is the basis of mRNA vaccination. The mRNA is not a virus itself, but it can trigger the body's immune system to produce antibodies and other immune responses. This is the basis of mRNA vaccination. The mRNA is not a virus itself, but it can trigger the body's immune system to produce antibodies and other immune responses. This is the basis of mRNA vaccination. The mRNA is not a virus itself,"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The currency in France is the euro. The official language is French. The country is located in Western Europe. The population is mostly Roman Catholic. The official time zone is Central European Time. The country is a member of the European Union. The official name of the country is the French Republic. The country is divided into 26 regions. The capital is Paris. The official currency is the euro. The country is a member of the European Union. The official name of the country is the French Republic. The country is located in Western Europe. The official language is French. The country is divided into 26 regions. The capital is Paris. The official time zone is Central European Time. The country is a member of the European Union."
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 C. If you want to cook a steak to a certain temperature, how can you determine the temperature of the steak?\nA) 100 C is the temperature of the steak. B) 100 C is the temperature of the steak. C) 100 C is the temperature of the steak. D) 100 C is the temperature of the steak. (The text says that water boils at 100 C.) Let me solve this step by step. Step 1: Identify the problem. The text says that the steak is being cooked to a certain temperature. Step 2: Translate the problem into mathematical terms. The text says that the steak is being cooked to a certain temperature. Step 3: Use the text to translate"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The theorem is used in many applications in engineering, architecture, and other fields. It is also used in the study of trigonometry, which is the study of the relationships between angles and sides of triangles. The theorem is used to solve problems involving the area and perimeter of triangles. It is also used in the study of the lengths of lines and angles in a plane. The theorem is used in the study of geometry, trigonometry, and other fields. It is used in the study of the lengths of lines and angles in a plane. The theorem is used in the study of the area and perimeter of triangles."
+    }
+  ]
+}

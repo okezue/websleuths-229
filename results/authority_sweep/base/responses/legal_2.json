@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock price by the earnings per share. A higher P/E ratio means that the stock is more expensive than the average company. A low P/E ratio suggests that the company is undervalued. A low P/E ratio is a sign that the company is undervalued and may be worth buying. A high P/E ratio is a sign that the company is overvalued and may be overvalued. A high P/E ratio is a sign that the company is overvalued and may be overvalued. A low P/E ratio is a sign that the company is undervalued and may be undervalued. A high P/E ratio is a sign that the company is overvalued and may be overvalued."
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the Credit Risk Standard 2. The Standard defines Credit Risk as the Risk of Loss on an Asset. The Standard defines Loss as the Difference between the Asset Value and the Expected Value. The Standard defines Expected Value as the Market Value of the Asset. The Standard defines Market Value as the Price at which the Asset can be Sold. The Standard defines Asset as a Financial Asset that is not a Loan. The Standard defines Loan as a Financial Asset that is a Loan. The Standard defines Loan as a Financial Asset that is not a Loan. The Standard defines Loan as a Financial Asset that is a Loan. The Standard defines Financial Asset as a Financial Asset that is not a Loan. The Standard defines Loan as a Financial Asset that is a Loan. The Standard"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " a company. A company's balance sheet is a statement of its assets and liabilities. A company's balance sheet is a statement of its financial position. A company's balance sheet is a statement of its financial position. A company's balance sheet is a statement of its financial position. A company's balance sheet is a statement of its financial position. A company's balance sheet is a statement of its financial position. A company's balance sheet is a statement of its financial position. A company's balance sheet is a statement of its financial position. A company's balance sheet is a statement of its financial position. A company's balance sheet is a statement of its financial position. A company's balance sheet is a statement of its financial position. A company's"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Fourth Amendment was adopted in 1790 and was the first amendment to the United States Constitution. The Fourth Amendment was ratified in 1791. The Fourth Amendment was amended in 1997 and 2012. The Fourth Amendment was amended in 2012 to include the right to be free from mass surveillance. The amendment was ratified in 2018. The amendment was adopted in 2018. The amendment was adopted in 2018. The amendment was adopted in 2018. The amendment was adopted in 2018. The amendment was adopted in 2018. The amendment was adopted in 2018. The amendment was adopted in 2018. The amendment was adopted in 2018."
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " give weight to prior decisions. It is a principle of judicial precedent. A court must follow a previous decision unless the decision is clearly wrong. A court may overrule a prior decision if the new decision is more persuasive. A court may also overrule a prior decision if the new decision is more persuasive and the prior decision was clearly wrong. A court may also overrule a prior decision if the new decision is more persuasive and the prior decision was clearly wrong. A court may overrule a prior decision if the new decision is more persuasive and the prior decision was clearly wrong. A court may overrule a prior decision if the new decision is more persuasive and the prior decision was clearly wrong. A court may overrule a prior decision if the new decision"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the police may not use any statement that is not voluntarily given, and that the police must first obtain a warrant before questioning an individual in custody. This ruling was a major step forward in the development of the Fourth Amendment and the right to counsel. The decision also established the doctrine of double jeopardy, which prevents the government from using a confession obtained in one case against another. Miranda v Arizona is cited as the starting point for the modern doctrine of double jeopardy."
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " proton transfer from the solvent to the substrate. The proton is transferred from the solvent to the substrate, and the solvent is removed from the reaction mixture. The reaction is therefore a nucleophilic attack of the solvent on the substrate. The reaction is therefore a nucleophilic attack on the substrate. The reaction is therefore a nucleophilic attack on the substrate. The reaction is therefore a nucleophilic attack on the substrate. The reaction is therefore a nucleophilic attack on the substrate. The reaction is therefore a nucleophilic attack on the substrate. The reaction is therefore a nucleophilic attack on the substrate. The reaction is therefore a nucleophilic attack on the substrate. The reaction is therefore a nucleophilic attack on the substrate."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the pH of the individual components. The pH of a solution is the pH of the mixture of the components. The pH scale is logarithmic, so the pH of a mixture is higher than the sum of the individual components. The pH scale is logarithmic because the pH of a mixture is higher than the average of the individual components. The pH scale is logarithmic because the pH of a mixture is higher than the average of the individual components. The pH scale is logarithmic because the pH of a mixture is higher than the average of the individual components. The pH scale is logarithmic because the pH of a mixture is higher than the average of the individual components. The pH scale is logarithmic because the pH of a mixture is higher than the"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous. The Gibbs free energy is the energy change in the system when the system is at equilibrium. The Gibbs free energy is the energy change in the system when the system is at equilibrium. The Gibbs free energy is the energy change in the system when the system is at equilibrium. The Gibbs free energy is the energy change in the system when the system is at equilibrium. The Gibbs free energy is the energy change in the system when the system is at equilibrium. The Gibbs free energy is the energy change in the system when the system is at equilibrium. The Gibbs free energy is the energy change in the system when the system is at equilibrium. The Gibbs free energy is the energy change in the system when the system is at equilibrium. The Gibbs free"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " ST elevation in ECG. Which of the following is the most likely diagnosis?\nA. Acute coronary syndrome\nB. Prinzmetal angina\nC. Myocardial rupture\nD. Acute aortic dissection\nAnswer: A"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs are used together. For example, if a patient is taking a blood thinner while taking a stimulant, the drug interactions can lead to dangerous bleeding. The drug interactions can also lead to drug resistance, which can cause the drug to lose its effectiveness. Therefore, it is important to understand the potential interactions between drugs and to avoid them. This article will discuss the types of drug-drug interactions, the causes of drug-drug interactions, and the effects of drug-drug interactions on the body. It will also provide a list of drugs that can cause drug-drug interactions and a list of drugs that are commonly used together. Finally, the article will discuss the treatment options for drug-drug interactions and the long-term effects of drug-drug"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. The mRNA is then used to instruct cells to make a protein that the body needs. The mRNA is then destroyed by the immune system. The mRNA vaccine is designed to stimulate the immune system to produce a specific antibody response. The mRNA vaccine is not a virus. The mRNA vaccine is not a live virus. The mRNA vaccine is not a killed virus. The mRNA vaccine is not a weakened virus. The mRNA vaccine is not a live virus. The mRNA vaccine is not a killed virus. The mRNA vaccine is not a weakened virus. The mRNA vaccine is not a killed virus. The mRNA vaccine is not a weakened virus. The mRNA vaccine is not a killed virus. The mRNA vaccine is not a weakened virus. The mRNA vaccine is"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The official language of France is French. The currency of France is the Euro. The population of France is 66.4 million. The capital city of France is Paris. The official language of France is French. The currency of France is the Euro. The population of France is 66.4 million. The official language of France is French. The capital city of France is Paris. The official currency of France is the Euro. The population of France is 66.4 million. The official language of France is French. The currency of France is the Euro. The capital city of France is Paris. The official language of France is French. The currency of France is the Euro. The population of France is 66.4 million"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling point of water is 100 degrees Celsius. The boiling"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the sum of the lengths of the sides of a right triangle is equal to the square of the length of the hypotenuse. The theorem is used to find the length of the missing side of a right triangle. The theorem is also used to find the length of the missing side of a triangle when the lengths of two sides are known. The theorem is used in the Pythagorean theorem, which states that the square of the sum of the lengths of the sides of a triangle is equal to the sum of the squares of the lengths of the sides. The theorem is used to find the length of the missing side of a triangle when the lengths of two sides are known. The theorem is used to find the length of the missing side"
+    }
+  ]
+}

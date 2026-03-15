@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the current market price of a company's stock by its earnings per share. For example, if a company's stock price is $50 and its earnings per share is $2, the price-to-earnings ratio is 25. The price-to-earnings ratio is used to compare a company's valuation to its earnings. It is also used to compare a company's valuation to its earnings per share. The price-to-earnings ratio is often used to compare a company's valuation to its earnings per share. It is also used to compare a company's valuation to its earnings per share. The price-to-earnings ratio is often used to compare a company's valuation to its earnings per share. It is also used to compare a"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the Standardized Credit Risk Exposure. The formula is: (Standardized Credit Risk Exposure x Risk Weight) / Risk Weight. The result is a single number that represents the credit risk exposure of a bank's assets relative to its risk weight. This number is used to calculate the bank's standardized risk-weighted assets (SRA) and standardized capital (S-CAP) under Basel IV."
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1,000,000, total liabilities of $500,000, and net worth of $500,000. The company's equity ratio is 100%. The company's debt-to-equity ratio is 2:1. The company's debt-to-assets ratio is 1:1. The company's equity-to-assets ratio is 1:1. The company's debt-to-equity-to-assets ratio is 2:1. The company's debt-to-equity-to-assets ratio is 4:1. The company's debt-to-equity-to-assets ratio is 8:1. The company's debt-to-equity-to-assets ratio is 16:1. The company's debt-to-equity-to-assets ratio is 32"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. It is a fundamental right that protects against unlawful government intrusions into private affairs. The Supreme Court has held that the Fourth Amendment protects against unreasonable searches and seizures by the government. The Court has also held that the Fourth Amendment protects against unreasonable searches and seizures by private actors. The Fourth Amendment protects against unreasonable searches and seizures by the government. The Fourth Amendment protects against unreasonable searches and seizures by private actors. The Fourth Amendment protects against unreasonable searches and seizures by the government. The Fourth Amendment protects against unreasonable searches and seizures by private actors. The Fourth Amendment protects against unreasonable searches and seizures by the government. The Fourth Amendment protects against unreasonable searches and seizures by private actors. The Fourth Amendment protects against unreasonable searches and seizures by the government."
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions in similar cases. This is a principle of precedent. It is a rule of law that states that a court should not change its previous decisions. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency. It is a principle of consistency"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " a defendant has a right to counsel before questioning. The court said that the right to counsel is a fundamental right. The court also said that the right to counsel is not limited to the accused. The court said that the right to counsel is also a fundamental right for the accused's family. The court said that the right to counsel is a fundamental right for the accused's family. The court said that the right to counsel is a fundamental right for the accused's family. The court said that the right to counsel is a fundamental right for the accused's family. The court said that the right to counsel is a fundamental right for the accused's family. The court said that the right to counsel is a fundamental right for the accused's family. The court"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile attacking a leaving group. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction. The SN2 reaction is a nucleophilic substitution reaction"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " subtracting the negative logarithm of the concentration from 14. The pH of a solution is also called the negative logarithm of the concentration. The pH of a solution is calculated by subtracting the negative logarithm of the concentration from 14. The pH of a solution is also called the negative logarithm of the concentration. The pH of a solution is calculated by subtracting the negative logarithm of the concentration from 14. The pH of a solution is also called the negative logarithm of the concentration. The pH of a solution is calculated by subtracting the negative logarithm of the concentration from 14. The pH of a solution is also called the negative logarithm of the concentration. The pH of a solution is calculated by subtracting"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous. The Gibbs free energy is a function of the concentrations of reactants and products. The Gibbs free energy is negative for spontaneous reactions. The Gibbs free energy is positive for non-spontaneous reactions. The Gibbs free energy is zero for equilibrium. The Gibbs free energy is negative for exothermic reactions. The Gibbs free energy is positive for endothermic reactions. The Gibbs free energy is zero for equilibrium. The Gibbs free energy is negative for exothermic reactions. The Gibbs free energy is positive for endothermic reactions. The Gibbs free energy is zero for equilibrium. The Gibbs free energy is negative for exothermic reactions. The Gibbs free energy is positive for endothermic reactions. The Gibbs free energy is zero for equilibrium."
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain, shortness of breath, and ECG changes. The ECG changes include ST-segment elevation, T-wave inversion, and Q-wave inversion. The ST-segment elevation is due to ischemia, the T-wave inversion is due to repolarization, and the Q-wave inversion is due to repolarization. The ST-segment elevation is due to ischemia, the T-wave inversion is due to repolarization, and the Q-wave inversion is due to repolarization. The ST-segment elevation is due to ischemia, the T-wave inversion is due to repolarization, and the Q-wave inversion is due to repolarization. The ST-segment elevation is due to ischemia, the T-wave inversion is"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs interact with each other in the body. The interaction can be harmful or beneficial. The interaction can be beneficial if the drugs are used together to treat a disease. The interaction can be harmful if the drugs are used together to treat a disease and the drugs interact in a way that causes harm. The interaction can be beneficial if the drugs are used together to treat a disease and the drugs interact in a way that causes benefit. The interaction can be harmful if the drugs are used together to treat a disease and the drugs interact in a way that causes harm. The interaction can be beneficial if the drugs are used together to treat a disease and the drugs interact in a way that causes benefit. The interaction can be harmful if the drugs are used together to"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. The genetic material is called a vaccine. The mRNA vaccine is injected into the body. The mRNA vaccine is designed to instruct the body to make a protein that is part of the virus. The protein is called the spike protein. The spike protein is used to enter the body and infect cells. The mRNA vaccine is designed to instruct the body to make a protein that is part of the virus. The protein is called the spike protein. The spike protein is used to enter the body and infect cells. The mRNA vaccine is designed to instruct the body to make a protein that is part of the virus. The protein is called the spike protein. The spike protein is used to enter the body and infect cells. The mRNA vaccine is designed to"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of the European Union is Brussels. The capital of the United Nations is New York. The capital of the United Nations is Vienna. The capital of the European Union is Luxembourg. The capital of the European Union is Strasbourg. The capital of the European Union is Luxembourg. The capital of the European Union is Strasbourg. The capital of the European Union is Luxembourg. The capital of the European Union is Strasbourg. The capital of the European Union is Luxembourg. The capital of the European Union is Strasbourg. The capital of the European Union is Luxembourg. The capital of the European Union is Strasbourg. The capital of the"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is 212\u00b0F. The boiling point of water is"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the sum of the squares of the legs of a right triangle is equal to the square of the hypotenuse. This is a special case of the Pythagorean identity, which states that the sum of the squares of the legs of a right triangle is equal to the sum of the squares of the legs of the hypotenuse. The Pythagorean theorem is used in trigonometry to solve right triangles. It is also used in geometry to solve right triangles. The Pythagorean theorem is used in physics to solve problems involving the length of a vector. The Pythagorean theorem is used in statistics to solve problems involving the variance of a distribution. The Pythagorean theorem is used in economics to solve problems involving the price of a good"
+    }
+  ]
+}

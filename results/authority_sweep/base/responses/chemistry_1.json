@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock price by earnings per share. A lower P/E ratio indicates a more attractive valuation. The table shows the P/E ratio for each company in the study. The table also lists the company's P/E ratio for the same period in the prior year. The table uses data from the same data source as the article. The article states that the P/E ratio is a valuation metric that compares a company's stock price to its earnings per share. The article says the P/E ratio is a common valuation metric used by investors. The article says the P/E ratio is a common valuation metric used by investors. The article says the P/E ratio is a valuation metric used by investors. The article says the P/E ratio is a valuation metric used"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the Credit Risk Indicator. The indicator is based on the Credit Risk Indicator for Basel III. The indicator is calculated as a weighted average of the credit risk indicators for Basel III and IV. The indicator is used to assess the overall credit risk of a bank. The indicator is presented as a weighted average of the Basel III and IV indicators. The indicator is calculated as a weighted average of the Basel III and IV indicators. The indicator is presented as a weighted average of the Basel III and IV indicators. The indicator is presented as a weighted average of the Basel III and IV indicators. The indicator is calculated as a weighted average of the Basel III and IV indicators. The indicator is presented as a weighted average of the Basel III and IV indicators. The indicator is"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1.00 billion. Of this total, $500.00 million is equity. Total liabilities are $500.00 million. A company reports total assets of $1.00 billion. Of this total, $500.00 million is equity. Reporting a total debt of $500.00 million and equity of $500.00 million, a company says it has $500.00 million of long-term debt and equity. Total liabilities are $500.00 million. A company reports total assets of $1.00 billion. Of this total, $500.00 million is equity. Reporting a total debt of $500.00 million and equity of $500.00 million, a company says it has $500.00 million of"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Fourth Amendment was adopted in 1791. The text states that the Fourth Amendment protects against unreasonable searches and seizures. The text also states that the Fourth Amendment protects against unreasonable searches and seizures. The text uses the phrase unreasonable search and seizure. The text does not define unreasonable search and seizure. The text does not define unreasonable. The text uses the phrase unreasonable search and seizure to describe unreasonable searches and seizures. The text does not define unreasonable. The text uses the phrase unreasonable search and seizure to describe unreasonable searches and seizures. The text does not define unreasonable. The text uses the phrase unreasonable search and seizure to describe unreasonable searches and seizures. The text does not define unreasonable. The text uses the phrase unreasonable search and seizure to"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions in similar cases. It is a legal principle that guides the interpretation of existing laws and precedents. In the article, the authors explain how stare decisis can be used to support the legal reasoning of the article. They also discuss how stare decisis can be used to justify the legal reasoning of the article. The article uses stare decisis to support the legal reasoning of the article."
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the police must first advise a suspect of their right to remain silent and to have an attorney present before questioning. The case was decided in 1966. Miranda was a 16-year-old high school student who was arrested for stealing a bicycle. He was told he could speak to an attorney for free, but he did not understand the rights he was being given. He was then taken to a police station and interrogated for over two hours without a lawyer present. He later reported that he was never given an attorney and that he did not understand the rights he was being given. The court held that the police must first advise a suspect of their right to remain silent and to have an attorney present before questioning. The case was cited as a landmark in"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile attacking a carbonyl carbon. The reaction is typically carried out in an acetonitrile/water mixture. The reaction is also known as the acetonitrile method. The reaction is used to convert aldehydes and ketones into carboxylic acids. The reaction is carried out in an acetonitrile/water mixture. The reaction is carried out at 0-50 C. The reaction is carried out in a 1.5 L Parr reactor. The reaction is carried out in a 2.0 L Parr reactor. The reaction is carried out in a 4.0 L Parr reactor. The reaction is carried out in a 5.0 L Parr reactor. The reaction is carried out in"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the pH of the acid and the pH of the base. The pH of a buffer is usually between 7.0 and 9.0. The pH of a buffer is determined by the concentration of the acid and the base. A buffer can be used to adjust the pH of a solution. A buffer is a weak acid\u2013base pair. The buffer is often used to adjust the pH of a solution. A buffer is a weak acid\u2013base pair. The buffer is often used to adjust the pH of a solution. A buffer is a weak acid\u2013base pair. The buffer is often used to adjust the pH of a solution. A buffer is a weak acid\u2013base pair. The buffer is often used to adjust the pH of"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is a thermodynamic property that quantifies the energy change associated with a reaction. The Gibbs free energy is a state function that depends on the system\u2019s temperature and pressure. The Gibbs free energy is a state function because it depends only on the system\u2019s current state and not on the path taken to get there. The Gibbs free energy is also a state function because it is independent of the units used to measure the system. The Gibbs free energy is a state function because it depends only on the system\u2019s current state and not on the units used to measure the system. The Gibbs free energy is a state function because it is independent of the units used to measure the system. The Gibbs free energy is a state"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain. Cardiac troponin I is elevated. ECG shows ST-segment elevation in leads V1 and V4. Coronary angiography shows a 90% blockage of the left anterior descending artery. Which of the following is the most appropriate next step?\nA. Administer IV streptokinase\nB. Place the patient under continuous ECG monitoring\nC. Percutaneous coronary angioplasty\nD. Surgical coronary bypass graft\nAnswer: A"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs are used together. For example, the drug amoxicillin is used to treat bacterial infections. An antibiotic called clavulanate is used to treat bacterial infections. When these two drugs are used together, the antibiotic may not work as well as it should. This is called a drug-drug interaction. Drug-drug interactions can cause side effects, reduce the effectiveness of one drug, or increase the risk of side effects. Drug-drug interactions are common in clinical practice. For example, the antibiotic amoxicillin is used to treat bacterial infections. A drug called clavulanate is used to treat bacterial infections. When these two drugs are used together, the antibiotic may not work as well as it should. This is called a drug"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into cells. The mRNA is then used to make a protein that can be used to fight the virus. mRNA vaccines are currently being tested in clinical trials. The mRNA vaccine is being developed by GSK. GSK is developing mRNA vaccines for COVID-19. GSK is developing mRNA vaccines for influenza. GSK is developing mRNA vaccines for respiratory syncytial virus. GSK is developing mRNA vaccines for adenovirus. GSK is developing mRNA vaccines for parainfluenza virus. GSK is developing mRNA vaccines for rhinovirus. GSK is developing mRNA vaccines for coronavirus. GSK is developing mRNA vaccines for coronavirus disease 2019. GSK is developing mRNA vaccines for SARS-CoV-2. GSK is"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The French capital is the largest city in the world. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital of France. Paris is the capital"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 C. A 1.00 L plastic water bottle, with a nominal density of 1.00 g/mL, is submerged in a 300.0 mL bucket containing 150.0 mL of 0.200 M HCl. After 20.0 min, the bottle is removed and its weight recorded. Assume ideal gas behavior. Calculate the volume of dissolved HCl vapor in the bucket after 20.0 min of immersion. Note: 1.00 L = 100.0 mL; 1.00 L = 1.00 kg; and M = 2.00 M.\n\nWhat mass of CaCl2 will dissolve in 750.0 mL of 0.1000 M NH4"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the hypotenuse is equal to the sum of the squares of the other two sides. The square root of a number is a number that has the same value as the square root of that number. The square root of 25 is 5. The square root of 36 is 6. The square root of 49 is 7. The square root of 64 is 8. The square root of 81 is 9. The square root of 100 is 10. The square root of 125 is 15. The square root of 169 is 21. The square root of 225 is 29. The square root of 289 is 43. The square root of 400 is"
+    }
+  ]
+}

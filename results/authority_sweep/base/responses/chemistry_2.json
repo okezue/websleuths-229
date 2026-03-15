@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the current share price by the earnings per share. It is a useful indicator of the value of a company relative to its earnings. A high P/E ratio indicates that a company is expensive compared to its earnings. A low P/E ratio suggests that a company is undervalued. A P/E ratio of 20 is considered high. A P/E ratio of 20 to 30 is considered high risk. A P/E ratio of 30 to 40 is considered high risk. A P/E ratio of 40 to 50 is considered high risk. A P/E ratio of 50 to 60 is considered high risk. A P/E ratio of 60 to 70 is considered high risk. A P/E ratio of 70"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the Basel III framework. The Basel III framework is a set of regulations and policies that govern the regulation of credit risk in the financial system. The Basel III framework includes the Basel III framework for Credit Risk, the Basel III framework for Market Risk, and the Basel III framework for Operational Risk. The Basel III framework is designed to improve the resilience of the financial system against adverse market conditions and to reduce the risk of financial instability. The Basel III framework is intended to promote the stability and soundness of the financial system. The Basel III framework is a comprehensive set of regulations and policies that aim to mitigate the risks of financial instability and protect the financial system from adverse market conditions. The Basel III framework is designed to improve the resilience of the financial system against adverse"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $100,000. Of these, $60,000 is cash and $40,000 is noncash assets. Total liabilities are $120,000. Assume that the company is a solvent one and that the remaining $10,000 of noncash assets are not eligible for a loan. Which of the following is the best explanation for the company's failure to meet the solvency requirement?\nA) The company borrowed $10,000 of debt and did not meet the solvency requirement.\nB) The company borrowed $10,000 of debt and did meet the solvency requirement.\nC) The company did not borrow $10,000 of debt and did not meet the solvency requirement.\nD) The company borrowed $"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Supreme Court has held that the government may not conduct a warrantless search of a person's cell phone without a warrant. The Fourth Amendment also protects against unreasonable searches and seizures of property. The text states that the government may not conduct a warrantless search of a person's cell phone without a warrant. The text says that the government may not conduct a warrantless search of a person's cell phone without a warrant. The text states that the government may not conduct a warrantless search of a person's cell phone without a warrant. The text states that the government may not conduct a warrantless search of a person's cell phone without a warrant. The text states that the government may not conduct a warrantless search of a"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions of the same court or a higher court. It is a legal principle that allows a court to apply a previous decision of the same court or a higher court. It is a legal rule that requires a court to follow a previous decision of the same court or a higher court. It is a legal rule that requires a court to follow a previous decision of the same court or a higher court. It is a legal rule that requires a court to follow a previous decision of the same court or a higher court. It is a legal rule that requires a court to follow a previous decision of the same court or a higher court. It is a legal rule that requires a court to follow a previous decision of the same court or a higher court."
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the police may not use a cell phone to record a person's location without a warrant. The case was decided in 2013. The Supreme Court held that the police may not use a cell phone to record a person's location without a warrant. The ruling was issued in the case of United States v. Jones. The case was decided in the United States Court of Appeals for the Ninth Circuit. The case was decided on October 2, 2013. The case was decided on October 2, 2013. The case was decided on October 2, 2013. The case was decided on October 2, 2013. The case was decided on October 2, 2013. The case was decided on"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophilic attack on a carbonyl carbon by a nucleophile. The nucleophile can be a water molecule, a hydrogen atom, or a large organic molecule. The nucleophile attacks the carbonyl carbon, causing a new C\u2013C bond to form. The nucleophile can also be a large organic molecule that can be treated as a rigid rigid-body template for the reaction. The transition state is a highly reactive intermediate that is short-lived and has a high energy barrier to rotation. The transition state is the final stage of the reaction before the product is formed. The reaction is often studied in the gas phase, but it can also be studied in solution. The reaction is usually studied with a variety of experimental techniques, including mass spectrom"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the pH of the individual components. The resulting pH is the average of the individual component pH values. The pH of a solution is usually calculated using the following formula:\npH = [H3O+] + [OH-] = 14/(w1 + w2 + w3 +... + wn) = 14/(w1 + w2 + w3 +... + wn). The calculation assumes that the concentrations of the individual components are additive. The pH of a solution is usually reported to one decimal place. For example, a solution with pH 5.00 is reported as [H3O+] = 0.2000 M and [OH-] = 0.96 M. The pH of"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is a thermodynamic property that is calculated from the enthalpy and entropy of the system. The Gibbs free energy is a state function that is defined as the free energy change per mole of the system. The Gibbs free energy is a useful thermodynamic property because it can be used to calculate the free energy change for a reaction. The Gibbs free energy is also used to calculate the equilibrium constant for a reaction. The Gibbs free energy is calculated from the enthalpy and entropy of the system. The Gibbs free energy is a state function that is calculated from the enthalpy and entropy of the system. The Gibbs free energy is a useful thermodynamic property because it can be used to calculate the free energy"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain. Which of the following is the most likely cause?\nA. Myocardial infarction\nB. Myocardial rupture\nC. Myocardial contusion\nD. Myocardial hemorrhage\nAnswer: A"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " a drug affects the metabolism of another drug. For example, a drug that inhibits the metabolism of another drug may cause the drug to accumulate in the body. This can lead to toxicity or adverse effects. Drug-drug interactions are common in clinical practice and can be difficult to predict. The goal of drug-drug interaction research is to identify and quantify the effects of one drug on another. Drug-drug interaction research can help clinicians choose the most appropriate drug for a patient and avoid harmful side effects. It can also help researchers understand how a drug affects the body and how a drug may affect other drugs. Drug-drug interaction research is used in clinical trials to test the safety and effectiveness of new drugs in patients. It is also used to study the"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into cells. The mRNA is then used to direct the cell to make proteins that can fight the virus. This approach is promising for COVID-19 because mRNA vaccines can be stored at room temperature and can be administered in a single dose. However, mRNA vaccines are still in early stages of development and have not been approved for use in humans. The mRNA technology is also being used to develop vaccines against other diseases, such as cancer and Alzheimer's disease. The mRNA technology is being developed rapidly to address the COVID-19 pandemic. The mRNA technology is being used to develop vaccines against COVID-19. The mRNA technology is being used to develop vaccines against other diseases, such as cancer and Alzheimer's disease. The mRNA technology is being used to develop vaccines against"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of Germany is Berlin. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of Canada is Ottawa. The capital of the European Union is Brussels. The capital of the European Union is Brussels. The capital of the European Union is Brussels. The capital of the European Union is Brussels. The capital of the European Union is Brussels. The capital of the European Union is Brussels. The capital of the European Union is Brussels. The capital of the European Union is Brussels. The capital of the European Union is Brussels. The capital of the European Union is Brussels. The capital of the European Union is Brussels. The capital of the European Union is Brussels. The capital of the European"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100.0 C. If 1.00 L of water is heated, how many L of water is left after the temperature falls to 25.0 C? Assume specific heats are temperature independent near 25.0 C.\n\nA student uses the equation $T = \\frac{V}{L}$ to determine the final temperature after 1.00 L of water is heated. To calculate the final volume, she uses the mass of water and its density. Assume the student knows $C_p = 4.180 J/mol \\cdot K$ and $K = 1.857 \\cdot 10^{-3} K$.\n\nWhat is the student's answer in K?\n\nLet me solve this step by step.\nStep "
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the length of one side of a right triangle equals the sum of the squares of the lengths of the other two sides. The Pythagorean theorem is used in geometry to calculate the length of a side of a triangle given the lengths of two other sides. The theorem is also used in physics to calculate the length of a wave's wavelength given the wavelength of the wave and the frequency of the wave. The theorem is used in astronomy to calculate the distance between two celestial objects given the distance between them and the speed of light. The theorem is also used in chemistry to calculate the volume of a gas given the mass and volume of the gas. The theorem is used in biology to calculate the volume of a cell given the mass and volume of"
+    }
+  ]
+}

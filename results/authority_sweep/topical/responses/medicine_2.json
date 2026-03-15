@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock's price-to-earnings ratio by its earnings per share. The ratio is used to compare a company's stock price relative to its earnings. A high ratio indicates that the stock is more expensive than its earnings, while a low ratio suggests that the stock is relatively cheap. The ratio is often used to compare the relative value of stocks within a sector or industry."
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the Standardized Approach. The Standardized Approach is a risk-based approach that measures credit risk using a standardized approach. The approach is designed to provide a consistent and transparent framework for assessing credit risk across different credit products. The Standardized Approach is used to measure credit risk under Basel IV and is described in the text. The text also describes the use of the Standardized Approach in the context of credit risk management and risk management."
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1.2 trillion. The company's net worth is $1.0 trillion. The company's net income is $0.8 billion. Use the data to answer the following questions:\n1. What is the company's net worth as a percentage of total assets?\n2. What is the company's net worth as a percentage of total debt?\n3. What is the company's net worth as a percentage of total equity?\n4. What is the company's net worth as a percentage of total debt?\n5. What is the company's net worth as a percentage of total equity?\n6. What is the company's net worth as a percentage of total debt?\n7. What is the company's net worth as a percentage of total equity"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The text states that the Fourth Amendment protects against unreasonable searches and seizures. The text also states that the Fourth Amendment protects against unreasonable searches and seizures. The text defines an unreasonable search as one that is unnecessary, unnecessary, or excessive. The text defines an unreasonable search as one that is unnecessary, unnecessary, or excessive. The text states that the Fourth Amendment protects against unreasonable searches and seizures. The text defines an unreasonable search as one that is unnecessary, unnecessary, or excessive. The text states that the Fourth Amendment protects against unreasonable searches and seizures. The text defines an unreasonable search as one that is unnecessary, unnecessary, or excessive. The text states that the Fourth Amendment protects against unreasonable searches and seizures. The text defines an unreasonable search"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow precedent. The Supreme Court has held that precedent is binding on the courts. The Court has also held that precedent is binding on the lower courts. The Court has also held that precedent is binding on the federal courts. The Court has held that precedent is binding on the federal courts. The Court has held that precedent is binding on the federal courts. The Court has held that precedent is binding on the federal courts. The Court has held that precedent is binding on the federal courts. The Court has held that precedent is binding on the federal courts. The Court has held that precedent is binding on the federal courts. The Court has held that precedent is binding on the federal courts. The Court has held that precedent is binding on the federal courts. The Court"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " police must advise suspects of their Miranda rights before questioning them. The court also ruled that police must provide a suspect with a written copy of the Miranda warnings before questioning them. The court held that the warnings must be in plain language and be given in a clear and concise manner. The court also held that the warnings must be given before questioning begins. The court held that the warnings must be given before questioning begins. The court held that the warnings must be given before questioning begins. The court held that the warnings must be given before questioning begins. The court held that the warnings must be given before questioning begins. The court held that the warnings must be given before questioning begins. The court held that the warnings must be given before questioning begins. The court held"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophilic attack on the carbon-carbon double bond. The reaction is catalyzed by enzymes such as acetyl-CoA carboxylase, which converts fatty acids into acetyl-CoA. The reaction is reversible and can be used to produce fatty acids from acetyl-CoA. The reaction is also used to produce acetic acid from acetic anhydride. The reaction is catalyzed by acetyl-CoA carboxylase. The reaction is reversible and can be used to produce fatty acids from acetyl-CoA. The reaction is catalyzed by acetyl-CoA carboxylase. The reaction is reversible and can be used to produce fatty acids from acetyl-CoA. The reaction is cataly"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the concentrations of the dissolved ions. The pH of a solution is the pH of the solution, which is the sum of the individual pH values of the dissolved ions. The pH of a solution is the pH of the solution, which is the sum of the individual pH values of the dissolved ions. The pH of a solution is the pH of the solution, which is the sum of the individual pH values of the dissolved ions. The pH of a solution is the pH of the solution, which is the sum of the individual pH values of the dissolved ions. The pH of a solution is the pH of the solution, which is the sum of the individual pH values of the dissolved ions. The pH of a solution is the pH of the solution,"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous. The reaction is spontaneous if the change in Gibbs free energy is negative. The reaction is spontaneous if the change in Gibbs free energy is positive. The reaction is spontaneous if the change in Gibbs free energy is zero. The reaction is spontaneous if the change in Gibbs free energy is positive and the reaction is exothermic. The reaction is spontaneous if the change in Gibbs free energy is negative and the reaction is exothermic. The reaction is spontaneous if the change in Gibbs free energy is positive and the reaction is exothermic. The reaction is spontaneous if the change in Gibbs free energy is positive and the reaction is exothermic. The reaction is spontaneous if the change in Gibbs free energy is positive and the reaction is exothermic."
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain. The patient has a history of coronary artery disease. On examination, the ECG shows ST segment elevation, T wave inversion, and Q wave. Which of the following is the best initial management?\nA) Administer thrombolytic therapy\nB) Administer aspirin\nC) Administer heparin\nD) Administer platelet inhibitor\nE) Administer anticoagulant\nAnswer: A"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " a drug alters the pharmacokinetics of another drug. This can increase or decrease the effectiveness of the second drug. For example, the article states that the combination of paracetamol and aspirin can increase the risk of bleeding. The article also states that the combination of paracetamol and ibuprofen can increase the risk of gastrointestinal bleeding. The article states that the combination of paracetamol and ibuprofen can increase the risk of gastrointestinal bleeding. The article states that the combination of paracetamol and ibuprofen can increase the risk of gastrointestinal bleeding. The article states that the combination of paracetamol and ibuprofen can increase the risk of gastrointestinal bleeding. The article states that the combination of paracetam"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into cells. This genetic material instructs cells to make proteins that are part of the vaccine. The proteins are then displayed on the surface of cells, and the immune system recognizes them. The immune system then produces antibodies that can neutralize the pathogen. The vaccine is safe and effective because it induces a strong immune response. (The article states that the vaccine is safe and effective because it induces a strong immune response.) The article also states that the vaccine is safe and effective because it is made from messenger RNA. (The article says that the vaccine is safe and effective because it is made from messenger RNA.) The article does not explicitly state that the vaccine is safe and effective because it is made from messenger RNA. (The text states that the vaccine"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 212 \u00b0F (100 \u00b0C). What is the temperature of the water in the cup?\nA. 212 \u00b0F (100 \u00b0C)\nB. 212 \u00b0F (100 \u00b0C)\nC. 212 \u00b0F (100 \u00b0C)\nD. 212 \u00b0F (100 \u00b0C)\nAnswer: B"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the area of a triangle is the sum of the squares of its sides. The theorem is often attributed to Pythagoras, but it is not a direct statement of his work. The theorem is a generalization of the Pythagorean theorem, and it is used to prove the Pythagorean theorem. The theorem is also used to prove the Pythagorean theorem. The theorem is used to prove the Pythagorean theorem. The theorem is used to prove the Pythagorean theorem. The theorem is used to prove the Pythagorean theorem. The theorem is used to prove the Pythagorean theorem. The theorem is used to prove the Pythagorean theorem. The theorem is used to prove the Pythagorean theorem. The theorem is used"
+    }
+  ]
+}

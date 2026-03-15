@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock price by the estimated earnings per share. It is a valuation metric that compares the stock price to the expected earnings per share. A higher P/E ratio indicates a higher valuation for the stock. A higher P/E ratio can also indicate that the company is expected to generate higher earnings in the future. The P/E ratio is a fundamental valuation metric that helps investors understand the company's ability to generate profits and sustain growth. It is a key valuation tool used by investors to compare a company's earnings potential to its current share price. The P/E ratio is a fundamental valuation metric that helps investors understand the company's ability to generate profits and sustain growth. It is a valuation metric that compares the stock price to the expected earnings per share. A"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the Credit Risk Indicator. The indicator is based on the Credit Risk Indicator for the Basel III framework. The indicator is presented as a percentage of Total Risk Weighted Assets. The indicator is calculated using the following formula: (1 - Credit Risk Indicator) / (1 - Credit Risk Indicator) x 100. The Credit Risk Indicator is presented as a percentage value between 0% and 100%. The indicator is used to assess the overall risk profile of a bank. The indicator is presented as a percentage value between 0% and 100%. The indicator is used to evaluate the overall risk profile of a bank and to identify potential risks that may impact the bank's performance. The indicator is used to assess the overall risk profile of a bank and"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $100,000. Of these, total liabilities of $50,000 is classified as Current Ratio. The remaining assets are Long-Term Debt and Total Liabilities. The company's current Ratio is 2. The owner has sold $20,000 of Long-Term Debt to a private investor. The investor has purchased 100,000 shares of the company's Preferred Stock at $1.00 per share. The company's total liabilities including Preferred Stock and Long-Term Debt increase to $110,000. The company's total assets are 200,000 shares of the company's common stock. The company's preferred stock is issued at $1.00 per share. The company's total liabilities including Preferred Stock and Long-Term Debt"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Fourth Amendment was enacted in 1967. The text states that the Fourth Amendment protects people from unreasonable searches and seizures. The text further states that the Fourth Amendment applies to the home, vehicle, and person. The text defines an unreasonable search as one that is not based on a warrant and does not have a reasonable basis in light of the facts and circumstances. The text also states that the Fourth Amendment applies to digital devices and the cloud. The text further states that the Fourth Amendment applies to the internet and the cloud. The text defines unreasonable search as one that is not based on a warrant and does not have a reasonable basis in light of the facts and circumstances. The text states that the Fourth Amendment applies to the internet"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " give weight to previous decisions. It is a fundamental principle of the common law system. The doctrine of stare decisis is based on the principle that courts should not overturn previous decisions unless there is a clear change in the law. This principle is often stated as a requirement that courts should not reverse prior decisions unless the change is so fundamental that the decision should be treated as a new rule of the law. The doctrine of stare decisis is closely related to the doctrine of precedent. Both doctrines are based on the principle that courts should give weight to previous decisions and should not overturn them unless there is a clear change in the law. The doctrine of stare decisis is often described as a requirement that courts should not reverse prior decisions unless the change is so fundamental"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the right to counsel applies to custodial interrogations. The decision was based on the fact that the Fourth Amendment prohibits unreasonable searches and seizures. The case was decided in 1963 and has been cited as a landmark decision in the field of criminal law. Miranda v Arizona was the first time the Supreme Court recognized the right to counsel in a criminal case. The decision was issued by a 5-4 majority in a 5-4 decision. The case was decided by a majority of the Supreme Court of the United States. The case was decided by a 5-4 majority in 1963. The case was decided by a 5-4 majority in 1963. The case was decided by a 5-4 majority in"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " carbonyl carbon. The carbonyl carbon is the electrophile in the reaction. The nucleophile is the nucleophilic carbon. The nucleophile attacks the carbonyl carbon, forming a new carbon-carbon bond. The carbonyl carbon is the leaving group. The carbonyl carbon is the leaving group. The carbonyl carbon is the electrophile. The carbonyl carbon is the nucleophile. The carbonyl carbon is the leaving group. The carbonyl carbon is the electrophile. The carbonyl carbon is the nucleophile. The carbonyl carbon is the leaving group. The carbonyl carbon is the electrophile. The carbonyl carbon is the nucleophile."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the pH of the acid and the pH of the base. The resulting pH is the pH of the solution. The pH of a solution is defined as the negative logarithm of the molar concentration of hydrogen ions. The pH scale is logarithmic, with pH values ranging from 0 to 14. The pH of water is 7.0. The pH of a buffer is calculated by adding the pH of the acid and the pH of the base. The resulting pH is the pH of the buffer. The pH of a buffer is important because buffers can neutralize acids and alkalis. The pH of a buffer can be calculated using the Henderson-Hasselbalch equation. The Henderson-Hasselbalch equation is given by: pH ="
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The reaction is spontaneous if the change in Gibbs free energy is positive. The reaction is spontaneous if \u0394G is positive and the change in free energy is greater than zero. The reaction is spontaneous if \u0394G is positive and the change in free energy is greater than zero and the reaction is spontaneous. The reaction is spontaneous if \u0394G is positive and the change in free energy is greater than zero and the reaction is spontaneous. The reaction is spontaneous if \u0394G is positive and the change in free energy is greater than zero and the reaction is spontaneous. The reaction is spontaneous if \u0394G is positive and the change in free energy is greater than zero and the reaction is spontaneous. The reaction is spontaneous if \u0394G is positive and the"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " acute ST-segment elevation. Which of the following is the most likely cause?\nA. Myocardial rupture\nB. Myocardial ischemia\nC. Myocardial inflammation\nD. Myocardial hemorrhage\nAnswer: B"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs are administered simultaneously. The mechanism of drug-drug interactions is complex and depends on the type of drug, the drug class, the route of administration, and the patient's condition. Drug-drug interactions can cause severe side effects or even death. Therefore, careful monitoring and dose adjustment are necessary when two drugs are administered together. In this article, we will discuss the mechanism of drug-drug interactions, the types of drug-drug interactions that can occur, the importance of monitoring, and the steps for managing drug-drug interactions.\nThe mechanism of drug-drug interactions is complex and depends on the type of drug, the drug class, the route of administration, and the patient's condition. Drug-drug interactions can occur when two drugs are"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. The mRNA is then translated into protein, which is used to make the antigen. The mRNA is injected into the body, where the mRNA is translated into protein and the protein is used to trigger the immune system. This process helps the body develop an immune response against the antigen. The mRNA vaccine is designed to stimulate the body's natural immune system to produce antibodies and T cells that can fight off the virus. The mRNA vaccine is considered safe and effective in clinical trials. The vaccine is administered by injection into the arm. The vaccine is stored at 2-8 degrees Celsius and 24 hours before use. The mRNA vaccine is made from synthetic RNA, which is a type of nucleic acid. The mRNA is designed to encode the"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The city is located in the Ile-de-France region of France. The Ile-de-France region is the largest administrative region in France. The region is located in the north-central part of France. The region is bordered by the Seine River to the south and the Oise River to the east. The region is divided into 20 departments. The department of Seine-Saint-Denis is located in the Ile-de-France region. The department is named after the city of Seine-Saint-Denis. The department is located in the Ile-de-France region. The Ile-de-France region is the largest administrative region in France. The region is located in the north-central part of France. The"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 100 \u00b0C. The vapor pressure of water at 100 \u00b0C is 22.7 kPa. Estimate the vapor pressure of water at 25 \u00b0C.\nThe given information is:\nBoiling point of water: 100 \u00b0C\nVapor pressure of water at 100 \u00b0C: 22.7 kPa\nWater vapor pressure at 25 \u00b0C: 0.56 kPa\n1. State the equation: P = kT. T is the temperature in Kelvin. k is the Boltzmann constant, 1.38 x 10^23 J/K. The vapor pressure is given in kPa. 2. Substitute the given values: P = 22.7 kPa = "
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The theorem is named after the Greek mathematician Ptolemais, who lived in Alexandria in the 3rd century BC. The theorem is a special case of the Pythagorean theorem, which states that the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The theorem is widely used in geometry and physics, and it is a fundamental building block of trigonometry. The theorem is a fundamental tool for solving right-angled triangles, and it is used in many applications such as calculating the length of an unknown side or angle, finding the area"
+    }
+  ]
+}

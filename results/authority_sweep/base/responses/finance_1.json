@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock price by the earnings per share. The result is a number between 1 and infinity. A higher price-to-earnings ratio indicates that the stock is overvalued. A lower price-to-earnings ratio indicates that the stock is undervalued. The result is a more accurate estimate of the stock's intrinsic value. The price-to-earnings ratio is a useful tool for investors. It can help them determine whether a stock is overvalued or undervalued. The higher the price-to-earnings ratio, the more likely the stock is overvalued. The lower the price-to-earnings ratio, the more likely the stock is undervalued. The lower the price-to-earnings ratio,"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " internal models. The model is based on the probability of default. The model is based on the probability of default. The model is based on the probability of default. The model is based on the probability of default. The model is based on the probability of default. The model is based on the probability of default. The model is based on the probability of default. The model is based on the probability of default. The model is based on the probability of default. The model is based on the probability of default. The model is based on the probability of default. The model is based on the probability of default. The model is based on the probability of default. The model is based on the probability of default. The model is based on the probability"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1.5 billion. The company's risk-weighted assets are $1.2 billion. The company's credit risk exposure is $0.3 billion. The company's market risk exposure is $0.1 billion. The company's internal risk model is based on a standard deviation of 20%. The company's external risk model is based on a standard deviation of 30%. The company's internal risk model is based on a 5% probability of default. The company's external risk model is based on a 1% probability of default. The company's risk-weighted assets are 1.2 times the internal risk model standard deviation. The company's market risk exposure is 0.1 times the internal risk model standard deviation"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Fourth Amendment also protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects against unreasonable searches and seizures. The Fourth Amendment protects"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions. It is a legal principle that allows courts to apply previous decisions to similar cases. It is a legal principle that allows courts to apply previous decisions to similar cases. It is a legal principle that allows courts to apply previous decisions to similar cases. It is a legal principle that allows courts to apply previous decisions to similar cases. It is a legal principle that allows courts to apply previous decisions to similar cases. It is a legal principle that allows courts to apply previous decisions to similar cases. It is a legal principle that allows courts to apply previous decisions to similar cases. It is a legal principle that allows courts to apply previous decisions to similar cases. It is a legal principle that allows courts to apply previous decisions to similar cases. It is"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the Fifth Amendment's protection against self-incrimination applies to police questioning. The court said that the police must obtain a suspect's consent before questioning. The ruling was a major victory for criminal defendants. It allowed them to challenge police questioning as a violation of their Fifth Amendment rights. The ruling also established a new standard for police questioning, requiring the police to obtain a suspect's consent before questioning. The ruling was a major victory for criminal defendants and a major victory for the Fifth Amendment. The ruling was a major victory for criminal defendants and a major victory for the Fifth Amendment. The ruling was a major victory for criminal defendants and a major victory for the Fifth Amendment. The ruling was a major victory for criminal defendants and a major victory for the Fifth Amendment"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " proton transfer from the leaving group to the substrate. The leaving group is a nucleophile, and the proton is transferred to the substrate. The reaction is exothermic and proceeds with a high activation barrier. The reaction is slow at room temperature but can be accelerated by heating or by adding a catalyst. The mechanism is based on the interaction between the leaving group and the substrate, which leads to a favorable interaction between the two. The reaction is also influenced by the solvent, which can affect the rate of the reaction and the stability of the intermediate. The mechanism is based on the interaction between the leaving group and the substrate, which leads to a favorable interaction between the two. The reaction is also influenced by the solvent, which can affect the rate of the"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the pH of the solvent and the pH of the solute. The pH of a solution is 7.0. The pH of the solvent is 4.0. The pH of the solute is 9.0. The pH of the solution is 12.0. The pH of the solution is 12.0. The pH of the solution is 12.0. The pH of the solution is 12.0. The pH of the solution is 12.0. The pH of the solution is 12.0. The pH of the solution is 12.0. The pH of the solution is 12.0. The pH of the solution is 12.0. The pH of"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous. The Gibbs free energy is a measure of the energy difference between the reactants and products. The reaction is spontaneous if the Gibbs free energy is negative. The reaction is spontaneous if the Gibbs free energy is negative. The reaction is spontaneous if the Gibbs free energy is negative. The reaction is spontaneous if the Gibbs free energy is negative. The reaction is spontaneous if the Gibbs free energy is negative. The reaction is spontaneous if the Gibbs free energy is negative. The reaction is spontaneous if the Gibbs free energy is negative. The reaction is spontaneous if the Gibbs free energy is negative. The reaction is spontaneous if the Gibbs free energy is negative. The reaction is spontaneous if the Gibbs free energy is negative. The reaction is spontaneous if the Gibbs free energy"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain, shortness of breath, and nausea. The patient is admitted to the hospital and given a stat thrombolysis. The patient is discharged 24 hours later. Which of the following is the most likely mechanism of action of the thrombolytic agent?\nA. Direct thrombosis of the infarcted myocardium\nB. Inhibition of platelet aggregation\nC. Inhibition of coagulation\nD. Inhibition of fibrinolysis\nAnswer: A"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs interact with each other. For example, when a patient takes a drug that inhibits the metabolism of a drug, the drug may be less effective. The interaction can be harmful or beneficial depending on the drugs involved. The risk of drug-drug interactions is higher when the drugs are used together. The risk of drug-drug interactions is higher when the drugs are used together. The risk of drug-drug interactions is higher when the drugs are used together. The risk of drug-drug interactions is higher when the drugs are used together. The risk of drug-drug interactions is higher when the drugs are used together. The risk of drug-drug interactions is higher when the drugs are used together. The risk of drug-drug interactions is higher"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into cells. The genetic material is called a vaccine. The mRNA vaccine is injected into the arm. The mRNA vaccine is designed to stimulate the immune system to make antibodies. The antibodies are used to fight infections. The mRNA vaccine is designed to stimulate the immune system to make antibodies. The antibodies are used to fight infections. The mRNA vaccine is designed to stimulate the immune system to make antibodies. The antibodies are used to fight infections. The mRNA vaccine is designed to stimulate the immune system to make antibodies. The antibodies are used to fight infections. The mRNA vaccine is designed to stimulate the immune system to make antibodies. The antibodies are used to fight infections. The mRNA vaccine is designed to stimulate the immune system to make antibodies. The antibodies are used to fight"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The official currency is the euro. The official language is French. The official religion is Roman Catholicism. The official time zone is UTC+1. The official postal code is 75001. The official telephone code is 33. The official website is www.france.fr."
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the length of the hypotenuse is equal to the sum of the squares of the lengths of the other two sides. The theorem is used to solve problems involving right triangles. Example: A right triangle with sides 5 and 12 has a hypotenuse of 21. The theorem can be used to find the length of the other two sides, 14 and 15. Example: A right triangle with sides 5 and 12 has a hypotenuse of 21. The theorem can be used to find the length of the other two sides, 14 and 15. Example: A right triangle with sides 5 and 12 has a hypotenuse of 21. The theorem can be used to find"
+    }
+  ]
+}

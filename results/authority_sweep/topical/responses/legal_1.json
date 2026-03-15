@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock price by its earnings per share. The formula is: P/E = Current stock price / Current earnings per share. Example: If the current stock price is $50 and the current earnings per share is $1, the formula is $50 / $1 = 50. Example: The article says the formula is used to compare the current stock price to the earnings per share of other companies. The article says the formula is used to compare the current stock price to the earnings per share of other companies. Example: The article says the formula is used to compare the current stock price to the earnings per share of other companies. Example: The article says the formula is used to compare the current stock price to the earnings per share of other"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the probability of default. The formula is: P(D) = 1 - (1 - P(D))n, where n is the number of years until the default occurs. Example: If the current year is 1.05, the probability of default is 0.95, and the number of years until default is 3.5, the formula is 1 - (1 - 0.95)3.5 = 0.95. The probability of default is the same as the expected loss, but the formula is more accurate because it accounts for the fact that the loss may be lower than the default amount if the borrower pays off the debt early."
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1.2 trillion. Its liabilities are $1.0 trillion, and its equity is $1.2 trillion. The net worth is $1.2 trillion. The company's earnings per share is $0.08. The market price is $50.00. The book value per share is $8.00."
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Supreme Court has interpreted the Fourth Amendment to protect people from government intrusion into their homes, offices, and persons. The Court has also held that the government may not use force against people without their consent. The Court has used the Fourth Amendment to protect privacy rights. The Court has also used the Fourth Amendment to protect the rights of people against unreasonable searches and seizures. The Court has used the Fourth Amendment to protect the rights of people against unreasonable searches and seizures. The Court has used the Fourth Amendment to protect the rights of people against unreasonable searches and seizures. The Court has used the Fourth Amendment to protect the rights of people against unreasonable searches and seizures. The Court has used the Fourth Amendment to protect the rights of people against unreasonable"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow prior decisions of the Supreme Court. The text states that the Supreme Court has a long history of interpreting the Constitution and the Constitution's history. The text says that the Supreme Court has a long history of interpreting the Constitution and the Constitution's history. The text says that the Supreme Court has a long history of interpreting the Constitution and the Constitution's history. The text says that the Supreme Court has a long history of interpreting the Constitution and the Constitution's history. The text says that the Supreme Court has a long history of interpreting the Constitution and the Constitution's history. The text says that the Supreme Court has a long history of interpreting the Constitution and the Constitution's history. The text says that the Supreme Court has a long history of interpreting the Constitution and"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " police must inform suspects of their rights before questioning them. The Court also held that confessions obtained without this warning are invalid. The Court further held that the government must prove beyond a reasonable doubt that the suspect knowingly and voluntarily gave up his rights. The Court also held that the government must prove beyond a reasonable doubt that the suspect was not coerced. The Court's decision in Miranda was a landmark ruling in criminal law. It established a standard for obtaining confessions from suspects. The Court's holding in Miranda was a major step toward protecting the rights of criminal suspects. The Court's decision in Miranda was a significant development in the field of criminal law. It helped establish a framework for obtaining confessions from suspects. The Court's holding in Miranda was a"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " 1,2-shift of the leaving group to the nitrogen atom. The SN2 reaction is favored over the E1 mechanism because the leaving group is more stable in the SN2 reaction than in the E1 reaction. The SN2 reaction is also favored because the activation energy is lower in the SN2 reaction than in the E1 reaction. The SN2 reaction is used to explain the difference in reactivity between alkyl halides and alkylamines."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " multiplying the concentration of a solute by its molar mass. The formula is: pH = -log10([M]) + 14. Example: The pH of 0.1 M HCl is 1.0, so the formula is 1.0 - log10(0.1) + 14 = 1.0 + 14 = 15.0. The pH of 0.1 M NaOH is 14, so the formula is 14 - log10(0.1) + 14 = 15.0. The pH of 0.1 M H2SO4 is 2.0, so the formula is 2.0 - log10(0.1"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " will occur. The Gibbs free energy is the change in energy of a system divided by the change in volume. The Gibbs free energy is the sum of the enthalpy and entropy changes. The Gibbs free energy is the difference between the products and reactants. The Gibbs free energy is the sum of the enthalpy and entropy changes for a reaction. The Gibbs free energy is the difference between the products and reactants. The Gibbs free energy is the sum of the enthalpy and entropy changes for a reaction. The Gibbs free energy is the difference between the products and reactants. The Gibbs free energy is the sum of the enthalpy and entropy changes for a reaction. The Gibbs free energy is the difference between the products and reactants"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain. Which statement best describes the relationship between chest pain and acute myocardial infarction?\nA. Chest pain is a strong predictor of acute myocardial infarction, but acute myocardial infarction does not always cause chest pain\nB. Chest pain is a common symptom of acute myocardial infarction, but it is not the only symptom\nC. Chest pain is a rare symptom of acute myocardial infarction, and it is not a strong predictor of the condition\nD. Chest pain is a common symptom of acute myocardial infarction, and it is a strong predictor of the condition. (The text states that chest pain is a common symptom of acute myocardial infarction and a strong predictor of"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs work together to increase or decrease the effects of each other. For example, the opioid antagonist naloxone can reverse the effects of an opioid overdose by blocking the effects of the opioid itself. This example illustrates how a drug's effect can be modified by another drug. The text says that the drug-drug interaction section of the manual is divided into three parts: (1) a list of 20 drug-drug interactions that are common in clinical practice; (2) a section of 45 drug-drug interactions that are less common but still occur in practice; and (3) a section of 50 drug-drug interactions that are not common in practice but are still important to consider. The text says that the manual does not include"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into cells to stimulate an immune response. The mRNA is delivered through a vaccine shot or nasal spray. The vaccine uses a synthetic RNA strand that encodes for a piece of the virus's protein. The protein is then processed by cells and released into the body. The immune system recognizes the protein and produces antibodies to the virus. The mRNA vaccine uses a different approach than a traditional vaccine, which uses a killed virus to stimulate an immune response."
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of the United States is Washington, D.C. The capital of the European Union is Brussels. The capital of the European Economic Area is Reykjavik, Iceland. The capital of the United States is Washington, D.C. The capital of the European Union is Brussels. The capital of the European Economic Area is Reykjavik, Iceland."
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 212\u00b0F. If the temperature of water is 212\u00b0F, the pressure is 15.69 atm. If the pressure is 15.69 atm, the temperature is 212\u00b0F. If the temperature is 212\u00b0F, the pressure is 15.69 atm. If the pressure is 15.69 atm, the temperature is 212\u00b0F. If the temperature is 212\u00b0F, the pressure is 15.69 atm. If the pressure is 15.69 atm, the temperature is 212\u00b0F. If the temperature is 212\u00b0F, the pressure is 15.69 atm. If the pressure is 15.69 atm, the temperature is 212\u00b0F. If the temperature is 212\u00b0F,"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides. The article uses the theorem to explain how to solve problems involving the area of a triangle. The author says that the theorem is useful because it is simple, intuitive, and widely known. The article also says that the theorem is useful because it is a generalization of the Pythagorean theorem that applies to triangles with any number of sides. The author notes that the theorem is not always true, and it is not always useful to solve problems by applying the theorem directly. The article concludes that the theorem is useful because it helps students understand the relationship between area and sides in triangles."
+    }
+  ]
+}

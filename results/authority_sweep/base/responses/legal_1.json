@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the current share price by the earnings per share. The P/E ratio is a valuation metric that compares a company's current share price to its earnings per share. A higher P/E ratio indicates a higher valuation, while a lower P/E ratio indicates a lower valuation. The P/E ratio is often used to compare the value of a company's shares to its earnings. For example, if a company's current share price is $50.00 and its earnings per share is $2.50, the P/E ratio is 2.5. The P/E ratio is also used to compare the value of a company's shares to its future earnings potential. For example, if a company's current share price is $50.00 and its future"
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the Credit Risk Standardized Approach. The Standardized Approach is a new approach to measuring Credit Risk under Basel IV. The Standardized Approach replaces the Market Risk Standardized Approach. The Standardized Approach is based on the Market Risk Standardized Approach. The Standardized Approach is a new approach to measuring Credit Risk under Basel IV. The Standardized Approach is a new approach to measuring Credit Risk under Basel IV. The Standardized Approach is a new approach to measuring Credit Risk under Basel IV. The Standardized Approach is a new approach to measuring Credit Risk under Basel IV. The Standardized Approach is a new approach to measuring Credit Risk under Basel IV. The Standardized Approach is a new approach to measuring Credit Risk under Basel IV. The Standardized Approach is"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1.5 billion and total liabilities of $2.0 billion. The company has 100 million shares outstanding and no preferred stock. The company's assets are 80% fixed and 20% current. The company's liabilities are 90% fixed and 10% current. The company's fixed assets are 60% owned by the owner and 40% financed by a loan from a bank. The bank is currently insolvent. The company's fixed assets are worth 1.5 times its fixed liabilities. The company's fixed assets are 70% owned by the owner and 20% financed by the bank. The bank is currently insolvent. The company's fixed assets are worth 2.0 times its fixed liabilities"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Supreme Court has held that the Fourth Amendment does not protect the privacy of information stored in a computer. In United States v. Jones, the Court held that the government may search a computer for information without a warrant if the government has a reasonable suspicion that the information is related to a crime. The Court has also held that the government may not search a computer without a warrant if the information is stored on a device that is accessible to the public. The Court has not held that the government must have a warrant to search a computer for information that is not accessible to the public."
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions of the same court. It is a principle of judicial precedent. The principle is that a court should not overturn a previous decision unless it is clearly wrong. The principle is that a decision of a higher court should be followed by a lower court unless the lower court is clearly wrong. The principle is that a decision of a lower court should be followed by a higher court unless the higher court is clearly wrong. The principle is that a higher court should not overturn a lower court unless the lower court is clearly wrong. The principle is that a lower court should not overturn a higher court unless the higher court is clearly wrong. The principle is that a higher court should not overturn a lower court unless the lower court is clearly wrong. The principle is"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " a person who is in custody must be warned before questioning. The warning must include the right to remain silent, the right to an attorney, and the right to consult with an attorney if desired. The warning must be given before interrogation and must be in a language the suspect understands. The warning must be given in a public place and in a place where the suspect can remove the handcuffs and place the hands behind the back. The warning must be given before any questioning and must be repeated if the suspect changes his or her mind. The warning is not required if the suspect is not in custody, if the questioning is brief, or if the suspect voluntarily incriminates himself or herself. The warning is not required in cases involving terrorism or espionage."
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " proton transfer from a nucleophile to a carbonyl carbon. The reaction is exothermic and proceeds via a tetrahedral intermediate. The reaction is slow at low temperatures and can be accelerated by adding a Lewis acid catalyst. The reaction is also sensitive to the solvent and can be quenched by adding a quencher. The reaction is used in organic synthesis and drug discovery."
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " multiplying the concentration of the acid by 10 and then adding 14. The pH of a solution is 7.00, so the concentration of the acid is 0.10 M. What is the pH of the solution?\nA. 7.00\nB. 7.01\nC. 7.02\nD. 7.05\nE. 7.10\nAnswer: A"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous. The Gibbs free energy is the change in the system's energy when the system is divided into two parts, one of which is the initial state and the other of which is the final state. The change in Gibbs free energy is the difference between the final state and the initial state. The sign of the change in Gibbs free energy is the sign of the change in the system's energy. The sign of the change in Gibbs free energy is positive if the change in Gibbs free energy is positive, negative if the change in Gibbs free energy is negative, and zero if the change in Gibbs free energy is zero. The sign of the change in Gibbs free energy is determined by the sign of the change in the system's energy. The sign of"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " acute chest pain. The pain is usually severe and is often accompanied by shortness of breath, nausea, and pallor. The pain is usually localized to the left or the right upper or lower part of the chest. The pain is usually relieved by rest, but it can be persistent or recurrent. The pain is usually worse at rest and can be relieved by exercise. The pain is usually associated with shortness of breath, nausea, and pallor. The pain is usually localized to the left or the right upper or lower part of the chest. The pain is usually worse at rest and can be relieved by exercise. The pain is usually associated with shortness of breath, nausea, and pallor. The pain is usually localized to the left or"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " two drugs are administered simultaneously. The interaction between drugs is usually described as antagonism, additive, or antagonistic. Antagonism is the opposite of additive, and it means that the two drugs work in opposite ways. For example, if one drug is used to treat a condition, and the other drug is used to prevent the condition from occurring, the interaction is described as antagonism. The interaction is described as antagonism if the two drugs work in opposite ways. The interaction is described as additive if the two drugs work together. The interaction is described as neutral if the drugs have no effect on each other. The interaction is described as reverse if one drug blocks the effect of the other. The interaction is described as reverse antagonism if the two"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. The mRNA vaccines are designed to instruct the body's cells to make a specific protein. The protein is then used to train the body's immune system to recognize and fight the virus. The mRNA vaccines are administered by injection. The mRNA vaccines are not currently approved for use in children under 18. However, the Food and Drug Administration (FDA) has authorized emergency use of the Pfizer-BioNTech and Moderna vaccines for children ages 12 and older. The vaccines are also available for children ages 5 and older who have certain medical conditions that make them more likely to get severe COVID-19. The vaccines are also available for children ages 6 months and older who have at least one medical condition that increases the risk of"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of Germany is Berlin. The capital of Italy is Rome. The capital of Spain is Madrid. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling point of water is 212 degrees Fahrenheit. The boiling"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the sum of the lengths of the legs of a right triangle is equal to the square of the length of the hypotenuse. The theorem is named after the Greek mathematician Pythagoras, who is credited with the discovery of the theorem. The theorem is also known as the Pythagorean theorem. The theorem is used in geometry and trigonometry to solve right triangle problems. The theorem is used in trigonometry to find the length of the missing side of a right triangle from the lengths of the other two sides. The theorem is also used in calculus to find the length of the missing side of a triangle from the lengths of the two known sides and the angle of the third side. The theorem is also used in statistics"
+    }
+  ]
+}

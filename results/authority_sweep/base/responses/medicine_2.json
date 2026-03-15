@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing the stock's price by its earnings per share. The higher the ratio, the more expensive the stock is perceived to be. The table shows that the average P/E ratio was 17.4 for the 12-month period ended 2025, compared with 17.0 for the 12-month period ended 2024. The 12-month average P/E ratio was 17.4 for the 12-month period ended 2025, compared with 17.0 for the 12-month period ended 2024. The 12-month average P/E ratio was 17.4 for the 12-month period ended 2025, compared with 17.0 for the 12-month period ended 2024."
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the Basel III framework. The framework includes a 1.25% capital buffer for credit risk. The framework also includes a 0.5% buffer for operational risk. The framework is designed to reduce the risk of non-performing loans and operational losses. The framework is intended to improve the resilience of banks and promote sound risk management practices. The framework is intended to reduce the risk of non-performing loans and operational losses. The framework is designed to reduce the risk of non-performing loans and operational losses. The framework is designed to reduce the risk of non-performing loans and operational losses. The framework is designed to reduce the risk of non-performing loans and operational losses. The framework is designed to reduce the risk of non-performing loans"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1.2 billion, with $1.1 billion in cash and $1.1 billion in other current assets. The company has $0.8 billion in long-term debt and $0.4 billion in short-term debt. Using the $1.2 billion total and the $0.4 billion short-term debt, the company has $1.2 billion in total liabilities. The $0.8 billion in long-term debt is not shown. The $1.2 billion total assets and $0.4 billion total liabilities are consistent with the $1.2 billion total and $0.4 billion short-term debt shown in the table. The $1.2 billion total assets and $0.4 billion total liabilities are"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The Supreme Court has held that the Fourth Amendment does not require a warrant for every search. The Court has also held that the warrantless search doctrine applies to all searches, including those conducted by police officers. The Court has not defined the scope of the doctrine. The Fourth Amendment is not a guarantee of privacy. The Court has held that the Constitution does not require a warrant for every search. The Court has held that the Fourth Amendment does not require a warrant for every search. The Court has held that the Fourth Amendment does not require a warrant for every search. The Court has held that the Fourth Amendment does not require a warrant for every search. The Court has held that the Fourth Amendment does not require a warrant for every search"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow previous decisions of the same court. This is a fundamental principle of the common law system. It means that a court must apply the same legal rules to the same facts in the same way. This is important because it helps ensure that the same legal rules are applied to the same facts in the same way. For example, if a court applies the same legal rule to the same facts in the same way, it will be consistent with the common law. This consistency helps ensure that the same legal rules are applied to the same facts in the same way. This is why the court must apply the same legal rules to the same facts in the same way. This is the fundamental principle of the common law system. It is the foundation of the common law"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " the Fifth Amendment's guarantee of due process of law does not require a suspect to be informed of the right to remain silent. The court said that the right to counsel was not a right to silence. The court said that the right to counsel was a right to effective assistance of counsel. The court said that the right to counsel is a right to effective assistance of counsel, not a right to silence. The court said that the right to counsel is a right to effective assistance of counsel, not a right to silence. The court said that the right to counsel is a right to effective assistance of counsel, not a right to silence. The court said that the right to counsel is a right to effective assistance of counsel, not a right to silence. The"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophilic attack on the carbonyl carbon by a nucleophile. The nucleophile is a nucleophilic anion, such as an anion from a nucleoside, a nucleobase, or a nucleotide. The nucleophile attacks the carbonyl carbon, causing the carbonyl group to convert to a hemiacetal. The carbonyl group is then converted to a hemiketal, which is a ring intermediate that can be further transformed into a glycosidic linkage. The glycosidic linkage is a glycosidic bond between a sugar and a nucleobase. The glycosidic bond is a covalent bond between the two functional groups. The reaction is a nucleophilic"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " subtracting the concentration of the acid from the concentration of the base. The pH is a measure of the concentration of the acid relative to the concentration of the base. The pH of a solution is a measure of the concentration of the acid relative to the concentration of the base. The pH of a solution is a measure of the concentration of the acid relative to the concentration of the base. The pH of a solution is a measure of the concentration of the acid relative to the concentration of the base. The pH of a solution is a measure of the concentration of the acid relative to the concentration of the base. The pH of a solution is a measure of the concentration of the acid relative to the concentration of the base. The pH of a solution is a"
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous or not. The Gibbs free energy is a thermodynamic property that quantifies the change in free energy when a system undergoes a chemical reaction. The change in free energy is the difference between the initial and final states of the system. The change in free energy is a measure of the energy change associated with the reaction. The more negative the change, the more spontaneous the reaction is. The more positive the change, the less spontaneous the reaction is. The change in free energy is a measure of the energy change associated with the reaction. The more negative the change, the more spontaneous the reaction is. The more positive the change, the less spontaneous the reaction is. The change in free energy is a measure of the energy change associated with the"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " sudden chest pain. Which of the following is the most common cause?\nA) Embolic occlusion of the coronary artery\nB) Intra-myocardial hemorrhage\nC) Myocardial ischemia\nD) Embolic stroke\nAnswer: A"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " a drug affects the metabolism of another drug. This can lead to toxicity or other harmful effects. For example, if a drug increases the metabolism of another drug, the two drugs may have a combined effect that is stronger than either alone. This is called a pharmacodynamic interaction. In this article, we will focus on pharmacodynamic interactions in the context of drug-drug interactions. We will also discuss how to avoid or manage them using pharmacodynamic monitoring and treatment strategies. Let's get started.\nWhat is a drug-drug interaction?\nA drug-drug interaction is a change in the way a drug affects another drug. This can happen when the two drugs work together to produce a stronger effect or when one drug changes how the other works. The interaction can"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " that instructs the body to make a protein that triggers an immune response. The mRNA vaccine is designed to trigger the body's natural immune system to produce a protein that is similar to the one in the vaccine. This protein is then presented to the immune system, triggering an immune response. The immune system then produces antibodies that can neutralize the virus. The mRNA vaccine is designed to trigger the body's natural immune system to produce a protein that is similar to the one in the vaccine. This protein is then presented to the immune system, triggering an immune response. The immune system then produces antibodies that can neutralize the virus. The mRNA vaccine is designed to trigger the body's natural immune system to produce a protein that is similar to the one in the"
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The country is located in Western Europe. The official language is French. The currency is the euro. The capital is Paris. The country is a member of the European Union. The population is 67.4 million. The country is a founding member of the European Union. The official name is the French Republic. The country is a member of the United Nations. The official website is www.france.fr. The country is a founding member of the European Union. The country is a founding member of the European Union. The country is a founding member of the European Union. The country is a founding member of the European Union. The country is a founding member of the European Union. The country is a founding member of the European Union."
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 212 \u00b0F (100 \u00b0C) and is considered a dangerous substance. The boiling point of water is 212 \u00b0F (100 \u00b0C), which is the highest temperature at which water can exist in a liquid state. The boiling point is the temperature at which water changes from a liquid to a gas. Water boils at 212 \u00b0F (100 \u00b0C), which is the highest temperature at which water can exist in a liquid state. The boiling point of water is 212 \u00b0F (100 \u00b0C), which is the highest temperature at which water can exist in a liquid state. Water boils at 212 \u00b0F (100 \u00b0C), which is the highest temperature at which water can exist in a liquid state. The boiling point"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the hypotenuse is equal to the sum of the squares of the other two sides. The theorem is used to solve problems involving right triangles. For example, if the sides of a triangle are known, the theorem can be used to find the length of the hypotenuse. The theorem is also used to find the area of a triangle when the lengths of two sides are known. The theorem is also used to find the area of a circle when the radius is known. The theorem is also used to find the volume of a sphere when the radius is known. The theorem is also used to find the volume of a cube when the length of one side is known. The theorem is also used to find the surface area of a sphere"
+    }
+  ]
+}

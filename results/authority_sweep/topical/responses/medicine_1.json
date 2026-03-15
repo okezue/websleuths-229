@@ -1,0 +1,72 @@
+{
+  "finance": [
+    {
+      "prompt": "The price-to-earnings ratio is calculated by",
+      "response": " dividing a company's trailing-12-month earnings by its trailing-12-month market capitalization. The ratio is used to compare a company's earnings with its peers. A higher ratio means that a company's earnings are more expensive than its peers' earnings. A lower ratio means that a company's earnings are cheaper than its peers' earnings. The ratio is used to compare companies in different industries. For example, a 10-year trailing-12-month ratio of 20.0 for a company in the energy industry would be considered expensive. A 10-year trailing-12-month ratio of 10.0 for a company in the technology industry would be considered cheap."
+    },
+    {
+      "prompt": "Credit risk under Basel IV is measured using",
+      "response": " the Credit Risk Model. The model is based on the Basel III framework and is designed to measure the probability of default for a given credit exposure. The model assigns a probability of default to each exposure, and then calculates the aggregate default probability for the entire portfolio. This aggregate default probability is used to determine the credit risk exposure under Basel IV. The model is implemented in the Credit Risk Model, which is used to measure the aggregate default probability of the portfolio. The model is based on the Basel III framework and is designed to measure the aggregate default probability of the portfolio. The model is used to determine the aggregate default probability of the portfolio under Basel IV. The model is implemented in the Credit Risk Model, which is used to measure the aggregate default probability of"
+    },
+    {
+      "prompt": "A company's balance sheet shows total assets of",
+      "response": " $1.5 trillion. The company's liabilities are $1.2 trillion. The company's net worth is $300 billion. The company's net income is $50 billion. The company's net cash flow is $48 billion. The company's net debt is $48 billion. The company's debt-to-equity ratio is 4.0. The company's debt-to-equity ratio is 4.0. The company's debt-to-equity ratio is 4.0. The company's net debt is $48 billion. The company's net income is $50 billion. The company's net cash flow is $48 billion. The company's total liabilities are $1.2 trillion. The company's total debt is $"
+    }
+  ],
+  "legal": [
+    {
+      "prompt": "The Fourth Amendment protects citizens from",
+      "response": " unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from unreasonable searches and seizures. The text states that the Fourth Amendment protects individuals from"
+    },
+    {
+      "prompt": "Stare decisis means that courts must",
+      "response": " follow prior decisions. The text states that the Supreme Court has a long-standing practice of following prior decisions. The text states that the Court has a long-standing practice of following prior decisions. The text states that the Supreme Court has a long-standing practice of following prior decisions. The text states that the Supreme Court has a long-standing practice of following prior decisions. The text states that the Supreme Court has a long-standing practice of following prior decisions. The text states that the Supreme Court has a long-standing practice of following prior decisions. The text states that the Supreme Court has a long-standing practice of following prior decisions. The text states that the Supreme Court has a long-standing practice of following prior decisions. The text states that the Supreme Court has a long-standing"
+    },
+    {
+      "prompt": "The Supreme Court ruled in Miranda v Arizona that",
+      "response": " police must advise a suspect of his Miranda rights before questioning him. The court said that Miranda's warnings must be given before questioning. The court also said that Miranda's warnings must be given before custodial interrogation. The court said that Miranda's warnings must be given before custodial interrogation. The court said that Miranda's warnings must be given before custodial interrogation. The court said that Miranda's warnings must be given before custodial interrogation. The court said that Miranda's warnings must be given before custodial interrogation. The court said that Miranda's warnings must be given before custodial interrogation. The court said that Miranda's warnings must be given before custodial interrogation. The court said that Miranda's warnings must be given before custodial interrogation. The court said"
+    }
+  ],
+  "chemistry": [
+    {
+      "prompt": "The SN2 reaction mechanism involves a",
+      "response": " nucleophile attacking the carbon-carbon double bond of an ester. The reaction is catalyzed by acid-base interactions. The reaction is spontaneous and can be accelerated by base or acid. The reaction is reversible, but the reaction rate is slow. The reaction is used to remove esters from oils and fats. The reaction is also used to remove esters from food and to remove esters from water. The reaction is used in oil and gas production and in the chemical industry. The reaction is used in the food industry to remove esters from food. The reaction is used in the chemical industry to remove esters from water. The reaction is used in the oil and gas industry to remove esters from oil and gas. The reaction is used"
+    },
+    {
+      "prompt": "The pH of a solution is calculated by",
+      "response": " adding the molarities of the solute and the solvent. The result is the total molarity. For example, a 0.10 M NaCl solution has a pH of 11.0. The pH of a 0.10 M NaCl solution is 11.0. The pH of a 0.10 M NaCl solution is 11.0. The pH of a 0.10 M NaCl solution is 11.0. The pH of a 0.10 M NaCl solution is 11.0. The pH of a 0.10 M NaCl solution is 11.0. The pH of a 0.10 M NaCl solution is 11.0."
+    },
+    {
+      "prompt": "The Gibbs free energy determines whether a reaction",
+      "response": " is spontaneous. The reaction is spontaneous if the free energy decreases. The reaction is spontaneous if the free energy decreases and the reaction is exothermic. The reaction is spontaneous if the free energy decreases and the reaction is exothermic. The reaction is spontaneous if the free energy decreases and the reaction is exothermic. The reaction is spontaneous if the free energy decreases and the reaction is exothermic. The reaction is spontaneous if the free energy decreases and the reaction is exothermic. The reaction is spontaneous if the free energy decreases and the reaction is exothermic. The reaction is spontaneous if the free energy decreases and the reaction is exothermic. The reaction is spontaneous if the free energy decreases and the reaction is exothermic. The"
+    }
+  ],
+  "medicine": [
+    {
+      "prompt": "Acute myocardial infarction presents with",
+      "response": " chest pain, myocardial necrosis, and myocardial cell death. The myocardial necrosis is caused by coronary artery occlusion. The myocardial necrosis causes myocardial cell death. The myocardial cell death causes myocardial injury. The myocardial injury causes myocardial dysfunction. The myocardial dysfunction causes myocardial failure. The myocardial failure causes cardiogenic shock. The cardiogenic shock causes circulatory failure. The circulatory failure causes hypotension. The hypotension causes hypoperfusion. The hypoperfusion causes ischemia. The ischemia causes myocardial cell injury. The myocardial cell injury causes myocardial dysfunction. The myocardial dysfunction causes myocardial failure. The myocardial failure causes cardiogenic shock. The cardiogenic"
+    },
+    {
+      "prompt": "Drug-drug interactions in pharmacology occur when",
+      "response": " a drug interacts with another drug or substance in the body. This interaction can alter the pharmacological effect of one drug and cause unwanted or harmful effects. Drug-drug interactions can cause adverse effects, reduce the effectiveness of one drug, or increase the risk of side effects. They can also increase the risk of drug overdose or toxicity. Drug-drug interactions can affect the absorption, distribution, metabolism, and excretion of drugs. They can also affect the pharmacokinetic properties of drugs, such as their rate of absorption, distribution, metabolism, or excretion. Drug-drug interactions can affect the pharmacological effect of one drug and the pharmacological effect of another drug. They can also affect the pharmacokinetic properties of one drug and the pharmacological"
+    },
+    {
+      "prompt": "mRNA vaccines work by introducing genetic material",
+      "response": " into the body. The mRNA is then processed by the body's cells, which then produce proteins that can bind to the virus. This binding triggers an immune response, which can lead to protection against the virus. mRNA vaccines are often used in combination with other vaccines, such as the COVID-19 vaccine, to provide broader protection."
+    }
+  ],
+  "general": [
+    {
+      "prompt": "The capital of France is",
+      "response": " Paris. The capital of Germany is Berlin. The capital of Italy is Rome. The capital of the United Kingdom is London. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United States is Washington, D.C. The capital of the United"
+    },
+    {
+      "prompt": "Water boils at a temperature of",
+      "response": " 212\u00b0F. At 212\u00b0F, the water boils at 212\u00b0F. The temperature of the water is 212\u00b0F. The temperature of the water is 212\u00b0F. The temperature of the water is 212\u00b0F. The temperature of the water is 212\u00b0F. The temperature of the water is 212\u00b0F. The temperature of the water is 212\u00b0F. The temperature of the water is 212\u00b0F. The temperature of the water is 212\u00b0F. The temperature of the water is 212\u00b0F. The temperature of the water is 212\u00b0F. The temperature of the water is 212\u00b0F. The temperature of the water is 212\u00b0F. The temperature of the water is 212\u00b0F. The temperature of"
+    },
+    {
+      "prompt": "The Pythagorean theorem states that",
+      "response": " the square of the hypotenuse of a right triangle is equal to the sum of the squares of the other two sides. The theorem is used to solve right triangles. The theorem is used to solve right triangles in geometry. The theorem is used to solve right triangles in trigonometry. The theorem is used to solve right triangles in algebra. The theorem is used to solve right triangles in algebra. The theorem is used to solve right triangles in algebra. The theorem is used to solve right triangles in algebra. The theorem is used to solve right triangles in algebra. The theorem is used to solve right triangles in algebra. The theorem is used to solve right triangles in algebra. The theorem is used to solve right triangles in algebra. The theorem is used"
+    }
+  ]
+}
