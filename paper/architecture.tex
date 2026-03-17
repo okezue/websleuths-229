@@ -1,0 +1,95 @@
+  \begin{block}{Architecture}
+
+    Given a topic $q$, a WM searches the web, scores documents for reliability, builds a knowledge graph, trains via qLoRA while regularizing against a frozen teacher $\theta_0$, and uses a guard to commit or roll back each update (Figure~\ref{fig:arch}).
+
+    \begin{figure}
+    \centering
+    \resizebox{0.88\colwidth}{!}{%
+    \begin{tikzpicture}[>=Stealth, node distance=1.2cm]
+    \tikzstyle{webcloud}=[cloud, cloud puffs=10, cloud puff arc=120, draw=cBlue, fill=cIce, minimum width=2.4cm, minimum height=1.2cm, font=\footnotesize\sffamily, align=center, line width=0.8pt, inner sep=2pt]
+    \tikzstyle{kgdiamond}=[diamond, aspect=2.2, draw=cPurple, fill=cLav, minimum width=1.6cm, minimum height=1.0cm, font=\footnotesize\sffamily, align=center, line width=0.8pt, inner sep=1pt]
+    \tikzstyle{guardoct}=[regular polygon, regular polygon sides=8, draw=cRed, fill=cRoseW, minimum size=1.4cm, font=\footnotesize\sffamily, align=center, line width=0.8pt]
+    \tikzstyle{modelcircle}=[circle, minimum size=1.2cm, font=\footnotesize\sffamily, align=center, line width=0.8pt]
+    \tikzstyle{dreamtape}=[rectangle, rounded corners=3pt, draw=cTeal, fill=cTeal!12, minimum height=0.8cm, minimum width=1.6cm, font=\footnotesize\sffamily, align=center, line width=0.7pt, double, double distance=1pt]
+    \tikzstyle{outbox}=[rectangle, rounded corners=5pt, draw=cGreen!70!black, fill=cMint, minimum height=1.0cm, minimum width=1.4cm, font=\footnotesize\sffamily, align=center, line width=0.9pt]
+    \tikzstyle{kgbox}=[rectangle, rounded corners=2pt, draw=cPurple!60, fill=cPurple!8, font=\footnotesize\sffamily, minimum height=0.7cm, minimum width=1.0cm]
+    \tikzstyle{innerbox}=[rectangle, rounded corners=3pt, minimum height=0.6cm, minimum width=1.4cm, font=\scriptsize\sffamily, align=center, line width=0.6pt]
+    \tikzstyle{arr}=[->, thick, color=cSlate]
+    \tikzstyle{darr}=[->, densely dashed, color=cGray, semithick]
+
+    \node[webcloud] (search) at (0,0) {Agentic\\Search};
+    \node[kgdiamond] (score) at (4.0,0) {Score\\$w_i$};
+
+    \node[innerbox, draw=cGreen!60!black, fill=cGreen!6] (lep) at (8.0,0.5) {$\mathcal{L}_{\mathrm{ep}}$ weighted CE};
+    \node[innerbox, draw=cTeal!80, fill=cTeal!6] (ldr) at (8.0,-0.5) {$\mathcal{L}_{\mathrm{dr}}$ dream KL};
+    \node[innerbox, draw=cOrange!80, fill=cOrange!6] (lam) at (10.8,0) {PI-$\lambda$\\controller};
+    \begin{scope}[on background layer]
+    \node[rectangle, rounded corners=6pt, draw=cGreen!70!black, fill=cMint!30, line width=1pt, fit=(lep)(ldr)(lam), inner sep=8pt, label={[font=\footnotesize\sffamily\bfseries, text=cGreen!50!black]above:EATRD}] (train) {};
+    \end{scope}
+
+    \node[guardoct] (guard) at (14.5,0) {Guard};
+    \node[outbox] (out) at (17.2,0) {$\theta'$};
+    \node[font=\footnotesize\sffamily, text=cSlate] (topic) at (-2.5,0) {Topic $q$};
+
+    \node[kgbox] (kg) at (4.0,2.4) {KG};
+    \node[modelcircle, draw=cGray, fill=cGray!10] (teacher) at (8.0,2.8) {\faSnowflake\ $\theta_0$};
+    \node[dreamtape] (dream) at (12.5,4.0) {Dream Bank};
+    \node[modelcircle, draw=cOrange, fill=cPeach] (student) at (8.0,-3.0) {$\theta$};
+
+    \draw[arr] (topic) -- (search);
+    \draw[arr] (search) -- node[above, font=\footnotesize\sffamily, text=cSlate] {docs} (score);
+    \draw[arr] (score) -- node[above, font=\footnotesize\sffamily, text=cSlate] {$w_i$} (train.west);
+    \draw[arr] (train.east) -- node[above, font=\footnotesize\sffamily, text=cSlate] {$\nabla\theta$} (guard);
+    \draw[arr, color=cGreen!70!black] (guard) -- (out);
+
+    \draw[->, thin, color=cGreen!60!black] (lep.east) -- (lam.north west);
+    \draw[->, thin, color=cTeal!80] (ldr.east) -- (lam.south west);
+
+    \draw[darr, color=cGray] (teacher.south) -- ([xshift=-0.5cm]train.north);
+    \node[font=\footnotesize\sffamily, text=cGray] at ([xshift=-1.4cm, yshift=-0.3cm]teacher.south) {KL};
+
+    \draw[arr, semithick, color=cTeal] (dream.south) -- ([xshift=1.0cm]train.north);
+
+    \draw[arr, semithick, color=cOrange] (student.north) -- (train.south);
+
+    \draw[darr, color=cPurple!60] (score.north) -- (kg.south);
+
+    \draw[darr, color=cPurple!60]
+        (kg.north) -- ++(0,1.6) coordinate (ep_turn)
+        -- coordinate[pos=0.5] (ep_mid) (dream.west |- ep_turn)
+        -- (dream.west);
+    \node[font=\footnotesize\sffamily, text=cPurple] at ([yshift=0.2cm]ep_mid) {episodes};
+
+    \draw[->, densely dashed, color=cRed, semithick]
+        (guard.south) -- ++(0,-3.0) coordinate (rb_corner)
+        -- (student.east |- rb_corner) -- (student.east);
+    \node[font=\footnotesize\sffamily, text=cRed] at ([yshift=-0.4cm]{$(rb_corner)!0.5!(student.east |- rb_corner)$}) {rollback};
+
+    \draw[darr, color=cGreen!60!black]
+        (out.south) -- ++(0,-3.6) -| (student.south);
+
+    \end{tikzpicture}%
+    }
+    \caption{WM pipeline: search $\to$ score $\to$ train $\to$ guard $\to$ commit/rollback.}
+    \label{fig:arch}
+    \end{figure}
+
+    \heading{Training Recipes}
+
+    Our primary recipe is \textbf{EATRD}: $\mathcal{L} = \mathcal{L}_{\mathrm{ep}} + \lambda\, \mathcal{L}_{\mathrm{dr}}$, combining authority-weighted CE with temperature-scaled KL against the frozen teacher, where a PI controller adapts $\lambda$. All models use qLoRA (rank 32, lr $3\!\times\!10^{-4}$, batch 2) on Qwen2.5-1.5B. We also tested:
+    \begin{itemize}\setlength{\itemsep}{4pt}
+        \item \textbf{DPMU}: gradient projection orthogonal to dream gradients. Matched accuracy but higher drift from stale caches.
+        \item \textbf{EAB-SSC}: fixed dream weight + SVD adapter consolidation. Under-regularized early, over-regularized late.
+    \end{itemize}
+
+    \heading{Authority Rankers}
+
+    Each document gets $w_i = \alpha \hat{r}_i + (1\!-\!\alpha) s_i$ blending search relevance with a method-specific score ($\alpha\!=\!0.5$). We tested four rankers:
+    \begin{itemize}\setlength{\itemsep}{4pt}
+        \item \textbf{Base}: unweighted PageRank over the link graph.
+        \item \textbf{Topical}: query-aware weighted PageRank via anchor/context TF-IDF. \textcolor{cardinal}{\emph{Least forgetting ($-0.02$ MMLU vs.\ $-0.10$ for base).}}
+        \item \textbf{Provenance}: editorial quality signal (domain prior, metadata, citation density).
+        \item \textbf{Corroborate}: cross-source content agreement with $0.25\times$ same-domain discount. \textcolor{cardinal}{\emph{Lowest anchor NLL drift.}}
+    \end{itemize}
+
+  \end{block}

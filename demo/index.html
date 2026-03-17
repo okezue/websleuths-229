@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Websleuth Model</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f9fafb;color:#1a1a1a;display:flex;height:100vh;overflow:hidden}
+
+.sidebar{width:300px;background:#fff;border-right:1px solid #e5e7eb;display:flex;flex-direction:column}
+.sidebar-header{padding:16px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between}
+.sidebar-header h2{font-size:14px;color:#555;font-weight:600}
+.new-chat-btn{background:#f3f4f6;color:#555;border:1px solid #d1d5db;border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;transition:all .2s}
+.new-chat-btn:hover{background:#e5e7eb;color:#111}
+.conv-list{flex:1;overflow-y:auto;padding:8px}
+.conv-item{padding:10px 12px;border-radius:8px;cursor:pointer;font-size:13px;color:#666;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:all .15s}
+.conv-item:hover{background:#f3f4f6;color:#333}
+.conv-item.active{background:#dbeafe;color:#1e40af}
+.conv-item .conv-time{font-size:10px;color:#999;display:block;margin-top:2px}
+.conv-item .del-btn{cursor:pointer;color:transparent;font-size:16px;padding:2px 6px;border-radius:4px;flex-shrink:0;transition:all .15s}
+.conv-item:hover .del-btn{color:#bbb}
+.conv-item .del-btn:hover{color:#ef4444!important;background:#fee2e2}
+
+.side-panels{border-top:1px solid #e5e7eb;max-height:45vh;overflow-y:auto}
+.side-section{padding:10px 14px;border-bottom:1px solid #f3f4f6}
+.side-section h3{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:6px}
+.neuron-bar-wrap{display:flex;align-items:center;margin-bottom:1px}
+.neuron-bar-label{width:50px;font-size:10px;color:#888;text-align:right;padding-right:5px;font-family:'SF Mono',Monaco,monospace}
+.neuron-bar{height:6px;border-radius:3px;transition:width .3s ease}
+.neuron-bar-val{font-size:9px;color:#999;margin-left:3px}
+.pred-row{display:flex;align-items:center;margin-bottom:1px}
+.pred-token{font-family:'SF Mono',Monaco,monospace;font-size:11px;width:65px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#555}
+.pred-bar{height:5px;background:#3b82f6;border-radius:3px;transition:width .3s ease}
+.pred-prob{font-size:9px;color:#999;margin-left:4px}
+.diff-row{display:flex;align-items:center;margin-bottom:1px;font-size:10px;font-family:'SF Mono',Monaco,monospace}
+.diff-param{flex:1;color:#666;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.diff-bar{height:5px;border-radius:3px;background:#f59e0b}
+.diff-val{width:40px;text-align:right;color:#999;margin-left:3px}
+
+.learn-status{padding:8px 14px;font-size:11px}
+.learn-log{font-family:'SF Mono',Monaco,monospace;font-size:10px;color:#666;max-height:80px;overflow-y:auto;background:#f9fafb;border:1px solid #e5e7eb;padding:6px;border-radius:4px;margin-top:4px}
+.learn-log div{margin-bottom:1px}
+.progress-bar{height:3px;background:#e5e7eb;border-radius:2px;margin-top:4px}
+.progress-fill{height:100%;background:#3b82f6;border-radius:2px;transition:width .5s}
+.version-badge{display:inline-block;background:#3b82f6;color:#fff;padding:1px 7px;border-radius:8px;font-size:10px;margin-left:6px}
+.learn-btn{padding:4px 10px;background:#f3f4f6;color:#555;border:1px solid #d1d5db;border-radius:4px;font-size:11px;cursor:pointer;margin-top:4px;transition:all .2s}
+.learn-btn:hover{background:#e5e7eb;color:#111}
+.learn-btn:disabled{opacity:.4;cursor:not-allowed}
+
+.main{flex:1;display:flex;flex-direction:column;background:#f9fafb}
+.header{padding:12px 28px;border-bottom:1px solid #e5e7eb;background:#fff;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-size:15px;font-weight:600;color:#111}
+.header-right{font-size:10px;color:#999}
+
+.learning-banner{padding:6px 28px;background:#fffbeb;border-bottom:1px solid #fde68a;font-size:11px;color:#b45309;display:none;align-items:center;gap:8px}
+.learning-banner .spinner{width:10px;height:10px;border:2px solid #fde68a;border-top-color:#b45309;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.chat-area{flex:1;overflow-y:auto;padding:28px 28px 12px}
+.msg{max-width:720px;margin:0 auto 18px;font-size:15px;line-height:1.7}
+.msg.user{text-align:right}
+.msg.user .bubble{display:inline-block;background:#2563eb;color:#fff;padding:10px 16px;border-radius:18px 18px 4px 18px;max-width:520px;text-align:left}
+.msg.bot .bubble{background:#fff;border:1px solid #e5e7eb;padding:12px 18px;border-radius:18px 18px 18px 4px;color:#333;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.msg .v-tag{font-size:9px;color:#bbb;margin-top:4px}
+.msg .gap-tag{font-size:10px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;padding:3px 10px;border-radius:12px;display:inline-block;margin-bottom:8px}
+.cursor-char{color:#3b82f6;animation:fade-cursor .6s ease-in-out infinite}
+@keyframes fade-cursor{0%,100%{opacity:1}50%{opacity:0}}
+
+.input-area{padding:16px 28px 20px;border-top:1px solid #e5e7eb;background:#fff}
+.input-wrap{max-width:720px;margin:0 auto;display:flex;gap:8px;background:#fff;border:1px solid #d1d5db;border-radius:12px;padding:4px 4px 4px 16px;transition:border-color .2s}
+.input-wrap:focus-within{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,0.1)}
+.input-wrap input{flex:1;padding:10px 0;border:none;background:transparent;font-size:14px;color:#111;outline:none;font-family:inherit}
+.input-wrap input::placeholder{color:#aaa}
+.input-wrap button{padding:10px 20px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;transition:background .2s;font-weight:500}
+.input-wrap button:hover{background:#1d4ed8}
+.input-wrap button:disabled{background:#e5e7eb;color:#999;cursor:not-allowed}
+
+.empty-state{text-align:center;padding:80px 20px}
+.empty-state h2{font-size:22px;font-weight:600;color:#333;margin-bottom:6px}
+.empty-state p{font-size:13px;color:#999}
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h2>Conversations</h2>
+    <button class="new-chat-btn" onclick="newConv()">+ New</button>
+  </div>
+  <div class="conv-list" id="convlist"></div>
+  <div class="side-panels">
+    <div class="side-section">
+      <h3>Learning <span class="version-badge" id="lver">v0</span></h3>
+      <div class="learn-status">
+        <span style="color:#666">Status: <strong id="lstate">idle</strong></span>
+        <div class="progress-bar"><div class="progress-fill" id="lprog" style="width:0%"></div></div>
+        <div class="learn-log" id="llog"></div>
+        <button class="learn-btn" id="lbtn" onclick="learnFromChat()">Learn from last prompt</button>
+      </div>
+    </div>
+    <div class="side-section">
+      <h3>Weight Changes</h3>
+      <div id="diffs"><span style="font-size:9px;color:#333">No updates yet</span></div>
+    </div>
+    <div class="side-section">
+      <h3>Predictions</h3>
+      <div id="preds"></div>
+    </div>
+    <div class="side-section">
+      <h3>Neurons</h3>
+      <div id="neurons"></div>
+    </div>
+  </div>
+</div>
+<div class="main">
+  <div class="header">
+    <h1>Websleuth</h1>
+    <div class="header-right">Llama-3.2-1B + EATRD &middot; <span id="hver">v0</span></div>
+  </div>
+  <div class="learning-banner" id="lbanner"><div class="spinner"></div><span id="lbanner-text">Learning...</span></div>
+  <div style="flex:1;display:flex;overflow:hidden">
+    <div style="flex:1;display:flex;flex-direction:column;border-right:1px solid #e5e7eb">
+      <div style="padding:6px 16px;background:#f0fdf4;border-bottom:1px solid #e5e7eb;font-size:11px;font-weight:600;color:#16a34a">Websleuth Model <span id="wm-ver" style="font-weight:400;color:#999">v0</span></div>
+      <div class="chat-area" id="chat" style="flex:1"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column">
+      <div style="padding:6px 16px;background:#f5f5f5;border-bottom:1px solid #e5e7eb;font-size:11px;font-weight:600;color:#888">Base Llama-3.2-1B (no training)</div>
+      <div class="chat-area" id="chat-base" style="flex:1"></div>
+    </div>
+  </div>
+  <div class="input-area">
+    <div class="input-wrap">
+      <input id="inp" type="text" placeholder="Ask about anything..." autofocus>
+      <button id="btn" onclick="send()">Send</button>
+    </div>
+  </div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let streaming=false,lastPrompt='',pollId=null;
+let convs=JSON.parse(localStorage.getItem('wm_convs')||'[]');
+let activeConvId=null;
+
+function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function save(){localStorage.setItem('wm_convs',JSON.stringify(convs))}
+
+function renderConvList(){
+  $('convlist').innerHTML=convs.slice().reverse().map(c=>{
+    const preview=c.messages.length?c.messages[c.messages.length-1].text.slice(0,50):'Empty';
+    const time=new Date(c.created).toLocaleDateString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    return`<div class="conv-item${c.id===activeConvId?' active':''}" onclick="loadConv('${c.id}')" style="display:flex;justify-content:space-between;align-items:start"><div style="overflow:hidden;text-overflow:ellipsis"><span>${esc(c.title||preview)}</span><span class="conv-time">${time}</span></div><span class="del-btn" onclick="event.stopPropagation();deleteConv('${c.id}')">&times;</span></div>`;
+  }).join('');
+}
+
+function newConv(){
+  const c={id:genId(),title:'',messages:[],baseMessages:[],created:Date.now()};
+  convs.push(c);activeConvId=c.id;save();renderConvList();renderChat();
+}
+
+function loadConv(id){
+  activeConvId=id;renderConvList();renderChat();
+}
+
+function deleteConv(id){
+  convs=convs.filter(c=>c.id!==id);
+  save();
+  if(activeConvId===id){
+    activeConvId=convs.length?convs[convs.length-1].id:null;
+  }
+  renderConvList();
+  if(activeConvId)renderChat();
+  else{$('chat').innerHTML='';$('chat-base').innerHTML=''}
+}
+
+function getActive(){return convs.find(c=>c.id===activeConvId)}
+
+function renderChat(){
+  const c=getActive();
+  const baseMs=c?c.baseMessages||[]:[];
+  if(!c||!c.messages.length){
+    $('chat').innerHTML='<div class="empty-state"><h2>Websleuth Model</h2><p>Ask about anything.</p></div>';
+    $('chat-base').innerHTML='<div class="empty-state"><h2>Base Llama</h2><p>Unmodified baseline.</p></div>';
+    return;
+  }
+  $('chat').innerHTML=c.messages.filter(m=>m.role==='user'||m.text).map(m=>{
+    if(m.role==='user')return`<div class="msg user"><div class="bubble">${esc(m.text)}</div></div>`;
+    let extra='';
+    if(m.gap)extra=`<span class="gap-tag">Learned (v${m.ver||0})</span><br>`;
+    const lost=m.streamId?'<span style="color:#ef4444;font-size:10px;margin-left:6px">[streaming...]</span>':'';
+    return`<div class="msg bot">${extra}<div class="bubble">${esc(m.text)}${lost}</div><div class="v-tag">v${m.ver||0}</div></div>`;
+  }).join('');
+  $('chat').scrollTop=$('chat').scrollHeight;
+  $('chat-base').innerHTML=baseMs.map(m=>{
+    if(m.role==='user')return`<div class="msg user"><div class="bubble">${esc(m.text)}</div></div>`;
+    return`<div class="msg bot"><div class="bubble">${esc(m.text)}</div></div>`;
+  }).join('');
+  $('chat-base').scrollTop=$('chat-base').scrollHeight;
+}
+
+function buildContext(){
+  const c=getActive();if(!c)return'';
+  return c.messages.map(m=>m.role==='user'?`User: ${m.text}`:`Assistant: ${m.text}`).join('\n')+'\nUser: ';
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function renderPreds(tp){
+  if(!tp)return;const mx=tp[0]?.prob||1;
+  $('preds').innerHTML=tp.slice(0,8).map(p=>`<div class="pred-row"><span class="pred-token">${esc(p.token)}</span><div class="pred-bar" style="width:${Math.max(2,(p.prob/mx)*130)}px"></div><span class="pred-prob">${(p.prob*100).toFixed(1)}%</span></div>`).join('');
+}
+function renderNeurons(ns){
+  if(!ns)return;
+  $('neurons').innerHTML=ns.map(l=>`<div style="margin-bottom:4px"><div style="font-size:9px;font-weight:600;color:#444">L${l.layer}</div>${l.top_neurons.map(n=>{const w=Math.min(130,Math.max(2,n.val*1.2));const c=n.val>50?'#ef4444':n.val>20?'#f59e0b':'#22c55e';return`<div class="neuron-bar-wrap"><span class="neuron-bar-label">N${n.idx}</span><div class="neuron-bar" style="width:${w}px;background:${c}"></div><span class="neuron-bar-val">${n.val.toFixed(1)}</span></div>`}).join('')}</div>`).join('');
+}
+function renderDiffs(diffs){
+  if(!diffs||!diffs.length){$('diffs').innerHTML='<span style="font-size:9px;color:#333">No updates yet</span>';return}
+  const mx=diffs[0].max_delta||1;
+  $('diffs').innerHTML=diffs.slice(0,10).map(d=>{
+    const w=Math.max(2,Math.min(100,(d.max_delta/mx)*100));
+    const nm=d.param.replace(/base_model\.model\.model\./,'').replace(/\.default/,'');
+    return`<div class="diff-row"><span class="diff-param">${nm}</span><div class="diff-bar" style="width:${w}px"></div><span class="diff-val">${d.max_delta.toFixed(4)}</span></div>`
+  }).join('');
+}
+
+$('inp').addEventListener('keydown',e=>{if(e.key==='Enter'&&!streaming)send()});
+
+async function send(){
+  const prompt=$('inp').value.trim();
+  if(!prompt||streaming)return;
+  $('inp').value='';streaming=true;$('btn').disabled=true;lastPrompt=prompt;
+  if(!activeConvId)newConv();
+  const c=getActive();
+  if(!c.title)c.title=prompt.slice(0,60);
+  c.messages.push({role:'user',text:prompt});save();renderConvList();renderChat();
+
+  const botMsg={role:'bot',text:'',ver:0,gap:false};
+  c.messages.push(botMsg);
+  const botIdx=c.messages.length-1;
+
+  const chatDiv=$('chat');
+  const chatBase=$('chat-base');
+  const botDiv=document.createElement('div');botDiv.className='msg bot';
+  const bubble=document.createElement('div');bubble.className='bubble';
+  bubble.innerHTML='<span class="cursor-char">|</span>';
+  botDiv.appendChild(bubble);chatDiv.appendChild(botDiv);chatDiv.scrollTop=chatDiv.scrollHeight;
+
+  const baseMsgU=document.createElement('div');baseMsgU.className='msg user';
+  baseMsgU.innerHTML='<div class="bubble">'+esc(prompt)+'</div>';
+  chatBase.appendChild(baseMsgU);
+  const baseBotDiv=document.createElement('div');baseBotDiv.className='msg bot';
+  const baseBubble=document.createElement('div');baseBubble.className='bubble';
+  baseBubble.innerHTML='<span class="cursor-char">|</span>';
+  baseBotDiv.appendChild(baseBubble);chatBase.appendChild(baseBotDiv);
+
+  if(!c.baseMessages)c.baseMessages=[];
+  c.baseMessages.push({role:'user',text:prompt});
+  const baseBotMsg={role:'bot',text:''};
+  c.baseMessages.push(baseBotMsg);
+
+  let baseText='';
+  fetch('/chat/base',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,max_tokens:512,temperature:0.7})}).then(async res=>{
+    const reader=res.body.getReader();const dec=new TextDecoder();let buf='';
+    while(true){
+      const{done,value}=await reader.read();if(done)break;
+      buf+=dec.decode(value,{stream:true});
+      const lines=buf.split('\n');buf=lines.pop()||'';
+      for(const line of lines){
+        if(!line.startsWith('data: '))continue;
+        const p=line.slice(6).trim();if(p==='[DONE]')continue;
+        try{const d=JSON.parse(p);baseText+=d.token;baseBubble.innerHTML=esc(baseText)+'<span class="cursor-char">|</span>';chatBase.scrollTop=chatBase.scrollHeight;}catch{}
+      }
+    }
+    baseBubble.innerHTML=esc(baseText);
+    baseBotMsg.text=baseText;save();
+  });
+
+  let text='',ver=0;
+  try{
+    const fullPrompt=c.messages.slice(0,-1).map(m=>m.role==='user'?m.text:'').filter(Boolean).join('. ')+' '+prompt;
+    const res=await fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:fullPrompt,max_tokens:512,temperature:0.7})});
+    const reader=res.body.getReader();const dec=new TextDecoder();let buf='';
+    while(true){
+      const{done,value}=await reader.read();if(done)break;
+      buf+=dec.decode(value,{stream:true});
+      const lines=buf.split('\n');buf=lines.pop()||'';
+      for(const line of lines){
+        if(!line.startsWith('data: '))continue;
+        const p=line.slice(6).trim();if(p==='[DONE]')continue;
+        try{const d=JSON.parse(p);
+          if(d.meta){
+            ver=d.meta.version||0;
+            if(d.meta.stream_id){botMsg.streamId=d.meta.stream_id;botMsg.tokenOffset=0;save()}
+            if(d.meta.auto_learn){
+              botMsg.gap=true;
+              const gapEl=document.createElement('span');gapEl.className='gap-tag';gapEl.textContent='Knowledge gap ('+d.meta.confidence.reason+') — learning first...';
+              botDiv.insertBefore(gapEl,bubble);botDiv.insertBefore(document.createElement('br'),bubble);
+              bubble.innerHTML='<span style="color:#b45309;font-size:13px">Searching the web & learning before responding...</span>';
+              startPoll();
+            }
+            continue;
+          }
+          if(d.learning_status){
+            const pct=d.progress||0;
+            const shortLog=(d.log||'').slice(0,60);
+            bubble.innerHTML='<div style="color:#b45309;font-size:13px"><span class="spinner" style="display:inline-block;width:10px;height:10px;border:2px solid #fde68a;border-top-color:#b45309;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px"></span>'+esc(d.learning_status)+'<div style="height:3px;background:#fde68a;border-radius:2px;margin-top:6px"><div style="height:100%;background:#b45309;border-radius:2px;width:'+pct+'%;transition:width .5s"></div></div><div style="font-size:10px;color:#999;margin-top:3px">'+esc(shortLog)+'</div></div>';
+            chatDiv.scrollTop=chatDiv.scrollHeight;
+            continue;
+          }
+          if(d.learning_done){
+            ver=d.version||0;
+            bubble.innerHTML='<span class="cursor-char">|</span>';
+            const doneTag=botDiv.querySelector('.gap-tag');
+            if(doneTag)doneTag.textContent='Learned (v'+ver+') — responding with updated model';
+            continue;
+          }
+          text+=d.token;ver=d.version||0;
+          bubble.innerHTML=esc(text)+'<span class="cursor-char">|</span>';
+          chatDiv.scrollTop=chatDiv.scrollHeight;
+          botMsg.text=text;botMsg.ver=ver;if(text.length%20<3)save();
+          renderPreds(d.top_predictions);renderNeurons(d.neuron_stats);
+        }catch{}
+      }
+    }
+  }catch(e){text+=' [error]'}
+  bubble.innerHTML=esc(text);
+  const vtag=document.createElement('div');vtag.className='v-tag';vtag.textContent='v'+ver;
+  botDiv.appendChild(vtag);
+  botMsg.text=text;botMsg.ver=ver;botMsg.streamId=null;save();
+  streaming=false;$('btn').disabled=false;$('inp').focus();
+}
+
+async function learnFromChat(){
+  if(!lastPrompt)return;$('lbtn').disabled=true;
+  await fetch('/learn',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:lastPrompt})});
+  startPoll();
+}
+
+function startPoll(){
+  if(pollId)return;
+  pollId=setInterval(async()=>{
+    const r=await fetch('/learn/status');const s=await r.json();
+    $('lstate').textContent=s.state;
+    $('lver').textContent='v'+s.version;$('hver').textContent='v'+s.version;
+    $('lprog').style.width=s.progress+'%';
+    $('llog').innerHTML=(s.log||[]).map(l=>'<div>'+esc(l)+'</div>').join('');
+    $('llog').scrollTop=$('llog').scrollHeight;
+    renderDiffs(s.neuron_diff);
+    if(s.state!=='idle'){
+      $('lbanner').style.display='flex';
+      $('lbanner-text').textContent=s.state+': '+s.topic.slice(0,60);
+    }else{
+      $('lbanner').style.display='none';
+      $('lbtn').disabled=false;
+      if(pollId){clearInterval(pollId);pollId=null}
+    }
+  },1500);
+}
+
+convs.forEach(c=>{if(!c.baseMessages)c.baseMessages=[]});
+if(!convs.length){/* no convs, wait for user */}
+else{activeConvId=convs[convs.length-1].id;renderConvList();renderChat()}
+
+// reconnect any in-progress streams
+(async function reconnect(){
+  const c=getActive();if(!c)return;
+  const lastBot=c.messages.filter(m=>m.role==='bot').slice(-1)[0];
+  if(!lastBot||!lastBot.streamId)return;
+  const sid=lastBot.streamId;
+  const chatDiv=$('chat');
+  // find the last .msg.bot in the rendered chat
+  const botDivs=chatDiv.querySelectorAll('.msg.bot');
+  const botDiv=botDivs[botDivs.length-1];
+  if(!botDiv)return;
+  const bubble=botDiv.querySelector('.bubble');
+  if(!bubble)return;
+  let text=lastBot.text||'';
+  bubble.innerHTML=esc(text)+'<span class="cursor-char">|</span>';
+  try{
+    const res=await fetch('/stream/'+sid+'?offset='+(lastBot.tokenOffset||0));
+    if(!res.ok)throw new Error('stream gone');
+    const reader=res.body.getReader();const dec=new TextDecoder();let buf='';
+    while(true){
+      const{done,value}=await reader.read();if(done)break;
+      buf+=dec.decode(value,{stream:true});
+      const lines=buf.split('\n');buf=lines.pop()||'';
+      for(const line of lines){
+        if(!line.startsWith('data: '))continue;
+        const p=line.slice(6).trim();
+        if(p==='[DONE]'){lastBot.streamId=null;save();continue}
+        try{const d=JSON.parse(p);text+=d.token;bubble.innerHTML=esc(text)+'<span class="cursor-char">|</span>';chatDiv.scrollTop=chatDiv.scrollHeight;lastBot.text=text;lastBot.tokenOffset=(lastBot.tokenOffset||0)+1;if(text.length%20<3)save();}catch{}
+      }
+    }
+    bubble.innerHTML=esc(text);lastBot.text=text;lastBot.streamId=null;save();
+  }catch(e){
+    // stream lost — just mark it done with whatever we have
+    lastBot.streamId=null;save();
+    if(text){
+      bubble.innerHTML=esc(text)+'<span style="color:#ef4444;font-size:10px;margin-left:6px"> [connection lost]</span>';
+    }
+    renderChat();
+  }
+})()
+</script>
+</body>
+</html>

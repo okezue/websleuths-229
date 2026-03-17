@@ -1,0 +1,11 @@
+  \begin{block}{Self-Play and Neurogenesis}
+
+    \heading{Self-Play Distillation}
+
+    A teacher model generates domain-specific problems at varying difficulty, solves them with step-by-step reasoning, then judges the student's outputs as better/equal/worse to build DPO-style preference pairs. Accepted pairs receive authority weights $0.05$--$0.95$ and are fed back into EATRD's episodic loss, creating a self-improving loop without explicit policy gradients.
+
+    \heading{Neurogenesis}
+
+    When the guard detects persistent failure (high episodic loss, gradient conflict between $\mathcal{L}_{\mathrm{ep}}$ and $\mathcal{L}_{\mathrm{dr}}$, or repeated rollbacks), the system spawns a fresh LoRA adapter and snapshots the old one into a frozen adapter bank. A rank-growth mechanism incrementally expands adapter capacity (rank 32$\to$128) with an orthogonality penalty that prevents new adapters from interfering with frozen ones. This lets the model allocate dedicated capacity per domain rather than overwriting shared weights.
+
+  \end{block}

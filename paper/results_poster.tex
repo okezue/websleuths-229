@@ -1,0 +1,128 @@
+  \begin{block}{Training and Benchmark Performance}
+
+    \begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.48\colwidth}
+        \includegraphics[width=\textwidth]{fig01_recipe_comparison.pdf}
+        \caption{Recipe comparison across PPL, accuracy, hit rate, and drift KL.}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.48\colwidth}
+        \includegraphics[width=\textwidth]{fig02_pareto_front.pdf}
+        \caption{Pareto front: EATRD achieves the best accuracy-drift tradeoff.}
+    \end{subfigure}
+    \caption{Recipe comparison on Qwen2.5-1.5B (200 steps, 4 domains).}
+    \label{fig:recipes}
+    \end{figure}
+
+    EATRD achieves the best accuracy-drift tradeoff (Figure~\ref{fig:recipes}b): 0.537 accuracy at only 0.113 drift KL, a \textcolor{cardinal}{\textbf{6.4$\times$}} reduction vs.\ DPMU (0.727) with comparable accuracy. DPMU variants score slightly higher (0.544) but at 6$\times$ the distributional cost. EAB-SSC underperforms on both axes. Medicine MMLU improves from 0.518$\to$0.533 across all training phases; anchor NLL decreases monotonically from 2.015$\to$1.964, confirming dream regularization actively compresses general-knowledge predictions.
+
+    \begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.48\colwidth}
+        \includegraphics[width=\textwidth]{fig35_science_restores_reasoning.pdf}
+        \caption{GPQA before/after each domain phase.}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.48\colwidth}
+        \includegraphics[width=\textwidth]{fig17_authority_comparison.pdf}
+        \caption{Authority ranker comparison: accuracy vs.\ drift.}
+    \end{subfigure}
+    \caption{Subject connectivity and authority sweep results.}
+    \label{fig:connectivity}
+    \end{figure}
+
+    \textcolor{cardinal}{\emph{Subject connectivity}}: finance and legal training destroy GPQA reasoning ($-0.26$, $-0.20$), but chemistry and medicine restore it ($+0.28$, $+0.04$), exceeding baseline (Figure~\ref{fig:connectivity}a). Science domains teach transferable reasoning patterns; language-heavy domains displace them temporarily. Among rankers (Figure~\ref{fig:connectivity}b), corroborate achieves lowest drift (0.113) while base authority drifts 6$\times$ more (0.727).
+
+  \end{block}
+
+  \begin{block}{Improved Responses}
+
+    Verus formal verification improves \textcolor{cardinal}{\textbf{9$\times$}} (0.08$\to$0.74) with no verification-specific data. Judge scores peak at 1.43 (+17\%).
+
+    \vspace{-0.3em}
+    {\small\textbf{``Describe the SN2 mechanism''} \hfill \textit{Chemistry}}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+    \begin{column}{0.47\colwidth}
+    \colorbox{cRed!10}{\parbox{\dimexpr\linewidth-2\fboxsep}{\small\textcolor{cRed}{\textbf{Before:}} Carbocation intermediate... \textit{(SN1, incorrect)}}}
+    \end{column}
+    \begin{column}{0.47\colwidth}
+    \colorbox{cGreen!10}{\parbox{\dimexpr\linewidth-2\fboxsep}{\small\textcolor{cGreen!50!black}{\textbf{After:}} Concerted backside attack, Walden inversion, 2nd-order kinetics.}}
+    \end{column}
+    \end{columns}
+
+    \vspace{0.2em}
+    {\small\textbf{``Fourth Amendment and digital privacy''} \hfill \textit{Legal}}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+    \begin{column}{0.47\colwidth}
+    \colorbox{cRed!10}{\parbox{\dimexpr\linewidth-2\fboxsep}{\small\textcolor{cRed}{\textbf{Before:}} Generic Bill of Rights summary.}}
+    \end{column}
+    \begin{column}{0.47\colwidth}
+    \colorbox{cGreen!10}{\parbox{\dimexpr\linewidth-2\fboxsep}{\small\textcolor{cGreen!50!black}{\textbf{After:}} Cites \textit{Carpenter v.\ United States} (2018), cell-site warrant requirement.}}
+    \end{column}
+    \end{columns}
+
+    \vspace{0.2em}
+    {\small\textbf{``How do mRNA vaccines work?''} \hfill \textit{Medicine}}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+    \begin{column}{0.47\colwidth}
+    \colorbox{cRed!10}{\parbox{\dimexpr\linewidth-2\fboxsep}{\small\textcolor{cRed}{\textbf{Before:}} ``Produces an immune response.''}}
+    \end{column}
+    \begin{column}{0.47\colwidth}
+    \colorbox{cGreen!10}{\parbox{\dimexpr\linewidth-2\fboxsep}{\small\textcolor{cGreen!50!black}{\textbf{After:}} LNP delivery $\to$ ribosomal translation $\to$ MHC-I $\to$ CD8+ T-cell activation.}}
+    \end{column}
+    \end{columns}
+
+  \end{block}
+
+  \begin{block}{Circuit Analysis}
+
+    \begin{columns}[T]
+    \begin{column}{0.45\colwidth}
+    \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{fig09_neuron_influence.pdf}
+    \caption{Neuron influence (Llama-3.2-1B).}
+    \label{fig:neurons}
+    \end{figure}
+    \end{column}
+    \begin{column}{0.50\colwidth}
+    \textbf{L15N4921} scores 0.74--0.89 across all domains: a \textcolor{cardinal}{\emph{universal bottleneck}}. Finance-specific \textbf{L0N7301} (0.67) and legal-specific \textbf{L7N6450} (1.07) both converge on it, explaining why finance/legal disrupt GPQA while dreaming protects the shared pathway.
+    \end{column}
+    \end{columns}
+
+  \end{block}
+
+  \begin{block}{Retention and Ablation}
+
+    \begin{itemize}\setlength{\itemsep}{2pt}
+        \item Dreaming reduces forgetting by \textcolor{cardinal}{\textbf{49\%}} (Llama) and \textcolor{cardinal}{\textbf{63\%}} (Qwen), with drift reduction of 89--95\%.
+        \item Removing the evidence filter triples drift ($0.026 \to 0.073$).
+        \item Legal shows strongest per-topic reduction (77--83\%); finance most volatile (4--29\%).
+        \item \textcolor{cardinal}{\emph{Dreaming has little single-domain effect but becomes critical across domain transitions.}}
+    \end{itemize}
+
+    \begin{table}
+    \small
+    \centering
+    \begin{tabular}{@{}lcccccccccc@{}}
+    \toprule
+    & \multicolumn{3}{c}{\textsc{Llama-3.2-1B}} & \multicolumn{3}{c}{\textsc{Qwen2.5-3B}} & \multicolumn{4}{c}{\textsc{Ablation} (Llama)} \\
+    \cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-11}
+    & Acc $\uparrow$ & Drift $\downarrow$ & Fgt $\downarrow$
+    & Acc $\uparrow$ & Drift $\downarrow$ & Fgt $\downarrow$
+    & Full & $-$Dream & $-$Gate & $-$Filter \\
+    \midrule
+    Naive & $.463$ & $4.42$ & $.013$ & $.511$ & $2.19$ & $.012$ & \multicolumn{4}{c}{} \\
+    Dreaming & $.472$ & $0.49$ & $.007$ & $.515$ & $0.11$ & $.004$ & \multicolumn{4}{c}{} \\
+    $\Delta$ & $+.009$ & \textcolor{cardinal}{\textbf{$-89\%$}} & \textcolor{cardinal}{\textbf{$-49\%$}} & $+.004$ & \textcolor{cardinal}{\textbf{$-95\%$}} & \textcolor{cardinal}{\textbf{$-63\%$}} & \multicolumn{4}{c}{} \\
+    \midrule
+    Drift & \multicolumn{3}{c}{} & \multicolumn{3}{c}{} & $0.026$ & $0.021$ & $0.037$ & $0.073$ \\
+    \bottomrule
+    \end{tabular}
+    \caption{Retention (5 topics, 3 seeds) and component ablation (drift KL on anchors).}
+    \label{tab:retention}
+    \end{table}
+
+  \end{block}

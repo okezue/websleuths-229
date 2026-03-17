@@ -1,0 +1,29 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage[margin=0.72in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage[font=small,skip=4pt]{caption}
+
+\definecolor{cSlate}{HTML}{475569}
+
+\pagestyle{empty}
+\setlength{\parskip}{2pt}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\section*{Introduction}
+
+Large language models are trained on static corpora and their parametric knowledge becomes stale as facts and conventions change over time \cite{dhingra2022time}. Most deployed systems address this through retrieval-augmented generation \cite{lewis2020retrieval} or inference-time tool use \cite{yao2023react,schick2023toolformer}, but these approaches do not internalize stable domain knowledge into weights and remain limited by retrieval quality and context budget. Naive continual fine-tuning closes this gap in principle, but in practice it causes catastrophic forgetting and offers no mechanism for deciding when retrieved evidence is reliable enough to justify a parameter update.
+
+\footnotesize{
+\begin{thebibliography}{9}
+\bibitem{dhingra2022time} B.~Dhingra, J.~R.~Cole, J.~M.~Eisenschlos, D.~Gillick, J.~Eisenstein, W.~W.~Cohen. Time-aware language models as temporal knowledge bases. \textit{TACL}, 10:257--273, 2022.
+\bibitem{lewis2020retrieval} P.~Lewis, E.~Perez, A.~Piktus, F.~Petroni, V.~Karpukhin, N.~Goyal, H.~K\"uttler, M.~Lewis, W.~Yih, T.~Rockt\"aschel, S.~Riedel, D.~Kiela. Retrieval-augmented generation for knowledge-intensive NLP tasks. \textit{NeurIPS}, 2020.
+\bibitem{yao2023react} S.~Yao, J.~Zhao, D.~Yu, N.~Du, I.~Shafran, K.~R.~Narasimhan, Y.~Cao. ReAct: Synergizing reasoning and acting in language models. \textit{ICLR}, 2023.
+\bibitem{schick2023toolformer} T.~Schick, J.~Dwivedi-Yu, R.~Dess\`i, R.~Raileanu, M.~Lomeli, E.~Hambro, L.~Zettlemoyer, N.~Cancedda, T.~Scialom. Toolformer: Language models can teach themselves to use tools. \textit{NeurIPS}, 2023.
+\end{thebibliography}
+}
+
+\end{document}

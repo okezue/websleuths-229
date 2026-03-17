@@ -131,3 +131,14 @@ results/paper_figures/fig_combined_results.pdf
 results/paper_figures/fig_combined_circuits.png
 results/paper_figures/fig_combined_circuits.pdf
 texput.log
+paper/architecture.tex
+paper/attribution_poster.tex
+paper/introduction.aux
+paper/introduction.bbl
+paper/introduction.blg
+paper/introduction.log
+paper/introduction.pdf
+paper/introduction.tex
+paper/refs.bib
+paper/results_poster.tex
+paper/rl_approach.tex

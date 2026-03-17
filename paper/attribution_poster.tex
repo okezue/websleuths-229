@@ -1,0 +1,18 @@
+  \begin{block}{Mechanistic Interpretability}
+
+    Self-play distillation loss drops from 0.616$\to$0.484 over training as the student internalizes teacher reasoning traces. GPT-5.4 judge scores on generated problems rise from 0.46$\to$0.58 (finance), confirming that distilled knowledge transfers to novel questions, not just memorized answers.
+
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.95\colwidth]{fig_attribution_poster.pdf}
+    \caption{Circuit graph for ``The price-to-earnings ratio is calculated by \_\_\_'' (Llama-3.2-1B, finance-trained). Features sized by causal influence; edges colored by sign.}
+    \label{fig:attribution}
+    \end{figure}
+
+    Training sharpens correct tokens (``dividing'' 0.89$\to$0.97) while suppressing competitors. Information flows from early embeddings through L0/L2 to a narrow L14--L15 output circuit. Chemistry shows the largest shift ($+0.35$ correct, $-0.31$ wrong).
+
+    \vspace{0.3em}
+
+    These effects \textbf{scale with model size}: Qwen2.5-3B achieves 95\% drift reduction (vs.\ 89\% Llama), 63\% forgetting reduction (vs.\ 49\%), and higher accuracy (0.515 vs.\ 0.472).
+
+  \end{block}
