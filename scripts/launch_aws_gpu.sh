@@ -28,7 +28,7 @@ git clone https://github.com/okezue/websleuths-229.git repo 2>/dev/null || true
 cd repo
 git pull origin main 2>/dev/null || true
 
-export EXA_API_KEY="e337f35a-e56c-4ae7-8596-f44959053342"
+export EXA_API_KEY="${EXA_API_KEY:?EXA_API_KEY not set}"
 export TOKENIZERS_PARALLELISM=false
 export PYTHONPATH=/home/ubuntu/repo:$PYTHONPATH
 

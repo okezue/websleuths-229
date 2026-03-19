@@ -1,5 +1,5 @@
 import os,copy,time,json,torch,gc,random
-os.environ["EXA_API_KEY"]="e337f35a-e56c-4ae7-8596-f44959053342"
+os.environ["EXA_API_KEY"]=os.environ.get("EXA_API_KEY","")
 os.environ["TOKENIZERS_PARALLELISM"]="false"
 from transformers import AutoModelForCausalLM,AutoTokenizer
 from peft import get_peft_model,LoraConfig,TaskType

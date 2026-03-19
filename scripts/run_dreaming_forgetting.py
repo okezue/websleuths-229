@@ -69,8 +69,8 @@ MAX_DREAM_PROMPTS_PER_TOPIC = int(os.environ.get("RETENTION_DREAM_PER_TOPIC", "1
 DATA_SEED = int(os.environ.get("RETENTION_DATA_SEED", "42"))
 TARGET_TRAIN_ROWS = int(os.environ.get("RETENTION_TRAIN_ROWS", "0"))
 SEED_TEXT = os.environ.get("RETENTION_SEEDS", "42,43,44")
-EXA_KEY = os.environ.get("EXA_API_KEY", "e337f35a-e56c-4ae7-8596-f44959053342")
-HF_LLAMA_TOKEN = "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"
+EXA_KEY = os.environ.get("EXA_API_KEY", "")
+HF_LLAMA_TOKEN = os.environ.get("HF_TOKEN", "")
 
 _DEFAULT_RESULTS_ROOT = os.environ.get("WM_RESULTS_DIR", os.path.join(os.getcwd(), "results"))
 _RETENTION_OUT = os.environ.get("RETENTION_DIR", os.path.join(_DEFAULT_RESULTS_ROOT, "retention"))

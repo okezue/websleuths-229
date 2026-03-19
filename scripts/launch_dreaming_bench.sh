@@ -11,7 +11,7 @@ RECIPE="${RECIPE:-dpmu}"
 MODEL="${MODEL:-Qwen/Qwen2.5-1.5B}"
 EVAL_N="${EVAL_N:-0}"
 MMLU_EVERY="${MMLU_EVERY:-2}"
-EXA="${EXA_API_KEY:-e337f35a-e56c-4ae7-8596-f44959053342}"
+EXA="${EXA_API_KEY:?EXA_API_KEY not set}"
 HF="${HF_TOKEN:-}"
 
 echo "=== Dreaming++ Benchmark ==="

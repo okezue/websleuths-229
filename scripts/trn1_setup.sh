@@ -6,7 +6,7 @@ pip install -q peft datasets tiktoken transformers accelerate optimum-neuron exa
 git clone https://github.com/okezuebell/websleuths-229.git /home/ubuntu/wm || (cd /home/ubuntu/wm && git pull)
 cd /home/ubuntu/wm
 pip install -e ".[dev]" -q
-export EXA_API_KEY="e337f35a-e56c-4ae7-8596-f44959053342"
+export EXA_API_KEY="${EXA_API_KEY:?EXA_API_KEY not set}"
 python3 -c "
 import torch
 print('torch:',torch.__version__)
