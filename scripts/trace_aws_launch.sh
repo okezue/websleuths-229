@@ -38,7 +38,7 @@ LOCAL_AIM="$LOCAL_REPO/aim_repos/trace"
 SSH_OPTS="-i $KEY_PATH -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=30 -o UserKnownHostsFile=$HOME/.ssh/known_hosts_trace"
 
 die(){ echo "[FATAL] $*" >&2; exit 1; }
-log(){ echo "[$(date +%H:%M:%S)] $*"; }
+log(){ echo "[$(date +%H:%M:%S)] $*" >&2; }
 need(){ command -v "$1" >/dev/null || die "missing tool: $1"; }
 
 [[ -f "$KEY_PATH" ]] || die "SSH key not found at $KEY_PATH"
