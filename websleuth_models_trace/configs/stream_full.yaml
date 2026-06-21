@@ -1,0 +1,54 @@
+seed: 42
+storage:
+  root: ./runs/full_stream
+  database: evidence.sqlite
+  blobs: blobs
+  cells: cells
+  reports: reports
+fetch:
+  max_pages: 250
+  max_depth: 2
+  same_origin_only: false
+  respect_robots: true
+  allow_private_network: false
+  allow_file_urls: false
+  browser_fallback: true
+parse:
+  enable_ocr: true
+  enable_transcription: true
+model:
+  name: meta-llama/Llama-3.2-3B
+  dtype: bfloat16
+  device: auto
+  max_input_tokens: 4096
+cell:
+  min_rank: 4
+  max_rank: 128
+  rank_energy: 0.92
+  max_active_cells: 3
+training:
+  learning_rate: 0.0005
+  max_steps: 250
+  distill_weight: 0.35
+  eval_every: 20
+promotion:
+  min_test_gain: 0.05
+  min_test_accuracy: 0.35
+  max_old_route_churn: 0.0
+  max_route_false_positive: 0.005
+benchmarks:
+  registry: configs/benchmarks.yaml
+  max_samples: 250
+  general_every: 1
+  context_every: 2
+  suites:
+    domain: [finqa, tatqa, casehold, legalbench, chembench, sciknoweval, medqa, pubmedqa, gpqa]
+    general: [mmlu, mmlu_pro, arc_challenge, hellaswag, winogrande, truthfulqa_mc1, gsm8k, bbh, ifeval]
+    long_context: [longbench, ruler_sniah, ruler_multi_needle, ruler_variable_tracking, ruler_aggregation, scrolls]
+stream:
+  manifest: ./data/stream_manifest.json
+  domains: [finance, legal, chemistry, medicine, science, coding, tool_use]
+  episodes_per_domain: 5
+  evaluate_all_prior_domains: true
+  save_every_step: true
+  fail_fast: false

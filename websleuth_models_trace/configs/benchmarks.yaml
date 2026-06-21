@@ -1,0 +1,258 @@
+benchmarks:
+  # General knowledge and reasoning regression suite
+  mmlu:
+    group: general
+    loader: mmlu
+    dataset: cais/mmlu
+    subset: all
+    split: test
+    metric: accuracy
+    reference: Hendrycks et al. 2021, Measuring Massive Multitask Language Understanding
+  mmlu_pro:
+    group: general
+    loader: mmlu_pro
+    dataset: TIGER-Lab/MMLU-Pro
+    split: test
+    metric: accuracy
+    reference: Wang et al. 2024, MMLU-Pro
+  arc_challenge:
+    group: general
+    loader: arc
+    dataset: allenai/ai2_arc
+    subset: ARC-Challenge
+    split: test
+    metric: accuracy
+    reference: Clark et al. 2018, ARC
+  hellaswag:
+    group: general
+    loader: hellaswag
+    dataset: Rowan/hellaswag
+    split: validation
+    metric: accuracy
+    reference: Zellers et al. 2019, HellaSwag
+  winogrande:
+    group: general
+    loader: winogrande
+    dataset: allenai/winogrande
+    subset: winogrande_xl
+    split: validation
+    metric: accuracy
+    reference: Sakaguchi et al. 2020, WinoGrande
+  truthfulqa_mc1:
+    group: general
+    loader: truthfulqa
+    dataset: truthful_qa
+    subset: multiple_choice
+    split: validation
+    metric: accuracy
+    reference: Lin et al. 2022, TruthfulQA
+  gsm8k:
+    group: general
+    loader: gsm8k
+    dataset: openai/gsm8k
+    subset: main
+    split: test
+    metric: exact_match
+    reference: Cobbe et al. 2021, GSM8K
+  bbh:
+    group: general
+    loader: bbh
+    dataset: lukaemon/bbh
+    split: test
+    metric: exact_match
+    reference: Suzgun et al. 2023, BIG-Bench Hard
+  ifeval:
+    group: general
+    loader: ifeval
+    dataset: google/IFEval
+    split: train
+    metric: instruction_following
+    reference: Zhou et al. 2023, IFEval
+  commonsenseqa:
+    group: general
+    loader: commonsenseqa
+    dataset: tau/commonsense_qa
+    split: validation
+    metric: accuracy
+    reference: Talmor et al. 2019, CommonsenseQA
+  piqa:
+    group: general
+    loader: piqa
+    dataset: ybisk/piqa
+    split: validation
+    metric: accuracy
+    reference: Bisk et al. 2020, PIQA
+  openbookqa:
+    group: general
+    loader: openbookqa
+    dataset: allenai/openbookqa
+    subset: main
+    split: test
+    metric: accuracy
+    reference: Mihaylov et al. 2018, OpenBookQA
+
+  # Finance
+  finqa:
+    group: finance
+    loader: finqa
+    dataset: ibm/finqa
+    split: test
+    metric: numeric_exact
+    reference: Chen et al. 2021, FinQA
+  tatqa:
+    group: finance
+    loader: tatqa
+    dataset: next-tat/TAT-QA
+    split: test
+    metric: numeric_exact
+    reference: Zhu et al. 2021, TAT-QA
+  convfinqa:
+    group: finance
+    loader: convfinqa
+    dataset: dreamerdeo/finqa
+    split: test
+    metric: numeric_exact
+    reference: Chen et al. 2022, ConvFinQA
+
+  # Law
+  casehold:
+    group: legal
+    loader: casehold
+    dataset: coastalcph/lex_glue
+    subset: case_hold
+    split: test
+    metric: accuracy
+    reference: Chalkidis et al. 2022, LexGLUE CaseHOLD
+  lexglue_scotus:
+    group: legal
+    loader: lexglue_classification
+    dataset: coastalcph/lex_glue
+    subset: scotus
+    split: test
+    metric: accuracy
+    reference: Chalkidis et al. 2022, LexGLUE
+  legalbench:
+    group: legal
+    loader: legalbench_local
+    path: data/legalbench
+    metric: exact_match
+    reference: Guha et al. 2023, LegalBench
+
+  # Chemistry and science
+  chembench:
+    group: chemistry
+    loader: chembench
+    dataset: jablonkagroup/ChemBench
+    split: train
+    metric: accuracy
+    reference: Mirza et al. 2024, ChemBench
+  sciknoweval:
+    group: science
+    loader: sciknoweval
+    dataset: hicai-zju/SciKnowEval
+    split: test
+    metric: accuracy
+    reference: Feng et al. 2024, SciKnowEval
+  gpqa:
+    group: science
+    loader: gpqa
+    dataset: Idavidrein/gpqa
+    subset: gpqa_diamond
+    split: train
+    metric: accuracy
+    reference: Rein et al. 2024, GPQA
+
+  # Medicine
+  medqa:
+    group: medicine
+    loader: medqa
+    dataset: GBaker/MedQA-USMLE-4-options
+    split: test
+    metric: accuracy
+    reference: Jin et al. 2021, MedQA
+  pubmedqa:
+    group: medicine
+    loader: pubmedqa
+    dataset: qiaojin/PubMedQA
+    subset: pqa_labeled
+    split: train
+    metric: accuracy
+    reference: Jin et al. 2019, PubMedQA
+  medmcqa:
+    group: medicine
+    loader: medmcqa
+    dataset: openlifescienceai/medmcqa
+    split: validation
+    metric: accuracy
+    reference: Pal et al. 2022, MedMCQA
+
+  # Code and tools
+  humaneval:
+    group: coding
+    loader: humaneval
+    dataset: openai/openai_humaneval
+    split: test
+    metric: pass_at_1
+    reference: Chen et al. 2021, HumanEval
+  mbpp:
+    group: coding
+    loader: mbpp
+    dataset: google-research-datasets/mbpp
+    subset: sanitized
+    split: test
+    metric: pass_at_1
+    reference: Austin et al. 2021, MBPP
+  livecodebench:
+    group: coding
+    loader: livecodebench_local
+    path: data/livecodebench
+    metric: pass_at_1
+    reference: Jain et al. 2025, LiveCodeBench
+  toolalpaca:
+    group: tool_use
+    loader: toolalpaca_local
+    path: data/toolalpaca
+    metric: exact_match
+    reference: Tang et al. 2023, ToolAlpaca
+
+  # Long context and exact recall
+  longbench:
+    group: long_context
+    loader: longbench
+    dataset: THUDM/LongBench
+    split: test
+    metric: task_specific
+    reference: Bai et al. 2023, LongBench
+  scrolls:
+    group: long_context
+    loader: scrolls
+    dataset: tau/scrolls
+    split: validation
+    metric: task_specific
+    reference: Shaham et al. 2022, SCROLLS
+  infinitebench:
+    group: long_context
+    loader: infinitebench_local
+    path: data/infinitebench
+    metric: task_specific
+    reference: Zhang et al. 2024, InfiniteBench
+  ruler_sniah:
+    group: long_context
+    loader: ruler_sniah
+    metric: exact_match
+    reference: Hsieh et al. 2024, RULER S-NIAH
+  ruler_multi_needle:
+    group: long_context
+    loader: ruler_multi_needle
+    metric: exact_match
+    reference: Hsieh et al. 2024, RULER
+  ruler_variable_tracking:
+    group: long_context
+    loader: ruler_variable_tracking
+    metric: exact_match
+    reference: Hsieh et al. 2024, RULER
+  ruler_aggregation:
+    group: long_context
+    loader: ruler_aggregation
+    metric: exact_match
+    reference: Hsieh et al. 2024, RULER

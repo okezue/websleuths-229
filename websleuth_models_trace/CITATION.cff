@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+title: "Websleuth Models: TRACE-Web"
+message: "Please cite the repository and the method paper produced from it."
+type: software
+authors:
+  - name: "Websleuth Models contributors"
+version: 0.2.0
+date-released: 2026-06-21
+license: Apache-2.0

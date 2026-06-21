@@ -1,0 +1,87 @@
+seed: 42
+storage:
+  root: ./runs/default
+  database: evidence.sqlite
+  blobs: blobs
+  cells: cells
+  reports: reports
+fetch:
+  user_agent: WebsleuthModels/0.2 research crawler
+  timeout_seconds: 30
+  max_bytes: 50000000
+  max_pages: 100
+  max_depth: 2
+  same_origin_only: true
+  respect_robots: true
+  allow_private_network: false
+  allow_file_urls: false
+  browser_fallback: false
+parse:
+  max_text_chars_per_span: 4000
+  image_max_side: 1280
+  video_sample_fps: 0.2
+  video_max_frames: 24
+  enable_ocr: true
+  enable_transcription: false
+extraction:
+  backend: rules
+  local_model: null
+  min_claim_chars: 18
+  max_claim_chars: 500
+  min_support_overlap: 0.45
+  require_independent_sources: 2
+model:
+  name: Qwen/Qwen2.5-1.5B
+  dtype: bfloat16
+  device: auto
+  trust_remote_code: false
+  max_input_tokens: 2048
+  max_new_tokens: 96
+  target_module_patterns: [".mlp", ".feed_forward", ".ffn"]
+  target_last_fraction: 0.25
+cell:
+  min_rank: 4
+  max_rank: 64
+  rank_energy: 0.9
+  max_active_cells: 2
+  route_threshold: 0.22
+  route_entity_bonus: 0.35
+  dropout: 0.0
+  scale: 1.0
+training:
+  enabled: true
+  learning_rate: 0.001
+  weight_decay: 0.0
+  max_steps: 120
+  batch_size: 1
+  grad_clip: 1.0
+  distill_weight: 0.25
+  supervised_weight: 1.0
+  early_stop_patience: 15
+  eval_every: 10
+  answer_template: "Question: {question}\nAnswer:"
+promotion:
+  min_test_gain: 0.08
+  min_test_accuracy: 0.25
+  max_old_probe_logit_delta: 0.00001
+  max_old_route_churn: 0.0
+  max_route_false_positive: 0.01
+  min_proof_coverage: 0.95
+  require_parameter_invariance: true
+benchmarks:
+  registry: configs/benchmarks.yaml
+  max_samples: 100
+  general_every: 1
+  context_every: 2
+  generation_temperature: 0.0
+  suites:
+    domain: [finqa, casehold, chembench, medqa]
+    general: [mmlu, mmlu_pro, arc_challenge, hellaswag, winogrande, truthfulqa_mc1, gsm8k, bbh]
+    long_context: [ruler_sniah, ruler_multi_needle, ruler_variable_tracking, ruler_aggregation]
+stream:
+  manifest: null
+  domains: [finance, legal, chemistry, medicine]
+  episodes_per_domain: 3
+  evaluate_all_prior_domains: true
+  save_every_step: true
+  fail_fast: false

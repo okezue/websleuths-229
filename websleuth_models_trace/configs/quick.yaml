@@ -1,0 +1,69 @@
+seed: 7
+storage:
+  root: ./runs/quick
+  database: evidence.sqlite
+  blobs: blobs
+  cells: cells
+  reports: reports
+fetch:
+  max_pages: 20
+  max_depth: 1
+  same_origin_only: true
+  respect_robots: true
+  allow_private_network: false
+  allow_file_urls: true
+  browser_fallback: false
+parse:
+  max_text_chars_per_span: 2000
+  image_max_side: 768
+  video_sample_fps: 0.1
+  video_max_frames: 8
+  enable_ocr: false
+  enable_transcription: false
+extraction:
+  backend: rules
+  require_independent_sources: 2
+model:
+  name: __tiny__
+  dtype: float32
+  device: cpu
+  max_input_tokens: 512
+  max_new_tokens: 32
+  target_module_patterns: [".mlp"]
+  target_last_fraction: 0.5
+cell:
+  min_rank: 2
+  max_rank: 8
+  rank_energy: 0.85
+  max_active_cells: 2
+  route_threshold: 0.15
+training:
+  learning_rate: 0.005
+  max_steps: 20
+  batch_size: 1
+  distill_weight: 0.0
+  eval_every: 5
+  early_stop_patience: 6
+promotion:
+  min_test_gain: 0.0
+  min_test_accuracy: 0.0
+  max_old_probe_logit_delta: 0.001
+  max_old_route_churn: 0.0
+  max_route_false_positive: 0.05
+  min_proof_coverage: 0.8
+benchmarks:
+  registry: configs/benchmarks.yaml
+  max_samples: 8
+  general_every: 1
+  context_every: 1
+  suites:
+    domain: []
+    general: []
+    long_context: [ruler_sniah]
+stream:
+  manifest: ./runs/micro_web/manifest.json
+  domains: [finance, legal, chemistry, medicine]
+  episodes_per_domain: 1
+  evaluate_all_prior_domains: true
+  save_every_step: true
+  fail_fast: false
