@@ -11,7 +11,7 @@
 #   ./scripts/trace_aws_launch.sh                  # launches g5.xlarge, runs stream_350m
 #   INSTANCE_TYPE=g5.2xlarge ./scripts/trace_aws_launch.sh
 #   CONFIG=configs/stream_full.yaml ./scripts/trace_aws_launch.sh
-#   ACTION=stream|baseline-matrix|smoke ./scripts/trace_aws_launch.sh
+#   ACTION=stream|baseline-matrix ./scripts/trace_aws_launch.sh
 #   IID=i-0abc... ./scripts/trace_aws_launch.sh attach   # re-attach tunnel + log tail to existing box
 #   IID=i-0abc... ./scripts/trace_aws_launch.sh fetch    # rsync runs/ + .aim back to laptop
 #   IID=i-0abc... ./scripts/trace_aws_launch.sh terminate
@@ -133,9 +133,6 @@ tmux kill-session -t aim 2>/dev/null || true
 tmux kill-session -t trace 2>/dev/null || true
 tmux new -d -s aim "source /opt/pytorch/bin/activate && aim up --repo /home/ubuntu/aim_repo --host 0.0.0.0 --port 43800"
 case "$ACTION_NAME" in
-  smoke)
-    tmux new -d -s trace "source /opt/pytorch/bin/activate && python scripts/smoke_test.py 2>&1 | tee /home/ubuntu/trace/smoke.log"
-    ;;
   baseline-matrix)
     python scripts/build_micro_web.py --output ./data/microweb_$RUN_TAG --episodes $N_EPISODES --seed 42
     tmux new -d -s trace "source /opt/pytorch/bin/activate && websleuth baseline-matrix --config $CONFIG --manifest ./data/microweb_$RUN_TAG/manifest.json --aim-repo /home/ubuntu/aim_repo --aim-experiment trace-baseline-matrix --aim-tag run=$RUN_TAG 2>&1 | tee /home/ubuntu/trace/matrix.log"
@@ -206,6 +203,6 @@ case "$ACTION" in
   attach)    cmd_attach ;;
   fetch)     cmd_fetch ;;
   terminate) cmd_terminate ;;
-  smoke|stream|baseline-matrix) cmd_launch ;;
+  stream|baseline-matrix) cmd_launch ;;
   *) die "unknown action: $ACTION" ;;
 esac

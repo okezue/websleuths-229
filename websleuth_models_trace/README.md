@@ -40,23 +40,16 @@ websleuth micro-web --output runs/micro_web --episodes 12
 websleuth crawl file://$PWD/runs/micro_web/index.html --config configs/quick.yaml
 websleuth compile-evidence --topic "micro web" --domain synthetic --config configs/quick.yaml
 
-# Run a local smoke experiment with any Hugging Face causal LM.
-websleuth stream --config configs/quick.yaml
+# Run a stream with any Hugging Face causal LM.
+websleuth stream --config configs/stream_350m.yaml --manifest runs/micro_web/manifest.json
 
 # Compare acquisition, retention, regression, and parameter cost across baselines.
-websleuth baseline-matrix --config configs/quick.yaml --manifest runs/micro_web/manifest.json \
+websleuth baseline-matrix --config configs/stream_350m.yaml --manifest runs/micro_web/manifest.json \
   --method frozen --method rag --method shared --method replay --method eatrd \
   --method dpmu --method eab_ssc --method trace
 
 # List all benchmark definitions.
 websleuth benchmark-catalog
-```
-
-For a zero-download systems smoke test:
-
-```bash
-PYTHONPATH=src python scripts/smoke_test.py
-pytest
 ```
 
 ## Iterative evaluation

@@ -15,7 +15,7 @@ This archive is a runnable research repository rather than a design-only scaffol
 - dependency-free tiny backend and synthetic private micro-web for CI and offline systems tests;
 - optional Hugging Face and `lm-eval` integrations for real model experiments.
 
-The included test suite and smoke run exercise the local core. Public benchmark execution naturally requires downloading the referenced datasets and model checkpoints. Benchmarks with redistribution or licensing constraints, including some LiveCodeBench, LegalBench, ToolAlpaca, and InfiniteBench snapshots, use fully implemented local JSON/JSONL adapters and fail explicitly when the user has not placed a snapshot under `data/`.
+The included test suite exercises the local core. Public benchmark execution naturally requires downloading the referenced datasets and model checkpoints. Benchmarks with redistribution or licensing constraints, including some LiveCodeBench, LegalBench, ToolAlpaca, and InfiniteBench snapshots, use fully implemented local JSON/JSONL adapters and fail explicitly when the user has not placed a snapshot under `data/`.
 
 ## Intentionally left as an infrastructure boundary
 
