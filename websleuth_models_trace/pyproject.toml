@@ -56,6 +56,7 @@ dev = [
   "ruff>=0.6",
   "mypy>=1.11",
 ]
+aim = ["aim>=3.29,<4"]
 all = [
   "transformers>=4.46",
   "datasets>=3.1",
@@ -69,6 +70,7 @@ all = [
   "faster-whisper>=1.0",
   "lm-eval>=0.4.7",
   "evaluate>=0.4.3",
+  "aim>=3.29,<4",
   "pytest>=8.2",
   "pytest-cov>=5.0",
   "ruff>=0.6",

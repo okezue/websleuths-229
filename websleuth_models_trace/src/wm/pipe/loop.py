@@ -9,6 +9,7 @@ from wm.evidence.store import EvidenceStore
 from wm.model.bank import CellBank
 from wm.model.router import HardRouter
 from wm.model.wrapper import TraceModel
+from wm.reporting.aim_logger import AimLogger
 from wm.storage.blob import LocalBlobStore
 from wm.train.assimilator import Assimilator
 from wm.web.crawler import Crawler, CrawlReport
@@ -16,8 +17,9 @@ from wm.web.index import HybridIndex
 
 
 class TracePipeline:
-    def __init__(self, cfg: AppConfig, model: TraceModel | None = None):
+    def __init__(self, cfg: AppConfig, model: TraceModel | None = None, aim_logger: AimLogger | None = None):
         self.cfg = cfg
+        self.aim = aim_logger
         self.store = EvidenceStore(cfg.storage.database)
         self.blobs = LocalBlobStore(cfg.storage.blobs)
         self.index = HybridIndex(self.store)
@@ -37,7 +39,7 @@ class TracePipeline:
             ):
                 model.add_cell(cell, trainable=False)
                 self.router.add(metadata)
-            self.assimilator = Assimilator(cfg, model, self.router, self.bank, self.store)
+            self.assimilator = Assimilator(cfg, model, self.router, self.bank, self.store, aim_logger=self.aim)
         else:
             self.assimilator = None
 

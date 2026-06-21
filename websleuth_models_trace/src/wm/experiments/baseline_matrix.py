@@ -15,6 +15,7 @@ from wm.baselines import (
     SharedCellBaseline,
 )
 from wm.config import AppConfig
+from wm.core.hashing import stable_hash
 from wm.core.io import ensure_dir, write_json
 from wm.core.schema import EvidenceEpisode, RouteDecision
 from wm.eval.continual import IterativeEvaluator
@@ -23,6 +24,7 @@ from wm.eval.registry import BenchmarkCatalog
 from wm.eval.runner import BenchmarkRunner
 from wm.model.wrapper import TraceModel
 from wm.pipe.loop import TracePipeline
+from wm.reporting.aim_logger import AimLogger
 from wm.synthetic.micro_web import load_manifest
 from wm.train.residual import exact_match
 
@@ -137,8 +139,25 @@ class BaselineMatrixRunner:
 
     def _run_method(self, name: str, manifest: dict[str, Any]) -> dict[str, Any]:
         cfg = self._method_cfg(name)
+        cfg_hash = stable_hash(cfg.model_dump(mode="json"))[:12]
+        aim: AimLogger | None = None
+        if cfg.aim.enabled:
+            aim = AimLogger(
+                repo=cfg.aim.repo,
+                exp=cfg.aim.experiment or "trace-baseline-matrix",
+                name=f"matrix-{name}-{cfg.model.name.replace('/', '_')}-{cfg_hash}",
+                hp={**cfg.model_dump(mode="json"), "method": name, "cfg_hash": cfg_hash},
+                tags=[
+                    f"baseline={name}",
+                    f"model={cfg.model.name}",
+                    f"seed={cfg.seed}",
+                    f"cfg={cfg_hash}",
+                    "matrix=baseline_matrix",
+                    *cfg.aim.tags,
+                ],
+            )
         model = TraceModel.from_pretrained(cfg.model)
-        pipeline = TracePipeline(cfg, model)
+        pipeline = TracePipeline(cfg, model, aim_logger=aim if name == "trace" else None)
         try:
             episodes = self._prepare(pipeline, manifest, cfg.stream.fail_fast)
             by_domain: dict[str, list[EvidenceEpisode]] = defaultdict(list)
@@ -182,6 +201,10 @@ class BaselineMatrixRunner:
             }
             continual.set_baseline(baseline_web)
             baseline_general = self._general_scores(model, route)
+            if aim and baseline_general:
+                aim.set_summary("baseline_general", baseline_general)
+            if aim:
+                aim.set_summary("baseline_web", baseline_web)
             steps: list[dict[str, Any]] = []
             for index, episode in enumerate(episodes):
                 pre = self._score_web(model, pipeline, by_domain[episode.domain], route, retrieval=retrieval)
@@ -210,9 +233,24 @@ class BaselineMatrixRunner:
                     for domain in sorted(learned)
                 }
                 continual.record_post_step(episode.domain, web_scores)
+                if aim and web_scores:
+                    aim.track(web_scores, step=index,
+                              context={"suite": "web", "episode": episode.episode_id, "domain": episode.domain})
                 general_scores: dict[str, float] = {}
                 if index % max(cfg.benchmarks.general_every, 1) == 0:
                     general_scores = self._general_scores(model, route)
+                    if aim and general_scores:
+                        aim.track(general_scores, step=index,
+                                  context={"suite": "general", "episode": episode.episode_id})
+                if aim:
+                    cm = continual.compute().__dict__
+                    aim.track({k: float(v) for k, v in cm.items() if isinstance(v, (int, float))},
+                              step=index,
+                              context={"metric_class": "continual", "episode": episode.episode_id, "domain": episode.domain})
+                    aim.track({"n_cell_parameters": float(sum(c.parameter_count for c in model.cells.values())),
+                               "n_cells": float(len(model.cells))},
+                              step=index,
+                              context={"metric_class": "stream_step", "episode": episode.episode_id, "domain": episode.domain})
                 steps.append(
                     {
                         "step": index,
@@ -230,16 +268,26 @@ class BaselineMatrixRunner:
                         "continual": continual.compute().__dict__,
                     }
                 )
+            final_continual = continual.compute().__dict__
+            if aim:
+                aim.set_summary("final_continual", final_continual)
+                aim.set_summary("retention_matrix", continual.matrix())
+                aim.set_summary("n_episodes", len(steps))
             return {
                 "method": name,
                 "baseline_web": baseline_web,
                 "baseline_general": baseline_general,
                 "steps": steps,
-                "continual": continual.compute().__dict__,
+                "continual": final_continual,
                 "retention_matrix": continual.matrix(),
+                "aim_run_hash": aim.hash if aim else None,
             }
         finally:
-            pipeline.close()
+            try:
+                pipeline.close()
+            finally:
+                if aim:
+                    aim.close()
 
     def run(self, manifest_path: str | Path, output: str | Path | None = None) -> dict[str, Any]:
         manifest = load_manifest(manifest_path)

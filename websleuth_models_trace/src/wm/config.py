@@ -123,6 +123,14 @@ class StreamConfig(BaseModel):
     fail_fast: bool = False
 
 
+class AimConfig(BaseModel):
+    enabled: bool = False
+    repo: str | None = None
+    experiment: str = "trace-continual"
+    run_name: str | None = None
+    tags: list[str] = Field(default_factory=list)
+
+
 class AppConfig(BaseModel):
     seed: int = 42
     storage: StorageConfig = Field(default_factory=StorageConfig)
@@ -135,6 +143,7 @@ class AppConfig(BaseModel):
     promotion: PromotionConfig = Field(default_factory=PromotionConfig)
     benchmarks: BenchmarkConfig = Field(default_factory=BenchmarkConfig)
     stream: StreamConfig = Field(default_factory=StreamConfig)
+    aim: AimConfig = Field(default_factory=AimConfig)
 
     def resolved(self) -> "AppConfig":
         return self.model_copy(update={"storage": self.storage.resolve()})

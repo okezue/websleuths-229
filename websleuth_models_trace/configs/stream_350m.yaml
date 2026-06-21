@@ -1,0 +1,83 @@
+seed: 42
+storage:
+  root: ./runs/stream_350m
+  database: evidence.sqlite
+  blobs: blobs
+  cells: cells
+  reports: reports
+fetch:
+  max_pages: 80
+  max_depth: 1
+  same_origin_only: false
+  respect_robots: true
+  allow_private_network: false
+  allow_file_urls: true
+  browser_fallback: false
+parse:
+  max_text_chars_per_span: 3000
+  image_max_side: 1024
+  video_sample_fps: 0.1
+  video_max_frames: 12
+  enable_ocr: true
+  enable_transcription: false
+extraction:
+  backend: rules
+  require_independent_sources: 2
+model:
+  name: HuggingFaceTB/SmolLM2-360M
+  dtype: bfloat16
+  device: auto
+  trust_remote_code: false
+  max_input_tokens: 2048
+  max_new_tokens: 64
+  target_module_patterns: [".mlp"]
+  target_last_fraction: 0.33
+cell:
+  min_rank: 4
+  max_rank: 64
+  rank_energy: 0.90
+  max_active_cells: 2
+  route_threshold: 0.22
+  route_entity_bonus: 0.35
+  dropout: 0.0
+  scale: 1.0
+training:
+  enabled: true
+  learning_rate: 0.001
+  weight_decay: 0.0
+  max_steps: 200
+  batch_size: 1
+  grad_clip: 1.0
+  distill_weight: 0.25
+  supervised_weight: 1.0
+  early_stop_patience: 12
+  eval_every: 10
+promotion:
+  min_test_gain: 0.05
+  min_test_accuracy: 0.25
+  max_old_probe_logit_delta: 1.0e-5
+  max_route_false_positive: 0.005
+  max_old_route_churn: 0.0
+  min_proof_coverage: 0.9
+  require_parameter_invariance: true
+benchmarks:
+  registry: configs/benchmarks.yaml
+  max_samples: 100
+  general_every: 4
+  context_every: 8
+  suites:
+    domain: [finqa, casehold, chembench, medqa]
+    general: [mmlu, arc_challenge, hellaswag, gsm8k]
+    long_context: [ruler_sniah]
+stream:
+  manifest: ./data/stream_64.json
+  domains: [finance, legal, chemistry, medicine, science, coding]
+  episodes_per_domain: 11
+  evaluate_all_prior_domains: true
+  save_every_step: true
+  fail_fast: false
+aim:
+  enabled: true
+  repo: $HOME/aim_repo
+  experiment: trace-continual-350m
+  tags: [milestone=first, modality=multimodal]

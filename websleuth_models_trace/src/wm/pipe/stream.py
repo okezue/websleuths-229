@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from wm.config import AppConfig
+from wm.core.hashing import stable_hash
 from wm.core.io import ensure_dir, write_json
 from wm.core.schema import BenchmarkResult, EvidenceEpisode, StreamStepReport
 from wm.eval.continual import IterativeEvaluator
@@ -14,6 +15,7 @@ from wm.eval.registry import BenchmarkCatalog
 from wm.eval.runner import BenchmarkRunner
 from wm.model.wrapper import TraceModel
 from wm.pipe.loop import TracePipeline
+from wm.reporting.aim_logger import AimLogger
 from wm.synthetic.micro_web import load_manifest
 from wm.train.residual import exact_match
 
@@ -21,10 +23,29 @@ log = logging.getLogger(__name__)
 
 
 class StreamRunner:
-    def __init__(self, cfg: AppConfig, model: TraceModel | None = None):
+    def __init__(self, cfg: AppConfig, model: TraceModel | None = None, aim_logger: AimLogger | None = None):
         self.cfg = cfg
         self.model = model or TraceModel.from_pretrained(cfg.model)
-        self.pipeline = TracePipeline(cfg, self.model)
+        self.cfg_hash = stable_hash(cfg.model_dump(mode="json"))[:12]
+        if aim_logger is not None:
+            self.aim = aim_logger
+        elif cfg.aim.enabled:
+            self.aim = AimLogger(
+                repo=cfg.aim.repo,
+                exp=cfg.aim.experiment,
+                name=cfg.aim.run_name or f"stream-{cfg.model.name.replace('/', '_')}-{self.cfg_hash}",
+                hp={**cfg.model_dump(mode="json"), "cfg_hash": self.cfg_hash},
+                tags=[
+                    f"model={cfg.model.name}",
+                    "baseline=trace",
+                    f"seed={cfg.seed}",
+                    f"cfg={self.cfg_hash}",
+                    *cfg.aim.tags,
+                ],
+            )
+        else:
+            self.aim = None
+        self.pipeline = TracePipeline(cfg, self.model, aim_logger=self.aim)
         self.catalog = BenchmarkCatalog.load(cfg.benchmarks.registry)
         self.bench = BenchmarkRunner(
             self.model,
@@ -101,6 +122,9 @@ class StreamRunner:
                 for domain in sorted(learned_domains if self.cfg.stream.evaluate_all_prior_domains else {episode.domain})
             }
             self.continual.record_post_step(episode.domain, web_scores)
+            if self.aim and web_scores:
+                self.aim.track(web_scores, step=index,
+                               context={"suite": "web", "episode": episode.episode_id, "domain": episode.domain})
             external_domain_scores: dict[str, float] = {}
             domain_results: dict[str, BenchmarkResult] = {}
             if domain_names:
@@ -110,15 +134,28 @@ class StreamRunner:
                     if self.catalog.get(name).group in learned_domains or self.catalog.get(name).group == episode.domain
                 ]
                 external_domain_scores, domain_results = self._benchmark_scores(relevant)
+            if self.aim and external_domain_scores:
+                self.aim.track(external_domain_scores, step=index,
+                               context={"suite": "domain", "episode": episode.episode_id, "domain": episode.domain})
             general_scores: dict[str, float] = {}
             general_results: dict[str, BenchmarkResult] = {}
             if general_names and index % max(self.cfg.benchmarks.general_every, 1) == 0:
                 general_scores, general_results = self._benchmark_scores(general_names)
+            if self.aim and general_scores:
+                self.aim.track(general_scores, step=index,
+                               context={"suite": "general", "episode": episode.episode_id})
             context_scores: dict[str, float] = {}
             context_results: dict[str, BenchmarkResult] = {}
             if context_names and index % max(self.cfg.benchmarks.context_every, 1) == 0:
                 context_scores, context_results = self._benchmark_scores(context_names)
+            if self.aim and context_scores:
+                self.aim.track(context_scores, step=index,
+                               context={"suite": "long_context", "episode": episode.episode_id})
             continual_metrics = self.continual.compute().__dict__
+            if self.aim:
+                self.aim.track({k: float(v) for k, v in continual_metrics.items() if isinstance(v, (int, float))},
+                               step=index,
+                               context={"metric_class": "continual", "episode": episode.episode_id, "domain": episode.domain})
             general_deltas = {
                 name: score - baseline_external.get(name, score)
                 for name, score in general_scores.items()
@@ -154,6 +191,10 @@ class StreamRunner:
                 },
             )
             steps.append(report)
+            if self.aim:
+                self.aim.track({k: float(v) for k, v in report.metrics.items() if isinstance(v, (int, float))},
+                               step=index,
+                               context={"metric_class": "stream_step", "episode": episode.episode_id, "domain": episode.domain})
             if self.cfg.stream.save_every_step:
                 write_json(
                     self.reports_dir / f"step_{index:04d}.json",
@@ -166,6 +207,7 @@ class StreamRunner:
                         },
                     },
                 )
+        final_continual = self.continual.compute().__dict__
         final = {
             "config": self.cfg.model_dump(mode="json"),
             "manifest": str(Path(path).resolve()),
@@ -175,11 +217,21 @@ class StreamRunner:
             "baseline_context": baseline_context,
             "baseline_context_details": {name: result.model_dump(mode="json") for name, result in baseline_context_results.items()},
             "steps": [step.model_dump(mode="json") for step in steps],
-            "continual": self.continual.compute().__dict__,
+            "continual": final_continual,
             "retention_matrix": self.continual.matrix(),
+            "aim_run_hash": self.aim.hash if self.aim else None,
         }
+        if self.aim:
+            self.aim.set_summary("final_continual", final_continual)
+            self.aim.set_summary("retention_matrix", self.continual.matrix())
+            self.aim.set_summary("baseline_web", baseline_web)
+            self.aim.set_summary("n_episodes", len(steps))
         write_json(self.reports_dir / "stream_report.json", final)
         return final
 
     def close(self) -> None:
-        self.pipeline.close()
+        try:
+            self.pipeline.close()
+        finally:
+            if self.aim:
+                self.aim.close()

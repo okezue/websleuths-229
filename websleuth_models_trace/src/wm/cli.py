@@ -234,14 +234,27 @@ def context_bench(
 def stream(
     config: Annotated[Path, typer.Option("--config", "-c")] = Path("configs/default.yaml"),
     manifest: Annotated[Path | None, typer.Option("--manifest")] = None,
+    aim_repo: Annotated[str | None, typer.Option("--aim-repo")] = None,
+    aim_experiment: Annotated[str | None, typer.Option("--aim-experiment")] = None,
+    aim_run_name: Annotated[str | None, typer.Option("--aim-run-name")] = None,
+    aim_tag: Annotated[list[str] | None, typer.Option("--aim-tag")] = None,
     verbose: Annotated[bool, typer.Option("--verbose", "-v")] = False,
 ) -> None:
     _logging(verbose)
     cfg = load_config(config)
+    if aim_repo:
+        cfg.aim.enabled = True
+        cfg.aim.repo = aim_repo
+    if aim_experiment:
+        cfg.aim.experiment = aim_experiment
+    if aim_run_name:
+        cfg.aim.run_name = aim_run_name
+    if aim_tag:
+        cfg.aim.tags = list(cfg.aim.tags) + list(aim_tag)
     runner = StreamRunner(cfg)
     try:
         report = runner.run(str(manifest) if manifest else None)
-        console.print_json(data={"continual": report["continual"], "report": str(Path(cfg.storage.reports) / "stream_report.json")})
+        console.print_json(data={"continual": report["continual"], "report": str(Path(cfg.storage.reports) / "stream_report.json"), "aim_run_hash": report.get("aim_run_hash")})
     finally:
         runner.close()
 
@@ -252,10 +265,20 @@ def baseline_matrix(
     manifest: Annotated[Path | None, typer.Option("--manifest")] = None,
     methods: Annotated[list[str] | None, typer.Option("--method")] = None,
     output: Annotated[Path | None, typer.Option("--output", "-o")] = None,
+    aim_repo: Annotated[str | None, typer.Option("--aim-repo")] = None,
+    aim_experiment: Annotated[str | None, typer.Option("--aim-experiment")] = None,
+    aim_tag: Annotated[list[str] | None, typer.Option("--aim-tag")] = None,
 ) -> None:
     from wm.experiments.baseline_matrix import BaselineMatrixRunner
 
     cfg = load_config(config)
+    if aim_repo:
+        cfg.aim.enabled = True
+        cfg.aim.repo = aim_repo
+    if aim_experiment:
+        cfg.aim.experiment = aim_experiment
+    if aim_tag:
+        cfg.aim.tags = list(cfg.aim.tags) + list(aim_tag)
     manifest_path = str(manifest) if manifest else cfg.stream.manifest
     if not manifest_path:
         raise typer.BadParameter("--manifest or stream.manifest is required")

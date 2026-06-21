@@ -16,6 +16,7 @@ from wm.model.cells import KnowledgeCell
 from wm.model.rank import GradientSpectrumRankEstimator, HiddenSpectrumRankEstimator, rank_from_residual
 from wm.model.router import HardRouter
 from wm.model.wrapper import TraceModel
+from wm.reporting.aim_logger import AimLogger
 from wm.train.losses import js_divergence
 from wm.train.promotion import PromotionGate
 from wm.train.residual import AssimilationResidualEstimator, exact_match
@@ -29,6 +30,12 @@ _DEFAULT_OLD_PROBES = [
     "Return a JSON object with a boolean field named ok.",
     "Which ocean is the largest on Earth?",
 ]
+
+
+def _ep_to_epoch(eid:str)->int:
+    h=0
+    for c in eid:h=(h*131+ord(c))&0x7FFFFFFF
+    return h
 
 
 @dataclass
@@ -46,12 +53,14 @@ class Assimilator:
         router: HardRouter,
         bank: CellBank,
         store: EvidenceStore,
+        aim_logger: AimLogger | None = None,
     ):
         self.cfg = cfg
         self.model = model
         self.router = router
         self.bank = bank
         self.store = store
+        self.aim = aim_logger
         self.residual = AssimilationResidualEstimator(
             model,
             router,
@@ -187,6 +196,9 @@ class Assimilator:
                 reason="episode lacks train or held-out questions",
             )
         residual_metrics = self.residual.evaluate(test_qas, generate=True)
+        if self.aim:
+            self.aim.track(residual_metrics.as_dict(),epoch=_ep_to_epoch(episode.episode_id),
+                           context={'phase':'residual','episode':episode.episode_id,'domain':episode.domain})
         prompts = [self.residual.closed_prompt(qa) for qa in train_qas]
         rank_examples = [
             (self.residual.closed_prompt(qa), qa.answer, self.router.select(qa.prompt).cell_ids)
@@ -208,6 +220,9 @@ class Assimilator:
                     self.cfg.cell.max_rank,
                 )
                 rank_diag = {"residual_fallback": 1.0}
+        if self.aim:
+            self.aim.track({'chosen_rank':float(rank)},epoch=_ep_to_epoch(episode.episode_id),
+                           context={'phase':'rank','episode':episode.episode_id,'domain':episode.domain})
         claims = self._claims(episode)
         metadata = self._route_metadata(episode, claims, rank)
         old_ids = list(self.model.cells.keys())
@@ -255,18 +270,27 @@ class Assimilator:
             torch.nn.utils.clip_grad_norm_(cell.parameters(), self.cfg.training.grad_clip)
             optimizer.step()
             steps += 1
-            history.append(
-                {
-                    "step": float(steps),
-                    "loss": float(loss.detach().cpu()),
-                    "supervised": float(supervised.detach().cpu()),
-                    "distill": float(distill.detach().cpu()),
-                }
-            )
+            step_metrics={
+                "step": float(steps),
+                "loss": float(loss.detach().cpu()),
+                "supervised": float(supervised.detach().cpu()),
+                "distill": float(distill.detach().cpu()),
+            }
+            history.append(step_metrics)
+            if self.aim:
+                self.aim.track({'loss':step_metrics['loss'],'supervised':step_metrics['supervised'],
+                                'distill':step_metrics['distill']},step=steps,
+                               epoch=_ep_to_epoch(episode.episode_id),
+                               context={'phase':'train','episode':episode.episode_id,
+                                        'cell':metadata.cell_id,'domain':episode.domain})
             if steps % self.cfg.training.eval_every == 0 or steps == self.cfg.training.max_steps:
                 dev = self._evaluate_qas(dev_qas or train_qas, extra_cells=[metadata.cell_id])
                 history[-1]["dev_nll"] = dev.nll
                 history[-1]["dev_accuracy"] = dev.accuracy
+                if self.aim:
+                    self.aim.track({'dev_nll':float(dev.nll),'dev_accuracy':float(dev.accuracy)},step=steps,
+                                   epoch=_ep_to_epoch(episode.episode_id),
+                                   context={'phase':'dev','episode':episode.episode_id,'domain':episode.domain})
                 if dev.nll + 1e-6 < best_dev:
                     best_dev = dev.nll
                     best_state = {name: tensor.detach().cpu().clone() for name, tensor in cell.state_dict().items()}
@@ -298,6 +322,12 @@ class Assimilator:
         provisional = self._temporary_router(metadata)
         route_fp, max_logit_delta, route_churn, route_diag = self._old_probe_invariants(provisional, metadata.cell_id)
         proof_coverage = self._proof_coverage(episode.qa_items)
+        if self.aim:
+            self.aim.track({'route_fp':float(route_fp),'max_logit_delta':float(max_logit_delta),
+                            'route_churn':float(route_churn),'proof_coverage':float(proof_coverage),
+                            'parameter_invariant':1.0 if parameter_invariant else 0.0},
+                           epoch=_ep_to_epoch(episode.episode_id),
+                           context={'phase':'invariants','episode':episode.episode_id,'domain':episode.domain})
         decision = self.gate.decide(
             test_gain=test_gain,
             test_accuracy=post_test.accuracy,
@@ -328,6 +358,12 @@ class Assimilator:
             "old_route_churn": route_churn,
             "parameter_count": float(cell.parameter_count),
         }
+        if self.aim:
+            self.aim.track({**metrics,'accepted':1.0 if decision.accepted else 0.0,'rank':float(rank),
+                            'trained_steps':float(steps)},
+                           epoch=_ep_to_epoch(episode.episode_id),
+                           context={'phase':'episode_summary','episode':episode.episode_id,
+                                    'domain':episode.domain,'cell':metadata.cell_id})
         return AssimilationReport(
             episode_id=episode.episode_id,
             residual=residual_metrics.as_dict(),
