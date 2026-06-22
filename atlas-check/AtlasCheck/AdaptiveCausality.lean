@@ -11,27 +11,27 @@ theorem AnswerTape.get_insert_ne {R : Type*} {n : Nat}
     (hji : j ≠ i) :
     AnswerTape.get (AnswerTape.insert i ctx r) j =
       AnswerTape.get (AnswerTape.insert i ctx r') j := by
-  induction n generalizing i j with
+  induction n with
   | zero =>
-      exact (hji (Subsingleton.elim _ _)).elim
+      have h : j = i := by
+        apply Fin.ext
+        omega
+      exact (hji h).elim
   | succ n ih =>
       rcases ctx with ⟨head, tail⟩
-      revert hji
-      refine Fin.cases ?_ (fun i' => ?_) i
-      · refine Fin.cases ?_ (fun j' => ?_) j
-        · intro hji
-          exact (hji rfl).elim
-        · intro hji
-          rfl
-      · intro i'
-        refine Fin.cases ?_ (fun j' => ?_) j
-        · intro hji
-          rfl
-        · intro j' hji
-          exact ih i' j' tail (by
-            intro h
-            apply hji
-            exact Fin.succ_inj.mpr h)
+      cases i using Fin.cases with
+      | zero =>
+          cases j using Fin.cases with
+          | zero => exact (hji rfl).elim
+          | succ j => rfl
+      | succ i =>
+          cases j using Fin.cases with
+          | zero => rfl
+          | succ j =>
+              apply ih i j tail
+              intro h
+              apply hji
+              exact Fin.succ_inj.mpr h
 
 theorem runPrefix_insert_same
     {G : Type u} {Msg : Type v} {ell rounds : Nat} [NeZero ell]
