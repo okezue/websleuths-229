@@ -1,4 +1,4 @@
-import AtlasCheck.AdaptiveExtraction
+import AtlasCheck.AdaptiveData
 
 namespace Atlas
 namespace Probability
