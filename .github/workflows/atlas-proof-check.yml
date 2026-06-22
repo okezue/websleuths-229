@@ -31,10 +31,16 @@ jobs:
         shell: bash
         run: |
           set +e
-          lake build AtlasCheck > kernel-build.log 2>&1
-          status=$?
+          mkdir -p .lake/build/lib/lean/AtlasCheck
+          : > kernel-build.log
+          lake env lean AtlasCheck/AdaptiveData.lean -o .lake/build/lib/lean/AtlasCheck/AdaptiveData.olean >> kernel-build.log 2>&1
+          s1=$?
+          lake env lean AtlasCheck/AdaptiveCausality.lean -o .lake/build/lib/lean/AtlasCheck/AdaptiveCausality.olean >> kernel-build.log 2>&1
+          s2=$?
+          lake env lean AtlasCheck/AdaptiveGame.lean -o .lake/build/lib/lean/AtlasCheck/AdaptiveGame.olean >> kernel-build.log 2>&1
+          s3=$?
           cat kernel-build.log
-          exit $status
+          test $s1 -eq 0 -a $s2 -eq 0 -a $s3 -eq 0
       - name: Upload kernel log
         if: always()
         uses: actions/upload-artifact@v4
