@@ -33,14 +33,14 @@ jobs:
           set +e
           mkdir -p .lake/build/lib/lean/AtlasCheck
           : > kernel-build.log
-          lake env lean AtlasCheck/AdaptiveData.lean -o .lake/build/lib/lean/AtlasCheck/AdaptiveData.olean >> kernel-build.log 2>&1
-          s1=$?
-          lake env lean AtlasCheck/AdaptiveCausality.lean -o .lake/build/lib/lean/AtlasCheck/AdaptiveCausality.olean >> kernel-build.log 2>&1
-          s2=$?
-          lake env lean AtlasCheck/AdaptiveGame.lean -o .lake/build/lib/lean/AtlasCheck/AdaptiveGame.olean >> kernel-build.log 2>&1
-          s3=$?
+          status=0
+          for mod in AdaptiveData AdaptiveCausality AdaptiveGame AdaptiveCounting AdaptiveExtraction; do
+            lake env lean AtlasCheck/$mod.lean -o .lake/build/lib/lean/AtlasCheck/$mod.olean >> kernel-build.log 2>&1
+            code=$?
+            if [ $code -ne 0 ]; then status=$code; fi
+          done
           cat kernel-build.log
-          test $s1 -eq 0 -a $s2 -eq 0 -a $s3 -eq 0
+          exit $status
       - name: Upload kernel log
         if: always()
         uses: actions/upload-artifact@v4
