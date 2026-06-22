@@ -1,0 +1,49 @@
+name: Atlas adaptive bijection check
+on:
+  push:
+    branches: [atlas-proof-check-temp]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  check:
+    if: github.actor != 'atlas-proof-check-bot'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: atlas-proof-check-temp
+      - name: Install Lean
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Check modules
+        working-directory: atlas-check
+        shell: bash
+        run: |
+          lake update
+          lake exe cache get
+          mkdir -p .lake/build/lib/lean/AtlasCheck
+          : > BIJECTION_STATUS.latest.txt
+          : > bijection-kernel.latest.log
+          status=0
+          for m in AdaptiveData AdaptiveCausality AdaptiveGame AdaptiveCounting AdaptiveExtraction AdaptiveTape AdaptiveBijection; do
+            echo "===== $m =====" >> bijection-kernel.latest.log
+            lake env lean AtlasCheck/$m.lean -o .lake/build/lib/lean/AtlasCheck/$m.olean >> bijection-kernel.latest.log 2>&1
+            c=$?
+            if [ $c -eq 0 ]; then echo "PASS $m" >> BIJECTION_STATUS.latest.txt; else echo "FAIL $m" >> BIJECTION_STATUS.latest.txt; status=$c; fi
+          done
+          echo $status > BIJECTION_EXIT.latest.txt
+      - name: Persist report
+        working-directory: atlas-check
+        run: |
+          git config user.name atlas-proof-check-bot
+          git config user.email actions@users.noreply.github.com
+          git add BIJECTION_STATUS.latest.txt BIJECTION_EXIT.latest.txt bijection-kernel.latest.log
+          if ! git diff --cached --quiet; then
+            git commit -m '[skip ci] Persist adaptive bijection diagnostics'
+            git push origin HEAD:atlas-proof-check-temp
+          fi
+      - name: Enforce
+        working-directory: atlas-check
+        run: test "$(cat BIJECTION_EXIT.latest.txt)" = 0
