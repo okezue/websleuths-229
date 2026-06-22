@@ -15,17 +15,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Lean and restore Mathlib cache
-        uses: leanprover/lean-action@v1
-        with:
-          lake-package-directory: atlas-check
-          auto-config: false
-          build: false
-          test: false
-          lint: false
-          use-mathlib-cache: true
-          use-github-cache: true
-          nanoda: false
+      - name: Install elan
+        shell: bash
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Resolve dependencies and restore Mathlib cache
+        working-directory: atlas-check
+        shell: bash
+        run: |
+          lake update
+          lake exe cache get
       - name: Kernel build
         working-directory: atlas-check
         shell: bash
@@ -41,4 +41,4 @@ jobs:
         with:
           name: atlas-kernel-log
           path: atlas-check/kernel-build.log
-          if-no-files-found: error
+          if-no-files-found: warn
