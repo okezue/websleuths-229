@@ -1,0 +1,25 @@
+name: Atlas proof check
+
+on:
+  push:
+    branches: ["atlas-proof-check-temp"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: atlas-check
+          build: true
+          test: false
+          lint: false
+          use-mathlib-cache: true
+          use-github-cache: true
+          nanoda: true
+          nanoda-allow-sorry: false
