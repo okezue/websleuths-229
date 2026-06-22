@@ -65,8 +65,8 @@ class StreamRunner:
                     continue
                 route = self.pipeline.router.select(qa.prompt).cell_ids
                 prompt = self.cfg.training.answer_template.format(question=qa.prompt) + " "
-                prediction = self.model.generate_text(prompt, cell_ids=route, max_new_tokens=48)
-                scores.append(exact_match(prediction, qa.answer))
+                nll = self.model.score_answer(prompt, qa.answer, cell_ids=route).nll
+                scores.append(-float(nll))
         return mean(scores)
 
     def _benchmark_scores(self, names: list[str]) -> tuple[dict[str, float], dict[str, BenchmarkResult]]:

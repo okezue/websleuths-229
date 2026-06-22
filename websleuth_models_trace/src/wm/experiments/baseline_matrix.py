@@ -118,8 +118,8 @@ class BaselineMatrixRunner:
                     prompt = f"Use only the verified evidence below.\n{evidence}\n\nQuestion: {qa.prompt}\nAnswer: "
                 else:
                     prompt = self.cfg.training.answer_template.format(question=qa.prompt) + " "
-                prediction = model.generate_text(prompt, cell_ids=route(qa.prompt), max_new_tokens=48)
-                scores.append(exact_match(prediction, qa.answer))
+                nll = model.score_answer(prompt, qa.answer, cell_ids=route(qa.prompt)).nll
+                scores.append(-float(nll))
         return mean(scores)
 
     def _general_scores(self, model: TraceModel, route: Callable[[str], list[str]]) -> dict[str, float]:
