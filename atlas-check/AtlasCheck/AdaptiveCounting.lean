@@ -122,6 +122,7 @@ theorem forking_probability_bound_tight
     positivity
   have hT : 0 < T := by
     dsimp [T]
+    rw [AnswerTape.card]
     positivity
   have hH : 0 < H := by
     dsimp [H]
