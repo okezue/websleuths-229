@@ -17,9 +17,10 @@ def removeAt : {n : Nat} → Fin (n + 1) → AnswerTape R (n + 1) → AnswerTape
       cases ctx
       rfl
   | n + 1, i, ctx, r => by
+      rcases ctx with ⟨head, tail⟩
       refine Fin.cases ?_ (fun j => ?_) i
       · rfl
-      · change (ctx.1, removeAt j (insert j ctx.2 r)) = ctx
+      · change (head, removeAt j (insert j tail r)) = (head, tail)
         rw [removeAt_insert]
 
 @[simp] theorem insert_removeAt_get : ∀ {n : Nat} (i : Fin (n + 1))
