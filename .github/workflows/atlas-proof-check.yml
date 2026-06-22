@@ -3,6 +3,8 @@ name: Atlas proof check
 on:
   push:
     branches: ["atlas-proof-check-temp"]
+  pull_request:
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
