@@ -98,6 +98,7 @@ class TrainingConfig(BaseModel):
 class PromotionConfig(BaseModel):
     min_test_gain: float = 0.08
     min_test_accuracy: float = 0.25
+    min_nll_gain: float = 0.0
     max_old_probe_logit_delta: float = 1e-5
     max_route_false_positive: float = 0.01
     max_old_route_churn: float = 0.0

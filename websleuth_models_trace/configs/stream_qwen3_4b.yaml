@@ -1,6 +1,6 @@
 seed: 42
 storage:
-  root: ./runs/stream_350m
+  root: ./runs/stream_qwen3_4b
   database: evidence.sqlite
   blobs: blobs
   cells: cells
@@ -24,7 +24,7 @@ extraction:
   backend: rules
   require_independent_sources: 2
 model:
-  name: HuggingFaceTB/SmolLM2-360M
+  name: Qwen/Qwen3-4B-Instruct-2507
   dtype: bfloat16
   device: auto
   trust_remote_code: false
@@ -34,27 +34,28 @@ model:
   target_last_fraction: 0.33
 cell:
   min_rank: 4
-  max_rank: 64
+  max_rank: 32
   rank_energy: 0.90
   max_active_cells: 2
   route_threshold: 0.22
   route_entity_bonus: 0.35
-  dropout: 0.0
+  dropout: 0.05
   scale: 1.0
 training:
   enabled: true
-  learning_rate: 0.001
-  weight_decay: 0.0
-  max_steps: 200
+  learning_rate: 0.0005
+  weight_decay: 0.01
+  max_steps: 80
   batch_size: 1
   grad_clip: 1.0
-  distill_weight: 0.25
+  distill_weight: 0.5
   supervised_weight: 1.0
-  early_stop_patience: 12
-  eval_every: 10
+  early_stop_patience: 4
+  eval_every: 5
 promotion:
-  min_test_gain: 0.05
-  min_test_accuracy: 0.25
+  min_test_gain: 0.0
+  min_test_accuracy: 0.0
+  min_nll_gain: 0.3
   max_old_probe_logit_delta: 1.0e-5
   max_route_false_positive: 0.005
   max_old_route_churn: 0.0
@@ -62,13 +63,13 @@ promotion:
   require_parameter_invariance: true
 benchmarks:
   registry: configs/benchmarks.yaml
-  max_samples: 100
-  general_every: 4
-  context_every: 8
+  max_samples: 64
+  general_every: 8
+  context_every: 16
   suites:
     domain: [finqa, casehold, chembench, medqa]
     general: [mmlu, arc_challenge, hellaswag, gsm8k]
-    long_context: [ruler_sniah]
+    long_context: []
 stream:
   manifest: ./data/stream_64.json
   domains: [finance, legal, chemistry, medicine, science, coding]
@@ -79,5 +80,5 @@ stream:
 aim:
   enabled: true
   repo: $HOME/aim_repo
-  experiment: trace-continual-350m
-  tags: [milestone=first, modality=multimodal]
+  experiment: trace-qwen3-4b
+  tags: [model=qwen3-4b-instruct-2507, gate=nll]

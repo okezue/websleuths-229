@@ -303,6 +303,7 @@ class Assimilator:
             cell.load_state_dict(best_state)
         post_test = self._evaluate_qas(test_qas, extra_cells=[metadata.cell_id])
         test_gain = post_test.accuracy - pre_test.accuracy
+        nll_gain = pre_test.nll - post_test.nll
         parameter_invariant = self.model.parameters_unchanged(old_invariant, include_cells=old_ids)
         cell_hash = self.model.cell_fingerprint(metadata.cell_id)
         metadata = metadata.model_copy(
@@ -331,6 +332,7 @@ class Assimilator:
         decision = self.gate.decide(
             test_gain=test_gain,
             test_accuracy=post_test.accuracy,
+            nll_gain=nll_gain,
             proof_coverage=proof_coverage,
             route_false_positive=route_fp,
             max_old_logit_delta=max_logit_delta,
@@ -352,6 +354,7 @@ class Assimilator:
             "pre_test_accuracy": pre_test.accuracy,
             "post_test_accuracy": post_test.accuracy,
             "test_gain": test_gain,
+            "nll_gain": nll_gain,
             "proof_coverage": proof_coverage,
             "route_false_positive": route_fp,
             "max_old_logit_delta": max_logit_delta,
