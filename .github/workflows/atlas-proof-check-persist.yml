@@ -1,0 +1,57 @@
+name: Atlas persistent proof report
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["atlas-proof-check-temp"]
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    if: github.actor != 'atlas-proof-check-bot'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: atlas-proof-check-temp
+      - name: Install elan
+        shell: bash
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Resolve dependencies
+        working-directory: atlas-check
+        run: |
+          lake update
+          lake exe cache get
+      - name: Check each module
+        working-directory: atlas-check
+        shell: bash
+        run: |
+          set +e
+          mkdir -p .lake/build/lib/lean/AtlasCheck
+          : > CI_STATUS.latest.txt
+          : > kernel-build.latest.log
+          status=0
+          modules="AdaptiveData AdaptiveCausality AdaptiveGame AdaptiveCounting AdaptiveExtraction AdaptiveTape AdaptiveSampleEquiv KummerProbe"
+          for mod in $modules; do
+            echo "===== $mod =====" >> kernel-build.latest.log
+            lake env lean AtlasCheck/$mod.lean -o .lake/build/lib/lean/AtlasCheck/$mod.olean >> kernel-build.latest.log 2>&1
+            code=$?
+            if [ $code -eq 0 ]; then echo "PASS $mod" >> CI_STATUS.latest.txt; else echo "FAIL $mod" >> CI_STATUS.latest.txt; status=$code; fi
+          done
+          echo "$status" > CI_EXIT_CODE.latest.txt
+          cat CI_STATUS.latest.txt
+      - name: Commit report
+        working-directory: atlas-check
+        shell: bash
+        run: |
+          git config user.name atlas-proof-check-bot
+          git config user.email actions@users.noreply.github.com
+          git add CI_STATUS.latest.txt CI_EXIT_CODE.latest.txt kernel-build.latest.log
+          if ! git diff --cached --quiet; then
+            git commit -m '[skip ci] Persist Atlas kernel diagnostics'
+            git push origin HEAD:atlas-proof-check-temp
+          fi
