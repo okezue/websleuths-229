@@ -1,0 +1,90 @@
+===== AdaptiveData =====
+AtlasCheck/AdaptiveData.lean:20:4: warning: unused variable `n`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+AtlasCheck/AdaptiveData.lean:24:35: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+===== AdaptiveCausality =====
+===== AdaptiveGame =====
+===== AdaptiveCounting =====
+===== AdaptiveExtraction =====
+===== AdaptiveTape =====
+AtlasCheck/AdaptiveTape.lean:11:4: warning: unused variable `n`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+===== AdaptiveSampleEquiv =====
+AtlasCheck/AdaptiveSampleEquiv.lean:44:0: warning: automatically included section variable(s) unused in theorem `Atlas.Probability.AdaptiveSchnorrEUFCMA.chosenForgery_spec`:
+  [Fintype Seed]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype Seed] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/AdaptiveSampleEquiv.lean:50:0: warning: automatically included section variable(s) unused in theorem `Atlas.Probability.AdaptiveSchnorrEUFCMA.acceptedRun_unique`:
+  [Fintype Seed]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype Seed] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/AdaptiveSampleEquiv.lean:102:4: error: Tactic `subst` failed: did not find equation for eliminating 'i'
+
+ell : ℕ
+inst✝³ : NeZero ell
+Msg : Type v
+Seed : Type w
+rounds : ℕ
+S : ScalarGroup ell
+inst✝² : DecidableEq S.G
+inst✝¹ : DecidableEq Msg
+A : Adversary S.G Msg ell Seed
+inst✝ : Fintype Seed
+i : Fin (rounds + 1)
+ctx : Context
+c : ZMod ell
+f : Forgery S.G Msg ell (rounds + 1)
+hf : AcceptedRun S A (S.toPoint (i, ctx).2.1.1) (i, ctx).2.1.2 (AnswerTape.insert (i, ctx).1 (i, ctx).2.2 c) f
+hfi : f.critical = (i, ctx).1
+r : SuccessfulRow S A := ⟨(i, ctx), ⟨c, ⋯⟩⟩
+hchosen : chosenForgery S A (successfulRowToSample S A r) = f
+⊢ successfulSampleToRow S A (successfulRowToSample S A r) = r
+AtlasCheck/AdaptiveSampleEquiv.lean:115:6: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Fintype (SuccessfulRow S A)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+===== KummerProbe =====
+WeierstrassCurve.{u} (R : Type u) : Type u
+WeierstrassCurve.Affine.{r} (R : Type r) : Type r
+WeierstrassCurve.Affine.Point.{r} {R : Type r} [CommRing R] (W' : WeierstrassCurve.Affine R) : Type r
+WeierstrassCurve.Affine.Point.zero.{r} {R : Type r} [CommRing R] {W' : WeierstrassCurve.Affine R} : W'.Point
+WeierstrassCurve.Affine.Point.some.{r} {R : Type r} [CommRing R] {W' : WeierstrassCurve.Affine R} {x y : R}
+  (h : W'.Nonsingular x y) : W'.Point
+WeierstrassCurve.Affine.Point.add_def.{u} {F : Type u} [Field F] {W : WeierstrassCurve.Affine F} [DecidableEq F]
+  (P Q : W.Point) : P + Q = P.add Q
+WeierstrassCurve.Affine.Point.add_some.{u} {F : Type u} [Field F] {W : WeierstrassCurve.Affine F} [DecidableEq F]
+  {x₁ x₂ y₁ y₂ : F} (hxy : ¬(x₁ = x₂ ∧ y₁ = W.negY x₂ y₂)) {h₁ : W.Nonsingular x₁ y₁} {h₂ : W.Nonsingular x₂ y₂} :
+  WeierstrassCurve.Affine.Point.some h₁ + WeierstrassCurve.Affine.Point.some h₂ = WeierstrassCurve.Affine.Point.some ⋯
+WeierstrassCurve.Affine.Point.add_of_X_ne.{u} {F : Type u} [Field F] {W : WeierstrassCurve.Affine F} [DecidableEq F]
+  {x₁ x₂ y₁ y₂ : F} {h₁ : W.Nonsingular x₁ y₁} {h₂ : W.Nonsingular x₂ y₂} (hx : x₁ ≠ x₂) :
+  WeierstrassCurve.Affine.Point.some h₁ + WeierstrassCurve.Affine.Point.some h₂ = WeierstrassCurve.Affine.Point.some ⋯
+WeierstrassCurve.Affine.Point.add_of_Y_eq.{u} {F : Type u} [Field F] {W : WeierstrassCurve.Affine F} [DecidableEq F]
+  {x₁ x₂ y₁ y₂ : F} {h₁ : W.Nonsingular x₁ y₁} {h₂ : W.Nonsingular x₂ y₂} (hx : x₁ = x₂) (hy : y₁ = W.negY x₂ y₂) :
+  WeierstrassCurve.Affine.Point.some h₁ + WeierstrassCurve.Affine.Point.some h₂ = 0
+WeierstrassCurve.Affine.Point.add_self_of_Y_ne.{u} {F : Type u} [Field F] {W : WeierstrassCurve.Affine F}
+  [DecidableEq F] {x₁ y₁ : F} {h₁ : W.Nonsingular x₁ y₁} (hy : y₁ ≠ W.negY x₁ y₁) :
+  WeierstrassCurve.Affine.Point.some h₁ + WeierstrassCurve.Affine.Point.some h₁ = WeierstrassCurve.Affine.Point.some ⋯
+WeierstrassCurve.Affine.Point.neg_some.{r} {R : Type r} [CommRing R] {W' : WeierstrassCurve.Affine R} {x y : R}
+  (h : W'.Nonsingular x y) : -WeierstrassCurve.Affine.Point.some h = WeierstrassCurve.Affine.Point.some ⋯
+WeierstrassCurve.Affine.Point.some_ne_zero.{r} {R : Type r} [CommRing R] {W' : WeierstrassCurve.Affine R} {x y : R}
+  (h : W'.Nonsingular x y) : WeierstrassCurve.Affine.Point.some h ≠ 0
+WeierstrassCurve.Affine.equation_iff.{r} {R : Type r} [CommRing R] {W : WeierstrassCurve.Affine R} (x y : R) :
+  W.Equation x y ↔ y ^ 2 + W.a₁ * x * y + W.a₃ * y = x ^ 3 + W.a₂ * x ^ 2 + W.a₄ * x + W.a₆
+WeierstrassCurve.Affine.nonsingular_iff.{r} {R : Type r} [CommRing R] {W : WeierstrassCurve.Affine R} (x y : R) :
+  W.Nonsingular x y ↔ W.Equation x y ∧ (W.a₁ * y ≠ 3 * x ^ 2 + 2 * W.a₂ * x + W.a₄ ∨ y ≠ -y - W.a₁ * x - W.a₃)
+WeierstrassCurve.Affine.addX.{r} {R : Type r} [CommRing R] (W' : WeierstrassCurve.Affine R) (x₁ x₂ ℓ : R) : R
+WeierstrassCurve.Affine.slope.{u} {F : Type u} [Field F] (W : WeierstrassCurve.Affine F) [DecidableEq F]
+  (x₁ x₂ y₁ y₂ : F) : F
+AlgebraicClosure.{u} (k : Type u) [Field k] : Type u
+IsAlgClosed.exists_pow_nat_eq.{u} {k : Type u} [Field k] [IsAlgClosed k] (x : k) {n : ℕ} (hn : 0 < n) : ∃ z, z ^ n = x
+nsmul_eq_mul.{u} {α : Type u} [NonAssocSemiring α] (n : ℕ) (a : α) : n • a = ↑n * a
+add_nsmul.{u_2} {M : Type u_2} [AddMonoid M] (a : M) (m n : ℕ) : (m + n) • a = m • a + n • a
+mul_nsmul.{u_2} {M : Type u_2} [AddMonoid M] (a : M) (m n : ℕ) : (m * n) • a = n • m • a

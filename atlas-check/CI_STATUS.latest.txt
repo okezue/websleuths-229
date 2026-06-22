@@ -1,0 +1,8 @@
+PASS AdaptiveData
+PASS AdaptiveCausality
+PASS AdaptiveGame
+PASS AdaptiveCounting
+PASS AdaptiveExtraction
+PASS AdaptiveTape
+FAIL AdaptiveSampleEquiv
+PASS KummerProbe
