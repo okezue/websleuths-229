@@ -8,13 +8,15 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: atlas-proof-check-temp
       - name: Install elan
         shell: bash
         run: |
@@ -26,26 +28,46 @@ jobs:
         run: |
           lake update
           lake exe cache get
-      - name: Kernel build
+      - name: Kernel build and status report
         working-directory: atlas-check
         shell: bash
         run: |
           set +e
           mkdir -p .lake/build/lib/lean/AtlasCheck
           : > kernel-build.log
+          : > CI_STATUS.txt
           status=0
           modules="AdaptiveData AdaptiveCausality AdaptiveGame AdaptiveCounting AdaptiveExtraction AdaptiveTape AdaptiveSampleEquiv KummerProbe"
           for mod in $modules; do
+            echo "===== $mod =====" >> kernel-build.log
             lake env lean AtlasCheck/$mod.lean -o .lake/build/lib/lean/AtlasCheck/$mod.olean >> kernel-build.log 2>&1
             code=$?
-            if [ $code -ne 0 ]; then status=$code; fi
+            if [ $code -eq 0 ]; then
+              echo "PASS $mod" >> CI_STATUS.txt
+            else
+              echo "FAIL $mod" >> CI_STATUS.txt
+              status=$code
+            fi
           done
+          cat CI_STATUS.txt
           cat kernel-build.log
-          exit $status
-      - name: Upload kernel log
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: atlas-kernel-log
-          path: atlas-check/kernel-build.log
-          if-no-files-found: warn
+          echo "$status" > CI_EXIT_CODE.txt
+          exit 0
+      - name: Persist proof-check report
+        shell: bash
+        run: |
+          cp atlas-check/CI_STATUS.txt atlas-check/CI_STATUS.latest.txt
+          cp atlas-check/CI_EXIT_CODE.txt atlas-check/CI_EXIT_CODE.latest.txt
+          cp atlas-check/kernel-build.log atlas-check/kernel-build.latest.log
+          git config user.name "atlas-proof-check-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add atlas-check/CI_STATUS.latest.txt atlas-check/CI_EXIT_CODE.latest.txt atlas-check/kernel-build.latest.log
+          if ! git diff --cached --quiet; then
+            git commit -m "[skip ci] Update Atlas kernel report"
+            git push origin HEAD:atlas-proof-check-temp
+          fi
+      - name: Enforce result
+        working-directory: atlas-check
+        shell: bash
+        run: |
+          test "$(cat CI_EXIT_CODE.txt)" = "0"
