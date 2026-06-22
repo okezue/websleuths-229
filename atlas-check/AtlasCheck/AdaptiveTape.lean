@@ -2,7 +2,6 @@ import AtlasCheck.AdaptiveData
 
 namespace Atlas
 namespace Probability
-namespace AdaptiveSchnorrEUFCMA
 namespace AnswerTape
 
 variable {R : Type u}
@@ -13,11 +12,15 @@ def removeAt : {n : Nat} → Fin (n + 1) → AnswerTape R (n + 1) → AnswerTape
 
 @[simp] theorem removeAt_insert : ∀ {n : Nat} (i : Fin (n + 1))
     (ctx : AnswerTape R n) (r : R), removeAt i (insert i ctx r) = ctx
-  | 0, i, ctx, r => by fin_cases i <;> cases ctx <;> rfl
+  | 0, i, ctx, r => by
+      fin_cases i
+      cases ctx
+      rfl
   | n + 1, i, ctx, r => by
       refine Fin.cases ?_ (fun j => ?_) i
       · rfl
-      · simp [removeAt, insert, removeAt_insert j ctx.2 r]
+      · change (ctx.1, removeAt j (insert j ctx.2 r)) = ctx
+        rw [removeAt_insert]
 
 @[simp] theorem insert_removeAt_get : ∀ {n : Nat} (i : Fin (n + 1))
     (tape : AnswerTape R (n + 1)), insert i (removeAt i tape) (get tape i) = tape
@@ -30,9 +33,9 @@ def removeAt : {n : Nat} → Fin (n + 1) → AnswerTape R (n + 1) → AnswerTape
       rcases tape with ⟨r, rs⟩
       refine Fin.cases ?_ (fun j => ?_) i
       · rfl
-      · simp [removeAt, insert, get, insert_removeAt_get j rs]
+      · change (r, insert j (removeAt j rs) (get rs j)) = (r, rs)
+        rw [insert_removeAt_get]
 
 end AnswerTape
-end AdaptiveSchnorrEUFCMA
 end Probability
 end Atlas
