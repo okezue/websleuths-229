@@ -13,8 +13,6 @@ import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
 #check WeierstrassCurve.Affine.Point.add_self_of_Y_ne
 #check WeierstrassCurve.Affine.Point.neg_some
 #check WeierstrassCurve.Affine.Point.some_ne_zero
-#check WeierstrassCurve.Affine.Point.nonsingularPointEquiv
-#check WeierstrassCurve.Affine.nonsingularPointEquiv
 #check WeierstrassCurve.Affine.equation_iff
 #check WeierstrassCurve.Affine.nonsingular_iff
 #check WeierstrassCurve.Affine.addX
