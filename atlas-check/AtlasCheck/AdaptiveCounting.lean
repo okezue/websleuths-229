@@ -34,11 +34,13 @@ noncomputable def successMass : ℚ :=
 noncomputable def forkMass : ℚ :=
   ((rowMasses (rounds := rounds) S A).map fun s => s * (s - 1)).sum
 
-noncomputable def sampleMass : ℚ :=
+noncomputable def sampleMass
+    (_S : ScalarGroup ell) (_A : Adversary _S.G Msg ell Seed) : ℚ :=
   (Fintype.card (ZMod ell × Seed) : ℚ) *
     Fintype.card (AnswerTape (ZMod ell) (rounds + 1))
 
-noncomputable def forkSampleMass : ℚ :=
+noncomputable def forkSampleMass
+    (S : ScalarGroup ell) (A : Adversary S.G Msg ell Seed) : ℚ :=
   sampleMass (rounds := rounds) S A * Fintype.card (ZMod ell)
 
 noncomputable def successProbability : ℚ :=
@@ -65,8 +67,11 @@ private theorem list_sum_sq_le_length_mul_sum_sq (xs : List ℚ) :
       · let n : ℚ := xs.length
         let s : ℚ := xs.sum
         let q : ℚ := (xs.map fun x => x ^ 2).sum
-        have hnNat : 0 < xs.length := List.length_pos.mpr hxs
+        have hnNat : 0 < xs.length := by
+          have hne : xs.length ≠ 0 := by simpa using hxs
+          exact Nat.pos_of_ne_zero hne
         have hn : (0 : ℚ) < n := by
+          dsimp [n]
           exact_mod_cast hnNat
         have ih' : s ^ 2 ≤ n * q := by
           simpa [n, s, q] using ih
@@ -109,6 +114,7 @@ theorem forking_probability_bound_tight
   have hseed : (0 : ℚ) < Fintype.card (ZMod ell × Seed) := by positivity
   have hresp : (0 : ℚ) < Fintype.card (ZMod ell) := by positivity
   have htape : (0 : ℚ) < Fintype.card (AnswerTape (ZMod ell) rounds) := by
+    rw [AnswerTape.card]
     positivity
   simp only [successProbability, forkingProbability, forkSampleMass, sampleMass]
   rw [AnswerTape.card (R := ZMod ell) rounds,
