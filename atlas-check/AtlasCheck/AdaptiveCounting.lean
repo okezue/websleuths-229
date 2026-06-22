@@ -116,13 +116,12 @@ theorem forking_probability_bound_tight
   have htape : (0 : ℚ) < Fintype.card (AnswerTape (ZMod ell) rounds) := by
     rw [AnswerTape.card]
     positivity
+  rw [AnswerTape.card (R := ZMod ell) rounds] at hcount
   simp only [successProbability, forkingProbability, forkSampleMass, sampleMass]
-  rw [AnswerTape.card (R := ZMod ell) rounds,
-    AnswerTape.card (R := ZMod ell) (rounds + 1)]
-  rw [pow_succ]
+  rw [AnswerTape.card (R := ZMod ell) (rounds + 1), pow_succ]
   norm_num at hcount ⊢
   field_simp
-  nlinarith
+  nlinarith [hcount]
 
 end Counting
 
