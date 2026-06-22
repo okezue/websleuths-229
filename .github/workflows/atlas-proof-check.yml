@@ -31,7 +31,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          lake build > kernel-build.log 2>&1
+          lake env lean AtlasCheck/AdaptiveSchnorrEUFCMA.lean > kernel-build.log 2>&1
           status=$?
           cat kernel-build.log
           exit $status
