@@ -111,17 +111,39 @@ theorem forking_probability_bound_tight
   have hcount :=
     successMass_sq_le_rows_mul_fork_add_success (rounds := rounds) S A
   rw [rowMasses_length (rounds := rounds)] at hcount
-  have hseed : (0 : ℚ) < Fintype.card (ZMod ell × Seed) := by positivity
-  have hresp : (0 : ℚ) < Fintype.card (ZMod ell) := by positivity
-  have htape : (0 : ℚ) < Fintype.card (AnswerTape (ZMod ell) rounds) := by
-    rw [AnswerTape.card]
+  let B : ℚ := Fintype.card (ZMod ell × Seed)
+  let T : ℚ := Fintype.card (AnswerTape (ZMod ell) rounds)
+  let H : ℚ := Fintype.card (ZMod ell)
+  let q : ℚ := rounds + 1
+  let suc : ℚ := successMass (rounds := rounds) S A
+  let frk : ℚ := forkMass (rounds := rounds) S A
+  have hB : 0 < B := by
+    dsimp [B]
     positivity
-  rw [AnswerTape.card (R := ZMod ell) rounds] at hcount
-  simp only [successProbability, forkingProbability, forkSampleMass, sampleMass]
-  rw [AnswerTape.card (R := ZMod ell) (rounds + 1), pow_succ]
-  norm_num at hcount ⊢
-  field_simp
-  nlinarith [hcount]
+  have hT : 0 < T := by
+    dsimp [T]
+    positivity
+  have hH : 0 < H := by
+    dsimp [H]
+    positivity
+  push_cast at hcount
+  change suc ^ 2 ≤ q * B * T * (frk + suc) at hcount
+  have hnormalized :
+      (suc / (B * T * H)) ^ 2 ≤
+        q * (frk / (B * T * H * H)) +
+          q * (suc / (B * T * H)) / H := by
+    field_simp [ne_of_gt hB, ne_of_gt hT, ne_of_gt hH]
+    nlinarith [hcount]
+  have hfull :
+      (Fintype.card (AnswerTape (ZMod ell) (rounds + 1)) : ℚ) = T * H := by
+    dsimp [T, H]
+    norm_cast
+    rw [AnswerTape.card, AnswerTape.card, pow_succ]
+  unfold successProbability forkingProbability forkSampleMass sampleMass
+  rw [hfull]
+  change (suc / (B * (T * H))) ^ 2 ≤
+    q * (frk / (B * (T * H) * H)) + q * (suc / (B * (T * H))) / H
+  simpa [mul_assoc] using hnormalized
 
 end Counting
 
