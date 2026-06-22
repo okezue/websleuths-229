@@ -6,16 +6,17 @@ namespace AdaptiveSchnorrEUFCMA
 
 universe u v w
 
-theorem AnswerTape.get_insert_ne : ∀ {R : Type*} {n : Nat}
-    (i j : Fin (n + 1)) (ctx : AnswerTape R n) (r r' : R),
-    j ≠ i →
+theorem AnswerTape.get_insert_ne {R : Type*} {n : Nat}
+    (i j : Fin (n + 1)) (ctx : AnswerTape R n) (r r' : R)
+    (hji : j ≠ i) :
     AnswerTape.get (AnswerTape.insert i ctx r) j =
-      AnswerTape.get (AnswerTape.insert i ctx r') j
-  | 0, i, j, ctx, r, r', hji => by
+      AnswerTape.get (AnswerTape.insert i ctx r') j := by
+  induction n with
+  | zero =>
       fin_cases i
       fin_cases j
       exact (hji rfl).elim
-  | n + 1, i, j, ctx, r, r', hji => by
+  | succ n ih =>
       rcases ctx with ⟨head, tail⟩
       refine Fin.cases ?_ (fun i' => ?_) i
       · refine Fin.cases ?_ (fun j' => ?_) j
@@ -23,7 +24,7 @@ theorem AnswerTape.get_insert_ne : ∀ {R : Type*} {n : Nat}
         · rfl
       · refine Fin.cases ?_ (fun j' => ?_) j
         · rfl
-        · exact AnswerTape.get_insert_ne i' j' tail r r' (by
+        · exact ih i' j' tail r r' (by
             intro h
             apply hji
             exact Fin.succ_inj.mpr h)
