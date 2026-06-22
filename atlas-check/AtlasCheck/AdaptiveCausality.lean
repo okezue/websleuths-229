@@ -11,20 +11,24 @@ theorem AnswerTape.get_insert_ne {R : Type*} {n : Nat}
     (hji : j ≠ i) :
     AnswerTape.get (AnswerTape.insert i ctx r) j =
       AnswerTape.get (AnswerTape.insert i ctx r') j := by
-  induction n with
+  induction n generalizing i j with
   | zero =>
-      fin_cases i
-      fin_cases j
-      exact (hji rfl).elim
+      exact (hji (Subsingleton.elim _ _)).elim
   | succ n ih =>
       rcases ctx with ⟨head, tail⟩
+      revert hji
       refine Fin.cases ?_ (fun i' => ?_) i
       · refine Fin.cases ?_ (fun j' => ?_) j
-        · exact (hji rfl).elim
-        · rfl
-      · refine Fin.cases ?_ (fun j' => ?_) j
-        · rfl
-        · exact ih i' j' tail r r' (by
+        · intro hji
+          exact (hji rfl).elim
+        · intro hji
+          rfl
+      · intro i'
+        refine Fin.cases ?_ (fun j' => ?_) j
+        · intro hji
+          rfl
+        · intro j' hji
+          exact ih i' j' tail (by
             intro h
             apply hji
             exact Fin.succ_inj.mpr h)
