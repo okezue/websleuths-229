@@ -89,6 +89,7 @@ noncomputable def successfulSampleEquivRow :
   right_inv := by
     rintro ⟨⟨i, ctx⟩, ⟨c, hgood⟩⟩
     rcases hgood with ⟨f, hf, hfi⟩
+    change f.critical = i at hfi
     let r : SuccessfulRow (rounds := rounds) S A :=
       ⟨⟨i, ctx⟩, ⟨c, ⟨f, hf, hfi⟩⟩⟩
     have hchosen :
@@ -99,12 +100,9 @@ noncomputable def successfulSampleEquivRow :
       · exact hf
     change successfulSampleToRow (rounds := rounds) S A
       (successfulRowToSample (rounds := rounds) S A r) = r
-    apply Sigma.ext
-    · apply Prod.ext
-      · simpa [successfulSampleToRow, successfulRowToSample, r, hchosen] using hfi
-      · simp [successfulSampleToRow, successfulRowToSample, r, hchosen, hfi]
-    · apply Subtype.ext
-      simp [successfulSampleToRow, successfulRowToSample, r, hchosen, hfi]
+    subst i
+    subst f
+    simp [successfulSampleToRow, successfulRowToSample, r]
 
 noncomputable def gameSuccessMass : Nat := by
   classical
