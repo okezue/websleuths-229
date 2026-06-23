@@ -99,11 +99,16 @@ noncomputable def successfulSampleEquivRow :
       · exact hf
     change successfulSampleToRow (rounds := rounds) S A
       (successfulRowToSample (rounds := rounds) S A r) = r
-    subst i
-    simpa [successfulSampleToRow, successfulRowToSample, r, hchosen]
+    apply Sigma.ext
+    · apply Prod.ext
+      · simpa [successfulSampleToRow, successfulRowToSample, r, hchosen] using hfi
+      · simp [successfulSampleToRow, successfulRowToSample, r, hchosen, hfi]
+    · apply Subtype.ext
+      simp [successfulSampleToRow, successfulRowToSample, r, hchosen, hfi]
 
 noncomputable def gameSuccessMass : Nat := by
   classical
+  letI : Fintype (SuccessfulSample (rounds := rounds) S A) := Fintype.ofFinite _
   exact Fintype.card (SuccessfulSample (rounds := rounds) S A)
 
 noncomputable def gameSuccessProbability : ℚ :=
@@ -112,8 +117,11 @@ noncomputable def gameSuccessProbability : ℚ :=
 
 theorem gameSuccessMass_eq_rowCard :
     gameSuccessMass (rounds := rounds) S A =
-      Fintype.card (SuccessfulRow (rounds := rounds) S A) := by
+      @Fintype.card (SuccessfulRow (rounds := rounds) S A)
+        (Fintype.ofFinite _) := by
   classical
+  letI : Fintype (SuccessfulSample (rounds := rounds) S A) := Fintype.ofFinite _
+  letI : Fintype (SuccessfulRow (rounds := rounds) S A) := Fintype.ofFinite _
   exact Fintype.card_congr (successfulSampleEquivRow (rounds := rounds) S A)
 
 end SampleEquiv
