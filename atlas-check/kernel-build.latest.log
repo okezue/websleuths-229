@@ -28,14 +28,15 @@ consider restructuring your `variable` declarations so that the variables are no
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
 AtlasCheck/AdaptiveSampleEquiv.lean:104:4: error: failed to create binder due to failure when reverting variable dependencies
 ===== KummerProbe =====
-WeierstrassCurve.{u} (R : Type u) : Type u
-WeierstrassCurve.Affine.{r} (R : Type r) : Type r
-WeierstrassCurve.Affine.Point.{r} {R : Type r} [CommRing R] (W' : WeierstrassCurve.Affine R) : Type r
-WeierstrassCurve.Affine.Point.zero.{r} {R : Type r} [CommRing R] {W' : WeierstrassCurve.Affine R} : W'.Point
 WeierstrassCurve.Affine.Point.some.{r} {R : Type r} [CommRing R] {W' : WeierstrassCurve.Affine R} {x y : R}
   (h : W'.Nonsingular x y) : W'.Point
-WeierstrassCurve.Affine.Point.add_def.{u} {F : Type u} [Field F] {W : WeierstrassCurve.Affine F} [DecidableEq F]
-  (P Q : W.Point) : P + Q = P.add Q
+AtlasCheck/KummerProbe.lean:5:7: error(lean.unknownIdentifier): Unknown constant `WeierstrassCurve.Affine.Point.X_eq_iff`
+WeierstrassCurve.Affine.equation_iff_nonsingular.{r} {R : Type r} [CommRing R] {W : WeierstrassCurve.Affine R}
+  [Nontrivial R] [WeierstrassCurve.IsElliptic W] {x y : R} :
+  (WeierstrassCurve.toAffine W).Equation x y ↔ (WeierstrassCurve.toAffine W).Nonsingular x y
+AtlasCheck/KummerProbe.lean:7:7: error(lean.unknownIdentifier): Unknown constant `WeierstrassCurve.Affine.nonsingularPointEquiv`
+AtlasCheck/KummerProbe.lean:8:7: error(lean.unknownIdentifier): Unknown constant `WeierstrassCurve.Affine.nonsingularPointEquiv_zero`
+AtlasCheck/KummerProbe.lean:9:7: error(lean.unknownIdentifier): Unknown constant `WeierstrassCurve.Affine.nonsingularPointEquiv_some`
 WeierstrassCurve.Affine.Point.add_some.{u} {F : Type u} [Field F] {W : WeierstrassCurve.Affine F} [DecidableEq F]
   {x₁ x₂ y₁ y₂ : F} (hxy : ¬(x₁ = x₂ ∧ y₁ = W.negY x₂ y₂)) {h₁ : W.Nonsingular x₁ y₁} {h₂ : W.Nonsingular x₂ y₂} :
   WeierstrassCurve.Affine.Point.some h₁ + WeierstrassCurve.Affine.Point.some h₂ = WeierstrassCurve.Affine.Point.some ⋯
@@ -50,8 +51,6 @@ WeierstrassCurve.Affine.Point.add_self_of_Y_ne.{u} {F : Type u} [Field F] {W : W
   WeierstrassCurve.Affine.Point.some h₁ + WeierstrassCurve.Affine.Point.some h₁ = WeierstrassCurve.Affine.Point.some ⋯
 WeierstrassCurve.Affine.Point.neg_some.{r} {R : Type r} [CommRing R] {W' : WeierstrassCurve.Affine R} {x y : R}
   (h : W'.Nonsingular x y) : -WeierstrassCurve.Affine.Point.some h = WeierstrassCurve.Affine.Point.some ⋯
-WeierstrassCurve.Affine.Point.some_ne_zero.{r} {R : Type r} [CommRing R] {W' : WeierstrassCurve.Affine R} {x y : R}
-  (h : W'.Nonsingular x y) : WeierstrassCurve.Affine.Point.some h ≠ 0
 WeierstrassCurve.Affine.equation_iff.{r} {R : Type r} [CommRing R] {W : WeierstrassCurve.Affine R} (x y : R) :
   W.Equation x y ↔ y ^ 2 + W.a₁ * x * y + W.a₃ * y = x ^ 3 + W.a₂ * x ^ 2 + W.a₄ * x + W.a₆
 WeierstrassCurve.Affine.nonsingular_iff.{r} {R : Type r} [CommRing R] {W : WeierstrassCurve.Affine R} (x y : R) :
@@ -61,6 +60,3 @@ WeierstrassCurve.Affine.slope.{u} {F : Type u} [Field F] (W : WeierstrassCurve.A
   (x₁ x₂ y₁ y₂ : F) : F
 AlgebraicClosure.{u} (k : Type u) [Field k] : Type u
 IsAlgClosed.exists_pow_nat_eq.{u} {k : Type u} [Field k] [IsAlgClosed k] (x : k) {n : ℕ} (hn : 0 < n) : ∃ z, z ^ n = x
-nsmul_eq_mul.{u} {α : Type u} [NonAssocSemiring α] (n : ℕ) (a : α) : n • a = ↑n * a
-add_nsmul.{u_2} {M : Type u_2} [AddMonoid M] (a : M) (m n : ℕ) : (m + n) • a = m • a + n • a
-mul_nsmul.{u_2} {M : Type u_2} [AddMonoid M] (a : M) (m n : ℕ) : (m * n) • a = n • m • a
