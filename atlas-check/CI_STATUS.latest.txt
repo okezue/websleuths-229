@@ -5,4 +5,4 @@ PASS AdaptiveCounting
 PASS AdaptiveExtraction
 PASS AdaptiveTape
 FAIL AdaptiveSampleEquiv
-FAIL KummerProbe
+PASS KummerProbe

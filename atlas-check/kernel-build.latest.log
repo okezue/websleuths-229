@@ -26,17 +26,57 @@ consider restructuring your `variable` declarations so that the variables are no
   omit [Fintype Seed] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-AtlasCheck/AdaptiveSampleEquiv.lean:104:4: error: failed to create binder due to failure when reverting variable dependencies
+AtlasCheck/AdaptiveSampleEquiv.lean:106:68: error: unsolved goals
+ell : ℕ
+inst✝³ : NeZero ell
+Msg : Type v
+Seed : Type w
+rounds : ℕ
+S : ScalarGroup ell
+inst✝² : DecidableEq S.G
+inst✝¹ : DecidableEq Msg
+A : Adversary S.G Msg ell Seed
+inst✝ : Fintype Seed
+i : Fin (rounds + 1)
+ctx : Context
+c : ZMod ell
+f : Forgery S.G Msg ell (rounds + 1)
+hf : AcceptedRun S A (S.toPoint (i, ctx).2.1.1) (i, ctx).2.1.2 (AnswerTape.insert (i, ctx).1 (i, ctx).2.2 c) f
+hfi : f.critical = i
+r : SuccessfulRow S A := ⟨(i, ctx), ⟨c, ⋯⟩⟩
+s : SuccessfulSample S A := successfulRowToSample S A r
+hchosen : chosenForgery S A s = f
+hcrit : (chosenForgery S A s).critical = i
+⊢ (chosenForgery S A ⟨(ctx.1, AnswerTape.insert i ctx.2 c), ⋯⟩).critical = i ∧
+    (ctx.1,
+        AnswerTape.removeAt (chosenForgery S A ⟨(ctx.1, AnswerTape.insert i ctx.2 c), ⋯⟩).critical
+          (AnswerTape.insert i ctx.2 c)) =
+      ctx
+AtlasCheck/AdaptiveSampleEquiv.lean:109:4: error: Dependent elimination failed: Failed to solve equation
+  i = (chosenForgery S A s).critical
+AtlasCheck/AdaptiveSampleEquiv.lean:107:64: warning: This simp argument is unused:
+  hcrit
+
+Hint: Omit it from the simp argument list.
+  simp [successfulSampleToRow, successfulRowToSample, s, r,̵ ̵h̵c̵r̵i̵t̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
 ===== KummerProbe =====
+WeierstrassCurve.Affine.Point.{r} {R : Type r} [CommRing R] (W' : WeierstrassCurve.Affine R) : Type r
+WeierstrassCurve.Affine.Point.rec.{u, r} {R : Type r} [CommRing R] {W' : WeierstrassCurve.Affine R}
+  {motive : W'.Point → Sort u} (zero : motive WeierstrassCurve.Affine.Point.zero)
+  (some : {x y : R} → (h : W'.Nonsingular x y) → motive (WeierstrassCurve.Affine.Point.some h)) (t : W'.Point) :
+  motive t
+WeierstrassCurve.Affine.Point.casesOn.{u, r} {R : Type r} [CommRing R] {W' : WeierstrassCurve.Affine R}
+  {motive : W'.Point → Sort u} (t : W'.Point) (zero : motive WeierstrassCurve.Affine.Point.zero)
+  (some : {x y : R} → (h : W'.Nonsingular x y) → motive (WeierstrassCurve.Affine.Point.some h)) : motive t
 WeierstrassCurve.Affine.Point.some.{r} {R : Type r} [CommRing R] {W' : WeierstrassCurve.Affine R} {x y : R}
   (h : W'.Nonsingular x y) : W'.Point
-AtlasCheck/KummerProbe.lean:5:7: error(lean.unknownIdentifier): Unknown constant `WeierstrassCurve.Affine.Point.X_eq_iff`
 WeierstrassCurve.Affine.equation_iff_nonsingular.{r} {R : Type r} [CommRing R] {W : WeierstrassCurve.Affine R}
   [Nontrivial R] [WeierstrassCurve.IsElliptic W] {x y : R} :
   (WeierstrassCurve.toAffine W).Equation x y ↔ (WeierstrassCurve.toAffine W).Nonsingular x y
-AtlasCheck/KummerProbe.lean:7:7: error(lean.unknownIdentifier): Unknown constant `WeierstrassCurve.Affine.nonsingularPointEquiv`
-AtlasCheck/KummerProbe.lean:8:7: error(lean.unknownIdentifier): Unknown constant `WeierstrassCurve.Affine.nonsingularPointEquiv_zero`
-AtlasCheck/KummerProbe.lean:9:7: error(lean.unknownIdentifier): Unknown constant `WeierstrassCurve.Affine.nonsingularPointEquiv_some`
+WeierstrassCurve.Affine.Y_eq_of_X_eq.{u} {F : Type u} [Field F] {W : WeierstrassCurve.Affine F} {x₁ x₂ y₁ y₂ : F}
+  (h₁ : W.Equation x₁ y₁) (h₂ : W.Equation x₂ y₂) (hx : x₁ = x₂) : y₁ = y₂ ∨ y₁ = W.negY x₂ y₂
 WeierstrassCurve.Affine.Point.add_some.{u} {F : Type u} [Field F] {W : WeierstrassCurve.Affine F} [DecidableEq F]
   {x₁ x₂ y₁ y₂ : F} (hxy : ¬(x₁ = x₂ ∧ y₁ = W.negY x₂ y₂)) {h₁ : W.Nonsingular x₁ y₁} {h₂ : W.Nonsingular x₂ y₂} :
   WeierstrassCurve.Affine.Point.some h₁ + WeierstrassCurve.Affine.Point.some h₂ = WeierstrassCurve.Affine.Point.some ⋯
