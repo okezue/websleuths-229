@@ -92,17 +92,24 @@ noncomputable def successfulSampleEquivRow :
     change f.critical = i at hfi
     let r : SuccessfulRow (rounds := rounds) S A :=
       ⟨⟨i, ctx⟩, ⟨c, ⟨f, hf, hfi⟩⟩⟩
-    have hchosen :
-        chosenForgery (rounds := rounds) S A
-          (successfulRowToSample (rounds := rounds) S A r) = f := by
+    let s : SuccessfulSample (rounds := rounds) S A :=
+      successfulRowToSample (rounds := rounds) S A r
+    have hchosen : chosenForgery (rounds := rounds) S A s = f := by
       apply acceptedRun_unique (rounds := rounds) S A
-      · exact chosenForgery_spec (rounds := rounds) S A _
+      · exact chosenForgery_spec (rounds := rounds) S A s
       · exact hf
-    change successfulSampleToRow (rounds := rounds) S A
-      (successfulRowToSample (rounds := rounds) S A r) = r
-    subst i
-    subst f
-    simp [successfulSampleToRow, successfulRowToSample, r]
+    have hcrit : (chosenForgery (rounds := rounds) S A s).critical = i := by
+      rw [hchosen]
+      exact hfi
+    change successfulSampleToRow (rounds := rounds) S A s = r
+    have hbase :
+        (successfulSampleToRow (rounds := rounds) S A s).1 = r.1 := by
+      simp [successfulSampleToRow, successfulRowToSample, s, r, hcrit]
+    refine Sigma.ext hbase ?_
+    cases hbase
+    apply HEq.of_eq
+    apply Subtype.ext
+    simp [successfulSampleToRow, successfulRowToSample, s, r, hcrit]
 
 noncomputable def gameSuccessMass : Nat := by
   classical
