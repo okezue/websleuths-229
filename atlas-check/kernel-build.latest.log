@@ -26,8 +26,14 @@ consider restructuring your `variable` declarations so that the variables are no
   omit [Fintype Seed] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-AtlasCheck/AdaptiveSampleEquiv.lean:102:4: error: Tactic `subst` failed: did not find equation for eliminating 'i'
-
+AtlasCheck/AdaptiveSampleEquiv.lean:104:8: error: Type mismatch: After simplification, term
+  hfi
+ has type
+  f.critical = i
+but is expected to have type
+  (chosenForgery S A ⟨(ctx.1, AnswerTape.insert i ctx.2 c), ⋯⟩).critical = i
+AtlasCheck/AdaptiveSampleEquiv.lean:105:6: error: unsolved goals
+case fst.snd
 ell : ℕ
 inst✝³ : NeZero ell
 Msg : Type v
@@ -46,11 +52,52 @@ hf : AcceptedRun S A (S.toPoint (i, ctx).2.1.1) (i, ctx).2.1.2 (AnswerTape.inser
 hfi : f.critical = (i, ctx).1
 r : SuccessfulRow S A := ⟨(i, ctx), ⟨c, ⋯⟩⟩
 hchosen : chosenForgery S A (successfulRowToSample S A r) = f
-⊢ successfulSampleToRow S A (successfulRowToSample S A r) = r
-AtlasCheck/AdaptiveSampleEquiv.lean:115:6: error(lean.synthInstanceFailed): failed to synthesize instance of type class
-  Fintype (SuccessfulRow S A)
+⊢ (ctx.1,
+      AnswerTape.removeAt (chosenForgery S A ⟨(ctx.1, AnswerTape.insert i ctx.2 c), ⋯⟩).critical
+        (AnswerTape.insert i ctx.2 c)) =
+    ctx
+AtlasCheck/AdaptiveSampleEquiv.lean:106:6: error: Tactic `apply` failed: could not unify the conclusion of `@Subtype.ext`
+  ?a1 = ?a2
+with the goal
+  (successfulSampleToRow S A (successfulRowToSample S A r)).snd ≍ r.snd
 
-Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Note: The full type of `@Subtype.ext` is
+  ∀ {α : Sort ?u.18898} {p : α → Prop} {a1 a2 : { x // p x }}, ↑a1 = ↑a2 → a1 = a2
+
+case snd
+ell : ℕ
+inst✝³ : NeZero ell
+Msg : Type v
+Seed : Type w
+rounds : ℕ
+S : ScalarGroup ell
+inst✝² : DecidableEq S.G
+inst✝¹ : DecidableEq Msg
+A : Adversary S.G Msg ell Seed
+inst✝ : Fintype Seed
+i : Fin (rounds + 1)
+ctx : Context
+c : ZMod ell
+f : Forgery S.G Msg ell (rounds + 1)
+hf : AcceptedRun S A (S.toPoint (i, ctx).2.1.1) (i, ctx).2.1.2 (AnswerTape.insert (i, ctx).1 (i, ctx).2.2 c) f
+hfi : f.critical = (i, ctx).1
+r : SuccessfulRow S A := ⋯
+hchosen : chosenForgery S A (successfulRowToSample S A r) = f
+⊢ (successfulSampleToRow S A (successfulRowToSample S A r)).snd ≍ r.snd
+AtlasCheck/AdaptiveSampleEquiv.lean:105:63: warning: This simp argument is unused:
+  hchosen
+
+Hint: Omit it from the simp argument list.
+  simp [successfulSampleToRow, successfulRowToSample, r, hc̵h̵o̵s̵e̵n̵,̵ ̵h̵fi]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+AtlasCheck/AdaptiveSampleEquiv.lean:105:72: warning: This simp argument is unused:
+  hfi
+
+Hint: Omit it from the simp argument list.
+  simp [successfulSampleToRow, successfulRowToSample, r, hchosen,̵ ̵h̵f̵i̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
 ===== KummerProbe =====
 WeierstrassCurve.{u} (R : Type u) : Type u
 WeierstrassCurve.Affine.{r} (R : Type r) : Type r
