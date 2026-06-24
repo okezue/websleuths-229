@@ -1,0 +1,2 @@
+AtlasCheck/KummerIdentities.lean:27:2: error: `polyrith` is no longer available, as the external service it relied on has been shut down.
+AtlasCheck/KummerIdentities.lean:40:2: error: `polyrith` is no longer available, as the external service it relied on has been shut down.
