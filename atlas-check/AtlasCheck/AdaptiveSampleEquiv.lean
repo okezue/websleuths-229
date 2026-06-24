@@ -32,9 +32,11 @@ abbrev Context :=
 abbrev RowBase :=
   Fin (rounds + 1) × Context (ell := ell) (Seed := Seed) (rounds := rounds)
 
+/-- A successful row is represented as an ordinary subtype of a flat product.
+This avoids irrelevant dependent-pair transport in the transcript-space bijection. -/
 abbrev SuccessfulRow :=
-  Σ row : RowBase (ell := ell) (Seed := Seed) (rounds := rounds),
-    {c : ZMod ell // GoodAt S A row.1 row.2 c}
+  {x : RowBase (ell := ell) (Seed := Seed) (rounds := rounds) × ZMod ell //
+    GoodAt S A x.1.1 x.1.2 x.2}
 
 noncomputable def chosenForgery
     (s : SuccessfulSample (rounds := rounds) S A) :
@@ -63,18 +65,18 @@ noncomputable def successfulSampleToRow
   let ctx : Context (ell := ell) (Seed := Seed) (rounds := rounds) :=
     (s.val.1, AnswerTape.removeAt i s.val.2)
   let c := AnswerTape.get s.val.2 i
-  refine ⟨(i, ctx), ⟨c, ?_⟩⟩
+  refine ⟨((i, ctx), c), ?_⟩
   refine ⟨f, ?_, rfl⟩
   simpa [ctx, c, f] using chosenForgery_spec (rounds := rounds) S A s
 
 noncomputable def successfulRowToSample
     (r : SuccessfulRow (rounds := rounds) S A) :
     SuccessfulSample (rounds := rounds) S A := by
-  let i := r.1.1
-  let ctx := r.1.2
-  let c := r.2.val
+  let i := r.val.1.1
+  let ctx := r.val.1.2
+  let c := r.val.2
   refine ⟨(ctx.1, AnswerTape.insert i ctx.2 c), ?_⟩
-  rcases r.2.prop with ⟨f, hf, hi⟩
+  rcases r.prop with ⟨f, hf, hi⟩
   exact ⟨f, hf⟩
 
 noncomputable def successfulSampleEquivRow :
@@ -87,29 +89,20 @@ noncomputable def successfulSampleEquivRow :
     apply Subtype.ext
     simp [successfulSampleToRow, successfulRowToSample]
   right_inv := by
-    rintro ⟨⟨i, ctx⟩, ⟨c, hgood⟩⟩
+    rintro ⟨⟨⟨i, ctx⟩, c⟩, hgood⟩
     rcases hgood with ⟨f, hf, hfi⟩
     change f.critical = i at hfi
     let r : SuccessfulRow (rounds := rounds) S A :=
-      ⟨⟨i, ctx⟩, ⟨c, ⟨f, hf, hfi⟩⟩⟩
+      ⟨((i, ctx), c), ⟨f, hf, hfi⟩⟩
     let s : SuccessfulSample (rounds := rounds) S A :=
       successfulRowToSample (rounds := rounds) S A r
     have hchosen : chosenForgery (rounds := rounds) S A s = f := by
       apply acceptedRun_unique (rounds := rounds) S A
       · exact chosenForgery_spec (rounds := rounds) S A s
       · exact hf
-    have hcrit : (chosenForgery (rounds := rounds) S A s).critical = i := by
-      rw [hchosen]
-      exact hfi
     change successfulSampleToRow (rounds := rounds) S A s = r
-    have hbase :
-        (successfulSampleToRow (rounds := rounds) S A s).1 = r.1 := by
-      simp [successfulSampleToRow, successfulRowToSample, s, r, hcrit]
-    refine Sigma.ext hbase ?_
-    cases hbase
-    apply HEq.of_eq
     apply Subtype.ext
-    simp [successfulSampleToRow, successfulRowToSample, s, r, hcrit]
+    simp [successfulSampleToRow, successfulRowToSample, s, r, hchosen, hfi]
 
 noncomputable def gameSuccessMass : Nat := by
   classical
