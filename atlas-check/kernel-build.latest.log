@@ -26,49 +26,6 @@ consider restructuring your `variable` declarations so that the variables are no
   omit [Fintype Seed] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-AtlasCheck/AdaptiveSampleEquiv.lean:91:15: error: unsolved goals
-case a
-ell : ℕ
-inst✝³ : NeZero ell
-Msg : Type v
-Seed : Type w
-rounds : ℕ
-S : ScalarGroup ell
-inst✝² : DecidableEq S.G
-inst✝¹ : DecidableEq Msg
-A : Adversary S.G Msg ell Seed
-inst✝ : Fintype Seed
-c : ZMod ell
-i : Fin (rounds + 1)
-ctx : Context
-f : Forgery S.G Msg ell (rounds + 1)
-hf :
-  AcceptedRun S A (S.toPoint ((i, ctx), c).1.2.1.1) ((i, ctx), c).1.2.1.2
-    (AnswerTape.insert ((i, ctx), c).1.1 ((i, ctx), c).1.2.2 ((i, ctx), c).2) f
-hfi : f.critical = i
-r : SuccessfulRow S A := ⟨((i, ctx), c), ⋯⟩
-s : SuccessfulSample S A := successfulRowToSample S A r
-hchosen : chosenForgery S A s = f
-⊢ ((chosenForgery S A ⟨(ctx.1, AnswerTape.insert i ctx.2 c), ⋯⟩).critical = i ∧
-      (ctx.1,
-          AnswerTape.removeAt (chosenForgery S A ⟨(ctx.1, AnswerTape.insert i ctx.2 c), ⋯⟩).critical
-            (AnswerTape.insert i ctx.2 c)) =
-        ctx) ∧
-    (AnswerTape.insert i ctx.2 c).get (chosenForgery S A ⟨(ctx.1, AnswerTape.insert i ctx.2 c), ⋯⟩).critical = c
-AtlasCheck/AdaptiveSampleEquiv.lean:105:62: warning: This simp argument is unused:
-  hchosen
-
-Hint: Omit it from the simp argument list.
-  simp [successfulSampleToRow, successfulRowToSample, s, r, hc̵h̵o̵s̵e̵n̵,̵ ̵h̵fi]
-
-Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-AtlasCheck/AdaptiveSampleEquiv.lean:105:71: warning: This simp argument is unused:
-  hfi
-
-Hint: Omit it from the simp argument list.
-  simp [successfulSampleToRow, successfulRowToSample, s, r, hchosen,̵ ̵h̵f̵i̵]
-
-Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
 ===== KummerProbe =====
 WeierstrassCurve.Affine.Point.{r} {R : Type r} [CommRing R] (W' : WeierstrassCurve.Affine R) : Type r
 WeierstrassCurve.Affine.Point.rec.{u, r} {R : Type r} [CommRing R] {W' : WeierstrassCurve.Affine R}

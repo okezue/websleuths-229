@@ -4,5 +4,5 @@ PASS AdaptiveGame
 PASS AdaptiveCounting
 PASS AdaptiveExtraction
 PASS AdaptiveTape
-FAIL AdaptiveSampleEquiv
+PASS AdaptiveSampleEquiv
 PASS KummerProbe
