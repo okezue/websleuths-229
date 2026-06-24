@@ -68,24 +68,24 @@ variable [(montgomeryCurve A).IsElliptic]
 abbrev Point := (montgomeryAffine A).Point
 
 noncomputable def pointXRep (P : Point A) : ProjectiveX K :=
-  match (montgomeryAffine A).nonsingularPointEquiv P with
-  | none => ⟨1, 0, Or.inl one_ne_zero⟩
-  | some xy => ⟨xy.1.1, 1, Or.inr one_ne_zero⟩
+  WeierstrassCurve.Affine.Point.casesOn P
+    ⟨1, 0, Or.inl one_ne_zero⟩
+    (fun {x y} _h => ⟨x, 1, Or.inr one_ne_zero⟩)
 
 @[simp] theorem pointXRep_zero :
     pointXRep A (0 : Point A) = ⟨1, 0, Or.inl one_ne_zero⟩ := by
-  simp [pointXRep]
+  rfl
 
 @[simp] theorem pointXRep_some {x y : K}
     (h : (montgomeryAffine A).Nonsingular x y) :
     pointXRep A (.some h) = ⟨x, 1, Or.inr one_ne_zero⟩ := by
-  simp [pointXRep]
+  rfl
 
 @[simp] theorem pointXRep_neg (P : Point A) :
     pointXRep A (-P) = pointXRep A P := by
   cases P with
-  | zero => simp
-  | some h => simp
+  | zero => rfl
+  | some h => rfl
 
 noncomputable def rhs (x : K) : K := x ^ 3 + A * x ^ 2 + x
 
@@ -104,7 +104,7 @@ noncomputable def liftAffineX (x : K) : Point A := by
 
 @[simp] theorem pointXRep_liftAffineX (x : K) :
     pointXRep A (liftAffineX A x) = ⟨x, 1, Or.inr one_ne_zero⟩ := by
-  simp [liftAffineX]
+  rfl
 
 noncomputable def liftProjective (p : ProjectiveX K) : Point A :=
   if p.Z = 0 then 0 else liftAffineX A (p.X / p.Z)
@@ -124,33 +124,27 @@ private theorem zero_of_represents_at_infinity
     (P : Point A) (hP : Represents A p P) : P = 0 := by
   cases P with
   | zero => rfl
-  | some h =>
+  | @some x y h =>
       exfalso
       have hpX : p.X = 0 := by
-        simpa [Represents, ProjectiveX.Eqv, hZ] using hP
+        simpa [Represents, ProjectiveX.Eqv, pointXRep, hZ] using hP
       exact p.nonzero.elim (fun hX => hX hpX) (fun hZ' => hZ' hZ)
 
 private theorem some_of_represents_affine
     (p : ProjectiveX K) (hZ : p.Z ≠ 0)
     (P : Point A) (hP : Represents A p P) :
-    ∃ x y h, P = .some h ∧ x = p.X / p.Z := by
-  let e := (montgomeryAffine A).nonsingularPointEquiv
-  cases hE : e P with
-  | none =>
+    ∃ (x y : K) (h : (montgomeryAffine A).Nonsingular x y),
+      P = .some h ∧ x = p.X / p.Z := by
+  cases P with
+  | zero =>
       have hpZ : p.Z = 0 := by
-        simpa [Represents, ProjectiveX.Eqv, pointXRep, e, hE] using hP.symm
+        simpa [Represents, ProjectiveX.Eqv, pointXRep] using hP.symm
       exact (hZ hpZ).elim
-  | some xy =>
-      have hPsome : P = .some xy.2 := by
-        apply e.injective
-        simpa [e, hE]
-      refine ⟨xy.1.1, xy.1.2, xy.2, hPsome, ?_⟩
-      have hcross := hP
-      rw [hPsome] at hcross
-      have hxmul : p.X = xy.1.1 * p.Z := by
-        simpa [Represents, ProjectiveX.Eqv] using hcross
-      apply (eq_div_iff hZ).2
-      simpa [mul_comm] using hxmul.symm
+  | @some x y h =>
+      refine ⟨x, y, h, rfl, ?_⟩
+      have hxmul : p.X = x * p.Z := by
+        simpa [Represents, ProjectiveX.Eqv, pointXRep] using hP
+      exact (eq_div_iff hZ).2 hxmul.symm
 
 theorem represents_unique_up_to_sign
     (p : ProjectiveX K) {P Q : Point A}
@@ -160,10 +154,21 @@ theorem represents_unique_up_to_sign
   · have hp0 := zero_of_represents_at_infinity A p hZ P hP
     have hq0 := zero_of_represents_at_infinity A p hZ Q hQ
     exact Or.inl (hp0.trans hq0.symm)
-  · rcases some_of_represents_affine A p hZ P hP with ⟨x₁, y₁, hp₁, hPsome, hx₁⟩
-    rcases some_of_represents_affine A p hZ Q hQ with ⟨x₂, y₂, hp₂, hQsome, hx₂⟩
+  · rcases some_of_represents_affine A p hZ P hP with
+      ⟨x₁, y₁, hp₁, hPsome, hx₁⟩
+    rcases some_of_represents_affine A p hZ Q hQ with
+      ⟨x₂, y₂, hp₂, hQsome, hx₂⟩
+    have hx : x₁ = x₂ := hx₁.trans hx₂.symm
+    have hy := WeierstrassCurve.Affine.Y_eq_of_X_eq hp₁.1 hp₂.1 hx
     rw [hPsome, hQsome]
-    exact WeierstrassCurve.Affine.Point.X_eq_iff.mp (hx₁.trans hx₂.symm)
+    rcases hy with hy | hy
+    · exact Or.inl (by
+        simp only [WeierstrassCurve.Affine.Point.some.injEq]
+        exact ⟨hx, hy⟩)
+    · exact Or.inr (by
+        simp only [WeierstrassCurve.Affine.Point.neg_some,
+          WeierstrassCurve.Affine.Point.some.injEq]
+        exact ⟨hx, hy⟩)
 
 theorem total_projective_to_kummer (p : ProjectiveX K) :
     ∃ P : Point A,
