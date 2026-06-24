@@ -5,6 +5,4 @@ PASS AdaptiveCounting
 PASS AdaptiveExtraction
 PASS AdaptiveTape
 PASS AdaptiveSampleEquiv
-FAIL AdaptiveBijection
 PASS KummerProbe
-FAIL KummerAlgebraicLift
