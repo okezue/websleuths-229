@@ -56,8 +56,7 @@ Note: This linter can be disabled with `set_option linter.unusedSectionVars fals
 AtlasCheck/KummerAlgebraicLift.lean:102:4: warning: try 'simp' instead of 'simpa'
 
 Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
-AtlasCheck/KummerAlgebraicLift.lean:120:4: error: No goals to be solved
-AtlasCheck/KummerAlgebraicLift.lean:122:8: warning: automatically included section variable(s) unused in theorem `_private.AtlasCheck.KummerAlgebraicLift.0.Atlas.X25519.TotalKummer.Montgomery.zero_of_represents_at_infinity`:
+AtlasCheck/KummerAlgebraicLift.lean:121:8: warning: automatically included section variable(s) unused in theorem `_private.AtlasCheck.KummerAlgebraicLift.0.Atlas.X25519.TotalKummer.Montgomery.zero_of_represents_at_infinity`:
   [DecidableEq K]
   [IsAlgClosed K]
   [(montgomeryCurve A).IsElliptic]
@@ -65,7 +64,7 @@ consider restructuring your `variable` declarations so that the variables are no
   omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-AtlasCheck/KummerAlgebraicLift.lean:133:8: warning: automatically included section variable(s) unused in theorem `_private.AtlasCheck.KummerAlgebraicLift.0.Atlas.X25519.TotalKummer.Montgomery.some_of_represents_affine`:
+AtlasCheck/KummerAlgebraicLift.lean:132:8: warning: automatically included section variable(s) unused in theorem `_private.AtlasCheck.KummerAlgebraicLift.0.Atlas.X25519.TotalKummer.Montgomery.some_of_represents_affine`:
   [DecidableEq K]
   [IsAlgClosed K]
   [(montgomeryCurve A).IsElliptic]
