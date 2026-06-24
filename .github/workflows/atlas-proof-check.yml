@@ -38,7 +38,7 @@ jobs:
           : > kernel-build.log
           : > CI_STATUS.txt
           status=0
-          modules="AdaptiveData AdaptiveCausality AdaptiveGame AdaptiveCounting AdaptiveExtraction AdaptiveTape AdaptiveSampleEquiv AdaptiveBijection KummerProbe KummerAlgebraicLift"
+          modules="AdaptiveData AdaptiveCausality AdaptiveGame AdaptiveCounting AdaptiveExtraction AdaptiveTape AdaptiveSampleEquiv KummerProbe KummerAlgebraicLift KummerDoubling"
           for mod in $modules; do
             echo "===== $mod =====" >> kernel-build.log
             lake env lean AtlasCheck/$mod.lean -o .lake/build/lib/lean/AtlasCheck/$mod.olean >> kernel-build.log 2>&1
