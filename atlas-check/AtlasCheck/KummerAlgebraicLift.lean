@@ -117,7 +117,6 @@ def Represents (p : ProjectiveX K) (P : Point A) : Prop :=
   by_cases hZ : p.Z = 0
   · simp [liftProjective, hZ, Represents, ProjectiveX.Eqv]
   · simp [liftProjective, hZ, Represents, ProjectiveX.Eqv]
-    exact (div_mul_cancel₀ p.X hZ).symm
 
 private theorem zero_of_represents_at_infinity
     (p : ProjectiveX K) (hZ : p.Z = 0)
