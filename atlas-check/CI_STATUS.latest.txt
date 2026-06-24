@@ -1,0 +1,10 @@
+PASS AdaptiveData
+PASS AdaptiveCausality
+PASS AdaptiveGame
+PASS AdaptiveCounting
+PASS AdaptiveExtraction
+PASS AdaptiveTape
+PASS AdaptiveSampleEquiv
+PASS KummerProbe
+PASS KummerAlgebraicLift
+FAIL KummerDoubling

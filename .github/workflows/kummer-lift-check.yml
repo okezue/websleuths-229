@@ -1,0 +1,42 @@
+name: Kummer total lift check
+on:
+  push:
+    branches: [atlas-proof-check-temp]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  check:
+    if: github.actor != 'atlas-proof-check-bot'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: atlas-proof-check-temp
+      - name: Install Lean
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Check Kummer lift
+        working-directory: atlas-check
+        shell: bash
+        run: |
+          lake update
+          lake exe cache get
+          mkdir -p .lake/build/lib/lean/AtlasCheck
+          set +e
+          lake env lean AtlasCheck/KummerAlgebraicLift.lean -o .lake/build/lib/lean/AtlasCheck/KummerAlgebraicLift.olean > kummer-lift.latest.log 2>&1
+          echo $? > KUMMER_LIFT_EXIT.latest.txt
+      - name: Persist report
+        working-directory: atlas-check
+        run: |
+          git config user.name atlas-proof-check-bot
+          git config user.email actions@users.noreply.github.com
+          git add KUMMER_LIFT_EXIT.latest.txt kummer-lift.latest.log
+          if ! git diff --cached --quiet; then
+            git commit -m '[skip ci] Persist Kummer lift diagnostics'
+            git push origin HEAD:atlas-proof-check-temp
+          fi
+      - name: Enforce
+        working-directory: atlas-check
+        run: test "$(cat KUMMER_LIFT_EXIT.latest.txt)" = 0

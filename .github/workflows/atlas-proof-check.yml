@@ -1,0 +1,74 @@
+name: Atlas proof check
+
+on:
+  push:
+    branches: ["atlas-proof-check-temp"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'atlas-proof-check-bot'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: atlas-proof-check-temp
+      - name: Install elan
+        shell: bash
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Resolve dependencies and restore Mathlib cache
+        working-directory: atlas-check
+        shell: bash
+        run: |
+          lake update
+          lake exe cache get
+      - name: Kernel build and status report
+        working-directory: atlas-check
+        shell: bash
+        run: |
+          set +e
+          mkdir -p .lake/build/lib/lean/AtlasCheck
+          : > kernel-build.log
+          : > CI_STATUS.txt
+          status=0
+          modules="AdaptiveData AdaptiveCausality AdaptiveGame AdaptiveCounting AdaptiveExtraction AdaptiveTape AdaptiveSampleEquiv KummerProbe KummerAlgebraicLift KummerDoubling"
+          for mod in $modules; do
+            echo "===== $mod =====" >> kernel-build.log
+            lake env lean AtlasCheck/$mod.lean -o .lake/build/lib/lean/AtlasCheck/$mod.olean >> kernel-build.log 2>&1
+            code=$?
+            if [ $code -eq 0 ]; then
+              echo "PASS $mod" >> CI_STATUS.txt
+            else
+              echo "FAIL $mod" >> CI_STATUS.txt
+              status=$code
+            fi
+          done
+          cat CI_STATUS.txt
+          cat kernel-build.log
+          echo "$status" > CI_EXIT_CODE.txt
+          exit 0
+      - name: Persist proof-check report
+        shell: bash
+        run: |
+          cp atlas-check/CI_STATUS.txt atlas-check/CI_STATUS.latest.txt
+          cp atlas-check/CI_EXIT_CODE.txt atlas-check/CI_EXIT_CODE.latest.txt
+          cp atlas-check/kernel-build.log atlas-check/kernel-build.latest.log
+          git config user.name "atlas-proof-check-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add atlas-check/CI_STATUS.latest.txt atlas-check/CI_EXIT_CODE.latest.txt atlas-check/kernel-build.latest.log
+          if ! git diff --cached --quiet; then
+            git commit -m "[skip ci] Update Atlas kernel report"
+            git push origin HEAD:atlas-proof-check-temp
+          fi
+      - name: Enforce result
+        working-directory: atlas-check
+        shell: bash
+        run: |
+          test "$(cat CI_EXIT_CODE.txt)" = "0"

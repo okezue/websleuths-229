@@ -1,0 +1,20 @@
+import Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Point
+import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
+
+#check WeierstrassCurve.Affine.Point
+#check WeierstrassCurve.Affine.Point.rec
+#check WeierstrassCurve.Affine.Point.casesOn
+#check WeierstrassCurve.Affine.Point.some
+#check WeierstrassCurve.Affine.equation_iff_nonsingular
+#check WeierstrassCurve.Affine.Y_eq_of_X_eq
+#check WeierstrassCurve.Affine.Point.add_some
+#check WeierstrassCurve.Affine.Point.add_of_X_ne
+#check WeierstrassCurve.Affine.Point.add_of_Y_eq
+#check WeierstrassCurve.Affine.Point.add_self_of_Y_ne
+#check WeierstrassCurve.Affine.Point.neg_some
+#check WeierstrassCurve.Affine.equation_iff
+#check WeierstrassCurve.Affine.nonsingular_iff
+#check WeierstrassCurve.Affine.addX
+#check WeierstrassCurve.Affine.slope
+#check AlgebraicClosure
+#check IsAlgClosed.exists_pow_nat_eq
