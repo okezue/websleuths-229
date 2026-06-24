@@ -6,3 +6,5 @@ PASS AdaptiveExtraction
 PASS AdaptiveTape
 PASS AdaptiveSampleEquiv
 PASS KummerProbe
+PASS KummerAlgebraicLift
+FAIL KummerDoubling
