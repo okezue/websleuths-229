@@ -65,3 +65,186 @@ WeierstrassCurve.Affine.slope.{u} {F : Type u} [Field F] (W : WeierstrassCurve.A
   (x₁ x₂ y₁ y₂ : F) : F
 AlgebraicClosure.{u} (k : Type u) [Field k] : Type u
 IsAlgClosed.exists_pow_nat_eq.{u} {k : Type u} [Field k] [IsAlgClosed k] (x : k) {n : ℕ} (hn : 0 < n) : ∃ z, z ^ n = x
+===== KummerAlgebraicLift =====
+AtlasCheck/KummerAlgebraicLift.lean:35:8: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.ProjectiveX.eqv_refl`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerAlgebraicLift.lean:38:8: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.ProjectiveX.eqv_symm`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerAlgebraicLift.lean:42:9: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.ProjectiveX.eqv_trans`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerAlgebraicLift.lean:73:12: warning: unused variable `y`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+AtlasCheck/KummerAlgebraicLift.lean:75:8: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.Montgomery.pointXRep_zero`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerAlgebraicLift.lean:79:8: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.Montgomery.pointXRep_some`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerAlgebraicLift.lean:84:8: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.Montgomery.pointXRep_neg`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerAlgebraicLift.lean:95:8: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.Montgomery.sqrtRhs_sq`:
+  [DecidableEq K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerAlgebraicLift.lean:102:4: warning: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+AtlasCheck/KummerAlgebraicLift.lean:121:8: warning: automatically included section variable(s) unused in theorem `_private.AtlasCheck.KummerAlgebraicLift.0.Atlas.X25519.TotalKummer.Montgomery.zero_of_represents_at_infinity`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerAlgebraicLift.lean:132:8: warning: automatically included section variable(s) unused in theorem `_private.AtlasCheck.KummerAlgebraicLift.0.Atlas.X25519.TotalKummer.Montgomery.some_of_represents_affine`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+===== KummerDoubling =====
+AtlasCheck/KummerDoubling.lean:28:45: error: unsolved goals
+K : Type u
+inst✝³ : Field K
+inst✝² : DecidableEq K
+inst✝¹ : IsAlgClosed K
+A : K
+inst✝ : (montgomeryCurve A).IsElliptic
+X Z : K
+⊢ X * (Point.rec { X := 1, Z := 0, nonzero := ⋯ } (fun {x y} h => { X := x, Z := 1, nonzero := ⋯ }) 0).Z =
+      (Point.rec { X := 1, Z := 0, nonzero := ⋯ } (fun {x y} h => { X := x, Z := 1, nonzero := ⋯ }) 0).X * Z ↔
+    Z = 0
+AtlasCheck/KummerDoubling.lean:31:8: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.Montgomery.rawRep_some`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerDoubling.lean:36:8: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.Montgomery.negY_montgomery`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerDoubling.lean:40:1: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.Montgomery.equation_iff_montgomery`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerDoubling.lean:56:10: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+AtlasCheck/KummerDoubling.lean:58:1: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.Montgomery.dblRaw_homogeneous`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerDoubling.lean:64:8: warning: automatically included section variable(s) unused in theorem `_private.AtlasCheck.KummerDoubling.0.Atlas.X25519.TotalKummer.Montgomery.four_ne_zero`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerDoubling.lean:69:8: warning: automatically included section variable(s) unused in theorem `_private.AtlasCheck.KummerDoubling.0.Atlas.X25519.TotalKummer.Montgomery.dbl_numerator_ne_zero_of_y_zero`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerDoubling.lean:70:5: warning: unused variable `h2`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+AtlasCheck/KummerDoubling.lean:115:53: error: unsolved goals
+K : Type u
+inst✝³ : Field K
+inst✝² : DecidableEq K
+inst✝¹ : IsAlgClosed K
+A : K
+inst✝ : (montgomeryCurve A).IsElliptic
+h2 : 2 ≠ 0
+hA : A ^ 2 ≠ 4
+x y : K
+h : (montgomeryAffine A).Nonsingular x y
+hc : y ^ 2 = x ^ 3 + A * x ^ 2 + x
+hform : dblRaw A (x, 1) = ((x ^ 2 - 1) ^ 2, 4 * y ^ 2)
+hy : y = 0
+⊢ 0 = -((montgomeryAffine A).a₁ * x) - (montgomeryAffine A).a₃
+AtlasCheck/KummerDoubling.lean:116:16: warning: This simp argument is unused:
+  negY_montgomery
+
+Hint: Omit it from the simp argument list.
+  simp [hy,̵ ̵n̵e̵g̵Y̵_̵m̵o̵n̵t̵g̵o̵m̵e̵r̵y̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+AtlasCheck/KummerDoubling.lean:147:47: warning: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+AtlasCheck/KummerDoubling.lean:152:6: error: unsolved goals
+case zero.right
+K : Type u
+inst✝³ : Field K
+inst✝² : DecidableEq K
+inst✝¹ : IsAlgClosed K
+A : K
+inst✝ : (montgomeryCurve A).IsElliptic
+h2 : 2 ≠ 0
+hA : A ^ 2 ≠ 4
+X : K
+hX : X ≠ 0
+hnz : RawNonzero (X, 0)
+hrep : RawRep A (X, 0) Point.zero
+⊢ X = 0 ∨
+    (Point.rec { X := 1, Z := 0, nonzero := ⋯ } (fun {x y} h => { X := x, Z := 1, nonzero := ⋯ })
+          (Point.zero + Point.zero)).Z =
+      0
