@@ -19,33 +19,33 @@ consider restructuring your `variable` declarations so that the variables are no
   omit [DecidableEq K] [IsAlgClosed K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-AtlasCheck/KummerAlgebraicLift.lean:71:29: error(lean.invalidField): Invalid field `nonsingularPointEquiv`: The environment does not contain `WeierstrassCurve.nonsingularPointEquiv`, so it is not possible to project the field `nonsingularPointEquiv` from an expression
-  montgomeryAffine A
-of type `WeierstrassCurve K`
-AtlasCheck/KummerAlgebraicLift.lean:73:16: error: Invalid projection: Type of
-  xy
-is not known; cannot resolve projection `1`
-AtlasCheck/KummerAlgebraicLift.lean:76:62: error: unsolved goals
-K : Type u
-inst✝³ : Field K
-inst✝² : DecidableEq K
-inst✝¹ : IsAlgClosed K
-A : K
-inst✝ : (montgomeryCurve A).IsElliptic
-⊢ sorry () = { X := 1, Z := 0, nonzero := ⋯ }
-AtlasCheck/KummerAlgebraicLift.lean:77:8: warning: declaration uses `sorry`
-AtlasCheck/KummerAlgebraicLift.lean:81:58: error: unsolved goals
-K : Type u
-inst✝³ : Field K
-inst✝² : DecidableEq K
-inst✝¹ : IsAlgClosed K
-A : K
-inst✝ : (montgomeryCurve A).IsElliptic
-x y : K
-h : (montgomeryAffine A).Nonsingular x y
-⊢ sorry () = { X := x, Z := 1, nonzero := ⋯ }
-AtlasCheck/KummerAlgebraicLift.lean:82:8: warning: declaration uses `sorry`
-AtlasCheck/KummerAlgebraicLift.lean:87:12: error: `simp` made no progress
+AtlasCheck/KummerAlgebraicLift.lean:73:12: warning: unused variable `y`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+AtlasCheck/KummerAlgebraicLift.lean:75:8: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.Montgomery.pointXRep_zero`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerAlgebraicLift.lean:79:8: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.Montgomery.pointXRep_some`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerAlgebraicLift.lean:84:8: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.Montgomery.pointXRep_neg`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
 AtlasCheck/KummerAlgebraicLift.lean:95:8: warning: automatically included section variable(s) unused in theorem `Atlas.X25519.TotalKummer.Montgomery.sqrtRhs_sq`:
   [DecidableEq K]
   [(montgomeryCurve A).IsElliptic]
@@ -57,106 +57,19 @@ AtlasCheck/KummerAlgebraicLift.lean:102:4: warning: try 'simp' instead of 'simpa
 
 Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
 AtlasCheck/KummerAlgebraicLift.lean:120:4: error: No goals to be solved
-AtlasCheck/KummerAlgebraicLift.lean:136:4: error: don't know how to synthesize implicit argument `α`
-  @Exists (?m.46 p hZ P hP x) fun y =>
-    ∃ (h : (montgomeryAffine A).Nonsingular (?m.47 p hZ P hP x y) (?m.48 p hZ P hP x y)),
-      P = Affine.Point.some h ∧ x = p.X / p.Z
-context:
-K : Type u
-inst✝³ : Field K
-inst✝² : DecidableEq K
-inst✝¹ : IsAlgClosed K
-A : K
-inst✝ : (montgomeryCurve A).IsElliptic
-p : ProjectiveX K
-hZ : p.Z ≠ 0
-P : Point A
-hP : Represents A p P
-x : K
-⊢ Sort ?u.8636
+AtlasCheck/KummerAlgebraicLift.lean:122:8: warning: automatically included section variable(s) unused in theorem `_private.AtlasCheck.KummerAlgebraicLift.0.Atlas.X25519.TotalKummer.Montgomery.zero_of_represents_at_infinity`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
 
-Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
-AtlasCheck/KummerAlgebraicLift.lean:136:4: error: don't know how to synthesize implicit argument `α`
-  @Exists ((montgomeryAffine A).Nonsingular (?m.47 p hZ P hP x y) (?m.48 p hZ P hP x y)) fun h =>
-    P = Affine.Point.some h ∧ x = p.X / p.Z
-context:
-K : Type u
-inst✝³ : Field K
-inst✝² : DecidableEq K
-inst✝¹ : IsAlgClosed K
-A : K
-inst✝ : (montgomeryCurve A).IsElliptic
-p : ProjectiveX K
-hZ : p.Z ≠ 0
-P : Point A
-hP : Represents A p P
-x : K
-y : ?m.46 p hZ P hP x
-⊢ Prop
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+AtlasCheck/KummerAlgebraicLift.lean:133:8: warning: automatically included section variable(s) unused in theorem `_private.AtlasCheck.KummerAlgebraicLift.0.Atlas.X25519.TotalKummer.Montgomery.some_of_represents_affine`:
+  [DecidableEq K]
+  [IsAlgClosed K]
+  [(montgomeryCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] [IsAlgClosed K] [(montgomeryCurve A).IsElliptic] in theorem ...
 
-Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
-AtlasCheck/KummerAlgebraicLift.lean:136:17: error: don't know how to synthesize implicit argument `y`
-  @Affine.Point.some K Field.toEuclideanDomain.toCommRing (montgomeryAffine A) (?m.47 p hZ P hP x y)
-    (?m.48 p hZ P hP x y) ⋯
-context:
-K : Type u
-inst✝³ : Field K
-inst✝² : DecidableEq K
-inst✝¹ : IsAlgClosed K
-A : K
-inst✝ : (montgomeryCurve A).IsElliptic
-p : ProjectiveX K
-hZ : p.Z ≠ 0
-P : Point A
-hP : Represents A p P
-x : K
-y : ?m.46 p hZ P hP x
-h : (montgomeryAffine A).Nonsingular (?m.47 p hZ P hP x y) (?m.48 p hZ P hP x y)
-⊢ K
-
-Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
-AtlasCheck/KummerAlgebraicLift.lean:136:17: error: don't know how to synthesize implicit argument `x`
-  @Affine.Point.some K Field.toEuclideanDomain.toCommRing (montgomeryAffine A) (?m.47 p hZ P hP x y)
-    (?m.48 p hZ P hP x y) ⋯
-context:
-K : Type u
-inst✝³ : Field K
-inst✝² : DecidableEq K
-inst✝¹ : IsAlgClosed K
-A : K
-inst✝ : (montgomeryCurve A).IsElliptic
-p : ProjectiveX K
-hZ : p.Z ≠ 0
-P : Point A
-hP : Represents A p P
-x : K
-y : ?m.46 p hZ P hP x
-h : (montgomeryAffine A).Nonsingular (?m.47 p hZ P hP x y) (?m.48 p hZ P hP x y)
-⊢ K
-
-Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
-AtlasCheck/KummerAlgebraicLift.lean:136:10: error(lean.inferBinderTypeFailed): Failed to infer type of binder `h`
-
-Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
-AtlasCheck/KummerAlgebraicLift.lean:136:8: error(lean.inferBinderTypeFailed): Failed to infer type of binder `y`
-
-Note: All parameter types and holes (e.g., `_`) in the header of a theorem are resolved before the proof is processed; information from the proof cannot be used to infer what these values should be
-AtlasCheck/KummerAlgebraicLift.lean:137:32: error(lean.invalidField): Invalid field `nonsingularPointEquiv`: The environment does not contain `WeierstrassCurve.nonsingularPointEquiv`, so it is not possible to project the field `nonsingularPointEquiv` from an expression
-  montgomeryAffine A
-of type `WeierstrassCurve K`
-AtlasCheck/KummerAlgebraicLift.lean:136:44: error: unsolved goals
-K : Type u
-inst✝³ : Field K
-inst✝² : DecidableEq K
-inst✝¹ : IsAlgClosed K
-A : K
-inst✝ : (montgomeryCurve A).IsElliptic
-p : ProjectiveX K
-hZ : p.Z ≠ 0
-P : Point A
-hP : Represents A p P
-⊢ ∃ x y,
-    ∃ (h : (montgomeryAffine A).Nonsingular (?m.47 p hZ P hP x y) (?m.48 p hZ P hP x y)),
-      P = Affine.Point.some h ∧ x = p.X / p.Z
-AtlasCheck/KummerAlgebraicLift.lean:163:11: error(lean.unknownIdentifier): Unknown identifier `some_of_represents_affine`
-AtlasCheck/KummerAlgebraicLift.lean:163:54: error: Tactic `rcases` failed: `x✝ : ?m.59` is not an inductive datatype
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
