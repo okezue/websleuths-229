@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   build:
+    if: github.actor != 'atlas-proof-check-bot'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +38,7 @@ jobs:
           : > kernel-build.log
           : > CI_STATUS.txt
           status=0
-          modules="AdaptiveData AdaptiveCausality AdaptiveGame AdaptiveCounting AdaptiveExtraction AdaptiveTape AdaptiveSampleEquiv KummerProbe"
+          modules="AdaptiveData AdaptiveCausality AdaptiveGame AdaptiveCounting AdaptiveExtraction AdaptiveTape AdaptiveSampleEquiv AdaptiveBijection KummerProbe KummerAlgebraicLift"
           for mod in $modules; do
             echo "===== $mod =====" >> kernel-build.log
             lake env lean AtlasCheck/$mod.lean -o .lake/build/lib/lean/AtlasCheck/$mod.olean >> kernel-build.log 2>&1
