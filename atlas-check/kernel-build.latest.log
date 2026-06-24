@@ -14,19 +14,20 @@ AtlasCheck/AdaptiveTape.lean:11:4: warning: unused variable `n`
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
 ===== AdaptiveSampleEquiv =====
-AtlasCheck/AdaptiveSampleEquiv.lean:44:0: warning: automatically included section variable(s) unused in theorem `Atlas.Probability.AdaptiveSchnorrEUFCMA.chosenForgery_spec`:
+AtlasCheck/AdaptiveSampleEquiv.lean:46:0: warning: automatically included section variable(s) unused in theorem `Atlas.Probability.AdaptiveSchnorrEUFCMA.chosenForgery_spec`:
   [Fintype Seed]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [Fintype Seed] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-AtlasCheck/AdaptiveSampleEquiv.lean:50:0: warning: automatically included section variable(s) unused in theorem `Atlas.Probability.AdaptiveSchnorrEUFCMA.acceptedRun_unique`:
+AtlasCheck/AdaptiveSampleEquiv.lean:52:0: warning: automatically included section variable(s) unused in theorem `Atlas.Probability.AdaptiveSchnorrEUFCMA.acceptedRun_unique`:
   [Fintype Seed]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [Fintype Seed] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-AtlasCheck/AdaptiveSampleEquiv.lean:106:68: error: unsolved goals
+AtlasCheck/AdaptiveSampleEquiv.lean:91:15: error: unsolved goals
+case a
 ell : ℕ
 inst✝³ : NeZero ell
 Msg : Type v
@@ -37,28 +38,35 @@ inst✝² : DecidableEq S.G
 inst✝¹ : DecidableEq Msg
 A : Adversary S.G Msg ell Seed
 inst✝ : Fintype Seed
+c : ZMod ell
 i : Fin (rounds + 1)
 ctx : Context
-c : ZMod ell
 f : Forgery S.G Msg ell (rounds + 1)
-hf : AcceptedRun S A (S.toPoint (i, ctx).2.1.1) (i, ctx).2.1.2 (AnswerTape.insert (i, ctx).1 (i, ctx).2.2 c) f
+hf :
+  AcceptedRun S A (S.toPoint ((i, ctx), c).1.2.1.1) ((i, ctx), c).1.2.1.2
+    (AnswerTape.insert ((i, ctx), c).1.1 ((i, ctx), c).1.2.2 ((i, ctx), c).2) f
 hfi : f.critical = i
-r : SuccessfulRow S A := ⟨(i, ctx), ⟨c, ⋯⟩⟩
+r : SuccessfulRow S A := ⟨((i, ctx), c), ⋯⟩
 s : SuccessfulSample S A := successfulRowToSample S A r
 hchosen : chosenForgery S A s = f
-hcrit : (chosenForgery S A s).critical = i
-⊢ (chosenForgery S A ⟨(ctx.1, AnswerTape.insert i ctx.2 c), ⋯⟩).critical = i ∧
-    (ctx.1,
-        AnswerTape.removeAt (chosenForgery S A ⟨(ctx.1, AnswerTape.insert i ctx.2 c), ⋯⟩).critical
-          (AnswerTape.insert i ctx.2 c)) =
-      ctx
-AtlasCheck/AdaptiveSampleEquiv.lean:109:4: error: Dependent elimination failed: Failed to solve equation
-  i = (chosenForgery S A s).critical
-AtlasCheck/AdaptiveSampleEquiv.lean:107:64: warning: This simp argument is unused:
-  hcrit
+⊢ ((chosenForgery S A ⟨(ctx.1, AnswerTape.insert i ctx.2 c), ⋯⟩).critical = i ∧
+      (ctx.1,
+          AnswerTape.removeAt (chosenForgery S A ⟨(ctx.1, AnswerTape.insert i ctx.2 c), ⋯⟩).critical
+            (AnswerTape.insert i ctx.2 c)) =
+        ctx) ∧
+    (AnswerTape.insert i ctx.2 c).get (chosenForgery S A ⟨(ctx.1, AnswerTape.insert i ctx.2 c), ⋯⟩).critical = c
+AtlasCheck/AdaptiveSampleEquiv.lean:105:62: warning: This simp argument is unused:
+  hchosen
 
 Hint: Omit it from the simp argument list.
-  simp [successfulSampleToRow, successfulRowToSample, s, r,̵ ̵h̵c̵r̵i̵t̵]
+  simp [successfulSampleToRow, successfulRowToSample, s, r, hc̵h̵o̵s̵e̵n̵,̵ ̵h̵fi]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+AtlasCheck/AdaptiveSampleEquiv.lean:105:71: warning: This simp argument is unused:
+  hfi
+
+Hint: Omit it from the simp argument list.
+  simp [successfulSampleToRow, successfulRowToSample, s, r, hchosen,̵ ̵h̵f̵i̵]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
 ===== KummerProbe =====
