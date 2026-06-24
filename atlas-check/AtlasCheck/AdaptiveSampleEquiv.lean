@@ -102,7 +102,16 @@ noncomputable def successfulSampleEquivRow :
       · exact hf
     change successfulSampleToRow (rounds := rounds) S A s = r
     apply Subtype.ext
-    simp [successfulSampleToRow, successfulRowToSample, s, r, hchosen, hfi]
+    change
+      (((chosenForgery (rounds := rounds) S A s).critical,
+          (s.val.1,
+            AnswerTape.removeAt
+              (chosenForgery (rounds := rounds) S A s).critical s.val.2)),
+        AnswerTape.get s.val.2
+          (chosenForgery (rounds := rounds) S A s).critical) =
+        ((i, ctx), c)
+    rw [hchosen, hfi]
+    simp [s, r, successfulRowToSample]
 
 noncomputable def gameSuccessMass : Nat := by
   classical
