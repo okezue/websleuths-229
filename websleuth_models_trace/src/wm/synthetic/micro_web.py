@@ -51,7 +51,7 @@ class MicroWebGenerator:
         return prefix + "-" + "".join(self.rng.choice(string.ascii_uppercase + string.digits) for _ in range(length))
 
     def _claim(self, domain: str, index: int) -> SyntheticClaim:
-        year = 2035 + index
+        year = 1990 + (index % 30)
         name = f"{self.rng.choice(_NAMES)} {self._nonce('Entity', 5)}"
         if domain == "finance":
             value = f"{self.rng.uniform(0.6, 3.4):.2f}"
@@ -148,7 +148,7 @@ class MicroWebGenerator:
                     old.predicate,
                     self._claim(domain, index).object,
                     "",
-                    valid_from=(datetime(2045 + index, 1, 1, tzinfo=UTC)).isoformat(),
+                    valid_from=(datetime(2022 + (index % 3), 1, 1, tzinfo=UTC)).isoformat(),
                 )
                 claim.text = f"{claim.subject} {claim.predicate} {claim.object}."
                 episode_type = "temporal_update"

@@ -1,6 +1,6 @@
 seed: 42
 storage:
-  root: ./runs/stream_qwen3_4b_v2
+  root: ./runs/stream_qwen3_4b_v3
   database: evidence.sqlite
   blobs: blobs
   cells: cells
@@ -81,4 +81,4 @@ aim:
   enabled: true
   repo: $HOME/aim_repo
   experiment: trace-qwen3-4b
-  tags: [model=qwen3-4b-instruct-2507, gate=nll, score=neg_nll, v=2]
+  tags: [model=qwen3-4b-instruct-2507, gate=nll, score=neg_nll, v=3, fix=temporal]
